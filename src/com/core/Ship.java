@@ -6,6 +6,19 @@ public class Ship {
     private int[][] coordinates; //[y][x]
     private Player owner;
 
+    public void setOwner(Player owner) {
+        this.owner = owner;
+    }
+
+    public int[][] getCoordinates() {
+        return coordinates;
+    }
+
+    public Player getOwner() {
+        return owner;
+    }
+
+
     public void setCoordinates(int string, int column, int coordinate) {
         coordinates[string][column] = coordinate;
     }
@@ -26,7 +39,7 @@ public class Ship {
         return shipLabel;
     }
 
-    public Ship(int decks) {
+    public Ship(int decks, Player owner) {
         this.shipType = decks;
         this.coordinates = new int[decks][2]; //Создаем пустой массив для хранения в нем таблицы координат [y][x]
         switch (decks){
@@ -35,5 +48,7 @@ public class Ship {
             case(3): this.shipLabel = 'L';break;
             case(4): this.shipLabel = 'B';break;
         }
+        this.owner = owner;
     }
+
 }
