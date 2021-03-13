@@ -6,8 +6,15 @@ public class Ship {
     private char shipLabel;
     private int[][] coordinates; //[y][x]
     private Player owner;
+    private int hp;
 
+    public void setHp(int hp) {
+        this.hp = hp;
+    }
 
+    public int getHp() {
+        return hp;
+    }
 
     public String getName() {
         return name;
@@ -47,6 +54,7 @@ public class Ship {
     }
 
     public Ship(int decks, Player owner) {
+        this.hp = decks;
         this.shipType = decks;
         this.coordinates = new int[decks][2]; //Создаем пустой массив для хранения в нем таблицы координат [y][x]
         switch (decks){
