@@ -75,10 +75,17 @@ public class Player {
             System.out.print("Введите координату X от 0 до " + (Game.getSIZE() - 1) + ": ");
             int x = scanner.nextInt();
             if (enemy.getOurFleetMap()[y][x].isShip()) {
-                String enemyShip = enemy.getOurFleetMap()[y][x].getShipRef().getName();
-                System.out.println("Корабль " + enemyShip + " поврежден!");
-                enemyFleetMap[y][x].setCellLabel('X');
-                //Прописать если убил. Game.setTotalShips(Game.getTotalShips() - 1);
+                String enemyShipName = enemy.getOurFleetMap()[y][x].getShipRef().getName();
+                Ship enemyShip = enemy.getOurFleetMap()[y][x].getShipRef();
+                enemyShip.setHp(enemyShip.getHp()-1);
+                if (enemyShip.getHp()>0) {
+                    System.out.println("Корабль " + enemyShipName + " поврежден!");
+                    enemyFleetMap[y][x].setCellLabel('X');
+                }
+                if (enemyShip.getHp()<=0) {
+                    System.out.println(enemyShipName + " уничтожен!");
+                    enemyFleetMap[y][x].setCellLabel('X');
+                }
                 countOfTurns++;
             } else {
                 System.out.println("Промах");
@@ -198,7 +205,7 @@ public class Player {
     public void otherShipOnGameField(Ship ship) {
         int diceX = (int) (Math.random() * (Game.getSIZE() - 1));  //Получаем рандомную координату X
         int diceY = (int) (Math.random() * (Game.getSIZE() - 1));  //Получаем рандомную координату Y
-        int side = 1; //+ (int) (Math.random() * 4);  //Получаем рандомное направление для размещения корабля
+        int side = 1 + (int) (Math.random() * 4);  //Получаем рандомное направление для размещения корабля
         try {
             int localDiceX = diceX;
             int localDiceY = diceY;
