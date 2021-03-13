@@ -11,9 +11,9 @@ public class Game {
         Player player1 = new Player("Warper");
         Player playerCPU = new Player("CPU");
         player1.shipsOnTheField();
-        //playerCPU.shipsOnTheField();
-        //player1.brushTheMap();
-        //playerCPU.brushTheMap();
+        playerCPU.shipsOnTheField();
+        player1.brushTheMap();
+        playerCPU.brushTheMap();
         System.out.println("всего кораблей" + totalShips);
         //battle(player1, player2CPU);
     }

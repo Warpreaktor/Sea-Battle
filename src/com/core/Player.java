@@ -203,11 +203,8 @@ public class Player {
             switch (side) { //4 кейса на каждую сторону света
                 case (1)://от точки координат вправо
                     //делаем проверку, можем ли мы установить корабль по предполагаемым координатам
-                    System.out.println("Устанавливаем корабль " + playerShip.getName());
-                    System.out.println("Координаты корабля - "+diceY + " - " + diceX);
                     for (int i = 0; i < playerShip.getShipType(); i++) {
                         if (ourFleetMap[localDiceY][localDiceX].isShip()) {
-                            System.out.println("В координатах - "+localDiceY + " - " + localDiceX + " уже находится корабль. Начинаем расстановку сначала.");
                             otherShipOnGameField(playerShip);
                             return;
                         } else {
@@ -219,20 +216,10 @@ public class Player {
                         playerShip.setCoordinates(i, 0, diceY);
                         playerShip.setCoordinates(i, 1, diceX);
                         ourFleetMap[diceY][diceX].setShip(true);
-                        System.out.println("Отметка на карте об установке корабля - " +diceY + " - " + diceX);
                         ourFleetMap[diceY][diceX].setCellLabel(playerShip.getShipLabel());
                         diceX += 1;
                     }
-                    System.out.println("Корабль " + playerShip.getName() + " спущен на воду");
-                    int[][] shipCoord = playerShip.getCoordinates();
-                    for (int i = 0; i < shipCoord.length; i++) {
-                        for (int j = 0; j < shipCoord[i].length; j++) {
-                            System.out.print("Координата " + shipCoord[i][j] + " ");
-                        }
-                        System.out.println();
-                    }
                     Game.setTotalShips(Game.getTotalShips() + 1);
-                    playerShip.getOwner().brushTheMap();
                     break;
                 case (2)://от точки координат вниз
                     //делаем проверку, можем ли мы установить корабль по предполагаемым координатам
