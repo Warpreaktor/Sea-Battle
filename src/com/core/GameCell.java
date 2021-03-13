@@ -1,7 +1,7 @@
 package com.core;
 
 public class GameCell {
-    private boolean isShip;//Является ли эта клетка кораблем или его частью
+    private boolean isShip = false;//Является ли эта клетка кораблем или его частью
     private char cellLabel = '~';//Какой символ отображать на консольной карте поля боя
 
     public void setCellLabel(char cellLabel) {

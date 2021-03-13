@@ -1,10 +1,17 @@
 package com.core;
 
 public class Ship {
+    private final String name;
     private int shipType;        //Количество палуб у корабля
     private char shipLabel;
     private int[][] coordinates; //[y][x]
     private Player owner;
+
+
+
+    public String getName() {
+        return name;
+    }
 
     public void setOwner(Player owner) {
         this.owner = owner;
@@ -49,6 +56,6 @@ public class Ship {
             case(4): this.shipLabel = 'B';break;
         }
         this.owner = owner;
+        this.name = Tools.directory[(int)(Math.random()*(Tools.directory.length-1))] + " " + Tools.directory[(int)(Math.random()*(Tools.directory.length-1))];
     }
-
 }
