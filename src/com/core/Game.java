@@ -1,18 +1,20 @@
 package com.core;
 
 public class Game {
+
     private static int SIZE = 10;
     //static GameCell[][] gameField = new GameCell[SIZE][SIZE]; // Возможно тут будет общее игровое поле
     private static int totalShips = 0;
 
     public static void main(String[] args) {
         Tests.testForPlayerClass();
-        Player player1 = new Player();
-        Player playerCPU = new Player();
+        Player player1 = new Player("Warper");
+        Player playerCPU = new Player("CPU");
         player1.shipsOnTheField();
-        playerCPU.shipsOnTheField();
-        player1.brushTheMap();
-        playerCPU.brushTheMap();
+        //playerCPU.shipsOnTheField();
+        //player1.brushTheMap();
+        //playerCPU.brushTheMap();
+        System.out.println("всего кораблей" + totalShips);
         //battle(player1, player2CPU);
     }
 
@@ -42,7 +44,7 @@ public class Game {
     }
 
     /**
-     * Метод заполняет каждую клетку игрового поля gameField чем-нибудь одноклеточным.
+     * Метод заполняет каждую клетку общего игрового поля gameField чем-нибудь одноклеточным.
      * Пока это метод пустышка. Создан на будущее, если кроме кораблей появятся в игре еще какие-нибудь объекты.
      */
     public static void fillTheField() {
@@ -59,4 +61,6 @@ public class Game {
             }
         }
     }
+
+
 }
