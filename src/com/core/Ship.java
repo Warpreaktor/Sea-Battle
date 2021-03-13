@@ -56,6 +56,6 @@ public class Ship {
             case(4): this.shipLabel = 'B';break;
         }
         this.owner = owner;
-        this.name = Tools.directory[(int)(Math.random()*(Tools.directory.length-1))] + " " + Tools.directory[(int)(Math.random()*(Tools.directory.length-1))];
+        this.name = Tools.nounsBook[(int)(Math.random()*(Tools.nounsBook.length-1))] + " " + Tools.nounsBook[(int)(Math.random()*(Tools.nounsBook.length-1))];
     }
 }
