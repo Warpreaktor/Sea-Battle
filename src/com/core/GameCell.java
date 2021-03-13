@@ -1,8 +1,17 @@
 package com.core;
 
 public class GameCell {
-    private boolean isShip = false;//Является ли эта клетка кораблем или его частью
-    private char cellLabel = '~';//Какой символ отображать на консольной карте поля боя
+    private boolean isShip = false;//Является ли эта клетка кораблем или его частью.
+    private char cellLabel = '~';//Какой символ отображать на консольной карте поля боя.
+    private Ship shipRef;  //Ссылка на объект находящийся в этой клетке.
+
+    public void setShipRef(Ship shipRef) {
+        this.shipRef = shipRef;
+    }
+
+    public Object getShipRef() {
+        return shipRef;
+    }
 
     public void setCellLabel(char cellLabel) {
         this.cellLabel = cellLabel;

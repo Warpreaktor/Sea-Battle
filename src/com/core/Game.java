@@ -14,8 +14,7 @@ public class Game {
         playerCPU.shipsOnTheField();
         player1.brushTheMap();
         playerCPU.brushTheMap();
-        System.out.println("всего кораблей" + totalShips);
-        //battle(player1, player2CPU);
+        battle(player1, playerCPU);
     }
 
     public static void battle(Player player1, Player player2) {
