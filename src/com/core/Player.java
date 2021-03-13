@@ -70,12 +70,13 @@ public class Player {
     public void shoot(Player enemy) {
         Scanner scanner = new Scanner(System.in);
         try {
-            System.out.print("Введите координату X от 0 до " + (Game.getSIZE() - 1) + ": ");
-            int x = scanner.nextInt();
             System.out.print("Введите координату Y от 0 до " + (Game.getSIZE() - 1) + ": ");
             int y = scanner.nextInt();
+            System.out.print("Введите координату X от 0 до " + (Game.getSIZE() - 1) + ": ");
+            int x = scanner.nextInt();
             if (enemy.getOurFleetMap()[y][x].isShip()) {
-                System.out.println("Корабль " + enemy.getOurFleetMap()[y][x].getShipRef().getName());
+                String enemyShip = enemy.getOurFleetMap()[y][x].getShipRef().getName();
+                System.out.println("Корабль " + enemyShip + " поврежден!");
                 enemyFleetMap[y][x].setCellLabel('X');
                 //Прописать если убил. Game.setTotalShips(Game.getTotalShips() - 1);
                 countOfTurns++;
