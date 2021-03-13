@@ -75,7 +75,7 @@ public class Player {
             System.out.print("Введите координату Y от 0 до " + (Game.getSIZE() - 1) + ": ");
             int y = scanner.nextInt();
             if (enemy.getOurFleetMap()[y][x].isShip()) {
-                System.out.println("Корабль " + enemy.getOurFleetMap()[y][x].getShipRef());
+                System.out.println("Корабль " + enemy.getOurFleetMap()[y][x].getShipRef().getName());
                 enemyFleetMap[y][x].setCellLabel('X');
                 //Прописать если убил. Game.setTotalShips(Game.getTotalShips() - 1);
                 countOfTurns++;

@@ -9,7 +9,7 @@ public class GameCell {
         this.shipRef = shipRef;
     }
 
-    public Object getShipRef() {
+    public Ship getShipRef() {
         return shipRef;
     }
 
