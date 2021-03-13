@@ -81,15 +81,19 @@ public class Player {
                 if (enemyShip.getHp()>0) {
                     System.out.println("Корабль " + enemyShipName + " поврежден!");
                     enemyFleetMap[y][x].setCellLabel('X');
+                    enemy.getOurFleetMap()[y][x].setShip(false);
                 }
                 if (enemyShip.getHp()<=0) {
                     System.out.println(enemyShipName + " уничтожен!");
                     enemyFleetMap[y][x].setCellLabel('X');
+                    enemy.getOurFleetMap()[y][x].setShip(false);
                 }
                 countOfTurns++;
             } else {
                 System.out.println("Промах");
-                enemyFleetMap[y][x].setCellLabel('+');
+                if (enemyFleetMap[y][x].getCellLabel()=='X'){
+
+                }else {enemyFleetMap[y][x].setCellLabel('+');}
                 countOfTurns++;
             }
         } catch (Exception e) {
