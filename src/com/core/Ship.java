@@ -76,5 +76,6 @@ public class Ship {
         this.getOwner().getOurFleetMap()[y][x].setShip(true);
         this.getOwner().getOurFleetMap()[y][x].setCellLabel(this.getShipLabel());
         this.getOwner().getOurFleetMap()[y][x].setShipRef(this);
+        this.getOwner().setNumberOfShip(this.getOwner().getNumberOfShip()+1);
     }
 }
