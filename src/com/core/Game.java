@@ -7,14 +7,14 @@ public class Game {
     private static int totalShips = 0;
 
     public static void main(String[] args) {
-        Tests.mainTest();
-        //Player player1 = new Player("Warper");
-        //Player playerCPU = new Player("CPU");
-        //playerCPU.setCPU(true);
-        //player1.shipsOnTheField();
-        //playerCPU.shipsOnTheField();
-        //player1.brushTheMap();
-        //battle(player1, playerCPU);
+        //Tests.mainTest();
+        Player player1 = new Player("Warper");
+        Player playerCPU = new Player("CPU");
+        playerCPU.setCPU(true);
+        player1.shipsOnTheField();
+        playerCPU.shipsOnTheField();
+        player1.brushTheMap();
+        battle(player1, playerCPU);
     }
 
     public static void battle(Player player1, Player player2) {
@@ -22,9 +22,6 @@ public class Game {
             player1.shoot(player2);
             player2.shoot(player1);
             player1.brushTheMap();
-            System.out.println(player1.getNumberOfShip());
-            player2.brushTheMap();
-            System.out.println(player2.getNumberOfShip());
         }
         if (player1.getNumberOfShip()==0){
             System.out.println("Победил игрок " + player2.getName());
