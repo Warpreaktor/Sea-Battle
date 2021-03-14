@@ -64,8 +64,7 @@ public class Ship {
             case(4): this.shipLabel = 'B';break;
         }
         this.owner = owner;
-        this.name = Tools.adjectivesBookMan[(int)(Math.random()*(Tools.adjectivesBookMan.length-1))] +
-                " " + Tools.nounsBookMan[(int)(Math.random()*(Tools.nounsBookMan.length-1))];
+        this.name = naming();
     }
     public void shipsOnTheSea(int index, int y, int x){
         /**
@@ -76,5 +75,10 @@ public class Ship {
         this.getOwner().getOurFleetMap()[y][x].setShip(true);
         this.getOwner().getOurFleetMap()[y][x].setCellLabel(this.getShipLabel());
         this.getOwner().getOurFleetMap()[y][x].setShipRef(this);
+    }
+    public String naming(){
+        String name = Tools.adjectivesBookMan[(int)(Math.random()*(Tools.adjectivesBookMan.length-1))] +
+                " " + Tools.nounsBookMan[(int)(Math.random()*(Tools.nounsBookMan.length-1))];
+        return name;
     }
 }
