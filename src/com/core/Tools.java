@@ -51,5 +51,8 @@ public class Tools {
         }
         System.out.println();
     }*/
-
+    //Получаем рандомную координату в пропорциях установленного поля
+    public static int getRandomCoordinate() {
+        return (int) (Math.random() * Game.getSIZE() - 1);
+    }
 }

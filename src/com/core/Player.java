@@ -3,6 +3,7 @@ package com.core;
 import java.util.Scanner;
 
 public class Player {
+    private boolean isCPU;
     private final String name;
     private int countOfTurns = 0;   //Счетчик ходов сделанных игроком.
     private int numberOfShip = 0;   //Итоговое количество кораблей игрока, которое уменьшается по ходу их уничтожения.
@@ -68,12 +69,17 @@ public class Player {
     }
 
     public void shoot(Player enemy) {
+        if (this.isCPU){
+            shootCPU(enemy);
+            return;
+        }
         Scanner scanner = new Scanner(System.in);
         try {
             System.out.print("Введите координату Y от 0 до " + (Game.getSIZE() - 1) + ": ");
             int y = scanner.nextInt();
             System.out.print("Введите координату X от 0 до " + (Game.getSIZE() - 1) + ": ");
             int x = scanner.nextInt();
+            //Повторяющийся код
             if (enemy.getOurFleetMap()[y][x].isShip()) {
                 String enemyShipName = enemy.getOurFleetMap()[y][x].getShipRef().getName();
                 Ship enemyShip = enemy.getOurFleetMap()[y][x].getShipRef();
@@ -109,16 +115,51 @@ public class Player {
         return countOfTurns;
     }
 
+    void shootCPU(Player enemy){
+        int y = Tools.getRandomCoordinate();
+        int x = Tools.getRandomCoordinate();
+        //Делаем проверку. Если компьютер уже стрелял в эту точку, то изменить координаты.
+        for (int i = 0; i < ourFleetMap.length; i++) {
+            for (int j = 0; j < ourFleetMap[i].length; j++) {
+                if (enemyFleetMap[y][x].getCellLabel()=='+' || enemyFleetMap[y][x].getCellLabel()=='X'){
+                    System.out.println("Сюда я уже стрелял, попробую в ударить другое место");
+                    shootCPU(enemy);
+                    return;
+                }
+            }
+        }
+        //Повторяющйся код
+        if (enemy.getOurFleetMap()[y][x].isShip()) {
+            String enemyShipName = enemy.getOurFleetMap()[y][x].getShipRef().getName();
+            Ship enemyShip = enemy.getOurFleetMap()[y][x].getShipRef();
+            enemyShip.setHp(enemyShip.getHp()-1);
+            if (enemyShip.getHp()>0) {
+                System.out.println("Корабль " + enemyShipName + " поврежден!");
+                enemyFleetMap[y][x].setCellLabel('X');
+                enemy.getOurFleetMap()[y][x].setShip(false);
+            }
+            if (enemyShip.getHp()<=0) {
+                System.out.println(enemyShipName + " уничтожен!");
+                enemyFleetMap[y][x].setCellLabel('X');
+                enemy.getOurFleetMap()[y][x].setShip(false);
+            }
+            countOfTurns++;
+        } else {
+            System.out.println("Промах");
+            if (enemyFleetMap[y][x].getCellLabel()=='X'){
+
+            }else {enemyFleetMap[y][x].setCellLabel('+');}
+            countOfTurns++;
+        }
+    }
+
     /**
      * Отрисовка карты игрока.
      */
     public void brushTheMap() {
+
         int size = Game.getSIZE();
-        /**Рисуем шапку карты
-         *  Боевая карта
-         *  0 1 2 3 4 5 6 7 8 9
-         *  --------------------
-         */
+        //Рисуем шапку карты
         System.out.println("     <<<Наш флот>>>               <<<Вражеский флот>>>");
 
         for (int i = 0; i < 2; i++) {
@@ -138,18 +179,7 @@ public class Player {
             System.out.print("            ");
         }
         System.out.println();
-        /**Рисуем матрицу отображая все объекты карты
-         * 0|~ M ~ ~ L L L ~ ~ ~
-         * 1|~ M ~ ~ ~ ~ ~ ~ ~ ~
-         * 2|~ ~ ~ ~ ~ ~ ~ ~ S ~
-         * 3|M M ~ S ~ L ~ ~ ~ ~
-         * 4|~ ~ ~ ~ ~ L ~ S ~ ~
-         * 5|~ B ~ ~ ~ L ~ ~ ~ ~
-         * 6|~ B ~ ~ ~ ~ ~ ~ ~ ~
-         * 7|~ B ~ ~ ~ ~ ~ ~ ~ ~
-         * 8|~ B ~ ~ ~ ~ ~ ~ ~ ~
-         * 9|~ ~ ~ ~ ~ ~ ~ ~ ~ ~
-         */
+        //Рисуем матрицу отображая все объекты карты
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < 2; j++) {    //Отрисовка объектов на боевой карте
                 System.out.print(i + "|");          //Цифры по оси Y + разделитель
