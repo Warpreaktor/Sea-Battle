@@ -1,6 +1,6 @@
 package com.core;
 
-public class Game {
+public class Main {
 
     private static int SIZE = 10;
     //static GameCell[][] gameField = new GameCell[SIZE][SIZE]; // Возможно тут будет общее игровое поле
@@ -31,7 +31,7 @@ public class Game {
     }
 
     public static void setSIZE(int SIZE) {
-        Game.SIZE = SIZE;
+        Main.SIZE = SIZE;
     }
 
     public static int getSIZE() {

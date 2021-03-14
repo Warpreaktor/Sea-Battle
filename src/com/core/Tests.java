@@ -9,7 +9,7 @@ public class Tests {
         if (player.getOurFleetMap().length < 1) {
             System.out.println("Ошибка! При создании игрока не было создано поле игрока");
         }
-        if (player.getOurFleetMap().length > Game.getSIZE() || player.getOurFleetMap().length < Game.getSIZE()) {
+        if (player.getOurFleetMap().length > Main.getSIZE() || player.getOurFleetMap().length < Main.getSIZE()) {
             System.out.println("Ошибка! При создании игрока поле игрока создается не того размера");
             System.out.println("Размер созданного поля = " + player.getOurFleetMap().length);
         }
@@ -31,7 +31,7 @@ public class Tests {
             }
         }
         //Проверяем чтобы при создании игрока в его верфи создавалось нужное количество кораблей
-        if (Game.getSIZE() == 10) {
+        if (Main.getSIZE() == 10) {
             if (player.getShipyard().length != 10) {
                 System.out.println("В верфи игрока ");
             }
@@ -44,8 +44,8 @@ public class Tests {
      * @param ship - Корабль, который необходимо установить на поле.
      */
     public void testOtherShipOnGameField(Ship ship) {
-        int diceX = (int) (Math.random() * (Game.getSIZE() - 1));  //Получаем рандомную координату X
-        int diceY = (int) (Math.random() * (Game.getSIZE() - 1));  //Получаем рандомную координату Y
+        int diceX = (int) (Math.random() * (Main.getSIZE() - 1));  //Получаем рандомную координату X
+        int diceY = (int) (Math.random() * (Main.getSIZE() - 1));  //Получаем рандомную координату Y
         int side = 1; //+ (int) (Math.random() * 4);  //Получаем рандомное направление для размещения корабля
         try {
             int localDiceX = diceX;
@@ -81,7 +81,7 @@ public class Tests {
                         }
                         System.out.println();
                     }
-                    Game.setTotalShips(Game.getTotalShips() + 1);
+                    Main.setTotalShips(Main.getTotalShips() + 1);
                     ship.getOwner().brushTheMap();
                     break;
                 case (2)://от точки координат вниз
@@ -102,7 +102,7 @@ public class Tests {
                         ship.getOwner().getOurFleetMap()[diceY][diceX].setCellLabel(ship.getShipLabel());
                         diceY += 1;
                     }
-                    Game.setTotalShips(Game.getTotalShips() + 1);
+                    Main.setTotalShips(Main.getTotalShips() + 1);
                     break;
                 case (3)://от точки координат влево
                     //делаем проверку, можем ли мы установить корабль по предполагаемым координатам
@@ -122,7 +122,7 @@ public class Tests {
                         ship.getOwner().getOurFleetMap()[diceY][diceX].setCellLabel(ship.getShipLabel());
                         diceX -= 1;
                     }
-                    Game.setTotalShips(Game.getTotalShips() + 1);
+                    Main.setTotalShips(Main.getTotalShips() + 1);
                     break;
                 case (4)://от точки координат вверх
                     //делаем проверку, можем ли мы установить корабль по предполагаемым координатам
@@ -142,7 +142,7 @@ public class Tests {
                         ship.getOwner().getOurFleetMap()[diceY][diceX].setCellLabel(ship.getShipLabel());
                         diceY -= 1;
                     }
-                    Game.setTotalShips(Game.getTotalShips() + 1);
+                    Main.setTotalShips(Main.getTotalShips() + 1);
                     break;
             }
         } catch (ArrayIndexOutOfBoundsException e) {
@@ -164,7 +164,7 @@ public class Tests {
         playerCPU1.shipsOnTheField();
         System.out.println("Количество кораблей у игрока = " + playerCPU1.getNumberOfShip());
         playerCPU2.shipsOnTheField();
-        Game.battle(playerCPU1, playerCPU2);
+        Main.battle(playerCPU1, playerCPU2);
     }
     public static int testRandomNumbers(){
         int number=0;

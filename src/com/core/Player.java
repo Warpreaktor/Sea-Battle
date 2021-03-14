@@ -16,16 +16,16 @@ public class Player {
         /**Каждая клетка игрового поля заполняется объектами пустыми объектами GameCell
          */
         this.name = name;
-        ourFleetMap = new GameCell[Game.getSIZE()][Game.getSIZE()];
-        enemyFleetMap = new GameCell[Game.getSIZE()][Game.getSIZE()];
-        for (int i = 0; i < Game.getSIZE(); i++) {
-            for (int j = 0; j < Game.getSIZE(); j++) {
+        ourFleetMap = new GameCell[Main.getSIZE()][Main.getSIZE()];
+        enemyFleetMap = new GameCell[Main.getSIZE()][Main.getSIZE()];
+        for (int i = 0; i < Main.getSIZE(); i++) {
+            for (int j = 0; j < Main.getSIZE(); j++) {
                 ourFleetMap[i][j] = new GameCell();
                 enemyFleetMap[i][j] = new GameCell();
             }
         }
-        if (Game.getSIZE() == 10) {
-            shipyard = new Ship[Game.getSIZE()];
+        if (Main.getSIZE() == 10) {
+            shipyard = new Ship[Main.getSIZE()];
             shipyard[0] = new Ship(4, this);
             shipyard[1] = new Ship(3, this);
             shipyard[2] = new Ship(3, this);
@@ -84,9 +84,9 @@ public class Player {
         }
         Scanner scanner = new Scanner(System.in);
         try {
-            System.out.print("Введите координату Y от 0 до " + (Game.getSIZE() - 1) + ": ");
+            System.out.print("Введите координату Y от 0 до " + (Main.getSIZE() - 1) + ": ");
             int y = scanner.nextInt();
-            System.out.print("Введите координату X от 0 до " + (Game.getSIZE() - 1) + ": ");
+            System.out.print("Введите координату X от 0 до " + (Main.getSIZE() - 1) + ": ");
             int x = scanner.nextInt();
             //Повторяющийся код
             if (enemy.getOurFleetMap()[y][x].isShip()) {
@@ -172,7 +172,7 @@ public class Player {
      * Отрисовка карты игрока.
      */
     public void brushTheMap() {
-        int size = Game.getSIZE();
+        int size = Main.getSIZE();
         //Рисуем шапку карты
         System.out.println();
         System.out.println("---------------------------"+this.name+"----------------------");
@@ -243,7 +243,7 @@ public class Player {
             return;
         } else {
             ship.shipsOnTheSea(0,y,x);
-            Game.setTotalShips(Game.getTotalShips() + 1);
+            Main.setTotalShips(Main.getTotalShips() + 1);
         }
     }
 
@@ -269,7 +269,7 @@ public class Player {
                         ship.shipsOnTheSea(i,diceY,diceX);
                         diceX += 1;
                     }
-                    Game.setTotalShips(Game.getTotalShips() + 1);
+                    Main.setTotalShips(Main.getTotalShips() + 1);
                     break;
                 case (2)://от точки координат вниз
                     //делаем проверку, можем ли мы установить корабль по предполагаемым координатам
@@ -286,7 +286,7 @@ public class Player {
                         ship.shipsOnTheSea(i,diceY,diceX);
                         diceY += 1;
                     }
-                    Game.setTotalShips(Game.getTotalShips() + 1);
+                    Main.setTotalShips(Main.getTotalShips() + 1);
                     break;
                 case (3)://от точки координат влево
                     //делаем проверку, можем ли мы установить корабль по предполагаемым координатам
@@ -303,7 +303,7 @@ public class Player {
                         ship.shipsOnTheSea(i,diceY,diceX);
                         diceX -= 1;
                     }
-                    Game.setTotalShips(Game.getTotalShips() + 1);
+                    Main.setTotalShips(Main.getTotalShips() + 1);
                     break;
                 case (4)://от точки координат вверх
                     //делаем проверку, можем ли мы установить корабль по предполагаемым координатам
@@ -320,7 +320,7 @@ public class Player {
                         ship.shipsOnTheSea(i,diceY,diceX);
                         diceY -= 1;
                     }
-                    Game.setTotalShips(Game.getTotalShips() + 1);
+                    Main.setTotalShips(Main.getTotalShips() + 1);
                     break;
             }
         } catch (ArrayIndexOutOfBoundsException e) {
