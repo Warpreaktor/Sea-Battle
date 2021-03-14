@@ -2,7 +2,7 @@ package com.core;
 
 public class Ship {
     private final String name;
-    private int shipType;        //Количество палуб у корабля
+    private int shipSize;        //Количество палуб у корабля
     private char shipLabel;
     private int[][] coordinates; //[y][x]
     private Player owner;
@@ -37,12 +37,12 @@ public class Ship {
         coordinates[string][column] = coordinate;
     }
 
-    public void setShipType(int shipType) {
-        this.shipType = shipType;
+    public void setShipSize(int shipSize) {
+        this.shipSize = shipSize;
     }
 
-    public int getShipType() {
-        return shipType;
+    public int getShipSize() {
+        return shipSize;
     }
 
     public void setShipLabel(char shipLabel) {
@@ -55,7 +55,7 @@ public class Ship {
 
     public Ship(int decks, Player owner) {
         this.hp = decks;
-        this.shipType = decks;
+        this.shipSize = decks;
         this.coordinates = new int[decks][2]; //Создаем пустой массив для хранения в нем таблицы координат [y][x]
         switch (decks){
             case(1): this.shipLabel = 'S';break;
@@ -66,5 +66,15 @@ public class Ship {
         this.owner = owner;
         this.name = Tools.nounsBook[(int)(Math.random()*(Tools.nounsBook.length-1))] +
                 " " + Tools.adjectivesBook[(int)(Math.random()*(Tools.adjectivesBook.length-1))];
+    }
+    public void shipsOnTheSea(int index, int y, int x){
+        /**
+         * @param index - Это индекс строки в двумерном массиве координат корабля.
+         */
+        this.setCoordinates(index, 0, y);
+        this.setCoordinates(index, 1, x);
+        this.getOwner().getOurFleetMap()[y][x].setShip(true);
+        this.getOwner().getOurFleetMap()[y][x].setCellLabel(this.getShipLabel());
+        this.getOwner().getOurFleetMap()[y][x].setShipRef(this);
     }
 }

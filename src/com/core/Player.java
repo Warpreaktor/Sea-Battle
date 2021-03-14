@@ -176,7 +176,7 @@ public class Player {
      */
     public void shipsOnTheField() {
         for (Ship ship : shipyard) {
-            if (ship.getShipType() == 1) {
+            if (ship.getShipSize() == 1) {
                 smallShipOnGameField(ship);
                 //player.setShipyard()[i]Удалить корабль из верфи
             } else {
@@ -216,28 +216,23 @@ public class Player {
             switch (side) { //4 кейса на каждую сторону света
                 case (1)://от точки координат вправо
                     //делаем проверку, можем ли мы установить корабль по предполагаемым координатам
-                    for (int i = 0; i < ship.getShipType(); i++) {
+                    for (int i = 0; i < ship.getShipSize(); i++) {
                         if (ourFleetMap[localDiceY][localDiceX].isShip()) {
                             otherShipOnGameField(ship);
                             return;
-                        } else {
-                            localDiceX += 1;
-                        }
+                        } else {localDiceX += 1;}
+
                     }
                     //Если прошли проверку устанавливаем корабль
-                    for (int i = 0; i < ship.getShipType(); i++) {
-                        ship.setCoordinates(i, 0, diceY);
-                        ship.setCoordinates(i, 1, diceX);
-                        ourFleetMap[diceY][diceX].setShip(true);
-                        ourFleetMap[diceY][diceX].setCellLabel(ship.getShipLabel());
-                        ourFleetMap[diceY][diceX].setShipRef(ship);
+                    for (int i = 0; i < ship.getShipSize(); i++) {
+                        ship.shipsOnTheSea(i,diceY,diceX);
                         diceX += 1;
                     }
                     Game.setTotalShips(Game.getTotalShips() + 1);
                     break;
                 case (2)://от точки координат вниз
                     //делаем проверку, можем ли мы установить корабль по предполагаемым координатам
-                    for (int i = 0; i < ship.getShipType(); i++) {
+                    for (int i = 0; i < ship.getShipSize(); i++) {
                         if (ship.getOwner().getOurFleetMap()[localDiceY][localDiceX].isShip()) {
                             otherShipOnGameField(ship);
                             return;
@@ -246,19 +241,15 @@ public class Player {
                         }
                     }
                     //Если прошли проверку устанавливаем корабль
-                    for (int i = 0; i < ship.getShipType(); i++) {
-                        ship.setCoordinates(i, 0, diceY);
-                        ship.setCoordinates(i, 1, diceX);
-                        ship.getOwner().getOurFleetMap()[diceY][diceX].setShip(true);
-                        ship.getOwner().getOurFleetMap()[diceY][diceX].setCellLabel(ship.getShipLabel());
-                        ourFleetMap[diceY][diceX].setShipRef(ship);
+                    for (int i = 0; i < ship.getShipSize(); i++) {
+                        ship.shipsOnTheSea(i,diceY,diceX);
                         diceY += 1;
                     }
                     Game.setTotalShips(Game.getTotalShips() + 1);
                     break;
                 case (3)://от точки координат влево
                     //делаем проверку, можем ли мы установить корабль по предполагаемым координатам
-                    for (int i = 0; i < ship.getShipType(); i++) {
+                    for (int i = 0; i < ship.getShipSize(); i++) {
                         if (ship.getOwner().getOurFleetMap()[localDiceY][localDiceX].isShip()) {
                             otherShipOnGameField(ship);
                             return;
@@ -267,19 +258,15 @@ public class Player {
                         }
                     }
                     //Если прошли проверку устанавливаем корабль
-                    for (int i = 0; i < ship.getShipType(); i++) {
-                        ship.setCoordinates(i, 0, diceY);
-                        ship.setCoordinates(i, 1, diceX);
-                        ship.getOwner().getOurFleetMap()[diceY][diceX].setShip(true);
-                        ship.getOwner().getOurFleetMap()[diceY][diceX].setCellLabel(ship.getShipLabel());
-                        ourFleetMap[diceY][diceX].setShipRef(ship);
+                    for (int i = 0; i < ship.getShipSize(); i++) {
+                        ship.shipsOnTheSea(i,diceY,diceX);
                         diceX -= 1;
                     }
                     Game.setTotalShips(Game.getTotalShips() + 1);
                     break;
                 case (4)://от точки координат вверх
                     //делаем проверку, можем ли мы установить корабль по предполагаемым координатам
-                    for (int i = 0; i < ship.getShipType(); i++) {
+                    for (int i = 0; i < ship.getShipSize(); i++) {
                         if (ship.getOwner().getOurFleetMap()[localDiceY][localDiceX].isShip()) {
                             otherShipOnGameField(ship);
                             return;
@@ -288,21 +275,18 @@ public class Player {
                         }
                     }
                     //Если прошли проверку устанавливаем корабль
-                    for (int i = 0; i < ship.getShipType(); i++) {
-                        ship.setCoordinates(i, 0, diceY);
-                        ship.setCoordinates(i, 1, diceX);
-                        ship.getOwner().getOurFleetMap()[diceY][diceX].setShip(true);
-                        ship.getOwner().getOurFleetMap()[diceY][diceX].setCellLabel(ship.getShipLabel());
-                        ourFleetMap[diceY][diceX].setShipRef(ship);
+                    for (int i = 0; i < ship.getShipSize(); i++) {
+                        ship.shipsOnTheSea(i,diceY,diceX);
                         diceY -= 1;
                     }
                     Game.setTotalShips(Game.getTotalShips() + 1);
                     break;
             }
         } catch (ArrayIndexOutOfBoundsException e) {
-            System.out.println("Не получилось установить корабль попробуем еще раз =)" + ship.getShipType());
+            System.out.println("Не получилось установить корабль попробуем еще раз =)" + ship.getShipSize());
             otherShipOnGameField(ship);
             return;
         }
     }
+
 }
