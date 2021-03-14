@@ -64,4 +64,9 @@ public class Tools {
     public static int getRandomCoordinate() {
         return (int) (Math.random() * Game.getSIZE() - 1);
     }
+    public static boolean isNull(Object object) {
+        if (object == null) {
+            return true;
+        } else return false;
+    }
 }

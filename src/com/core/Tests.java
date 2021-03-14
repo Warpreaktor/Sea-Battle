@@ -1,7 +1,9 @@
 package com.core;
 
 public class Tests {
-    //Тест на
+    /**
+     * Набор тестов для класса Player
+     */
     public static void testForPlayerClass() {
         Player player = new Player("testPlayer");
         if (player.getOurFleetMap().length < 1) {
@@ -14,7 +16,7 @@ public class Tests {
         //Проверяем чтобы в игровом поле не было null объектов.
         for (int i = 0; i < player.getOurFleetMap().length; i++) {
             for (int j = 0; j < player.getOurFleetMap().length; j++) {
-                if (isNull(player.getOurFleetMap()[i][j])) {
+                if (Tools.isNull(player.getOurFleetMap()[i][j])) {
                     System.out.println("NullPointerException! Игровое поле c нашим флотом заполняется не корректно.");
                     System.out.println("Координаты = " + "x = " + j + " y = " + i);
                 }
@@ -22,7 +24,7 @@ public class Tests {
         }
         for (int i = 0; i < player.getEnemyFleetMap().length; i++) {
             for (int j = 0; j < player.getEnemyFleetMap().length; j++) {
-                if (isNull(player.getEnemyFleetMap()[i][j])) {
+                if (Tools.isNull(player.getEnemyFleetMap()[i][j])) {
                     System.out.print("NullPointerException! Игровое поле с флотом противник заполняется не корректно.");
                     System.out.println("Координаты = " + "x = " + j + " y = " + i);
                 }
@@ -36,11 +38,7 @@ public class Tests {
         }
     }
 
-    public static boolean isNull(Object object) {
-        if (object == null) {
-            return true;
-        } else return false;
-    }
+
 
     /**
      * Этот тест необходимо актуализировть согласно текущей версии этого же метода в классе Player.
