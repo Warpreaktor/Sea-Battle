@@ -77,8 +77,34 @@ public class Ship {
         this.getOwner().getOurFleetMap()[y][x].setShipRef(this);
     }
     public String naming(){
-        String name = Tools.adjectivesBookMan[(int)(Math.random()*(Tools.adjectivesBookMan.length-1))] +
-                " " + Tools.nounsBookMan[(int)(Math.random()*(Tools.nounsBookMan.length-1))];
+        String name = "Безымянный";
+        int randomNum = 1 + (int)(Math.random()*6);
+        switch (randomNum) {
+            case (1)://сущ муж + прил муж
+            name = Tools.adjectivesBookMan[(int) (Math.random() * (Tools.adjectivesBookMan.length - 1))] +
+                    " " + Tools.nounsBookMan[(int) (Math.random() * (Tools.nounsBookMan.length - 1))];
+            break;
+            case (2)://сущ жен + прил жен
+                name = Tools.adjectivesBookWoman[(int) (Math.random() * (Tools.adjectivesBookWoman.length - 1))] +
+                        " " + Tools.nounsBookWoman[(int) (Math.random() * (Tools.nounsBookWoman.length - 1))];
+                break;
+            case (3)://сущ сред + спецэффект
+                name = Tools.nounsBookIt[(int) (Math.random() * (Tools.nounsBookIt.length - 1))] +
+                        " " + Tools.whomBook[(int) (Math.random() * (Tools.whomBook.length - 1))];
+                break;
+            case (4)://сущ муж + спецэффект
+                name = Tools.nounsBookMan[(int) (Math.random() * (Tools.nounsBookMan.length - 1))] +
+                        " " + Tools.whomBook[(int) (Math.random() * (Tools.whomBook.length - 1))];
+                break;
+            case (5)://сущ муж + спецэффект
+                name = Tools.nounsBookWoman[(int) (Math.random() * (Tools.nounsBookWoman.length - 1))] +
+                        " " + Tools.whomBook[(int) (Math.random() * (Tools.whomBook.length - 1))];
+                break;
+            case (6)://сущ муж + сущ жен
+                name = Tools.nounsBookMan[(int) (Math.random() * (Tools.nounsBookMan.length - 1))] +
+                        " " + Tools.nounsBookWoman[(int) (Math.random() * (Tools.nounsBookWoman.length - 1))];
+                break;
+        }
         return name;
     }
 }
