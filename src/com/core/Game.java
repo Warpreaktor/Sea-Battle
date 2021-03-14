@@ -24,9 +24,9 @@ public class Game {
             player1.brushTheMap();
         }
         if (player1.getNumberOfShip()==0){
-            System.out.println("Победил игрок " + player2);
+            System.out.println("Победил игрок " + player2.getName());
         }else{
-            System.out.println("Победил игрок " + player1);
+            System.out.println("Победил игрок " + player1.getName());
         }
     }
 
