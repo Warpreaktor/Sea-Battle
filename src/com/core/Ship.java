@@ -64,8 +64,8 @@ public class Ship {
             case(4): this.shipLabel = 'B';break;
         }
         this.owner = owner;
-        this.name = Tools.adjectivesBook[(int)(Math.random()*(Tools.adjectivesBook.length-1))] +
-                " " + Tools.nounsBook[(int)(Math.random()*(Tools.nounsBook.length-1))];
+        this.name = Tools.adjectivesBookMan[(int)(Math.random()*(Tools.adjectivesBookMan.length-1))] +
+                " " + Tools.nounsBookMan[(int)(Math.random()*(Tools.nounsBookMan.length-1))];
     }
     public void shipsOnTheSea(int index, int y, int x){
         /**
