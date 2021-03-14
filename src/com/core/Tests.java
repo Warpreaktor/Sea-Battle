@@ -156,13 +156,14 @@ public class Tests {
      * Тест запускает игру создав двух компьютерных игроков и рубиться сам с собой проверяя игру.
      */
     public static void mainTest(){
-        Tests.testForPlayerClass();
+        //Tests.testForPlayerClass();
         Player playerCPU1 = new Player("CPU_Смельчак");
         Player playerCPU2 = new Player("CPU_Лихой");
         playerCPU1.setCPU(true);
-        playerCPU2.setCPU(true);
+        //playerCPU2.setCPU(true);
         playerCPU1.shipsOnTheField();
-        playerCPU2.shipsOnTheField();
-        Game.battle(playerCPU1, playerCPU2);
+        System.out.println("Количество кораблей у игрока = " + playerCPU1.getNumberOfShip());
+        //playerCPU2.shipsOnTheField();
+        //Game.battle(playerCPU1, playerCPU2);
     }
 }

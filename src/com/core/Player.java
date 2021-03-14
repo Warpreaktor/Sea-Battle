@@ -6,7 +6,7 @@ public class Player {
     private boolean isCPU;
     private final String name;
     private int countOfTurns = 0;   //Счетчик ходов сделанных игроком.
-    private int numberOfShip = 0;   //Итоговое количество кораблей игрока, которое уменьшается по ходу их уничтожения.
+    private int numberOfShip = 0;   //Итоговое количество кораблей игрока на поле, которое уменьшается по ходу их уничтожения.
     private Ship[] shipyard;           //Массив со списком доступных в начале типов кораблей.
     private final GameCell[][] ourFleetMap;
     private final GameCell[][] enemyFleetMap;
@@ -103,6 +103,7 @@ public class Player {
                     enemy.getOurFleetMap()[y][x].setCellLabel('X'); //Ставим отмеку у противнка в его карте
                     enemyFleetMap[y][x].setCellLabel('X');
                     enemy.getOurFleetMap()[y][x].setShip(false);
+                    enemy.setNumberOfShip(enemy.getNumberOfShip()-1);
                 }
                 countOfTurns++;
             } else {
@@ -129,8 +130,8 @@ public class Player {
         int y = Tools.getRandomCoordinate();
         int x = Tools.getRandomCoordinate();
         //Делаем проверку. Если компьютер уже стрелял в эту точку, то изменить координаты.
-        for (int i = 0; i < ourFleetMap.length; i++) {
-            for (int j = 0; j < ourFleetMap[i].length; j++) {
+        for (int i = 0; i < enemyFleetMap.length; i++) {
+            for (int j = 0; j < enemyFleetMap[i].length; j++) {
                 if (enemyFleetMap[y][x].getCellLabel()=='+' || enemyFleetMap[y][x].getCellLabel()=='X'){
                     shootCPU(enemy);
                     return;
@@ -233,17 +234,13 @@ public class Player {
      */
     public void smallShipOnGameField(Ship ship) {
         //Добавить остановку бесконечной рекурсии в случае если корабль не может найти ни одного пустого места на поле.
-        int diceX = (int) (Math.random() * Game.getSIZE() - 1);  //Получаем рандомную координату X
-        int diceY = (int) (Math.random() * Game.getSIZE() - 1);  //Получаем рандомную координату Y
-        if (ourFleetMap[diceY][diceX].isShip()) {
+        int x = (int) (Math.random() * Game.getSIZE() - 1);  //Получаем рандомную координату X
+        int y = (int) (Math.random() * Game.getSIZE() - 1);  //Получаем рандомную координату Y
+        if (ourFleetMap[y][x].isShip()) {
             smallShipOnGameField(ship);
             return;
         } else {
-            ship.setCoordinates(0, 0, diceY);
-            ship.setCoordinates(0, 1, diceX);
-            ourFleetMap[diceY][diceX].setShip(true);
-            ourFleetMap[diceY][diceX].setCellLabel('S');
-            ourFleetMap[diceY][diceX].setShipRef(ship);
+            ship.shipsOnTheSea(0,y,x);
             Game.setTotalShips(Game.getTotalShips() + 1);
         }
     }

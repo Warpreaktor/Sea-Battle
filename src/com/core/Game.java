@@ -22,6 +22,9 @@ public class Game {
             player1.shoot(player2);
             player2.shoot(player1);
             player1.brushTheMap();
+            System.out.println(player1.getNumberOfShip());
+            player2.brushTheMap();
+            System.out.println(player2.getNumberOfShip());
         }
         if (player1.getNumberOfShip()==0){
             System.out.println("Победил игрок " + player2.getName());
