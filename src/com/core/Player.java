@@ -137,7 +137,7 @@ public class Player {
             }
         }
         //Повторяющйся код
-        System.out.println("Стреляет компьютерный игрок.0");
+        System.out.println("Стреляет компьютерный игрок.");
         if (enemy.getOurFleetMap()[y][x].isShip()) {
             String enemyShipName = enemy.getOurFleetMap()[y][x].getShipRef().getName();
             Ship enemyShip = enemy.getOurFleetMap()[y][x].getShipRef();
@@ -166,11 +166,11 @@ public class Player {
      * Отрисовка карты игрока.
      */
     public void brushTheMap() {
-
         int size = Game.getSIZE();
         //Рисуем шапку карты
+        System.out.println();
+        System.out.println("---------------------------"+this.name+"----------------------");
         System.out.println("     <<<Наш флот>>>               <<<Вражеский флот>>>");
-
         for (int i = 0; i < 2; i++) {
             System.out.print("  ");                 //Отсутп от границы слева
             for (int j = 0; j < size; j++) {
