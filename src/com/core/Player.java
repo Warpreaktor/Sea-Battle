@@ -39,6 +39,14 @@ public class Player {
         }
     }
 
+    public void setCPU(boolean CPU) {
+        isCPU = CPU;
+    }
+
+    public boolean isCPU() {
+        return isCPU;
+    }
+
     public String getName() {
         return name;
     }
@@ -129,6 +137,7 @@ public class Player {
             }
         }
         //Повторяющйся код
+        System.out.println("Стреляет компьютерный игрок.0");
         if (enemy.getOurFleetMap()[y][x].isShip()) {
             String enemyShipName = enemy.getOurFleetMap()[y][x].getShipRef().getName();
             Ship enemyShip = enemy.getOurFleetMap()[y][x].getShipRef();

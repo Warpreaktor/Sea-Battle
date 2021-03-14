@@ -10,6 +10,7 @@ public class Game {
         Tests.testForPlayerClass();
         Player player1 = new Player("Warper");
         Player playerCPU = new Player("CPU");
+        playerCPU.setCPU(true);
         player1.shipsOnTheField();
         playerCPU.shipsOnTheField();
         player1.brushTheMap();
@@ -20,7 +21,7 @@ public class Game {
     public static void battle(Player player1, Player player2) {
         while (totalShips > 0) {
             player1.shoot(player2);
-            System.out.println("Ходов пройдено " + player1.getCountOfTurns());
+            player2.shoot(player1);
             player1.brushTheMap();
         }
         System.out.println("Победа!");
