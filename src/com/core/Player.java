@@ -132,7 +132,6 @@ public class Player {
         for (int i = 0; i < ourFleetMap.length; i++) {
             for (int j = 0; j < ourFleetMap[i].length; j++) {
                 if (enemyFleetMap[y][x].getCellLabel()=='+' || enemyFleetMap[y][x].getCellLabel()=='X'){
-                    System.out.println("Сюда я уже стрелял, попробую в ударить другое место");
                     shootCPU(enemy);
                     return;
                 }
@@ -326,7 +325,6 @@ public class Player {
                     break;
             }
         } catch (ArrayIndexOutOfBoundsException e) {
-            System.out.println("Не получилось установить корабль попробуем еще раз =)" + ship.getShipSize());
             otherShipOnGameField(ship);
             return;
         }

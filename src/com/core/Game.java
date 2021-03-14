@@ -14,18 +14,20 @@ public class Game {
         player1.shipsOnTheField();
         playerCPU.shipsOnTheField();
         player1.brushTheMap();
-        playerCPU.brushTheMap();
         battle(player1, playerCPU);
     }
 
     public static void battle(Player player1, Player player2) {
-        while (totalShips > 0) {
+        while (player1.getNumberOfShip() > 0 && player2.getNumberOfShip() > 0) {
             player1.shoot(player2);
             player2.shoot(player1);
             player1.brushTheMap();
-            player2.brushTheMap();
         }
-        System.out.println("Победа!");
+        if (player1.getNumberOfShip()==0){
+            System.out.println("Победил игрок " + player2);
+        }else{
+            System.out.println("Победил игрок " + player1);
+        }
     }
 
     public static void setSIZE(int SIZE) {
