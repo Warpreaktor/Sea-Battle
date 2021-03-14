@@ -37,6 +37,7 @@ public class Player {
             shipyard[8] = new Ship(1, this);
             shipyard[9] = new Ship(1, this);
         }
+        this.numberOfShip = shipyard.length;
     }
 
     public void setCPU(boolean CPU) {
