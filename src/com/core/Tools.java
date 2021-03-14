@@ -25,9 +25,6 @@ public class Tools {
     public static String[] whomBook = {"Капитана", "Дракона", "Дьявола", "Пирата", "Брата", "Короля", "Королевы", "Вселенной", "По сути", "В душе", "В море",
     "В натуре","Среди ясного неба", "Из тумана", "Без правил", "Из ада"};
 
-
-
-
     String ANSI_BLACK = "\u001B[30m";
     String ANSI_RED = "\u001B[31m";
     String ANSI_GREEN = "\u001B[32m";
@@ -39,7 +36,7 @@ public class Tools {
 
     //Получаем рандомную координату в пропорциях установленного поля
     public static int getRandomCoordinate() {
-        return (int) (Math.random() * Game.getSIZE());
+        return (int) (Math.random() * SeaBattleGame.getSIZE());
     }
     public static boolean isNull(Object object) {
         if (object == null) {

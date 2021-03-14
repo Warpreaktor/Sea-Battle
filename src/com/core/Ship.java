@@ -32,7 +32,6 @@ public class Ship {
         return owner;
     }
 
-
     public void setCoordinates(int string, int column, int coordinate) {
         coordinates[string][column] = coordinate;
     }
@@ -66,10 +65,10 @@ public class Ship {
         this.owner = owner;
         this.name = naming();
     }
+    /**
+     * @param index - Это индекс строки в двумерном массиве координат корабля.
+     */
     public void shipsOnTheSea(int index, int y, int x){
-        /**
-         * @param index - Это индекс строки в двумерном массиве координат корабля.
-         */
         this.setCoordinates(index, 0, y);
         this.setCoordinates(index, 1, x);
         this.getOwner().getOurFleetMap()[y][x].setShip(true);
