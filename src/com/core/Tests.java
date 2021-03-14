@@ -38,8 +38,6 @@ public class Tests {
         }
     }
 
-
-
     /**
      * Этот тест необходимо актуализировть согласно текущей версии этого же метода в классе Player.
      * Он подробно описывает каждый шаг хода боя. Использовать если необходимо отловить багу
@@ -154,14 +152,17 @@ public class Tests {
         }
     }
 
+    /**
+     * Тест запускает игру создав двух компьютерных игроков и рубиться сам с собой проверяя игру.
+     */
     public static void mainTest(){
         Tests.testForPlayerClass();
-        Player player1 = new Player("Warper");
-        Player playerCPU = new Player("CPU");
-        playerCPU.setCPU(true);
-        player1.shipsOnTheField();
-        playerCPU.shipsOnTheField();
-        player1.brushTheMap();
-        Game.battle(player1, playerCPU);
+        Player playerCPU1 = new Player("CPU_Смельчак");
+        Player playerCPU2 = new Player("CPU_Лихой");
+        playerCPU1.setCPU(true);
+        playerCPU2.setCPU(true);
+        playerCPU1.shipsOnTheField();
+        playerCPU2.shipsOnTheField();
+        Game.battle(playerCPU1, playerCPU2);
     }
 }

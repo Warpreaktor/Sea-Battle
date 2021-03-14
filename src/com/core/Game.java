@@ -7,14 +7,14 @@ public class Game {
     private static int totalShips = 0;
 
     public static void main(String[] args) {
-        Tests.testForPlayerClass();
-        Player player1 = new Player("Warper");
-        Player playerCPU = new Player("CPU");
-        playerCPU.setCPU(true);
-        player1.shipsOnTheField();
-        playerCPU.shipsOnTheField();
-        player1.brushTheMap();
-        battle(player1, playerCPU);
+        Tests.mainTest();
+        //Player player1 = new Player("Warper");
+        //Player playerCPU = new Player("CPU");
+        //playerCPU.setCPU(true);
+        //player1.shipsOnTheField();
+        //playerCPU.shipsOnTheField();
+        //player1.brushTheMap();
+        //battle(player1, playerCPU);
     }
 
     public static void battle(Player player1, Player player2) {
