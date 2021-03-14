@@ -1,9 +1,11 @@
 package com.core;
 
-public class Main {
+import front.Game;
+import front.Color;
+
+public class SeaBattleGame extends Game {
 
     private static int SIZE = 10;
-    //static GameCell[][] gameField = new GameCell[SIZE][SIZE]; // Возможно тут будет общее игровое поле
     private static int totalShips = 0;
 
     public static void main(String[] args) {
@@ -31,7 +33,7 @@ public class Main {
     }
 
     public static void setSIZE(int SIZE) {
-        Main.SIZE = SIZE;
+        SeaBattleGame.SIZE = SIZE;
     }
 
     public static int getSIZE() {

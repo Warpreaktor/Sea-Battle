@@ -36,7 +36,7 @@ public class Tools {
 
     //Получаем рандомную координату в пропорциях установленного поля
     public static int getRandomCoordinate() {
-        return (int) (Math.random() * Main.getSIZE());
+        return (int) (Math.random() * SeaBattleGame.getSIZE());
     }
     public static boolean isNull(Object object) {
         if (object == null) {
