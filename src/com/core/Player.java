@@ -94,11 +94,13 @@ public class Player {
                 enemyShip.setHp(enemyShip.getHp()-1);
                 if (enemyShip.getHp()>0) {
                     System.out.println("Корабль " + enemyShipName + " поврежден!");
-                    enemyFleetMap[y][x].setCellLabel('X');
+                    enemy.getOurFleetMap()[y][x].setCellLabel('X'); //Ставим отмеку у противнка в его карте
+                    enemyFleetMap[y][x].setCellLabel('X');          //Ставим отметку в своей "вражеской" карте
                     enemy.getOurFleetMap()[y][x].setShip(false);
                 }
                 if (enemyShip.getHp()<=0) {
                     System.out.println(enemyShipName + " уничтожен!");
+                    enemy.getOurFleetMap()[y][x].setCellLabel('X'); //Ставим отмеку у противнка в его карте
                     enemyFleetMap[y][x].setCellLabel('X');
                     enemy.getOurFleetMap()[y][x].setShip(false);
                 }
@@ -137,18 +139,20 @@ public class Player {
             }
         }
         //Повторяющйся код
-        System.out.println("Стреляет компьютерный игрок.");
+        System.out.println("Компьютерный игрок стреляет по координатам Y - " + y + " X - " + x);
         if (enemy.getOurFleetMap()[y][x].isShip()) {
             String enemyShipName = enemy.getOurFleetMap()[y][x].getShipRef().getName();
             Ship enemyShip = enemy.getOurFleetMap()[y][x].getShipRef();
             enemyShip.setHp(enemyShip.getHp()-1);
             if (enemyShip.getHp()>0) {
                 System.out.println("Корабль " + enemyShipName + " поврежден!");
+                enemy.getOurFleetMap()[y][x].setCellLabel('X'); //Ставим отмеку у противнка в его карте
                 enemyFleetMap[y][x].setCellLabel('X');
                 enemy.getOurFleetMap()[y][x].setShip(false);
             }
             if (enemyShip.getHp()<=0) {
                 System.out.println(enemyShipName + " уничтожен!");
+                enemy.getOurFleetMap()[y][x].setCellLabel('X'); //Ставим отмеку у противнка в его карте
                 enemyFleetMap[y][x].setCellLabel('X');
                 enemy.getOurFleetMap()[y][x].setShip(false);
             }
