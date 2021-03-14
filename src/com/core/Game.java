@@ -48,25 +48,4 @@ public class Game {
     public static int getTotalShips() {
         return totalShips;
     }
-
-    /**
-     * Метод заполняет каждую клетку общего игрового поля gameField чем-нибудь одноклеточным.
-     * Пока это метод пустышка. Создан на будущее, если кроме кораблей появятся в игре еще какие-нибудь объекты.
-     */
-    public static void fillTheField() {
-        System.out.println("Метод пустышка");
-        for (int i = 0; i < SIZE; i++) {
-            for (int j = 0; j < SIZE; j++) {
-                int dice = 1 + (int) (Math.random() * 2); // Бросим кубик от 1 до 2. 1 - Что-то такое, 2 - Что-то сякое.
-                if (dice == 1) {
-                    //gameField[i][j] = new GameObject();
-                    //gameField[i][j].setCellLabel('?');
-                } else {
-                    //gameField[i][j].setCellLabel('0');
-                }
-            }
-        }
-    }
-
-
 }

@@ -160,10 +160,18 @@ public class Tests {
         Player playerCPU1 = new Player("CPU_Смельчак");
         Player playerCPU2 = new Player("CPU_Лихой");
         playerCPU1.setCPU(true);
-        //playerCPU2.setCPU(true);
+        playerCPU2.setCPU(true);
         playerCPU1.shipsOnTheField();
         System.out.println("Количество кораблей у игрока = " + playerCPU1.getNumberOfShip());
-        //playerCPU2.shipsOnTheField();
-        //Game.battle(playerCPU1, playerCPU2);
+        playerCPU2.shipsOnTheField();
+        Game.battle(playerCPU1, playerCPU2);
+    }
+    public static int testRandomNumbers(){
+        int number=0;
+        for (int i = 0; i < 100; i++) {
+             number = Tools.getRandomCoordinate();
+            System.out.println(number);
+        }
+        return number;
     }
 }

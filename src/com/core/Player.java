@@ -156,6 +156,7 @@ public class Player {
                 enemy.getOurFleetMap()[y][x].setCellLabel('X'); //Ставим отмеку у противнка в его карте
                 enemyFleetMap[y][x].setCellLabel('X');
                 enemy.getOurFleetMap()[y][x].setShip(false);
+                enemy.setNumberOfShip(enemy.getNumberOfShip()-1);
             }
             countOfTurns++;
         } else {
@@ -235,8 +236,8 @@ public class Player {
      */
     public void smallShipOnGameField(Ship ship) {
         //Добавить остановку бесконечной рекурсии в случае если корабль не может найти ни одного пустого места на поле.
-        int x = (int) (Math.random() * Game.getSIZE() - 1);  //Получаем рандомную координату X
-        int y = (int) (Math.random() * Game.getSIZE() - 1);  //Получаем рандомную координату Y
+        int x = Tools.getRandomCoordinate();  //Получаем рандомную координату X
+        int y = Tools.getRandomCoordinate();  //Получаем рандомную координату Y
         if (ourFleetMap[y][x].isShip()) {
             smallShipOnGameField(ship);
             return;
@@ -247,8 +248,8 @@ public class Player {
     }
 
     public void otherShipOnGameField(Ship ship) {
-        int diceX = (int) (Math.random() * (Game.getSIZE() - 1));  //Получаем рандомную координату X
-        int diceY = (int) (Math.random() * (Game.getSIZE() - 1));  //Получаем рандомную координату Y
+        int diceX = Tools.getRandomCoordinate();  //Получаем рандомную координату X
+        int diceY = Tools.getRandomCoordinate();  //Получаем рандомную координату Y
         int side = 1 + (int) (Math.random() * 4);  //Получаем рандомное направление для размещения корабля
         try {
             int localDiceX = diceX;

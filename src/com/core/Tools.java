@@ -62,7 +62,7 @@ public class Tools {
     }*/
     //Получаем рандомную координату в пропорциях установленного поля
     public static int getRandomCoordinate() {
-        return (int) (Math.random() * Game.getSIZE() - 1);
+        return (int) (Math.random() * Game.getSIZE());
     }
     public static boolean isNull(Object object) {
         if (object == null) {
