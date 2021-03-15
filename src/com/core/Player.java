@@ -1,5 +1,8 @@
 package com.core;
 
+import front.Game;
+import front.GameScreen;
+
 import java.util.Scanner;
 
 public class Player {
@@ -8,22 +11,14 @@ public class Player {
     private int countOfTurns = 0;   //Счетчик ходов сделанных игроком.
     private int numberOfShip = 0;   //Итоговое количество кораблей игрока на поле, которое уменьшается по ходу их уничтожения.
     private Ship[] shipyard;           //Массив со списком доступных в начале типов кораблей.
-    private final GameCell[][] ourFleetMap;
-    private final GameCell[][] enemyFleetMap;
+    private GameCell[][] ourFleetMap = new GameCell[SeaBattleGame.getSIZE()][SeaBattleGame.getSIZE()];;
+    private GameCell[][] enemyFleetMap = new GameCell[SeaBattleGame.getSIZE()][SeaBattleGame.getSIZE()];;
 
     public Player(String name) {
         //Сделать наполнение верфи изходя из размера карты. Исходя из пропорции - Размер 10 = 1 Линкор(4), 2 Крейсера(3), 3 Эсминца(2), 4 Подлодки(1)
         /**Каждая клетка игрового поля заполняется объектами пустыми объектами GameCell
          */
         this.name = name;
-        ourFleetMap = new GameCell[SeaBattleGame.getSIZE()][SeaBattleGame.getSIZE()];
-        enemyFleetMap = new GameCell[SeaBattleGame.getSIZE()][SeaBattleGame.getSIZE()];
-        for (int i = 0; i < SeaBattleGame.getSIZE(); i++) {
-            for (int j = 0; j < SeaBattleGame.getSIZE(); j++) {
-                ourFleetMap[i][j] = new GameCell();
-                enemyFleetMap[i][j] = new GameCell();
-            }
-        }
         if (SeaBattleGame.getSIZE() == 10) {
             shipyard = new Ship[SeaBattleGame.getSIZE()];
             shipyard[0] = new Ship(4, this);
@@ -39,6 +34,8 @@ public class Player {
         }
         this.numberOfShip = shipyard.length;
     }
+
+
 
     public void setCPU(boolean CPU) {
         isCPU = CPU;
@@ -56,14 +53,18 @@ public class Player {
         return enemyFleetMap;
     }
 
-
-    public void setOurFleetMap(GameCell gameCell, int y, int x) {
-        this.ourFleetMap[y][x] = gameCell;
+    public void setGameCellToEnemyFleetMap(GameCell gameCell, int y, int x ) {
+        this.enemyFleetMap[y][x] = gameCell;
     }
 
     public GameCell[][] getOurFleetMap() {
         return ourFleetMap;
     }
+
+    public void setGameCellToOurFleetMap(GameCell gameCell, int y, int x) {
+        this.ourFleetMap[y][x] = gameCell;
+    }
+
 
     public void setNumberOfShip(int numberOfShip) {
         this.numberOfShip = numberOfShip;

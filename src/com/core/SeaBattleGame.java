@@ -1,7 +1,6 @@
 package com.core;
 
 import front.Game;
-import front.Color;
 
 public class SeaBattleGame extends Game {
     private static int SIZE = 10;
@@ -22,29 +21,23 @@ public class SeaBattleGame extends Game {
     @Override
     public void initialize() {
         setScreenSize(SIZE, SIZE);
-        createGame();
+        Player player1 = new Player("Warper");
+        Player playerCPU = new Player("CPU");
+        playerCPU.setCPU(true);
+        createBattleField(player1);
     }
-    private void createGame() {
-        for (int y = 0; y < SIZE; y++) {
-            for (int x = 0; x < SIZE; x++) {
-                //setCellValue(x,y,"");
-                gameField[y][x].setCellLabel('R');
-                boolean isMine = getRandomNumber(15) < 1;
-                if (isMine) {
-                    System.out.println("+минка");
-                    totalShips++;
-                }
-                gameField[y][x] = new GameCell();
-                setCellColor(x, y, Color.WHITESMOKE);
+
+    private void createBattleField(Player player){
+        for (int y = 0; y < SeaBattleGame.getSIZE(); y++) {
+            for (int x = 0; x < SeaBattleGame.getSIZE(); x++) {
+                setCellValue(x,y,"CellValue");
+                player.setGameCellToOurFleetMap(new GameCell(), y, x);
+                player.setGameCellToEnemyFleetMap(new GameCell(), y, x);
             }
         }
-        //countMineNeighbors();
-        //countFlags = countMinesOnField;
     }
 
-
-    public static void main(String[] args) {
-
+   // public static void main(String[] args) { // Метод не актуален. Приложение стартует как Application
         //Tests.mainTest();
         //Player player1 = new Player("Warper");
         //Player playerCPU = new Player("CPU");
@@ -53,7 +46,7 @@ public class SeaBattleGame extends Game {
         //playerCPU.shipsOnTheField();
         //player1.brushTheMap();
         //battle(player1, playerCPU);
-    }
+   // }
 
     public static void battle(Player player1, Player player2) {
         while (player1.getNumberOfShip() > 0 && player2.getNumberOfShip() > 0) {

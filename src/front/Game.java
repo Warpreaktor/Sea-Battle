@@ -1,5 +1,4 @@
 package front;
-
 //
 // Класс полностью взят с джава раш. Это игровой движок.
 //
@@ -12,6 +11,8 @@ import java.util.Optional;
 import java.util.Random;
 import java.util.Map.Entry;
 import java.util.stream.Collectors;
+
+import com.core.SeaBattleGame;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
@@ -72,7 +73,7 @@ public class Game extends Application implements GameScreen {
 
     public void start(Stage primaryStage) {
         this.primaryStage = primaryStage;
-        this.scoreText = new Text("Score: 0");
+        this.scoreText = new Text("Your ships: ");
         this.initialize();
         Scene scene = new Scene(this.createContent());
         scene.setOnMouseClicked((event) -> {
@@ -176,7 +177,7 @@ public class Game extends Application implements GameScreen {
     }
 
     private void createBorderImage() {
-        InputStream inputStream = Game.class.getResourceAsStream("/resources/screen.png");
+        InputStream inputStream = Game.class.getResourceAsStream("/resources/sea.jpg");
         Image image = new Image(inputStream);
         ImageView imageView = new ImageView(image);
         imageView.setFitWidth((double)(this.width * cellSize + 250));
