@@ -19,7 +19,7 @@ public class Player {
         /**Каждая клетка игрового поля заполняется объектами пустыми объектами GameCell
          */
         this.name = name;
-        if (SeaBattleGame.getSIZE() == 10) {
+       // if (SeaBattleGame.getSIZE() == 10) {
             shipyard = new Ship[SeaBattleGame.getSIZE()];
             shipyard[0] = new Ship(4, this);
             shipyard[1] = new Ship(3, this);
@@ -31,7 +31,7 @@ public class Player {
             shipyard[7] = new Ship(1, this);
             shipyard[8] = new Ship(1, this);
             shipyard[9] = new Ship(1, this);
-        }
+       // }
         this.numberOfShip = shipyard.length;
     }
 

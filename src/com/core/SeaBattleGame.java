@@ -1,5 +1,6 @@
 package com.core;
 
+import front.Color;
 import front.Game;
 
 public class SeaBattleGame extends Game {
@@ -30,7 +31,16 @@ public class SeaBattleGame extends Game {
     private void createBattleField(Player player){
         for (int y = 0; y < SeaBattleGame.getSIZE(); y++) {
             for (int x = 0; x < SeaBattleGame.getSIZE(); x++) {
-                setCellValue(x,y,"CellValue");
+                setCellValue(x,y,"");
+                setCellColor(x, y, Color.ANTIQUEWHITE);
+                player.setGameCellToOurFleetMap(new GameCell(), y, x);
+                player.setGameCellToEnemyFleetMap(new GameCell(), y, x);
+            }
+        }
+        for (int y = 0; y < SeaBattleGame.getSIZE(); y++) {
+            for (int x = 0; x < SeaBattleGame.getSIZE(); x++) {
+                setCellValue(x,y,"");
+                setCellColor(x, y, Color.AZURE);
                 player.setGameCellToOurFleetMap(new GameCell(), y, x);
                 player.setGameCellToEnemyFleetMap(new GameCell(), y, x);
             }

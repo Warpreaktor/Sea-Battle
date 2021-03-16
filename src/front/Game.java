@@ -72,6 +72,8 @@ public class Game extends Application implements GameScreen {
     }
 
     public void start(Stage primaryStage) {
+        primaryStage.setWidth(800);
+        primaryStage.setHeight(800);
         this.primaryStage = primaryStage;
         this.scoreText = new Text("Your ships: ");
         this.initialize();
@@ -118,7 +120,7 @@ public class Game extends Application implements GameScreen {
                 this.onKeyPress(this.getKey(event.getCode()));
             }
         });
-        primaryStage.setTitle("JavaRush Game");
+        primaryStage.setTitle("Морской бой");
         primaryStage.setResizable(false);
         if (this.showTV) {
             primaryStage.initStyle(StageStyle.TRANSPARENT);
