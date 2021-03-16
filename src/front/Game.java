@@ -208,9 +208,9 @@ public class Game extends Application implements GameScreen {
     }
 
     public void setScreenSize(int width, int height) {
-        this.width = width < 3 ? 3 : (width > 100 ? 100 : width);
-        this.height = height < 3 ? 3 : (height > 100 ? 100 : height);
-        cellSize = 800 / this.width < 600 / this.height ? 800 / this.width : 600 / this.height;
+        this.width = width < 3 ? 3 : (Math.min(width, 100));
+        this.height = height < 3 ? 3 : (Math.min(height, 100));
+        cellSize = Math.min(800 / this.width, 600 / this.height);
         this.cells = new StackPane[this.height][this.width];
 
         for(int y = 0; y < this.height; ++y) {

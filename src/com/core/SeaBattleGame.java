@@ -26,6 +26,7 @@ public class SeaBattleGame extends Game {
         Player playerCPU = new Player("CPU");
         playerCPU.setCPU(true);
         createBattleField(player1);
+        createBattleField(playerCPU);
     }
 
     private void createBattleField(Player player){
@@ -33,14 +34,6 @@ public class SeaBattleGame extends Game {
             for (int x = 0; x < SeaBattleGame.getSIZE(); x++) {
                 setCellValue(x,y,"");
                 setCellColor(x, y, Color.ANTIQUEWHITE);
-                player.setGameCellToOurFleetMap(new GameCell(), y, x);
-                player.setGameCellToEnemyFleetMap(new GameCell(), y, x);
-            }
-        }
-        for (int y = 0; y < SeaBattleGame.getSIZE(); y++) {
-            for (int x = 0; x < SeaBattleGame.getSIZE(); x++) {
-                setCellValue(x,y,"");
-                setCellColor(x, y, Color.AZURE);
                 player.setGameCellToOurFleetMap(new GameCell(), y, x);
                 player.setGameCellToEnemyFleetMap(new GameCell(), y, x);
             }
