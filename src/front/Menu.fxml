@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="front.Controller"
-            prefHeight="400.0" prefWidth="600.0">
 
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="front.Controller">
+   <children>
+      <ComboBox fx:id="chooseMap" layoutX="225.0" layoutY="188.0" prefWidth="150.0" promptText="Choose size of map" />
+      <Button layoutX="274.0" layoutY="262.0" mnemonicParsing="false" onAction="#brushTheField" text="I kll you!" />
+   </children>
 </AnchorPane>

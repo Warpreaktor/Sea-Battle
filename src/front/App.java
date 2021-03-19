@@ -2,6 +2,7 @@ package front;
 
 import com.core.SeaBattleGame;
 import javafx.application.Application;
+import javafx.scene.layout.HBox;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.fxml.FXMLLoader;
@@ -17,14 +18,13 @@ public class App extends Application {
     @Override
     public void start(Stage stage) throws Exception{
         //Подгружаем файл сгенерированный SceneBuilder
-        Parent root = FXMLLoader.load(getClass().getResource("BattleField.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("Menu.fxml"));
         Scene scene = new Scene(root);
 
         for (int i = 0; i < SeaBattleGame.getSIZE(); i++) {
             Rectangle rectangle = new Rectangle();
 
         }
-
         //подгружаем файл со стилями
         scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 
