@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.shape.Rectangle?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1024.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <StackPane blendMode="MULTIPLY" layoutX="301.0" layoutY="196.0" prefHeight="422.0" prefWidth="622.0" AnchorPane.bottomAnchor="400.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="700.0" AnchorPane.topAnchor="200.0">
+         <children>
+            <HBox prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="200.0" stroke="BLACK" strokeType="INSIDE" width="200.0" />
+               </children>
+            </HBox>
+         </children>
+      </StackPane>
+      <StackPane blendMode="MULTIPLY" layoutX="616.0" layoutY="201.0" prefHeight="422.0" prefWidth="622.0" AnchorPane.leftAnchor="700.0" AnchorPane.rightAnchor="10.0" />
+   </children>
+</AnchorPane>

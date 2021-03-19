@@ -1,8 +1,5 @@
 package com.core;
 
-import front.Game;
-import front.GameScreen;
-
 import java.util.Scanner;
 
 public class Player {

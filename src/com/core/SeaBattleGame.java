@@ -1,20 +1,8 @@
 package com.core;
 
 import front.App;
-import front.Game;
-import javafx.collections.ObservableList;
-import javafx.geometry.Pos;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
-import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Font;
-import javafx.scene.text.Text;
-
-import java.io.InputStream;
 
 public class SeaBattleGame extends App {
     private Pane paneLeft = new Pane();

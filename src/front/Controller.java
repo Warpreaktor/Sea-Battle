@@ -3,12 +3,16 @@ package front;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.layout.HBox;
 
 import java.awt.event.MouseEvent;
 
-public class BasicFXMLController {
+public class Controller {
     @FXML
     private Label label;
+
+    @FXML
+    private HBox leftHBox = new HBox();
 
     public void initialize() {
 
