@@ -72,12 +72,11 @@ public class Game extends Application implements GameScreen {
     }
 
     public void start(Stage primaryStage) {
-        primaryStage.setWidth(800);
-        primaryStage.setHeight(800);
-        this.primaryStage = primaryStage;
-        this.scoreText = new Text("Your ships: ");
-        this.initialize();
-        Scene scene = new Scene(this.createContent());
+
+        this.primaryStage = primaryStage;//Запоминаем ссылку на главный Stage
+        //this.scoreText = new Text("Your ships: "); //Это не важно
+        //this.initialize();//Абстрактный метод
+        Scene scene = new Scene(this.createContent());//Создается сцена и в нее вкладывается метод, в котором генерится массив из Rectangle.
         scene.setOnMouseClicked((event) -> {
             if (this.isMessageShown) {
                 this.isMessageShown = false;
@@ -129,7 +128,7 @@ public class Game extends Application implements GameScreen {
 
         primaryStage.setScene(scene);
         primaryStage.show();
-        this.timeline.playFromStart();
+        //this.timeline.playFromStart();
     }
 
     private Key getKey(KeyCode code) {
@@ -142,7 +141,7 @@ public class Game extends Application implements GameScreen {
     private Parent createContent() {
         this.root = new Pane();
         this.root.setPrefSize((double)(this.width * cellSize + 250), (double)(this.height * cellSize + 110 + 140));
-        this.createBorderImage();
+        //this.createBorderImage(); это не важно
 
         for(int y = 0; y < this.height; ++y) {
             for(int x = 0; x < this.width; ++x) {
@@ -173,8 +172,8 @@ public class Game extends Application implements GameScreen {
             }
         }
 
-        this.createScorePanel();
-        this.timeline.setCycleCount(-1);
+        //this.createScorePanel(); Это не важно
+        //this.timeline.setCycleCount(-1); Это не важно
         return this.root;
     }
 
