@@ -50,6 +50,8 @@ public class SeaBattleGame extends App {
         createBattleField(player1);
         //createBattleField(playerCPU);
         System.out.println("Initialize");
+
+
     }
 
 

@@ -7,6 +7,6 @@
     </content>
     <orderEntry type="jdk" jdkName="15" jdkType="JavaSDK" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" exported="" name="Java FX16" level="project" />
+    <orderEntry type="library" exported="" name="Java FX 16" level="project" />
   </component>
 </module>

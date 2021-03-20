@@ -2,12 +2,13 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.layout.AnchorPane?>
-
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="front.Controller">
    <children>
-      <ComboBox fx:id="chooseMap" layoutX="225.0" layoutY="188.0" prefWidth="150.0" promptText="Choose size of map" />
-      <Button layoutX="274.0" layoutY="262.0" mnemonicParsing="false" onAction="#brushTheField" text="I kll you!" />
+      <ComboBox fx:id="chooseMap" layoutX="226.0" layoutY="224.0" prefWidth="150.0" promptText="Choose size of map" />
+      <Button layoutX="239.0" layoutY="288.0" mnemonicParsing="false" onAction="#brushTheField" text="Let the battle begin!" />
+      <ListView fx:id="listView" layoutX="14.0" layoutY="14.0" prefHeight="200.0" prefWidth="564.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" />
    </children>
 </AnchorPane>
