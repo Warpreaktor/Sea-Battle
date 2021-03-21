@@ -22,7 +22,6 @@ public class SeaBattleGame {
         }else {
             SIZE = 20;
         }
-        Player player1 = new Player("Warper");
         Player playerCPU = new Player("CPU");
         playerCPU.setCPU(true);
         //createBattleField(player1);

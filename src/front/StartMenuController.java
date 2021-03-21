@@ -1,5 +1,6 @@
 package front;
 
+import com.core.Player;
 import com.core.SeaBattleGame;
 import com.core.Tools;
 import javafx.collections.FXCollections;
@@ -30,6 +31,9 @@ public class StartMenuController implements Initializable {
 
     public final void toMainGameUI() throws Exception {
         SeaBattleGame seaBattleGame = new SeaBattleGame(chooseMap.getSelectionModel().getSelectedItem().toString());
+        Player player1 = new Player(playerName.getText());
+        System.out.println("huy");
+        System.out.println(player1.getName());
         App.app.brushMainGameUI(App.stage);
     }
 
