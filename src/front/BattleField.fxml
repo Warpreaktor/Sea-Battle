@@ -5,6 +5,6 @@
 
 <AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1024.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="front.MainController">
    <children>
-      <Button layoutX="614.0" layoutY="854.0" mnemonicParsing="false" text="Button" />
+      <Button layoutX="614.0" layoutY="854.0" mnemonicParsing="false" text="Next turn" />
    </children>
 </AnchorPane>

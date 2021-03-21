@@ -1,5 +1,7 @@
 package com.core;
 
+import javafx.scene.paint.Color;
+
 import java.util.Scanner;
 
 public class Player {
@@ -76,17 +78,12 @@ public class Player {
         return shipyard;
     }
 
-    public void shoot(Player enemy) {
+    public void shoot(Player enemy, int y, int x) {
         if (this.isCPU){
             shootCPU(enemy);
             return;
         }
-        Scanner scanner = new Scanner(System.in);
         try {
-            System.out.print("Введите координату Y от 0 до " + (SeaBattleGame.getSIZE() - 1) + ": ");
-            int y = scanner.nextInt();
-            System.out.print("Введите координату X от 0 до " + (SeaBattleGame.getSIZE() - 1) + ": ");
-            int x = scanner.nextInt();
             //Повторяющийся код
             if (enemy.getOurFleetMap()[y][x].isShip()) {
                 String enemyShipName = enemy.getOurFleetMap()[y][x].getShipRef().getName();
@@ -96,6 +93,7 @@ public class Player {
                     System.out.println("Корабль " + enemyShipName + " поврежден!");
                     enemy.getOurFleetMap()[y][x].setCellLabel('X'); //Ставим отмеку у противнка в его карте
                     enemyFleetMap[y][x].setCellLabel('X');          //Ставим отметку в своей "вражеской" карте
+                    enemyFleetMap[y][x].setFill(Color.RED);          //Ставим отметку в своей "вражеской" карте
                     enemy.getOurFleetMap()[y][x].setShip(false);
                 }
                 if (enemyShip.getHp()<=0) {

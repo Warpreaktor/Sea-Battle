@@ -58,7 +58,7 @@ public class App extends Application {
         }
     }
 
-    public final void brushTheBattleField(Stage stage, Player player) throws IOException{
+    public final void brushTheBattleField(Stage stage, Player player, Player playerCPU) throws IOException{
         try {
             Parent root = FXMLLoader.load(getClass().getResource("BattleField.fxml"));
             //Отрисовка поля с нашим флотом
@@ -98,9 +98,8 @@ public class App extends Application {
                     gameCell.setOnMouseClicked(new EventHandler<MouseEvent>() {
                         @Override
                         public void handle(MouseEvent mouseEvent) {
-                            System.out.println("BUM");
-                            System.out.println(gameCell.getCoordinateY());
-                            System.out.println(gameCell.getCoordinateX());
+                            player.shoot(playerCPU, gameCell.getCoordinateY(), gameCell.getCoordinateX());
+                            System.out.println(gameCell.getCoordinateY() + " " + gameCell.getCoordinateX());
                         }
                     });
                 }

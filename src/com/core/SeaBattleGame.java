@@ -28,8 +28,9 @@ public class SeaBattleGame {
         Player player1 = new Player(playerName);
         Player playerCPU = new Player("CPU");
         playerCPU.setCPU(true);
-        App.app.brushTheBattleField(App.stage, player1);
+        App.app.brushTheBattleField(App.stage, player1, playerCPU);
         createCPUBattleField(playerCPU);
+        playerCPU.shipsOnTheField();
         //battle(player1, playerCPU);
     }
 
@@ -43,9 +44,9 @@ public class SeaBattleGame {
     }
     public static void battle(Player player1, Player player2) {
         while (player1.getNumberOfShip() > 0 && player2.getNumberOfShip() > 0) {
-            player1.shoot(player2);
-            player2.shoot(player1);
-            player1.brushTheMap();
+            //Ожидаем клика мышкой
+           //player2.shoot(player1);
+           //player1.brushTheMap();
         }
         if (player1.getNumberOfShip() == 0) {
             System.out.println("Победил игрок " + player2.getName());
