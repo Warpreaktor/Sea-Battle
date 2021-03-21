@@ -4,6 +4,7 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
@@ -13,7 +14,11 @@
       <Button layoutX="239.0" layoutY="329.0" mnemonicParsing="false" onAction="#toMainGameUI" text="Let the battle begin!" />
       <TextField fx:id="playerName" layoutX="183.0" layoutY="279.0" prefHeight="25.0" prefWidth="210.0" promptText="Введите ваше имя" />
       <Label layoutX="121.0" layoutY="279.0" prefHeight="25.0" prefWidth="61.0" text="Адмирал:" />
-      <ImageView fx:id="imageView" fitHeight="177.0" fitWidth="570.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" />
+      <ImageView fx:id="imageView" fitHeight="177.0" fitWidth="544.0" layoutX="152.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="152.0" AnchorPane.rightAnchor="133.33334350585938">
+         <image>
+            <Image url="@../resources/ship.jpg" />
+         </image></ImageView>
       <Button fx:id="nameGenerator" layoutX="402.0" layoutY="279.0" mnemonicParsing="false" onAction="#nameGenerator" text="Generate name" />
+      <Label layoutX="98.0" layoutY="224.0" prefHeight="25.0" prefWidth="113.0" text="Размер карты:" />
    </children>
 </AnchorPane>

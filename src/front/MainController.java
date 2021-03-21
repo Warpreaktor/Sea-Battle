@@ -28,19 +28,15 @@ import java.util.concurrent.ExecutionException;
 
 public class MainController implements Initializable {
     @FXML
-    private HBox leftHBox;
-    @FXML
-    private HBox rightHBox;
-    @FXML
     private StackPane leftStackPane;
     @FXML
     private StackPane rightStackPane;
     @FXML
     private AnchorPane anchorPane;
-
     @FXML
     private ListView<String> listView;
-
+    @FXML Label battleHistory;
+    private String oldHistory;
 
     @FXML
     private void handleButtonAction(ActionEvent event) {
@@ -48,7 +44,11 @@ public class MainController implements Initializable {
     @FXML
     public void clickOnField(MouseEvent mouseEvent) {
         System.out.println("Ты-дыщ!!!");
+    }
 
+    public void textOutput(String text){
+        oldHistory = battleHistory.getText();
+        battleHistory.setText(oldHistory + text);
     }
 
     @Override

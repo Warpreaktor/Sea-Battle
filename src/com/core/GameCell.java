@@ -10,9 +10,11 @@ public class GameCell extends ImageView {
     private Ship shipRef;  //Ссылка на объект находящийся в этой клетке.
     private int coordinateX;
     private int coordinateY;
-    private Image redCross = new Image(getClass().getResourceAsStream("/resources/redCRoss.png"));
-    private Image target = new Image(getClass().getResourceAsStream("/resources/target.png"));
+    private Image redCross = new Image(getClass().getResourceAsStream("/resources/redCRoss150x150.png"));
+    private Image target = new Image(getClass().getResourceAsStream("/resources/target150x150.png"));
     private Image wave = new Image(getClass().getResourceAsStream("/resources/waveminBoard.jpg"));
+    private Image dot = new Image(getClass().getResourceAsStream("/resources/dot150x150.png"));
+    private Image ship = new Image(getClass().getResourceAsStream("/resources/ship150x150.jpg"));
 
 
     public int getCoordinateX() {
@@ -61,9 +63,14 @@ public class GameCell extends ImageView {
     public void setTarget(){
         this.setImage(target);
     }
-
     public void setWave(){
         this.setImage(wave);
+    }
+    public void setDot(){
+        this.setImage(dot);
+    }
+    public void setShip(){
+        this.setImage(ship);
     }
 
     public GameCell() {

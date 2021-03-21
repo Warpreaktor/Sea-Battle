@@ -34,7 +34,6 @@ public class App extends Application {
     public void start(Stage stage) throws Exception {
         stage = this.stage;
         stage.setResizable(false);
-        stage.setX(300);
         brushStartMenu(stage);
     }
 
@@ -48,6 +47,8 @@ public class App extends Application {
 
     public final void brushStartMenu(Stage stage) throws IOException {
         try {
+            stage.setX(300);
+            stage.setY(100);
             Parent root = FXMLLoader.load(getClass().getResource("Menu.fxml"));
             Group group = new Group(root);
             Scene scene = new Scene(group);
@@ -61,6 +62,8 @@ public class App extends Application {
 
     public final void brushTheBattleField(Stage stage, Player player, Player playerCPU) throws IOException{
         try {
+            stage.setX(300);
+            stage.setY(100);
             Parent root = FXMLLoader.load(getClass().getResource("BattleField.fxml"));
             //Отрисовка поля с нашим флотом
             VBox leftVBox = new VBox();
@@ -99,8 +102,8 @@ public class App extends Application {
                     gameCell.setOnMouseClicked(new EventHandler<MouseEvent>() {
                         @Override
                         public void handle(MouseEvent mouseEvent) {
-                            player.shoot(playerCPU, gameCell.getCoordinateY(), gameCell.getCoordinateX());
-                            System.out.println(gameCell.getCoordinateY() + " " + gameCell.getCoordinateX());
+                            SeaBattleGame.battle(player,playerCPU,gameCell.getCoordinateY(),gameCell.getCoordinateX());
+
                         }
                     });
                 }

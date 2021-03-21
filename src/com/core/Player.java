@@ -1,5 +1,6 @@
 package com.core;
 
+import front.MainController;
 import javafx.scene.paint.Color;
 
 import java.awt.*;
@@ -80,6 +81,7 @@ public class Player {
     }
 
     public void shoot(Player enemy, int y, int x) {
+        MainController controller = new MainController();
         if (this.isCPU){
             shootCPU(enemy);
             return;
@@ -92,7 +94,9 @@ public class Player {
                 enemyShip.setHp(enemyShip.getHp()-1);
                 if (enemyShip.getHp()>0) {
                     System.out.println("Корабль " + enemyShipName + " поврежден!");
+                    controller.textOutput("Корабль " + enemyShipName + " поврежден!");
                     enemy.getOurFleetMap()[y][x].setCellLabel('X'); //Ставим отмеку у противнка в его карте
+                    enemy.getOurFleetMap()[y][x].setRedCross(); //Ставим отмеку у противнка в его карте
                     enemyFleetMap[y][x].setCellLabel('X');          //Ставим отметку в своей "вражеской" карте
                     enemyFleetMap[y][x].setRedCross();          //Ставим отметку в своей "вражеской" карте
                     enemy.getOurFleetMap()[y][x].setShip(false);
@@ -100,7 +104,9 @@ public class Player {
                 if (enemyShip.getHp()<=0) {
                     System.out.println(enemyShipName + " уничтожен!");
                     enemy.getOurFleetMap()[y][x].setCellLabel('X'); //Ставим отмеку у противнка в его карте
+                    enemy.getOurFleetMap()[y][x].setRedCross(); //Ставим отмеку у противнка в его карте
                     enemyFleetMap[y][x].setCellLabel('X');
+                    enemyFleetMap[y][x].setRedCross();          //Ставим отметку в своей "вражеской" карте
                     enemy.getOurFleetMap()[y][x].setShip(false);
                     enemy.setNumberOfShip(enemy.getNumberOfShip()-1);
                 }
@@ -108,9 +114,9 @@ public class Player {
             } else {
                 System.out.println("Промах");
                 if (enemyFleetMap[y][x].getCellLabel()=='X'){
-                    enemyFleetMap[y][x].setTarget();          //Ставим отметку в своей "вражеской" карте
 
                 }else {enemyFleetMap[y][x].setCellLabel('+');}
+                enemyFleetMap[y][x].setDot();          //Ставим точку в своей "вражеской" карте
                 countOfTurns++;
             }
         } catch (Exception e) {
@@ -126,43 +132,51 @@ public class Player {
         return countOfTurns;
     }
 
-    void shootCPU(Player enemy){
+    public void shootCPU(Player playerHuman){
         int y = Tools.getRandomCoordinate();
         int x = Tools.getRandomCoordinate();
         //Делаем проверку. Если компьютер уже стрелял в эту точку, то изменить координаты.
         for (int i = 0; i < enemyFleetMap.length; i++) {
             for (int j = 0; j < enemyFleetMap[i].length; j++) {
                 if (enemyFleetMap[y][x].getCellLabel()=='+' || enemyFleetMap[y][x].getCellLabel()=='X'){
-                    shootCPU(enemy);
+                    shootCPU(playerHuman);
                     return;
                 }
             }
         }
         //Повторяющйся код
         System.out.println("Компьютерный игрок стреляет по координатам Y - " + y + " X - " + x);
-        if (enemy.getOurFleetMap()[y][x].isShip()) {
-            String enemyShipName = enemy.getOurFleetMap()[y][x].getShipRef().getName();
-            Ship enemyShip = enemy.getOurFleetMap()[y][x].getShipRef();
+        if (playerHuman.getOurFleetMap()[y][x].isShip()) {
+            String enemyShipName = playerHuman.getOurFleetMap()[y][x].getShipRef().getName();
+            Ship enemyShip = playerHuman.getOurFleetMap()[y][x].getShipRef();
             enemyShip.setHp(enemyShip.getHp()-1);
             if (enemyShip.getHp()>0) {
                 System.out.println("Корабль " + enemyShipName + " поврежден!");
-                enemy.getOurFleetMap()[y][x].setCellLabel('X'); //Ставим отмеку у противнка в его карте
+                playerHuman.getOurFleetMap()[y][x].setCellLabel('X'); //Ставим отмеку у противнка в его карте
+                playerHuman.getOurFleetMap()[y][x].setRedCross(); //Ставим отмеку у противнка в его карте
                 enemyFleetMap[y][x].setCellLabel('X');
-                enemy.getOurFleetMap()[y][x].setShip(false);
+                enemyFleetMap[y][x].setRedCross();          //Ставим отметку в своей "вражеской" карте
+                playerHuman.getOurFleetMap()[y][x].setShip(false);
             }
             if (enemyShip.getHp()<=0) {
                 System.out.println(enemyShipName + " уничтожен!");
-                enemy.getOurFleetMap()[y][x].setCellLabel('X'); //Ставим отмеку у противнка в его карте
+                playerHuman.getOurFleetMap()[y][x].setCellLabel('X'); //Ставим отмеку у противнка в его карте
+                playerHuman.getOurFleetMap()[y][x].setRedCross(); //Ставим отмеку у противнка в его карте
                 enemyFleetMap[y][x].setCellLabel('X');
-                enemy.getOurFleetMap()[y][x].setShip(false);
-                enemy.setNumberOfShip(enemy.getNumberOfShip()-1);
+                enemyFleetMap[y][x].setRedCross();
+                playerHuman.getOurFleetMap()[y][x].setShip(false);
+                playerHuman.setNumberOfShip(playerHuman.getNumberOfShip()-1);
             }
             countOfTurns++;
         } else {
             System.out.println("Промах");
             if (enemyFleetMap[y][x].getCellLabel()=='X'){
 
-            }else {enemyFleetMap[y][x].setCellLabel('+');}
+            }else {
+                playerHuman.getOurFleetMap()[y][x].setDot(); //Ставим отмеку у противнка в его карте
+                enemyFleetMap[y][x].setCellLabel('+');
+                enemyFleetMap[y][x].setDot();
+            }
             countOfTurns++;
         }
     }
@@ -238,21 +252,22 @@ public class Player {
         int x = Tools.getRandomCoordinate();  //Получаем рандомную координату X
         int y = Tools.getRandomCoordinate();  //Получаем рандомную координату Y
         if (ourFleetMap[y][x].isShip()) {
-            smallShipOnGameField(ship);
+            smallShipOnGameField(ship);       //Если на клетке уже есть корабль, пробуем поставить кораблик еще раз.
             return;
         } else {
             ship.shipsOnTheSea(0,y,x);
+            ourFleetMap[y][x].setShip();
             SeaBattleGame.setTotalShips(SeaBattleGame.getTotalShips() + 1);
         }
     }
 
     public void otherShipOnGameField(Ship ship) {
-        int diceX = Tools.getRandomCoordinate();  //Получаем рандомную координату X
-        int diceY = Tools.getRandomCoordinate();  //Получаем рандомную координату Y
+        int X = Tools.getRandomCoordinate();  //Получаем рандомную координату X
+        int Y = Tools.getRandomCoordinate();  //Получаем рандомную координату Y
         int side = 1 + (int) (Math.random() * 4);  //Получаем рандомное направление для размещения корабля
         try {
-            int localDiceX = diceX;
-            int localDiceY = diceY;
+            int localDiceX = X;
+            int localDiceY = Y;
             switch (side) { //4 кейса на каждую сторону света
                 case (1)://от точки координат вправо
                     //делаем проверку, можем ли мы установить корабль по предполагаемым координатам
@@ -265,8 +280,9 @@ public class Player {
                     }
                     //Если прошли проверку устанавливаем корабль
                     for (int i = 0; i < ship.getShipSize(); i++) {
-                        ship.shipsOnTheSea(i,diceY,diceX);
-                        diceX += 1;
+                        ship.shipsOnTheSea(i,Y,X);
+                        ourFleetMap[Y][X].setShip();
+                        X += 1;
                     }
                     SeaBattleGame.setTotalShips(SeaBattleGame.getTotalShips() + 1);
                     break;
@@ -282,8 +298,9 @@ public class Player {
                     }
                     //Если прошли проверку устанавливаем корабль
                     for (int i = 0; i < ship.getShipSize(); i++) {
-                        ship.shipsOnTheSea(i,diceY,diceX);
-                        diceY += 1;
+                        ship.shipsOnTheSea(i,Y,X);
+                        ourFleetMap[Y][X].setShip();
+                        Y += 1;
                     }
                     SeaBattleGame.setTotalShips(SeaBattleGame.getTotalShips() + 1);
                     break;
@@ -299,8 +316,9 @@ public class Player {
                     }
                     //Если прошли проверку устанавливаем корабль
                     for (int i = 0; i < ship.getShipSize(); i++) {
-                        ship.shipsOnTheSea(i,diceY,diceX);
-                        diceX -= 1;
+                        ourFleetMap[Y][X].setShip();
+                        ship.shipsOnTheSea(i,Y,X);
+                        X -= 1;
                     }
                     SeaBattleGame.setTotalShips(SeaBattleGame.getTotalShips() + 1);
                     break;
@@ -316,8 +334,9 @@ public class Player {
                     }
                     //Если прошли проверку устанавливаем корабль
                     for (int i = 0; i < ship.getShipSize(); i++) {
-                        ship.shipsOnTheSea(i,diceY,diceX);
-                        diceY -= 1;
+                        ship.shipsOnTheSea(i,Y,X);
+                        ourFleetMap[Y][X].setShip();
+                        Y -= 1;
                     }
                     SeaBattleGame.setTotalShips(SeaBattleGame.getTotalShips() + 1);
                     break;

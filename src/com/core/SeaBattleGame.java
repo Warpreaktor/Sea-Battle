@@ -30,6 +30,7 @@ public class SeaBattleGame {
         playerCPU.setCPU(true);
         App.app.brushTheBattleField(App.stage, player1, playerCPU);
         createCPUBattleField(playerCPU);
+        player1.shipsOnTheField();
         playerCPU.shipsOnTheField();
         //battle(player1, playerCPU);
     }
@@ -42,16 +43,16 @@ public class SeaBattleGame {
             }
         }
     }
-    public static void battle(Player player1, Player player2) {
-        while (player1.getNumberOfShip() > 0 && player2.getNumberOfShip() > 0) {
-            //Ожидаем клика мышкой
-           //player2.shoot(player1);
-           //player1.brushTheMap();
+    public static void battle(Player player, Player playerCPU, int Y, int X) {
+        if (player.getEnemyFleetMap()[Y][X].getCellLabel() == '+' || player.getEnemyFleetMap()[Y][X].getCellLabel() == 'X'){
+            return;
         }
-        if (player1.getNumberOfShip() == 0) {
-            System.out.println("Победил игрок " + player2.getName());
+        player.shoot(playerCPU, Y, X);
+        playerCPU.shootCPU(player);
+        /*if (player.getNumberOfShip() == 0) {
+            System.out.println("Победил игрок " + playerCPU.getName());
         } else {
-            System.out.println("Победил игрок " + player1.getName());
-        }
+            System.out.println("Победил игрок " + player.getName());
+        }*/
     }
 }
