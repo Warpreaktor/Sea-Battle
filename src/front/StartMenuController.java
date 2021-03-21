@@ -32,7 +32,6 @@ public class StartMenuController implements Initializable {
         String sizeMap = chooseMap.getSelectionModel().getSelectedItem().toString();
         String name = playerName.getText();
         SeaBattleGame seaBattleGame = new SeaBattleGame(sizeMap, name);
-        App.app.brushTheBattleField(App.stage);
     }
 
     public final void nameGenerator(){

@@ -1,6 +1,7 @@
 package front;
 
 import com.core.GameCell;
+import com.core.Player;
 import com.core.SeaBattleGame;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -56,37 +57,41 @@ public class App extends Application {
         }
     }
 
-    public final void brushTheBattleField(Stage stage) throws IOException{
+    public final void brushTheBattleField(Stage stage, Player player) throws IOException{
         try {
             Parent root = FXMLLoader.load(getClass().getResource("BattleField.fxml"));
+            //Отрисовка поля с нашим флотом
             VBox leftVBox = new VBox();
             leftVBox.setTranslateY(200.0);
             leftVBox.setTranslateX(15.0);
-            for (int i = 0; i < SeaBattleGame.getSIZE(); i++) {
+            for (int y = 0; y < SeaBattleGame.getSIZE(); y++) {
                 HBox leftHBox = new HBox();
                 leftVBox.getChildren().add(leftHBox);
-                for (int j = 0; j < SeaBattleGame.getSIZE(); j++) {
-                    Rectangle rectangle = new Rectangle();
-                    rectangle.setHeight(50);
-                    rectangle.setWidth(50);
-                    rectangle.setFill(Color.AQUAMARINE);
-                    rectangle.setStroke(Color.BLACK);
-                    leftHBox.getChildren().add(rectangle);
+                for (int x = 0; x < SeaBattleGame.getSIZE(); x++) {
+                    GameCell gameCell = new GameCell();
+                    gameCell.setHeight(50);
+                    gameCell.setWidth(50);
+                    gameCell.setFill(Color.AQUAMARINE);
+                    gameCell.setStroke(Color.BLACK);
+                    leftHBox.getChildren().add(gameCell);
+                    player.setGameCellToOurFleetMap(new GameCell(), y, x);
                 }
             }
+            //Отрисовка поля с врадеским полем
             VBox rightVBox = new VBox();
             rightVBox.setTranslateX(750);
             rightVBox.setTranslateY(200.0);
-            for (int i = 0; i < SeaBattleGame.getSIZE(); i++) {
+            for (int y = 0; y < SeaBattleGame.getSIZE(); y++) {
                 HBox rightHBox = new HBox();
                 rightVBox.getChildren().add(rightHBox);
-                for (int j = 0; j < SeaBattleGame.getSIZE(); j++) {
+                for (int x = 0; x < SeaBattleGame.getSIZE(); x++) {
                     Rectangle rectangle = new Rectangle();
                     rectangle.setHeight(50);
                     rectangle.setWidth(50);
                     rectangle.setFill(Color.AQUAMARINE);
                     rectangle.setStroke(Color.BLACK);
                     rightHBox.getChildren().add(rectangle);
+                    player.setGameCellToEnemyFleetMap(new GameCell(), y, x);
                 }
             }
             AnchorPane anchorPane = anchorPaneInit(leftVBox, rightVBox);
