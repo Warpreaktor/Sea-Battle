@@ -24,7 +24,6 @@ public class App extends Application {
     private MainController mainController;
 
     public static void main(String[] args) {
-        SeaBattleGame seaBattleGame = new SeaBattleGame();
         launch(args);
     }
 
@@ -61,10 +60,10 @@ public class App extends Application {
             VBox leftVBox = new VBox();
             leftVBox.setTranslateY(200.0);
             leftVBox.setTranslateX(15.0);
-            for (int i = 0; i < 10; i++) {
+            for (int i = 0; i < SeaBattleGame.getSIZE(); i++) {
                 HBox leftHBox = new HBox();
                 leftVBox.getChildren().add(leftHBox);
-                for (int j = 0; j < 10; j++) {
+                for (int j = 0; j < SeaBattleGame.getSIZE(); j++) {
                     Rectangle rectangle = new Rectangle();
                     rectangle.setHeight(50);
                     rectangle.setWidth(50);
@@ -76,10 +75,10 @@ public class App extends Application {
             VBox rightVBox = new VBox();
             rightVBox.setTranslateX(750);
             rightVBox.setTranslateY(200.0);
-            for (int i = 0; i < 10; i++) {
+            for (int i = 0; i < SeaBattleGame.getSIZE(); i++) {
                 HBox rightHBox = new HBox();
                 rightVBox.getChildren().add(rightHBox);
-                for (int j = 0; j < 10; j++) {
+                for (int j = 0; j < SeaBattleGame.getSIZE(); j++) {
                     GameCell cell = new GameCell();
                     cell.setHeight(50);
                     cell.setWidth(50);

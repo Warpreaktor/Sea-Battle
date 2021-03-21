@@ -16,19 +16,19 @@ public class SeaBattleGame {
         totalShips = ships;
     }
 
-    public SeaBattleGame() {
-        //initialize();
-    }
-
-    private final void initialize() {
-        SIZE = 10;
+    public SeaBattleGame(String size) {
+        if (size.equals("10 на 10")){
+            SIZE = 10;
+        }else {
+            SIZE = 20;
+        }
         Player player1 = new Player("Warper");
         Player playerCPU = new Player("CPU");
         playerCPU.setCPU(true);
-        createBattleField(player1);
+        //createBattleField(player1);
         //createBattleField(playerCPU);
-        System.out.println("Initialize");
     }
+
     private void createBattleField(Player player) {
         for (int y = 0; y < SIZE; y++) {
             for (int x = 0; x < SIZE; x++) {

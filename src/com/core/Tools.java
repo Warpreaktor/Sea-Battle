@@ -22,8 +22,8 @@ public class Tools {
             "Фантастическая", "Дерзкая", "Древняя", "Неуязвимая", "Неуловимая", "Прыткая", "Страшная", "Молниеносная", "Черная", "Бешенная", "Пьяная", "Небесная",
             "Счастливая", "Золотая", "Прекрасная", "Изящная", "Ловкая", "Скользкая", "Опалённая"};
 
-    public static String[] whomBook = {"Каgitпитана", "Дракона", "Дьявола", "Пирата", "Брата", "Короля", "Королевы", "Вселенной", "По сути", "В душе", "В море",
-    "В натуре","Среди ясного неба", "Из тумана", "Без правил", "Из ада"};
+    public static String[] whomBook = {"капитана", "дракона", "Дьявола", "пирата", "брата", "короля", "королевы", "вселенной", "по сути", "в душе", "в море",
+    "в натуре","иреди ясного неба", "из тумана", "без правил", "из ада"};
 
     String ANSI_BLACK = "\u001B[30m";
     String ANSI_RED = "\u001B[31m";
@@ -43,4 +43,36 @@ public class Tools {
             return true;
         } else return false;
     }
+    public static String getRandomName(){
+        String name = "Безымянный";
+        int randomNum = 1 + (int)(Math.random()*6);
+        switch (randomNum) {
+            case (1)://сущ муж + прил муж
+                name = Tools.adjectivesBookMan[(int) (Math.random() * (Tools.adjectivesBookMan.length - 1))] +
+                        " " + Tools.nounsBookMan[(int) (Math.random() * (Tools.nounsBookMan.length - 1))];
+                break;
+            case (2)://сущ жен + прил жен
+                name = Tools.adjectivesBookWoman[(int) (Math.random() * (Tools.adjectivesBookWoman.length - 1))] +
+                        " " + Tools.nounsBookWoman[(int) (Math.random() * (Tools.nounsBookWoman.length - 1))];
+                break;
+            case (3)://сущ сред + спецэффект
+                name = Tools.nounsBookIt[(int) (Math.random() * (Tools.nounsBookIt.length - 1))] +
+                        " " + Tools.whomBook[(int) (Math.random() * (Tools.whomBook.length - 1))];
+                break;
+            case (4)://сущ муж + спецэффект
+                name = Tools.nounsBookMan[(int) (Math.random() * (Tools.nounsBookMan.length - 1))] +
+                        " " + Tools.whomBook[(int) (Math.random() * (Tools.whomBook.length - 1))];
+                break;
+            case (5)://сущ муж + спецэффект
+                name = Tools.nounsBookWoman[(int) (Math.random() * (Tools.nounsBookWoman.length - 1))] +
+                        " " + Tools.whomBook[(int) (Math.random() * (Tools.whomBook.length - 1))];
+                break;
+            case (6)://сущ муж + сущ жен
+                name = Tools.nounsBookMan[(int) (Math.random() * (Tools.nounsBookMan.length - 1))] +
+                        " " + Tools.nounsBookWoman[(int) (Math.random() * (Tools.nounsBookWoman.length - 1))];
+                break;
+        }
+        return name;
+    }
+
 }
