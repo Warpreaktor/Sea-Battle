@@ -1,48 +1,26 @@
 package com.core;
 
-import front.App;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
 
-public class SeaBattleGame extends App {
-    private Pane paneLeft = new Pane();
-    private Pane paneRight = new Pane();
-    private int width;
-    private int height;
-    private static int cellSize;
-    private StackPane[][] cells;
-    private boolean showGrid = true;
-    private boolean showCoordinates = false;
-    private boolean showTV = true;
-
-    private static int SIZE = 10;
+public class SeaBattleGame {
+    private static int SIZE;
     private static int totalShips = 0;
     private static GameCell[][] gameField = new GameCell[SIZE][SIZE];
 
     public static int getSIZE() {
         return SIZE;
     }
-
     public static int getTotalShips() {
         return totalShips;
     }
-
     public static void setTotalShips(int ships) {
         totalShips = ships;
     }
 
     public SeaBattleGame() {
+        //initialize();
     }
 
-    public static void main(String args[]) {
-        launch(args);
-    }
-
-
-
-
-    //@Override
-    public void initialize() {
+    private final void initialize() {
         SIZE = 10;
         Player player1 = new Player("Warper");
         Player playerCPU = new Player("CPU");
@@ -50,11 +28,7 @@ public class SeaBattleGame extends App {
         createBattleField(player1);
         //createBattleField(playerCPU);
         System.out.println("Initialize");
-
-
     }
-
-
     private void createBattleField(Player player) {
         for (int y = 0; y < SIZE; y++) {
             for (int x = 0; x < SIZE; x++) {
@@ -64,8 +38,6 @@ public class SeaBattleGame extends App {
             }
         }
     }
-
-
     public static void battle(Player player1, Player player2) {
         while (player1.getNumberOfShip() > 0 && player2.getNumberOfShip() > 0) {
             player1.shoot(player2);

@@ -13,6 +13,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.HBox;
@@ -21,7 +22,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
-import java.awt.event.MouseEvent;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.concurrent.ExecutionException;
@@ -43,15 +43,14 @@ public class Controller implements Initializable {
     private ComboBox chooseMap;
     @FXML
     private ListView<String> listView;
+
+
     @FXML
     private void handleButtonAction(ActionEvent event) {
         label.setText("Hello World!");
     }
     @FXML
-    private void clickOnField(MouseEvent event){
-    }
-    @FXML
-    public void clickOnField(javafx.scene.input.MouseEvent mouseEvent) {
+    public void clickOnField(MouseEvent mouseEvent) {
         label.setText("Ты-дыщ!!!");
 
     }
@@ -84,26 +83,9 @@ public class Controller implements Initializable {
 
     }
 
-    public void brushTheField() throws Exception {
-        Stage stage = new Stage();
-        //Parent root = FXMLLoader.load(getClass().getResource("BattleField.fxml"));
-        Rectangle rectangle = new Rectangle();
-        rectangle.setHeight(50);
-        rectangle.setWidth(50);
-        rectangle.setX(100);
-        rectangle.setY(100);
-        rectangle.setFill(Color.BLACK);
-        //leftHBox.getChildren().add(rectangle);
-        Group group1 = new Group(rectangle);
-        //group1.getChildren().addAll(leftHBox);
-        Scene scene = new Scene(group1);
+    public final void toMainGameUI() throws Exception {
+        App.app.brushMainGameUI(App.stage);
 
-
-        //scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
-
-
-        stage.setScene(scene);
-        stage.show();
     }
     private final AnchorPane anchorPaneInit(StackPane leftStackPane, StackPane rightStackPane){
         AnchorPane anchorPane = new AnchorPane();
