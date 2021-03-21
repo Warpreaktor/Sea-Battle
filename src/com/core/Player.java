@@ -17,7 +17,8 @@ public class Player {
          */
         this.name = name;
        // if (SeaBattleGame.getSIZE() == 10) {
-            shipyard = new Ship[SeaBattleGame.getSIZE()];
+
+        shipyard = new Ship[10];
             shipyard[0] = new Ship(4, this);
             shipyard[1] = new Ship(3, this);
             shipyard[2] = new Ship(3, this);

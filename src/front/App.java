@@ -30,6 +30,8 @@ public class App extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         stage = this.stage;
+        stage.setResizable(false);
+        stage.setX(300);
         brushStartMenu(stage);
     }
 
@@ -54,7 +56,7 @@ public class App extends Application {
         }
     }
 
-    public final void brushMainGameUI(Stage stage) throws IOException{
+    public final void brushTheBattleField(Stage stage) throws IOException{
         try {
             Parent root = FXMLLoader.load(getClass().getResource("BattleField.fxml"));
             VBox leftVBox = new VBox();
@@ -79,12 +81,12 @@ public class App extends Application {
                 HBox rightHBox = new HBox();
                 rightVBox.getChildren().add(rightHBox);
                 for (int j = 0; j < SeaBattleGame.getSIZE(); j++) {
-                    GameCell cell = new GameCell();
-                    cell.setHeight(50);
-                    cell.setWidth(50);
-                    cell.setFill(Color.AQUAMARINE);
-                    cell.setStroke(Color.BLACK);
-                    rightHBox.getChildren().add(cell);
+                    Rectangle rectangle = new Rectangle();
+                    rectangle.setHeight(50);
+                    rectangle.setWidth(50);
+                    rectangle.setFill(Color.AQUAMARINE);
+                    rectangle.setStroke(Color.BLACK);
+                    rightHBox.getChildren().add(rectangle);
                 }
             }
             AnchorPane anchorPane = anchorPaneInit(leftVBox, rightVBox);

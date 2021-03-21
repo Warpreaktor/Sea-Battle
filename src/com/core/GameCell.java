@@ -1,9 +1,6 @@
 package com.core;
 
-import javafx.beans.property.DoubleProperty;
-import javafx.scene.shape.Rectangle;
-
-public class GameCell extends Rectangle {
+public class GameCell {
     private boolean isShip = false;//Является ли эта клетка кораблем или его частью.
     private char cellLabel = '~';//Какой символ отображать на консольной карте поля боя.
     private Ship shipRef;  //Ссылка на объект находящийся в этой клетке.

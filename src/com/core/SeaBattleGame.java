@@ -1,6 +1,8 @@
 package com.core;
 
 
+import front.App;
+
 public class SeaBattleGame {
     private static int SIZE;
     private static int totalShips = 0;
@@ -16,19 +18,20 @@ public class SeaBattleGame {
         totalShips = ships;
     }
 
-    public SeaBattleGame(String size) {
+    public SeaBattleGame(String size, String playerName) {
         if (size.equals("10 на 10")){
             SIZE = 10;
         }else {
             SIZE = 20;
         }
+        Player player1 = new Player(playerName);
         Player playerCPU = new Player("CPU");
         playerCPU.setCPU(true);
         //createBattleField(player1);
         //createBattleField(playerCPU);
     }
 
-    private void createBattleField(Player player) {
+    private void createBattleField2(Player player) {
         for (int y = 0; y < SIZE; y++) {
             for (int x = 0; x < SIZE; x++) {
                 gameField[y][x] = new GameCell();
