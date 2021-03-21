@@ -9,6 +9,7 @@ import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -77,7 +78,7 @@ public class App extends Application {
                     player.setGameCellToOurFleetMap(new GameCell(), y, x);
                 }
             }
-            //Отрисовка поля с врадеским полем
+            //Отрисовка поля с вражеским полем
             VBox rightVBox = new VBox();
             rightVBox.setTranslateX(750);
             rightVBox.setTranslateY(200.0);
@@ -85,13 +86,23 @@ public class App extends Application {
                 HBox rightHBox = new HBox();
                 rightVBox.getChildren().add(rightHBox);
                 for (int x = 0; x < SeaBattleGame.getSIZE(); x++) {
-                    Rectangle rectangle = new Rectangle();
-                    rectangle.setHeight(50);
-                    rectangle.setWidth(50);
-                    rectangle.setFill(Color.AQUAMARINE);
-                    rectangle.setStroke(Color.BLACK);
-                    rightHBox.getChildren().add(rectangle);
+                    GameCell gameCell = new GameCell();
+                    gameCell.setHeight(50);
+                    gameCell.setWidth(50);
+                    gameCell.setFill(Color.AQUAMARINE);
+                    gameCell.setStroke(Color.BLACK);
+                    rightHBox.getChildren().add(gameCell);
                     player.setGameCellToEnemyFleetMap(new GameCell(), y, x);
+                    gameCell.setCoordinateY(y);
+                    gameCell.setCoordinateX(x);
+                    gameCell.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                        @Override
+                        public void handle(MouseEvent mouseEvent) {
+                            System.out.println("BUM");
+                            System.out.println(gameCell.getCoordinateY());
+                            System.out.println(gameCell.getCoordinateX());
+                        }
+                    });
                 }
             }
             AnchorPane anchorPane = anchorPaneInit(leftVBox, rightVBox);
@@ -105,6 +116,7 @@ public class App extends Application {
             brushTheErrorMessage("Некоторые файлы с игрой повреждены или отсутствуют");
         }
     }
+
 
     public void brushTheErrorMessage(String message){
         Stage stage = new Stage();

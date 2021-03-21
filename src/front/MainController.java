@@ -28,8 +28,6 @@ import java.util.concurrent.ExecutionException;
 
 public class MainController implements Initializable {
     @FXML
-    private Label label;
-    @FXML
     private HBox leftHBox;
     @FXML
     private HBox rightHBox;
@@ -46,11 +44,10 @@ public class MainController implements Initializable {
 
     @FXML
     private void handleButtonAction(ActionEvent event) {
-        label.setText("Hello World!");
     }
     @FXML
     public void clickOnField(MouseEvent mouseEvent) {
-        label.setText("Ты-дыщ!!!");
+        System.out.println("Ты-дыщ!!!");
 
     }
 

@@ -8,7 +8,6 @@ import java.io.IOException;
 public class SeaBattleGame {
     private static int SIZE;
     private static int totalShips = 0;
-    //private static GameCell[][] gameField = new GameCell[SIZE][SIZE];
 
     public static int getSIZE() {
         return SIZE;
@@ -31,12 +30,12 @@ public class SeaBattleGame {
         playerCPU.setCPU(true);
         App.app.brushTheBattleField(App.stage, player1);
         createCPUBattleField(playerCPU);
+        //battle(player1, playerCPU);
     }
 
     private void createCPUBattleField(Player player) {
         for (int y = 0; y < SIZE; y++) {
             for (int x = 0; x < SIZE; x++) {
-                //gameField[y][x] = new GameCell();
                 player.setGameCellToOurFleetMap(new GameCell(), y, x);
                 player.setGameCellToEnemyFleetMap(new GameCell(), y, x);
             }
