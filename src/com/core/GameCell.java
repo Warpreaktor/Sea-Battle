@@ -1,15 +1,19 @@
 package com.core;
 
-import javafx.event.EventHandler;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.shape.Rectangle;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
-public class GameCell extends Rectangle {
+
+public class GameCell extends ImageView {
     private boolean isShip = false;//Является ли эта клетка кораблем или его частью.
     private char cellLabel = '~';//Какой символ отображать на консольной карте поля боя.
     private Ship shipRef;  //Ссылка на объект находящийся в этой клетке.
     private int coordinateX;
     private int coordinateY;
+    private Image redCross = new Image(getClass().getResourceAsStream("/resources/redCRoss.png"));
+    private Image target = new Image(getClass().getResourceAsStream("/resources/target.png"));
+    private Image wave = new Image(getClass().getResourceAsStream("/resources/waveminBoard.jpg"));
+
 
     public int getCoordinateX() {
         return coordinateX;
@@ -51,14 +55,17 @@ public class GameCell extends Rectangle {
         return isShip;
     }
 
-    public GameCell() {
+    public void setRedCross(){
+        this.setImage(redCross);
+    }
+    public void setTarget(){
+        this.setImage(target);
     }
 
-    EventHandler<MouseEvent> eventHandler = new EventHandler<MouseEvent>() {
-        @Override
-        public void handle(MouseEvent e) {
+    public void setWave(){
+        this.setImage(wave);
+    }
 
-            System.out.println("Тыдыщь!");
-        }
-    };
+    public GameCell() {
+    }
 }

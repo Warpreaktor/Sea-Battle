@@ -2,6 +2,7 @@ package com.core;
 
 import javafx.scene.paint.Color;
 
+import java.awt.*;
 import java.util.Scanner;
 
 public class Player {
@@ -93,7 +94,7 @@ public class Player {
                     System.out.println("Корабль " + enemyShipName + " поврежден!");
                     enemy.getOurFleetMap()[y][x].setCellLabel('X'); //Ставим отмеку у противнка в его карте
                     enemyFleetMap[y][x].setCellLabel('X');          //Ставим отметку в своей "вражеской" карте
-                    enemyFleetMap[y][x].setFill(Color.RED);          //Ставим отметку в своей "вражеской" карте
+                    enemyFleetMap[y][x].setRedCross();          //Ставим отметку в своей "вражеской" карте
                     enemy.getOurFleetMap()[y][x].setShip(false);
                 }
                 if (enemyShip.getHp()<=0) {
@@ -107,6 +108,7 @@ public class Player {
             } else {
                 System.out.println("Промах");
                 if (enemyFleetMap[y][x].getCellLabel()=='X'){
+                    enemyFleetMap[y][x].setTarget();          //Ставим отметку в своей "вражеской" карте
 
                 }else {enemyFleetMap[y][x].setCellLabel('+');}
                 countOfTurns++;

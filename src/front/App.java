@@ -9,6 +9,7 @@ import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
+import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
@@ -70,29 +71,29 @@ public class App extends Application {
                 leftVBox.getChildren().add(leftHBox);
                 for (int x = 0; x < SeaBattleGame.getSIZE(); x++) {
                     GameCell gameCell = new GameCell();
-                    gameCell.setHeight(50);
-                    gameCell.setWidth(50);
-                    gameCell.setFill(Color.AQUAMARINE);
-                    gameCell.setStroke(Color.BLACK);
+                    gameCell.setFitHeight(60);
+                    gameCell.setFitWidth(60);
+                    gameCell.setWave();
                     leftHBox.getChildren().add(gameCell);
-                    player.setGameCellToOurFleetMap(new GameCell(), y, x);
+                    player.setGameCellToOurFleetMap(gameCell, y, x);
+                    gameCell.setCoordinateY(y);
+                    gameCell.setCoordinateX(x);
                 }
             }
             //Отрисовка поля с вражеским полем
             VBox rightVBox = new VBox();
-            rightVBox.setTranslateX(750);
+            rightVBox.setTranslateX(660);
             rightVBox.setTranslateY(200.0);
             for (int y = 0; y < SeaBattleGame.getSIZE(); y++) {
                 HBox rightHBox = new HBox();
                 rightVBox.getChildren().add(rightHBox);
                 for (int x = 0; x < SeaBattleGame.getSIZE(); x++) {
                     GameCell gameCell = new GameCell();
-                    gameCell.setHeight(50);
-                    gameCell.setWidth(50);
-                    gameCell.setFill(Color.AQUAMARINE);
-                    gameCell.setStroke(Color.BLACK);
+                    gameCell.setFitHeight(60);
+                    gameCell.setFitWidth(60);
+                    gameCell.setWave();
                     rightHBox.getChildren().add(gameCell);
-                    player.setGameCellToEnemyFleetMap(new GameCell(), y, x);
+                    player.setGameCellToEnemyFleetMap(gameCell, y, x);
                     gameCell.setCoordinateY(y);
                     gameCell.setCoordinateX(x);
                     gameCell.setOnMouseClicked(new EventHandler<MouseEvent>() {
