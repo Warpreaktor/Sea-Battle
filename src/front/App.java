@@ -8,7 +8,6 @@ import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -22,7 +21,7 @@ import java.io.IOException;
 public class App extends Application {
     public static final App app = new App();
     public static final Stage stage = new Stage();
-    private final Controller mainController = new Controller();
+    private MainController mainController;
 
     public static void main(String[] args) {
         SeaBattleGame seaBattleGame = new SeaBattleGame();
@@ -40,7 +39,6 @@ public class App extends Application {
         anchorPane.setBackground(Background.EMPTY);
         anchorPane.setPrefWidth(1280);
         anchorPane.setPrefHeight(1024);
-
         return anchorPane;
     }
 

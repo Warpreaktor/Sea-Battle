@@ -5,7 +5,7 @@
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="front.Controller">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="front.StartMenuController">
    <children>
       <ComboBox fx:id="chooseMap" layoutX="226.0" layoutY="224.0" prefWidth="150.0" promptText="Choose size of map" />
       <Button layoutX="239.0" layoutY="288.0" mnemonicParsing="false" onAction="#toMainGameUI" text="Let the battle begin!" />

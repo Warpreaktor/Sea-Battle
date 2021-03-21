@@ -26,7 +26,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.concurrent.ExecutionException;
 
-public class Controller implements Initializable {
+public class MainController implements Initializable {
     @FXML
     private Label label;
     @FXML
@@ -39,8 +39,7 @@ public class Controller implements Initializable {
     private StackPane rightStackPane;
     @FXML
     private AnchorPane anchorPane;
-    @FXML
-    private ComboBox chooseMap;
+
     @FXML
     private ListView<String> listView;
 
@@ -55,38 +54,13 @@ public class Controller implements Initializable {
 
     }
 
-    public HBox getLeftHBox() {
-        return leftHBox;
-    }
-
-    public HBox getRightHBox() {
-        return rightHBox;
-    }
-
-    public StackPane getLeftStackPane() {
-        return leftStackPane;
-    }
-
-    public StackPane getRightStackPane() {
-        return rightStackPane;
-    }
-
-    public AnchorPane getAnchorPane() {
-        return anchorPane;
-    }
-
-    ObservableList<String> list  = FXCollections.observableArrayList("10 by 10","20 by 20");
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        //chooseMap.setItems(list);
-        //chooseMap.setValue(list.get(0));
+
 
     }
 
-    public final void toMainGameUI() throws Exception {
-        App.app.brushMainGameUI(App.stage);
 
-    }
     private final AnchorPane anchorPaneInit(StackPane leftStackPane, StackPane rightStackPane){
         AnchorPane anchorPane = new AnchorPane();
         anchorPane.setBackground(Background.EMPTY);
