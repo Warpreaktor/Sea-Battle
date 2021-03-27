@@ -90,54 +90,6 @@ public class Player {
         return countOfTurns;
     }
 
-    public void shootCPU(Player playerHuman){
-        int y = Tools.getRandomCoordinate();
-        int x = Tools.getRandomCoordinate();
-        //Делаем проверку. Если компьютер уже стрелял в эту точку, то изменить координаты.
-        for (int i = 0; i < enemyFleetMap.length; i++) {
-            for (int j = 0; j < enemyFleetMap[i].length; j++) {
-                if (enemyFleetMap[y][x].getCellLabel()=='+' || enemyFleetMap[y][x].getCellLabel()=='X'){
-                    shootCPU(playerHuman);
-                    return;
-                }
-            }
-        }
-        //Повторяющйся код
-        //System.out.println("Компьютерный игрок стреляет по координатам Y - " + y + " X - " + x);
-        if (playerHuman.getOurFleetMap()[y][x].isShip()) {
-            String enemyShipName = playerHuman.getOurFleetMap()[y][x].getShipRef().getName();
-            Ship enemyShip = playerHuman.getOurFleetMap()[y][x].getShipRef();
-            enemyShip.setHp(enemyShip.getHp()-1);
-            if (enemyShip.getHp()>0) {
-                //System.out.println("Корабль " + enemyShipName + " поврежден!");
-                playerHuman.getOurFleetMap()[y][x].setCellLabel('X'); //Ставим отмеку у противнка в его карте
-                playerHuman.getOurFleetMap()[y][x].setRedCross(); //Ставим отмеку у противнка в его карте
-                enemyFleetMap[y][x].setCellLabel('X');
-                enemyFleetMap[y][x].setRedCross();          //Ставим отметку в своей "вражеской" карте
-                playerHuman.getOurFleetMap()[y][x].setShip(false);
-            }
-            if (enemyShip.getHp()<=0) {
-                //System.out.println(enemyShipName + " уничтожен!");
-                playerHuman.getOurFleetMap()[y][x].setCellLabel('X'); //Ставим отмеку у противнка в его карте
-                playerHuman.getOurFleetMap()[y][x].setRedCross(); //Ставим отмеку у противнка в его карте
-                enemyFleetMap[y][x].setCellLabel('X');
-                enemyFleetMap[y][x].setRedCross();
-                playerHuman.getOurFleetMap()[y][x].setShip(false);
-                playerHuman.setNumberOfShip(playerHuman.getNumberOfShip()-1);
-            }
-            countOfTurns++;
-        } else {
-            //System.out.println("Промах");
-            if (enemyFleetMap[y][x].getCellLabel()=='X'){
-
-            }else {
-                playerHuman.getOurFleetMap()[y][x].setDot(); //Ставим отмеку у противнка в его карте
-                enemyFleetMap[y][x].setCellLabel('+');
-                enemyFleetMap[y][x].setDot();
-            }
-            countOfTurns++;
-        }
-    }
 
     /**
      * Отрисовка карты игрока.
