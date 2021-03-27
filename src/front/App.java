@@ -8,6 +8,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
@@ -25,7 +26,6 @@ public class App extends Application {
     public static final App app = new App();
     public static final Stage stage = new Stage();
     public static final MainController mainController = new MainController();
-
     public static void main(String[] args) {
         launch(args);
     }
@@ -37,8 +37,8 @@ public class App extends Application {
         brushStartMenu(stage);
     }
 
-    private final AnchorPane anchorPaneInit(VBox leftBox, VBox rightBox) {
-        AnchorPane anchorPane = new AnchorPane(leftBox, rightBox);
+    private final AnchorPane anchorPaneInit(VBox leftBox, VBox rightBox, Label textLabel) {
+        AnchorPane anchorPane = new AnchorPane(leftBox, rightBox, textLabel);
         anchorPane.setBackground(Background.EMPTY);
         anchorPane.setPrefWidth(1280);
         anchorPane.setPrefHeight(1024);
@@ -107,7 +107,7 @@ public class App extends Application {
                     });
                 }
             }
-            AnchorPane anchorPane = anchorPaneInit(leftVBox, rightVBox);
+            AnchorPane anchorPane = anchorPaneInit(leftVBox, rightVBox, mainController.getBattleHistory());
             Group group = new Group(root, anchorPane);
             Scene scene = new Scene(group);
             scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());

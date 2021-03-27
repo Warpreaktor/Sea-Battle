@@ -29,13 +29,12 @@ public class SeaBattleGame {
             SIZE = 20;
         }
         Player player1 = new Player(playerName);
-        Player playerCPU = new Player("CPU");
+        Player playerCPU = new Player("Адмирал " + Tools.getRandomName());
         playerCPU.setCPU(true);
         App.app.brushTheBattleField(this, App.stage, player1, playerCPU);
         createCPUBattleField(playerCPU);
         player1.shipsOnTheField();
         playerCPU.shipsOnTheField();
-        //battle(player1, playerCPU);
     }
 
     private void createCPUBattleField(Player player) {
@@ -67,7 +66,6 @@ public class SeaBattleGame {
                 Ship enemyShip = CPU.getOurFleetMap()[y][x].getShipRef();
                 enemyShip.setHp(enemyShip.getHp()-1);
                 if (enemyShip.getHp()>0) {
-                    //System.out.println("Корабль " + enemyShipName + " поврежден!");
                     mainController.textOutput("Корабль " + enemyShipName + " поврежден!");
                     CPU.getOurFleetMap()[y][x].setCellLabel('X'); //Ставим отмеку у противнка в его карте
                     CPU.getOurFleetMap()[y][x].setRedCross(); //Ставим отмеку у противнка в его карте
@@ -76,7 +74,7 @@ public class SeaBattleGame {
                     CPU.getOurFleetMap()[y][x].setShip(false);
                 }
                 if (enemyShip.getHp()<=0) {
-                    //System.out.println(enemyShipName + " уничтожен!");
+                    mainController.textOutput("Корабль " + enemyShipName + " уничтожен!");
                     CPU.getOurFleetMap()[y][x].setCellLabel('X'); //Ставим отмеку у противнка в его карте
                     CPU.getOurFleetMap()[y][x].setRedCross(); //Ставим отмеку у противнка в его карте
                     human.getEnemyFleetMap()[y][x].setCellLabel('X');
@@ -86,7 +84,7 @@ public class SeaBattleGame {
                 }
                 human.setCountOfTurns(human.getCountOfTurns()+1);
             } else {
-                //System.out.println("Промах");
+                mainController.textOutput(human.getName() + " промахнулся!");
                 if (human.getEnemyFleetMap()[y][x].getCellLabel()=='X'){
 
                 }else {human.getEnemyFleetMap()[y][x].setCellLabel('+');}
@@ -96,7 +94,7 @@ public class SeaBattleGame {
         } catch (Exception e) {
             System.out.println(e.getStackTrace());
             System.out.println(e.getLocalizedMessage());
-            //System.out.println("Некорректный ввод, попробуйте еще раз");
+            System.out.println("Некорректный ввод, попробуйте еще раз");
         }
     }
 }
