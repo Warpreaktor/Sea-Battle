@@ -24,7 +24,7 @@ import java.io.IOException;
 public class App extends Application {
     public static final App app = new App();
     public static final Stage stage = new Stage();
-    private MainController mainController;
+    public static final MainController mainController = new MainController();
 
     public static void main(String[] args) {
         launch(args);
@@ -60,7 +60,7 @@ public class App extends Application {
         }
     }
 
-    public final void brushTheBattleField(Stage stage, Player player, Player playerCPU) throws IOException{
+    public final void brushTheBattleField(SeaBattleGame game, Stage stage, Player player, Player playerCPU) throws IOException{
         try {
             stage.setX(300);
             stage.setY(100);
@@ -69,10 +69,10 @@ public class App extends Application {
             VBox leftVBox = new VBox();
             leftVBox.setTranslateY(200.0);
             leftVBox.setTranslateX(15.0);
-            for (int y = 0; y < SeaBattleGame.getSIZE(); y++) {
+            for (int y = 0; y < game.getSIZE(); y++) {
                 HBox leftHBox = new HBox();
                 leftVBox.getChildren().add(leftHBox);
-                for (int x = 0; x < SeaBattleGame.getSIZE(); x++) {
+                for (int x = 0; x < game.getSIZE(); x++) {
                     GameCell gameCell = new GameCell();
                     gameCell.setFitHeight(60);
                     gameCell.setFitWidth(60);
@@ -87,10 +87,10 @@ public class App extends Application {
             VBox rightVBox = new VBox();
             rightVBox.setTranslateX(660);
             rightVBox.setTranslateY(200.0);
-            for (int y = 0; y < SeaBattleGame.getSIZE(); y++) {
+            for (int y = 0; y < game.getSIZE(); y++) {
                 HBox rightHBox = new HBox();
                 rightVBox.getChildren().add(rightHBox);
-                for (int x = 0; x < SeaBattleGame.getSIZE(); x++) {
+                for (int x = 0; x < game.getSIZE(); x++) {
                     GameCell gameCell = new GameCell();
                     gameCell.setFitHeight(60);
                     gameCell.setFitWidth(60);
@@ -102,8 +102,7 @@ public class App extends Application {
                     gameCell.setOnMouseClicked(new EventHandler<MouseEvent>() {
                         @Override
                         public void handle(MouseEvent mouseEvent) {
-                            SeaBattleGame.battle(player,playerCPU,gameCell.getCoordinateY(),gameCell.getCoordinateX());
-
+                            game.battle(player,playerCPU,gameCell.getCoordinateY(),gameCell.getCoordinateX());
                         }
                     });
                 }

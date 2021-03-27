@@ -164,7 +164,7 @@ public class Tests {
         playerCPU1.shipsOnTheField();
         System.out.println("Количество кораблей у игрока = " + playerCPU1.getNumberOfShip());
         playerCPU2.shipsOnTheField();
-        SeaBattleGame.battle(playerCPU1, playerCPU2,6,8);
+        //SeaBattleGame.battle(playerCPU1, playerCPU2,6,8);
     }
     public static int testRandomNumbers(){
         int number=0;

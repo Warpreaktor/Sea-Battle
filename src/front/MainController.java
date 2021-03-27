@@ -35,8 +35,8 @@ public class MainController implements Initializable {
     private AnchorPane anchorPane;
     @FXML
     private ListView<String> listView;
-    @FXML Label battleHistory;
-    private String oldHistory;
+    @FXML public Label battleHistory = new Label();
+    public String oldHistory = "";
 
     @FXML
     private void handleButtonAction(ActionEvent event) {
@@ -46,15 +46,19 @@ public class MainController implements Initializable {
         System.out.println("Ты-дыщ!!!");
     }
 
+    public MainController() {
+        this.battleHistory.setText("Битва началась");;
+        this.oldHistory = "";
+    }
+
     public void textOutput(String text){
-        oldHistory = battleHistory.getText();
-        battleHistory.setText(oldHistory + text);
+        this.oldHistory = this.battleHistory.getText();
+        this.battleHistory.setText(oldHistory + text);
+        System.out.println(text);
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
-
     }
 
 
