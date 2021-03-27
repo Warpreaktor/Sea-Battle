@@ -101,7 +101,7 @@ public class Ship {
                 break;
             case (6)://сущ муж + сущ жен
                 name = Tools.nounsBookMan[(int) (Math.random() * (Tools.nounsBookMan.length - 1))] +
-                        " " + Tools.nounsBookWoman[(int) (Math.random() * (Tools.nounsBookWoman.length - 1))];
+                        " и " + Tools.nounsBookWoman[(int) (Math.random() * (Tools.nounsBookWoman.length - 1))];
                 break;
         }
         return name;
