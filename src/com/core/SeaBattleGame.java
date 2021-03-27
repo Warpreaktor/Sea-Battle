@@ -21,6 +21,10 @@ public class SeaBattleGame {
         totalShips = ships;
     }
 
+    public void setMainController(MainController mainController) {
+        if (mainController == null) this.mainController = mainController;
+    }
+
     public SeaBattleGame(String size, String playerName) throws IOException {
         mainController = App.mainController;
         if (size.equals("10 на 10")){
@@ -28,13 +32,15 @@ public class SeaBattleGame {
         }else {
             SIZE = 20;
         }
-        Player player1 = new Player(playerName);
-        Player playerCPU = new Player("Адмирал " + Tools.getRandomName());
-        playerCPU.setCPU(true);
-        App.app.brushTheBattleField(this, App.stage, player1, playerCPU);
-        createCPUBattleField(playerCPU);
-        player1.shipsOnTheField();
-        playerCPU.shipsOnTheField();
+        Player human = new Player(playerName);
+        Player CPU = new Player("Адмирал " + Tools.getRandomName());
+        mainController.setHuman(human);
+        mainController.setCPU(CPU);
+        CPU.setCPU(true);
+        App.app.brushTheBattleField(this, App.stage, human, CPU);
+        createCPUBattleField(CPU);
+        human.shipsOnTheField();
+        CPU.shipsOnTheField();
     }
 
     private void createCPUBattleField(Player player) {
@@ -50,7 +56,7 @@ public class SeaBattleGame {
             return;
         }
         this.shoot(human, playerCPU, Y, X);
-        this.shootCPU(human, playerCPU);
+        //this.shootCPU(human, playerCPU);
 
 ///////////////////Тут нужно описать условия победы./////////////////////
         /*if (human.getNumberOfShip() == 0) {

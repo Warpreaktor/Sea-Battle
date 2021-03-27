@@ -10,11 +10,8 @@ import javafx.scene.Group;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
-import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -107,7 +104,7 @@ public class App extends Application {
                     });
                 }
             }
-            AnchorPane anchorPane = anchorPaneInit(leftVBox, rightVBox, mainController.getBattleHistory());
+            AnchorPane anchorPane = anchorPaneInit(leftVBox, rightVBox, mainController.getBattleLogView());
             Group group = new Group(root, anchorPane);
             Scene scene = new Scene(group);
             scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
