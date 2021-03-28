@@ -1,9 +1,6 @@
 package com.core;
-
-
 import front.App;
 import front.MainController;
-
 import java.io.IOException;
 
 public class SeaBattleGame {
@@ -21,10 +18,6 @@ public class SeaBattleGame {
     }
     public static void setTotalShips(int ships) {
         totalShips = ships;
-    }
-
-    public void setMainController(MainController mainController) {
-        if (mainController == null) this.mainController = mainController;
     }
 
     public SeaBattleGame(String size, String playerName) throws IOException {
