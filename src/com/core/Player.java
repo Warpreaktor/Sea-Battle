@@ -36,60 +36,42 @@ public class Player {
        // }
         this.numberOfShip = shipyard.length;
     }
-
-
-
     public void setCPU(boolean CPU) {
         isCPU = CPU;
     }
-
     public boolean isCPU() {
         return isCPU;
     }
-
     public String getName() {
         return name;
     }
-
     public GameCell[][] getEnemyFleetMap() {
         return enemyFleetMap;
     }
-
     public GameCell[][] getOurFleetMap() {
         return ourFleetMap;
     }
-
     public void setGameCellToEnemyFleetMap(GameCell gameCell, int y, int x ) {
         this.enemyFleetMap[y][x] = gameCell;
     }
-
     public void setGameCellToOurFleetMap(GameCell gameCell, int y, int x) {
         this.ourFleetMap[y][x] = gameCell;
     }
-
-
     public void setNumberOfShip(int numberOfShip) {
         this.numberOfShip = numberOfShip;
     }
-
     public int getNumberOfShip() {
         return numberOfShip;
     }
-
     public Ship[] getShipyard() {
         return shipyard;
     }
-
-
-
     public void setCountOfTurns(int countOfTurns) {
         this.countOfTurns = countOfTurns;
     }
-
     public int getCountOfTurns() {
         return countOfTurns;
     }
-
 
     /**
      * Отрисовка карты игрока.
@@ -189,8 +171,10 @@ public class Player {
                     //Устанавливаем корабль на восток
                     for (int i = 0; i < ship.getShipSize(); i++) {
                         ship.shipsOnTheSea(i,Y,X);
-                        ourFleetMap[Y][X].setShip();
-                       SeaBattleGame.setNeighbors(Y,X, ship);
+                        if (ship.getOwner().getOurFleetMap()[Y][X].getCellLabel() == 'B') {
+                            ourFleetMap[Y][X].setlinkor();
+                        } else {ourFleetMap[Y][X].setShip();}
+                        SeaBattleGame.setNeighbors(Y,X, ship);
                         X += 1;
                     }
                     SeaBattleGame.setTotalShips(SeaBattleGame.getTotalShips() + 1);
@@ -209,7 +193,9 @@ public class Player {
                     //Если прошли проверку устанавливаем корабль
                     for (int i = 0; i < ship.getShipSize(); i++) {
                         ship.shipsOnTheSea(i,Y,X);
-                        ourFleetMap[Y][X].setShip();
+                        if (ship.getOwner().getOurFleetMap()[Y][X].getCellLabel() == 'B') {
+                            ourFleetMap[Y][X].setlinkor();
+                        } else {ourFleetMap[Y][X].setShip();}
                        SeaBattleGame.setNeighbors(Y,X, ship);
                         Y += 1;
                     }
@@ -228,8 +214,10 @@ public class Player {
                     }
                     //Если прошли проверку устанавливаем корабль
                     for (int i = 0; i < ship.getShipSize(); i++) {
-                        ourFleetMap[Y][X].setShip();
                         ship.shipsOnTheSea(i,Y,X);
+                        if (ship.getOwner().getOurFleetMap()[Y][X].getCellLabel() == 'B') {
+                            ourFleetMap[Y][X].setlinkor();
+                        } else {ourFleetMap[Y][X].setShip();}
                         SeaBattleGame.setNeighbors(Y,X, ship);
                         X -= 1;
                     }
@@ -249,7 +237,9 @@ public class Player {
                     //Если прошли проверку устанавливаем корабль
                     for (int i = 0; i < ship.getShipSize(); i++) {
                         ship.shipsOnTheSea(i,Y,X);
-                        ourFleetMap[Y][X].setShip();
+                        if (ship.getOwner().getOurFleetMap()[Y][X].getCellLabel() == 'B') {
+                            ourFleetMap[Y][X].setlinkor();
+                        } else {ourFleetMap[Y][X].setShip();}
                         SeaBattleGame.setNeighbors(Y,X, ship);
                         Y -= 1;
                     }
