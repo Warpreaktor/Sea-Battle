@@ -3,35 +3,25 @@ package front;
 import com.core.Player;
 import com.core.SeaBattleGame;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
+import javafx.scene.Parent;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-
+import javafx.scene.input.MouseEvent;
+import javafx.scene.text.TextAlignment;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class MainController implements Initializable {
-    private SeaBattleGame seaBattleGame;
-    private Player human;
-    private Player CPU;
-
-    public void setHuman(Player human) {
-        this.human = human;
-    }
-
-    public void setCPU(Player CPU) {
-        this.CPU = CPU;
-    }
-
-    public void setSeaBattleGame(SeaBattleGame seaBattleGame) {
-        if (seaBattleGame == null) {
-            this.seaBattleGame = seaBattleGame;
-        }
-    }
-
-    @FXML public Label battleLogView = new Label();
     public String[] battleHistory = {"","","",""};
+    @FXML public static Button nextTurn = new Button();
+    @FXML public static Label battleLogView = new Label();
+
 
     public MainController() {
         battleLogView.setText("- Битва началась! \n");
@@ -53,13 +43,28 @@ public class MainController implements Initializable {
                 "- " + battleHistory[3] + "\n");
     }
 
-    public void nextTurnButton(ActionEvent event){
-        seaBattleGame.shootCPU(human, CPU);
+    public final void nextTurnButton(){
+        App.seaBattleGame.shootCPU();
+        App.isHumanTurn = true;
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        battleLogView.setAlignment(Pos.CENTER);
-    }
+        System.out.println("Initialize");
+        this.battleLogView.setAlignment(Pos.CENTER);
+        this.battleLogView.setTextAlignment(TextAlignment.CENTER);
 
+        //Рисуем кнопку Next turn
+        nextTurn.setText("Next turn");
+        nextTurn.setPrefHeight(67);
+        nextTurn.setPrefWidth(121);
+        nextTurn.setLayoutX(580);
+        nextTurn.setLayoutY(866);
+        nextTurn.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                nextTurnButton();
+            }
+        });
+        }
 }

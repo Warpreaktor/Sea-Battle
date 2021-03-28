@@ -10,6 +10,8 @@ public class SeaBattleGame {
     public MainController mainController;
     private static int SIZE;
     private static int totalShips = 0;
+    private Player human;
+    private Player CPU;
 
     public static int getSIZE() {
         return SIZE;
@@ -34,8 +36,10 @@ public class SeaBattleGame {
         }
         Player human = new Player(playerName);
         Player CPU = new Player("Адмирал " + Tools.getRandomName());
-        mainController.setHuman(human);
-        mainController.setCPU(CPU);
+        this.human = human;
+        this.CPU = CPU;
+        //mainController.setHuman(human);
+        //mainController.setCPU(CPU);
         CPU.setCPU(true);
         App.app.brushTheBattleField(this, App.stage, human, CPU);
         createCPUBattleField(CPU);
@@ -56,8 +60,7 @@ public class SeaBattleGame {
             return;
         }
         this.shoot(human, playerCPU, Y, X);
-        //this.shootCPU(human, playerCPU);
-
+            //Ожидаем нажатие кнопки next turn игроком.
 ///////////////////Тут нужно описать условия победы./////////////////////
         /*if (human.getNumberOfShip() == 0) {
             System.out.println("Победил игрок " + playerCPU.getName());
@@ -103,14 +106,14 @@ public class SeaBattleGame {
             System.out.println("Некорректный ввод, попробуйте еще раз");
         }
     }
-    public void shootCPU(Player human, Player CPU){
+    public void shootCPU(){
         int y = Tools.getRandomCoordinate();
         int x = Tools.getRandomCoordinate();
         //Делаем проверку. Если компьютер уже стрелял в эту точку, то изменить координаты.
         for (int i = 0; i < CPU.getEnemyFleetMap().length; i++) {
             for (int j = 0; j < CPU.getEnemyFleetMap()[i].length; j++) {
                 if (CPU.getEnemyFleetMap()[y][x].getCellLabel()=='+' || CPU.getEnemyFleetMap()[y][x].getCellLabel()=='X'){
-                    shootCPU(human, CPU);
+                    shootCPU();
                     return;
                 }
             }
@@ -151,5 +154,4 @@ public class SeaBattleGame {
             CPU.setCountOfTurns(CPU.getCountOfTurns()+1);;
         }
     }
-
 }

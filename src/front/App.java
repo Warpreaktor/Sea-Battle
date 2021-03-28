@@ -23,6 +23,9 @@ public class App extends Application {
     public static final App app = new App();
     public static final Stage stage = new Stage();
     public static final MainController mainController = new MainController();
+    public static SeaBattleGame seaBattleGame; // Должен быть public static final singleton и только в этом классе. Первая инициализация происходит в StartMenuController
+    public static boolean isHumanTurn = true;
+
     public static void main(String[] args) {
         launch(args);
     }
@@ -34,8 +37,8 @@ public class App extends Application {
         brushStartMenu(stage);
     }
 
-    private final AnchorPane anchorPaneInit(VBox leftBox, VBox rightBox, Label textLabel) {
-        AnchorPane anchorPane = new AnchorPane(leftBox, rightBox, textLabel);
+    private final AnchorPane anchorPaneInit(VBox leftBox, VBox rightBox, Label textLabel, Button nextTurn) {
+        AnchorPane anchorPane = new AnchorPane(leftBox, rightBox, textLabel, nextTurn);
         anchorPane.setBackground(Background.EMPTY);
         anchorPane.setPrefWidth(1280);
         anchorPane.setPrefHeight(1024);
@@ -99,12 +102,15 @@ public class App extends Application {
                     gameCell.setOnMouseClicked(new EventHandler<MouseEvent>() {
                         @Override
                         public void handle(MouseEvent mouseEvent) {
-                            game.battle(player,playerCPU,gameCell.getCoordinateY(),gameCell.getCoordinateX());
+                            //if (isHumanTurn) {
+                                game.battle(player, playerCPU, gameCell.getCoordinateY(), gameCell.getCoordinateX());
+                                //isHumanTurn = false;
+                           // }
                         }
                     });
                 }
             }
-            AnchorPane anchorPane = anchorPaneInit(leftVBox, rightVBox, mainController.getBattleLogView());
+            AnchorPane anchorPane = anchorPaneInit(leftVBox, rightVBox, mainController.getBattleLogView(), mainController.nextTurn);
             Group group = new Group(root, anchorPane);
             Scene scene = new Scene(group);
             scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
