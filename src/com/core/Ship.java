@@ -70,6 +70,10 @@ public class Ship {
         this.getOwner().getOurFleetMap()[y][x].setShip(true);
         this.getOwner().getOurFleetMap()[y][x].setCellLabel(this.getShipLabel());
         this.getOwner().getOurFleetMap()[y][x].setShipRef(this);
+        if (this.getOwner().getOurFleetMap()[y][x].getCellLabel() == 'B'){
+            this.getOwner().getOurFleetMap()[y][x].setlinkor();
+        }
+
     }
     public String naming(){
         String name = "Безымянный";
