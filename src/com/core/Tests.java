@@ -68,7 +68,7 @@ public class Tests {
                     for (int i = 0; i < ship.getShipSize(); i++) {
                         ship.setCoordinates(i, 0, diceY);
                         ship.setCoordinates(i, 1, diceX);
-                        ship.getOwner().getOurFleetMap()[diceY][diceX].setShip(true);
+                        ship.getOwner().getOurFleetMap()[diceY][diceX].setIsShip(true);
                         System.out.println("Отметка на карте об установке корабля - " +diceY + " - " + diceX);
                         ship.getOwner().getOurFleetMap()[diceY][diceX].setCellLabel(ship.getShipLabel());
                         diceX += 1;
@@ -98,7 +98,7 @@ public class Tests {
                     for (int i = 0; i < ship.getShipSize(); i++) {
                         ship.setCoordinates(i, 0, diceY);
                         ship.setCoordinates(i, 1, diceX);
-                        ship.getOwner().getOurFleetMap()[diceY][diceX].setShip(true);
+                        ship.getOwner().getOurFleetMap()[diceY][diceX].setIsShip(true);
                         ship.getOwner().getOurFleetMap()[diceY][diceX].setCellLabel(ship.getShipLabel());
                         diceY += 1;
                     }
@@ -118,7 +118,7 @@ public class Tests {
                     for (int i = 0; i < ship.getShipSize(); i++) {
                         ship.setCoordinates(i, 0, diceY);
                         ship.setCoordinates(i, 1, diceX);
-                        ship.getOwner().getOurFleetMap()[diceY][diceX].setShip(true);
+                        ship.getOwner().getOurFleetMap()[diceY][diceX].setIsShip(true);
                         ship.getOwner().getOurFleetMap()[diceY][diceX].setCellLabel(ship.getShipLabel());
                         diceX -= 1;
                     }
@@ -138,7 +138,7 @@ public class Tests {
                     for (int i = 0; i < ship.getShipSize(); i++) {
                         ship.setCoordinates(i, 0, diceY);
                         ship.setCoordinates(i, 1, diceX);
-                        ship.getOwner().getOurFleetMap()[diceY][diceX].setShip(true);
+                        ship.getOwner().getOurFleetMap()[diceY][diceX].setIsShip(true);
                         ship.getOwner().getOurFleetMap()[diceY][diceX].setCellLabel(ship.getShipLabel());
                         diceY -= 1;
                     }

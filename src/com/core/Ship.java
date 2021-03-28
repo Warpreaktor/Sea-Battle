@@ -67,7 +67,7 @@ public class Ship {
     public void shipsOnTheSea(int index, int y, int x){
         this.setCoordinates(index, 0, y);
         this.setCoordinates(index, 1, x);
-        this.getOwner().getOurFleetMap()[y][x].setShip(true);
+        this.getOwner().getOurFleetMap()[y][x].setIsShip(true);
         this.getOwner().getOurFleetMap()[y][x].setCellLabel(this.getShipLabel());
         this.getOwner().getOurFleetMap()[y][x].setShipRef(this);
 

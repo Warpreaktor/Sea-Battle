@@ -84,7 +84,7 @@ public class SeaBattleGame {
                     CPU.getOurFleetMap()[y][x].setRedCross(); //Ставим отмеку у противнка в его карте
                     human.getEnemyFleetMap()[y][x].setCellLabel('X');          //Ставим отметку в своей "вражеской" карте
                     human.getEnemyFleetMap()[y][x].setRedCross();          //Ставим отметку в своей "вражеской" карте
-                    CPU.getOurFleetMap()[y][x].setShip(false);
+                    CPU.getOurFleetMap()[y][x].setIsShip(false);
                 }
                 if (enemyShip.getHp()<=0) {
                     mainController.textOutput("Корабль " + enemyShipName + " уничтожен!");
@@ -92,7 +92,7 @@ public class SeaBattleGame {
                     CPU.getOurFleetMap()[y][x].setRedCross(); //Ставим отмеку у противнка в его карте
                     human.getEnemyFleetMap()[y][x].setCellLabel('X');
                     human.getEnemyFleetMap()[y][x].setRedCross();          //Ставим отметку в своей "вражеской" карте
-                    CPU.getOurFleetMap()[y][x].setShip(false);
+                    CPU.getOurFleetMap()[y][x].setIsShip(false);
                     CPU.setNumberOfShip(CPU.getNumberOfShip()-1);
                 }
                 human.setCountOfTurns(human.getCountOfTurns()+1);
@@ -133,7 +133,7 @@ public class SeaBattleGame {
                 human.getOurFleetMap()[y][x].setRedCross();             //Ставим отмеку у противнка в его карте
                 CPU.getEnemyFleetMap()[y][x].setCellLabel('X');
                 CPU.getEnemyFleetMap()[y][x].setRedCross();             //Ставим отметку в своей "вражеской" карте
-                human.getOurFleetMap()[y][x].setShip(false);
+                human.getOurFleetMap()[y][x].setIsShip(false);
             }
             if (enemyShip.getHp()<=0) {
                 mainController.textOutput("Корабль " + enemyShipName + " уничтожен!");
@@ -141,7 +141,7 @@ public class SeaBattleGame {
                 human.getOurFleetMap()[y][x].setRedCross();             //Ставим отмеку у противнка в его карте
                 CPU.getEnemyFleetMap()[y][x].setCellLabel('X');
                 CPU.getEnemyFleetMap()[y][x].setRedCross();
-                human.getOurFleetMap()[y][x].setShip(false);
+                human.getOurFleetMap()[y][x].setIsShip(false);
                 human.setNumberOfShip(human.getNumberOfShip()-1);
             }
             CPU.setCountOfTurns(CPU.getCountOfTurns()+1);;

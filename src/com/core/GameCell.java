@@ -43,7 +43,7 @@ public class GameCell extends ImageView {
     public char getCellLabel() {
         return cellLabel;
     }
-    public void setShip(boolean ship) {
+    public void setIsShip(boolean ship) {
         isShip = ship;
     }
     public boolean isShip() {
