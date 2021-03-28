@@ -176,16 +176,16 @@ public class Player {
         int Y = Tools.getRandomCoordinate();  //Получаем рандомную координату Y
         int side = 1 + (int) (Math.random() * 4);  //Получаем рандомное направление для размещения корабля
         try {
-            int localDiceX = X;
-            int localDiceY = Y;
+            int tempX = X;
+            int tempY = Y;
             switch (side) { //4 кейса на каждую сторону света
                 case (1)://от точки координат вправо
                     //делаем проверку, можем ли мы установить корабль по предполагаемым координатам
                     for (int i = 0; i < ship.getShipSize(); i++) {
-                        if (ourFleetMap[localDiceY][localDiceX].isShip()) {
+                        if (ourFleetMap[tempY][tempX].isShip()) {
                             otherShipOnGameField(ship);
                             return;
-                        } else {localDiceX += 1;}
+                        } else {tempX += 1;}
 
                     }
                     //Если прошли проверку устанавливаем корабль
@@ -199,11 +199,11 @@ public class Player {
                 case (2)://от точки координат вниз
                     //делаем проверку, можем ли мы установить корабль по предполагаемым координатам
                     for (int i = 0; i < ship.getShipSize(); i++) {
-                        if (ship.getOwner().getOurFleetMap()[localDiceY][localDiceX].isShip()) {
+                        if (ship.getOwner().getOurFleetMap()[tempY][tempX].isShip()) {
                             otherShipOnGameField(ship);
                             return;
                         } else {
-                            localDiceY += 1;
+                            tempY += 1;
                         }
                     }
                     //Если прошли проверку устанавливаем корабль
@@ -217,11 +217,11 @@ public class Player {
                 case (3)://от точки координат влево
                     //делаем проверку, можем ли мы установить корабль по предполагаемым координатам
                     for (int i = 0; i < ship.getShipSize(); i++) {
-                        if (ship.getOwner().getOurFleetMap()[localDiceY][localDiceX].isShip()) {
+                        if (ship.getOwner().getOurFleetMap()[tempY][tempX].isShip()) {
                             otherShipOnGameField(ship);
                             return;
                         } else {
-                            localDiceX -= 1;
+                            tempX -= 1;
                         }
                     }
                     //Если прошли проверку устанавливаем корабль
@@ -235,11 +235,11 @@ public class Player {
                 case (4)://от точки координат вверх
                     //делаем проверку, можем ли мы установить корабль по предполагаемым координатам
                     for (int i = 0; i < ship.getShipSize(); i++) {
-                        if (ship.getOwner().getOurFleetMap()[localDiceY][localDiceX].isShip()) {
+                        if (ship.getOwner().getOurFleetMap()[tempY][tempX].isShip()) {
                             otherShipOnGameField(ship);
                             return;
                         } else {
-                            localDiceY -= 1;
+                            tempY -= 1;
                         }
                     }
                     //Если прошли проверку устанавливаем корабль

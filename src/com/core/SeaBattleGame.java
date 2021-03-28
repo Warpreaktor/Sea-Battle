@@ -20,6 +20,15 @@ public class SeaBattleGame {
         totalShips = ships;
     }
 
+    /**
+     * Инициализация всех объектов игры должна происходить в классе SeaBattleGame.
+     * Сейчас все освсем не так и инициализации разбросаны по разным местам.
+     * Нужно будет все это соброать воедино.
+     * @param size - Размер клеток на карте. Карта может быть либо 10 на 10 либо 20 на 20.
+     * @param playerName - Имя человеческого игрока. Сюда бы вынесте всех игроков и тогда не нужно будет держать здесь их имена.
+     * @throws IOException - Если убрать из этого класса отрисовку карты, то и IOExceptions тоже можно убрать.
+     * Это вообще не правильно что тут вызываются методы отрисовки карты.
+     */
     public SeaBattleGame(String size, String playerName) throws IOException {
         mainController = App.mainController;
         if (size.equals("10 на 10")){
@@ -31,8 +40,6 @@ public class SeaBattleGame {
         Player CPU = new Player("Адмирал " + Tools.getRandomName());
         this.human = human;
         this.CPU = CPU;
-        //mainController.setHuman(human);
-        //mainController.setCPU(CPU);
         CPU.setCPU(true);
         App.app.brushTheBattleField(this, App.stage, human, CPU);
         createCPUBattleField(CPU);
@@ -48,6 +55,7 @@ public class SeaBattleGame {
             }
         }
     }
+
     public void battle(Player human, Player playerCPU, int Y, int X) {
         if (human.getEnemyFleetMap()[Y][X].getCellLabel() == '+' || human.getEnemyFleetMap()[Y][X].getCellLabel() == 'X'){
             return;

@@ -1,5 +1,11 @@
 package com.core;
 
+/**
+ * shipSize - Количество занимаемых на поле ячеек кораблеём. 4 - Линкор, 3 - Крейсер(), 2 - Эсминец, 1 - Подлодка
+ * shipLabel - Не смотря на то что игра имеет графический интерфейс, тем не менее бекэндная часть игры ориентируется
+ * на эти простые символы, чтобы понимать состояние клетки: "B" = Линкор, L = Крейсер, M = Эсминец, S = Подлодкаж;
+ * "+" = по клетке уже стреляли, "X" = Корабль поврежден\уничтожен, "0" = соседствующая с кораблем клетка.
+ */
 public class Ship {
     private final String name;
     private int shipSize;        //Количество палуб у корабля
@@ -11,43 +17,33 @@ public class Ship {
     public void setHp(int hp) {
         this.hp = hp;
     }
-
     public int getHp() {
         return hp;
     }
-
     public String getName() {
         return name;
     }
-
     public void setOwner(Player owner) {
         this.owner = owner;
     }
-
     public int[][] getCoordinates() {
         return coordinates;
     }
-
     public Player getOwner() {
         return owner;
     }
-
     public void setCoordinates(int string, int column, int coordinate) {
         coordinates[string][column] = coordinate;
     }
-
     public void setShipSize(int shipSize) {
         this.shipSize = shipSize;
     }
-
     public int getShipSize() {
         return shipSize;
     }
-
     public void setShipLabel(char shipLabel) {
         this.shipLabel = shipLabel;
     }
-
     public char getShipLabel() {
         return shipLabel;
     }
