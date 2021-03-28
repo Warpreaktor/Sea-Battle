@@ -102,10 +102,10 @@ public class App extends Application {
                     gameCell.setOnMouseClicked(new EventHandler<MouseEvent>() {
                         @Override
                         public void handle(MouseEvent mouseEvent) {
-                            //if (isHumanTurn) {
+                            if (isHumanTurn) {
                                 game.battle(player, playerCPU, gameCell.getCoordinateY(), gameCell.getCoordinateX());
-                                //isHumanTurn = false;
-                           // }
+                                isHumanTurn = false;
+                            }
                         }
                     });
                 }

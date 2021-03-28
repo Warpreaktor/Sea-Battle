@@ -61,6 +61,7 @@ public class SeaBattleGame {
         }
         this.shoot(human, playerCPU, Y, X);
             //Ожидаем нажатие кнопки next turn игроком.
+
 ///////////////////Тут нужно описать условия победы./////////////////////
         /*if (human.getNumberOfShip() == 0) {
             System.out.println("Победил игрок " + playerCPU.getName());
@@ -119,7 +120,6 @@ public class SeaBattleGame {
             }
         }
         //Повторяющйся код
-        mainController.textOutput(CPU.getName() + " стреляет по координатам Y - " + y + " X - " + x);
         if (human.getOurFleetMap()[y][x].isShip()) {
             String enemyShipName = human.getOurFleetMap()[y][x].getShipRef().getName();
             Ship enemyShip = human.getOurFleetMap()[y][x].getShipRef();
@@ -143,7 +143,7 @@ public class SeaBattleGame {
             }
             CPU.setCountOfTurns(CPU.getCountOfTurns()+1);;
         } else {
-            mainController.textOutput(CPU.getName() + " промахнулся.");
+            mainController.textOutput(CPU.getName() + " стреляет и промахивается.");
             if (CPU.getEnemyFleetMap()[y][x].getCellLabel()=='X'){
 
             }else {

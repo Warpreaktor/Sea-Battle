@@ -11,6 +11,8 @@ import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.TextAlignment;
 import java.io.IOException;
@@ -44,8 +46,10 @@ public class MainController implements Initializable {
     }
 
     public final void nextTurnButton(){
-        App.seaBattleGame.shootCPU();
-        App.isHumanTurn = true;
+        if (App.isHumanTurn == false) {
+            App.seaBattleGame.shootCPU();
+            App.isHumanTurn = true;
+        }
     }
 
     @Override
@@ -64,6 +68,15 @@ public class MainController implements Initializable {
             @Override
             public void handle(ActionEvent event) {
                 nextTurnButton();
+            }
+        });
+        nextTurn.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent keyEvent) {
+                KeyCode keyCode = keyEvent.getCode();
+                if (keyCode.equals(KeyCode.SPACE)){
+                    nextTurnButton();
+                }
             }
         });
         }
