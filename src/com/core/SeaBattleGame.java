@@ -63,14 +63,9 @@ public class SeaBattleGame {
             return;
         }
         this.shoot(human, playerCPU, Y, X);
-            //Ожидаем нажатие кнопки next turn игроком.
+            //После хода игрока ожидаем нажатие кнопки next turn игроком.
+        isVictory();
 
-///////////////////Тут нужно описать условия победы./////////////////////
-        /*if (human.getNumberOfShip() == 0) {
-            System.out.println("Победил игрок " + playerCPU.getName());
-        } else {
-            System.out.println("Победил игрок " + human.getName());
-        }*/
     }
     public void shoot(Player human, Player CPU, int y, int x) {
         try {
@@ -121,6 +116,7 @@ public class SeaBattleGame {
                     return;
                 }
             }
+            isVictory();
         }
         //Повторяющйся код
         if (human.getOurFleetMap()[y][x].isShip()) {
@@ -160,19 +156,20 @@ public class SeaBattleGame {
     public static void setNeighbors(int Y, int X, Ship ship) {
         for (int y = Y - 1; y <= Y + 1; y++) {
             for (int x = X - 1; x <= X + 1; x++) {
-                if (y < 0 || y >= SIZE) {
-                    continue;
-                }
-                if (x < 0 || x >= SIZE) {
-                    continue;
-                }
-                if (ship.getOwner().getOurFleetMap()[y][x].isShip()) {
-                    continue;
-                }
+                if (y < 0 || y >= SIZE) {continue;}
+                if (x < 0 || x >= SIZE) {continue;}
+                if (ship.getOwner().getOurFleetMap()[y][x].isShip()) {continue;}
                 ship.getOwner().getOurFleetMap()[y][x].setCellLabel('0');
-                ship.getOwner().getOurFleetMap()[y][x].setDotGreen();
-
             }
         }
+    }
+    public void isVictory(){
+        if (human.getNumberOfShip() == 0) {
+            System.out.println("Победил " + CPU.getName());
+        } else
+            if (CPU.getNumberOfShip() == 0){
+            System.out.println("Победил " + human.getName());
+        }
+
     }
 }
