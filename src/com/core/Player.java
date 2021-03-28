@@ -144,12 +144,7 @@ public class Player {
      */
     public void shipsOnTheField() {
         for (Ship ship : shipyard) {
-            if (ship.getShipSize() == 1) {
-                smallShipOnGameField(ship);
-                //player.setShipyard()[i]Удалить корабль из верфи
-            } else {
                 otherShipOnGameField(ship);
-            }
         }
     }
 

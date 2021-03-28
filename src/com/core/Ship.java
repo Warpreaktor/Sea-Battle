@@ -56,7 +56,7 @@ public class Ship {
             case(1): this.shipLabel = 'S';break;
             case(2): this.shipLabel = 'M';break;
             case(3): this.shipLabel = 'L';break;
-            case(4): this.shipLabel = 'B';break;
+            case(4): this.setShipLabel('B');break;
         }
         this.owner = owner;
         this.name = naming();
@@ -73,7 +73,6 @@ public class Ship {
         if (this.getOwner().getOurFleetMap()[y][x].getCellLabel() == 'B'){
             this.getOwner().getOurFleetMap()[y][x].setlinkor();
         }
-
     }
     public String naming(){
         String name = "Безымянный";

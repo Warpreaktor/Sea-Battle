@@ -63,7 +63,6 @@ public class GameCell extends ImageView {
     }
     public void setDotGreen(){this.setImage(dotGreen);}
     public void setlinkor(){this.setImage(linkor);}
-
     public void setShip(){
         this.setImage(ship);
     }
