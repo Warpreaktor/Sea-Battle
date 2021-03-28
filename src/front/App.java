@@ -34,7 +34,8 @@ public class App extends Application {
     public void start(Stage stage) throws Exception {
         stage = this.stage;
         stage.setResizable(false);
-        brushStartMenu(stage);
+        brushShipSettingMenu(stage);
+        //brushStartMenu(stage);
     }
 
     private final AnchorPane anchorPaneInit(VBox leftBox, VBox rightBox, Label textLabel, Button nextTurn) {
@@ -60,7 +61,19 @@ public class App extends Application {
         }
     }
 
-    public final void brushTheBattleField(SeaBattleGame game, Stage stage, Player player, Player playerCPU) throws IOException{
+    public final void brushShipSettingMenu(Stage stage) throws IOException {
+        try{
+            Parent root = FXMLLoader.load(getClass().getResource("ShipSettingMenu.fxml"));
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        }catch(IOException e){
+            e.printStackTrace();
+        }
+    }
+
+
+        public final void brushTheBattleField(SeaBattleGame game, Stage stage, Player player, Player playerCPU) throws IOException{
         try {
             stage.setX(300);
             stage.setY(100);

@@ -132,24 +132,8 @@ public class Player {
 
     /**
      * Метод принимает корабль в качестве параметра и выставляет его на игровое поле, проверяя
-     * перед этим не заполнена ли эта ячейка другим кораблем.
+     * перед этим не соседствует ли или не заполнена эта ячейка другим кораблем.
      */
-    public void smallShipOnGameField(Ship ship) {
-        //Добавить остановку бесконечной рекурсии в случае если корабль не может найти ни одного пустого места на поле.
-        int x = Tools.getRandomCoordinate();  //Получаем рандомную координату X
-        int y = Tools.getRandomCoordinate();  //Получаем рандомную координату Y
-        if (ourFleetMap[y][x].isShip() ||
-                ourFleetMap[x][x].getCellLabel() =='0') {
-            smallShipOnGameField(ship);       //Если на клетке уже есть корабль, пробуем поставить кораблик еще раз.
-            return;
-        } else {
-            ship.shipsOnTheSea(0,y,x);
-            ourFleetMap[y][x].setShip();
-            SeaBattleGame.setNeighbors(y,x,ship);
-            SeaBattleGame.setTotalShips(SeaBattleGame.getTotalShips() + 1);
-        }
-    }
-
     public void otherShipOnGameField(Ship ship) {
         int X = Tools.getRandomCoordinate();  //Получаем рандомную координату X
         int Y = Tools.getRandomCoordinate();  //Получаем рандомную координату Y

@@ -169,4 +169,8 @@ public class SeaBattleGame {
         self.getEnemyFleetMap()[Y][X].setCellLabel('X');    //Ставим отметку в своей карте "Радар"
         self.getEnemyFleetMap()[Y][X].setRedCross();        //Рисуем крест в своей карте "Радар"
     }
+
+    public void manualShipSetting(){
+
+    }
 }
