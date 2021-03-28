@@ -161,13 +161,14 @@ public class Player {
         //Добавить остановку бесконечной рекурсии в случае если корабль не может найти ни одного пустого места на поле.
         int x = Tools.getRandomCoordinate();  //Получаем рандомную координату X
         int y = Tools.getRandomCoordinate();  //Получаем рандомную координату Y
-        if (ourFleetMap[y][x].isShip()||
-                ship.getOwner().getOurFleetMap()[x][x].getCellLabel()=='0') {
+        if (ourFleetMap[y][x].isShip() ||
+                ourFleetMap[x][x].getCellLabel() =='0') {
             smallShipOnGameField(ship);       //Если на клетке уже есть корабль, пробуем поставить кораблик еще раз.
             return;
         } else {
             ship.shipsOnTheSea(0,y,x);
             ourFleetMap[y][x].setShip();
+            SeaBattleGame.setNeighbors(y,x,ship);
             SeaBattleGame.setTotalShips(SeaBattleGame.getTotalShips() + 1);
         }
     }
@@ -184,7 +185,7 @@ public class Player {
                     //делаем проверку, можем ли мы установить корабль по предполагаемым координатам
                     for (int i = 0; i < ship.getShipSize(); i++) {
                         if (ourFleetMap[tempY][tempX].isShip() ||
-                                ourFleetMap[tempY][tempX].getCellLabel()=='0') {
+                                ourFleetMap[tempY][tempX].getCellLabel() == '0') {
                             otherShipOnGameField(ship);
                             return;
                         } else {tempX += 1;}
@@ -194,7 +195,7 @@ public class Player {
                     for (int i = 0; i < ship.getShipSize(); i++) {
                         ship.shipsOnTheSea(i,Y,X);
                         ourFleetMap[Y][X].setShip();
-                        SeaBattleGame.setNeighbors(Y,X, ship);
+                       SeaBattleGame.setNeighbors(Y,X, ship);
                         X += 1;
                     }
                     SeaBattleGame.setTotalShips(SeaBattleGame.getTotalShips() + 1);

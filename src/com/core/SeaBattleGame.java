@@ -170,6 +170,8 @@ public class SeaBattleGame {
                     continue;
                 }
                 ship.getOwner().getOurFleetMap()[y][x].setCellLabel('0');
+                ship.getOwner().getOurFleetMap()[y][x].setDotGreen();
+
             }
         }
     }

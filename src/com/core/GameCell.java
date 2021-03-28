@@ -15,48 +15,39 @@ public class GameCell extends ImageView {
     private Image wave = new Image(getClass().getResourceAsStream("/resources/waveminBoard.jpg"));
     private Image dot = new Image(getClass().getResourceAsStream("/resources/dot150x150.png"));
     private Image ship = new Image(getClass().getResourceAsStream("/resources/ship150x150.jpg"));
+    private Image dotGreen = new Image(getClass().getResourceAsStream("/resources/dotGreen150x150.png"));
 
 
     public int getCoordinateX() {
         return coordinateX;
     }
-
     public int getCoordinateY() {
         return coordinateY;
     }
-
     public void setCoordinateX(int coordinateX) {
         this.coordinateX = coordinateX;
     }
-
     public void setCoordinateY(int coordinateY) {
         this.coordinateY = coordinateY;
     }
-
     public void setShipRef(Ship shipRef) {
         this.shipRef = shipRef;
     }
-
     public Ship getShipRef() {
         return shipRef;
     }
-
     public void setCellLabel(char cellLabel) {
         this.cellLabel = cellLabel;
     }
-
     public char getCellLabel() {
         return cellLabel;
     }
-
     public void setShip(boolean ship) {
         isShip = ship;
     }
-
     public boolean isShip() {
         return isShip;
     }
-
     public void setRedCross(){
         this.setImage(redCross);
     }
@@ -69,6 +60,7 @@ public class GameCell extends ImageView {
     public void setDot(){
         this.setImage(dot);
     }
+    public void setDotGreen(){this.setImage(dotGreen);}
     public void setShip(){
         this.setImage(ship);
     }

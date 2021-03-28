@@ -54,7 +54,6 @@ public class MainController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        System.out.println("Initialize");
         this.battleLogView.setAlignment(Pos.CENTER);
         this.battleLogView.setTextAlignment(TextAlignment.CENTER);
 
