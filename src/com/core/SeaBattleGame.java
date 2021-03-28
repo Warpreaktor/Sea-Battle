@@ -2,6 +2,8 @@ package com.core;
 import front.App;
 import front.MainController;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class SeaBattleGame {
     public MainController mainController;
@@ -153,6 +155,22 @@ public class SeaBattleGame {
                 CPU.getEnemyFleetMap()[y][x].setDot();
             }
             CPU.setCountOfTurns(CPU.getCountOfTurns()+1);;
+        }
+    }
+    public static void setNeighbors(int Y, int X, Ship ship) {
+        for (int y = Y - 1; y <= Y + 1; y++) {
+            for (int x = X - 1; x <= X + 1; x++) {
+                if (y < 0 || y >= SIZE) {
+                    continue;
+                }
+                if (x < 0 || x >= SIZE) {
+                    continue;
+                }
+                if (ship.getOwner().getOurFleetMap()[y][x].isShip()) {
+                    continue;
+                }
+                ship.getOwner().getOurFleetMap()[y][x].setCellLabel('0');
+            }
         }
     }
 }
