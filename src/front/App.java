@@ -141,4 +141,23 @@ public class App extends Application {
         stage.setScene(new Scene(group));
         stage.show();
     }
+
+    public static void brushTheVictoryMessage(String message){
+        Stage stage = new Stage();
+        TextArea error = new TextArea();
+        error.setText(message);
+        Button button = new Button();
+        button.setText("OK");
+        button.setLayoutX(200);
+        button.setLayoutY(100);
+        button.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                System.exit(0);
+            }
+        });
+        Group group = new Group(error, button);
+        stage.setScene(new Scene(group));
+        stage.show();
+    }
 }

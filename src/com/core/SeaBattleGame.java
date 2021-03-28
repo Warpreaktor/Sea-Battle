@@ -7,7 +7,7 @@ import java.util.List;
 
 public class SeaBattleGame {
     public MainController mainController;
-    private static int SIZE;
+    private static int SIZE = 10;
     private static int totalShips = 0;
     private Player human;
     private Player CPU;
@@ -33,11 +33,6 @@ public class SeaBattleGame {
      */
     public SeaBattleGame(String size, String playerName) throws IOException {
         mainController = App.mainController;
-        if (size.equals("10 на 10")){
-            SIZE = 10;
-        }else {
-            SIZE = 20;
-        }
         Player human = new Player(playerName);
         Player CPU = new Player("Адмирал " + Tools.getRandomName());
         this.human = human;
@@ -165,10 +160,12 @@ public class SeaBattleGame {
     }
     public void isVictory(){
         if (human.getNumberOfShip() == 0) {
+            App.brushTheVictoryMessage("Победил " + CPU.getName());
             System.out.println("Победил " + CPU.getName());
         } else
             if (CPU.getNumberOfShip() == 0){
-            System.out.println("Победил " + human.getName());
+                App.brushTheVictoryMessage("Победил " + human.getName());
+                System.out.println("Победил " + human.getName());
         }
 
     }
