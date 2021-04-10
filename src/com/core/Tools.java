@@ -2,7 +2,6 @@ package com.core;
 
 import front.App;
 import javafx.event.EventHandler;
-import javafx.scene.effect.BoxBlur;
 import javafx.scene.effect.Effect;
 import javafx.scene.effect.Shadow;
 import javafx.scene.image.ImageView;
@@ -150,7 +149,7 @@ public class Tools {
                 event.consume();
             }
         });
-        //Событие наступающее при отпускании ресурса в зоне
+        //Drop event
         targetZone.setOnDragDropped(new EventHandler<DragEvent>() {
             public void handle(DragEvent event) {
                 /* data dropped */
@@ -158,8 +157,8 @@ public class Tools {
                 Dragboard db = event.getDragboard();
                 boolean success = false;
                 if (db.hasImage()) {
-                    targetZone.setImage(db.getImage());
-                    success = true;
+                    int imgSize = (int)event.getDragboard().getImage().getWidth();
+                    success = setImageForCells(targetZone.getCoordinateY(), targetZone.getCoordinateX(), targetZone, imgSize);
                 }
                 /* let the source know whether the string was successfully
                  * transferred and used */
@@ -204,22 +203,37 @@ public class Tools {
                 break;
         }
     }
-    public static void setImageForNeighbors(int Y, int X, GameCell cell, Effect fx, int imgSize) {
+    public static boolean setImageForCells(int Y, int X, GameCell cell, int imgSize) {
         GameCell[][] map = App.seaBattleGame.getHuman().getOurFleetMap();
         imgSize /= 60;
-        switch (imgSize){
+        switch (imgSize) {
             case 4:
-                if (X + 1 <= SeaBattleGame.getSIZE()) map[Y][X + 1].setEffect(fx);
-                if (X - 1 >= 0) map[Y][X - 1].setEffect(fx);
-                if (X - 2 >= 0) map[Y][X - 2].setEffect(fx);
-                break;
+                if (X + 1 <= SeaBattleGame.getSIZE() && X - 1 >= 0 && X - 2 >= 0) {
+                    map[Y][X].setLinkor();
+                    map[Y][X + 1].setLinkor();
+                    map[Y][X - 1].setLinkor();
+                    map[Y][X - 2].setLinkor();
+                    return true;
+                } else return false;
             case 3:
-                if (X + 1 <= SeaBattleGame.getSIZE()) map[Y][X + 1].setEffect(fx);
-                if (X - 1 >= 0) map[Y][X - 1].setEffect(fx);
-                break;
+                if (X + 1 <= SeaBattleGame.getSIZE() && X - 1 >= 0){
+                    map[Y][X].setCruiser();
+                map[Y][X + 1].setCruiser();
+                map[Y][X - 1].setCruiser();
+                return true;
+                } else return false;
             case 2:
-                if (X - 1 >= 0) map[Y][X - 1].setEffect(fx);
-                break;
+                if (X - 1 >= 0) {
+                    map[Y][X].setDestroyer();
+                    map[Y][X - 1].setDestroyer();
+                    return true;
+                } else return false;
+            case 1:
+                if (X - 1 >= 0) {
+                    map[Y][X].setSubmarine();
+                    return true;
+                } else return false;
         }
+        return false;
     }
 }

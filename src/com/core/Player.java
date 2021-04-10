@@ -1,11 +1,5 @@
 package com.core;
 
-import front.MainController;
-import javafx.scene.paint.Color;
-
-import java.awt.*;
-import java.util.Scanner;
-
 public class Player {
     private boolean isCPU;
     private String name;
@@ -158,7 +152,7 @@ public class Player {
                     for (int i = 0; i < ship.getShipSize(); i++) {
                         ship.shipsOnTheSea(i,Y,X);
                         if (ship.getOwner().getOurFleetMap()[Y][X].getCellLabel() == 'B') {
-                            ourFleetMap[Y][X].setlinkor();
+                            ourFleetMap[Y][X].setLinkor();
                         } else {ourFleetMap[Y][X].setShip();}
                         SeaBattleGame.setNeighbors(Y,X, ship);
                         X += 1;
@@ -180,7 +174,7 @@ public class Player {
                     for (int i = 0; i < ship.getShipSize(); i++) {
                         ship.shipsOnTheSea(i,Y,X);
                         if (ship.getOwner().getOurFleetMap()[Y][X].getCellLabel() == 'B') {
-                            ourFleetMap[Y][X].setlinkor();
+                            ourFleetMap[Y][X].setLinkor();
                         } else {ourFleetMap[Y][X].setShip();}
                        SeaBattleGame.setNeighbors(Y,X, ship);
                         Y += 1;
@@ -202,7 +196,7 @@ public class Player {
                     for (int i = 0; i < ship.getShipSize(); i++) {
                         ship.shipsOnTheSea(i,Y,X);
                         if (ship.getOwner().getOurFleetMap()[Y][X].getCellLabel() == 'B') {
-                            ourFleetMap[Y][X].setlinkor();
+                            ourFleetMap[Y][X].setLinkor();
                         } else {ourFleetMap[Y][X].setShip();}
                         SeaBattleGame.setNeighbors(Y,X, ship);
                         X -= 1;
@@ -224,7 +218,7 @@ public class Player {
                     for (int i = 0; i < ship.getShipSize(); i++) {
                         ship.shipsOnTheSea(i,Y,X);
                         if (ship.getOwner().getOurFleetMap()[Y][X].getCellLabel() == 'B') {
-                            ourFleetMap[Y][X].setlinkor();
+                            ourFleetMap[Y][X].setLinkor();
                         } else {ourFleetMap[Y][X].setShip();}
                         SeaBattleGame.setNeighbors(Y,X, ship);
                         Y -= 1;

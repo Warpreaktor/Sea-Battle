@@ -22,6 +22,9 @@ public class GameCell extends ImageView {
     private Image ship = new Image(getClass().getResourceAsStream("/resources/ship150x150.jpg"));
     private Image dotGreen = new Image(getClass().getResourceAsStream("/resources/dotGreen150x150.png"));
     private Image linkor = new Image(getClass().getResourceAsStream("/resources/linkor150x150.png"));
+    private Image cruiser = new Image("/resources/cruiser60x60.png");
+    private Image destroyer = new Image("/resources/destroyer60x60.png");
+    private Image submarine = new Image("/resources/submarine60x60.png");
 
 
     public int getCoordinateX() {
@@ -67,7 +70,10 @@ public class GameCell extends ImageView {
         this.setImage(dot);
     }
     public void setDotGreen(){this.setImage(dotGreen);}
-    public void setlinkor(){this.setImage(linkor);}
+    public void setLinkor(){this.setImage(linkor);}
+    public void setCruiser(){this.setImage(cruiser);}
+    public void setDestroyer(){this.setImage(destroyer);}
+    public void setSubmarine(){this.setImage(submarine);}
     public void setShip(){
         this.setImage(ship);
     }
