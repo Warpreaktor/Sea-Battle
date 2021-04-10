@@ -73,94 +73,22 @@ public class App extends Application {
             stage.setX(300);
             stage.setY(100);
             Parent root = FXMLLoader.load(ShipSettingController.class.getResource("ShipSettingMenu.fxml"));
-            final ImageView source = new ImageView("/resources/ship60x60.jpg");
+            final GameCell source = new GameCell();
+            source.setlinkor();
             source.setX(50);
             source.setY(100);
             source.setFitHeight(60);
             source.setFitWidth(60);
-            final ImageView target = new ImageView("/resources/target150x150.png");
+            source.gameCellAsASource(source);
+            final GameCell target = new GameCell();
             target.setX(300);
             target.setY(100);
             target.setFitHeight(60);
             target.setFitWidth(60);
+            target.setWave();
             Group group = new Group(root, source, target);
+            target.gameCellAsATarget(target);
 
-            //Событие при обнаружении перетаскивания
-            source.setOnDragDetected(new EventHandler<MouseEvent>() {
-                public void handle(MouseEvent event) {
-                    /* drag was detected, start a drag-and-drop gesture*/
-                    /* allow any transfer mode */
-                    Dragboard db = source.startDragAndDrop(TransferMode.MOVE);
-                    /* Put a image on a dragboard */
-                    ClipboardContent content = new ClipboardContent();
-                    content.putImage(source.getImage());
-                    db.setContent(content);
-                    event.consume();
-                }
-            });
-            //Событие при заходе в зону
-            target.setOnDragOver(new EventHandler<DragEvent>() {
-                public void handle(DragEvent event) {
-                    /* Ресурс находится внутри зоны */
-                    /* accept it only if it is not dragged from the same node
-                     * and if it has a image data */
-                    if (event.getGestureSource() != target &&
-                            event.getDragboard().hasImage()) {
-                        /* allow for both copying and moving, whatever user chooses */
-                        event.acceptTransferModes(TransferMode.MOVE);
-                    }
-                    event.consume();
-                }
-            });
-            //Событие которое наступает при входе ресурса в зону
-            target.setOnDragEntered(new EventHandler<DragEvent>() {
-                public void handle(DragEvent event) {
-                    /* the drag-and-drop gesture entered the target */
-                    /* show to the user that it is an actual gesture target */
-                    if (event.getGestureSource() != target &&
-                            event.getDragboard().hasImage()) {
-                        target.setEffect(new BoxBlur());
-                    }
-                    event.consume();
-                }
-            });
-            //Событие наступающее при выходе ресурса из зоны
-            target.setOnDragExited(new EventHandler<DragEvent>() {
-                public void handle(DragEvent event) {
-                    /* mouse moved away, remove the graphical cues */
-                    target.setEffect(null);
-
-                    event.consume();
-                }
-            });
-            //Событие наступающее при отпускании ресурса в зоне
-            target.setOnDragDropped(new EventHandler<DragEvent>() {
-                public void handle(DragEvent event) {
-                    /* data dropped */
-                    /* if there is a string data on dragboard, read it and use it */
-                    Dragboard db = event.getDragboard();
-                    boolean success = false;
-                    if (db.hasImage()) {
-                        target.setImage(db.getImage());
-                        success = true;
-                    }
-                    /* let the source know whether the string was successfully
-                     * transferred and used */
-                    event.setDropCompleted(success);
-                    event.consume();
-                }
-            });
-            //Событие при завершении перетаскивания
-            source.setOnDragDone(new EventHandler<DragEvent>() {
-                public void handle(DragEvent event) {
-                    /* the drag and drop gesture ended */
-                    /* if the data was successfully moved, clear it */
-                    if (event.getTransferMode() == TransferMode.MOVE) {
-                        source.setImage(null);
-                    }
-                    event.consume();
-                }
-            });
             Scene scene = new Scene(group);
             stage.setScene(scene);
             stage.show();
