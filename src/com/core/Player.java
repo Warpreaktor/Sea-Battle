@@ -8,18 +8,17 @@ import java.util.Scanner;
 
 public class Player {
     private boolean isCPU;
-    private final String name;
+    private String name;
     private int countOfTurns = 0;   //Счетчик ходов сделанных игроком.
     private int numberOfShip = 0;   //Итоговое количество кораблей игрока на поле, которое уменьшается по ходу их уничтожения.
     private Ship[] shipyard;           //Массив со списком доступных в начале типов кораблей.
     private GameCell[][] ourFleetMap = new GameCell[SeaBattleGame.getSIZE()][SeaBattleGame.getSIZE()];;
     private GameCell[][] enemyFleetMap = new GameCell[SeaBattleGame.getSIZE()][SeaBattleGame.getSIZE()];;
 
-    public Player(String name) {
+    public Player() {
         //Сделать наполнение верфи изходя из размера карты. Исходя из пропорции - Размер 10 = 1 Линкор(4), 2 Крейсера(3), 3 Эсминца(2), 4 Подлодки(1)
         /**Каждая клетка игрового поля заполняется объектами пустыми объектами GameCell
          */
-        this.name = name;
        // if (SeaBattleGame.getSIZE() == 10) {
 
         shipyard = new Ship[10];
@@ -44,6 +43,9 @@ public class Player {
     }
     public String getName() {
         return name;
+    }
+    public void setName(String name) {
+        this.name = name;
     }
     public GameCell[][] getEnemyFleetMap() {
         return enemyFleetMap;

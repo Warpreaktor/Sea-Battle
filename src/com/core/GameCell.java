@@ -1,7 +1,9 @@
 package com.core;
 
+import front.App;
 import javafx.event.EventHandler;
 import javafx.scene.effect.BoxBlur;
+import javafx.scene.effect.Effect;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.*;
@@ -123,6 +125,16 @@ public class GameCell extends ImageView {
                 event.consume();
             }
         });
+    }
+    public static void setFxForNeighbors(int Y, int X, GameCell cell, Effect fx) {
+        GameCell[][] map = App.seaBattleGame.getHuman().getOurFleetMap();
+        if(X+1 <= SeaBattleGame.getSIZE()){
+            map[Y][X].setEffect(fx);
+        }
+        if(X+2 <= SeaBattleGame.getSIZE()){
+            map[Y][X].setEffect(fx);
+        }
+        int shipCells = (int)cell.getFitWidth() / 60;
     }
 
     public GameCell() {

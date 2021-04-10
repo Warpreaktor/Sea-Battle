@@ -5,7 +5,7 @@ public class Tests {
      * Набор тестов для класса Player
      */
     public static void testForPlayerClass() {
-        Player player = new Player("testPlayer");
+        Player player = new Player();
         if (player.getOurFleetMap().length < 1) {
             System.out.println("Ошибка! При создании игрока не было создано поле игрока");
         }
@@ -157,8 +157,8 @@ public class Tests {
      */
     public static void mainTest(){
         //Tests.testForPlayerClass();
-        Player playerCPU1 = new Player("CPU_Смельчак");
-        Player playerCPU2 = new Player("CPU_Лихой");
+        Player playerCPU1 = new Player();
+        Player playerCPU2 = new Player();
         playerCPU1.setCPU(true);
         playerCPU2.setCPU(true);
         playerCPU1.shipsOnTheField();

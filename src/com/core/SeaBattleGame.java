@@ -9,8 +9,8 @@ public class SeaBattleGame {
     public MainController mainController;
     private static int SIZE = 10;
     private static int totalShips = 0;
-    private Player human;
-    private Player CPU;
+    private final Player human = new Player();
+    private Player CPU = new Player();
 
     public Player getHuman() {
         return human;
@@ -37,20 +37,15 @@ public class SeaBattleGame {
      * @throws IOException - Если убрать из этого класса отрисовку карты, то и IOExceptions тоже можно убрать.
      * Это вообще не правильно что тут вызываются методы отрисовки карты.
      */
-    public SeaBattleGame(String size, String playerName) throws IOException {
+    public SeaBattleGame() {
         mainController = App.mainController;
-        Player human = new Player(playerName);
-        Player CPU = new Player("Адмирал " + Tools.getRandomName());
-        this.human = human;
-        this.CPU = CPU;
+        CPU.setName("Адмирал " + Tools.getRandomName());
         CPU.setCPU(true);
-        App.app.brushTheBattleField(this, App.stage, human, CPU);
+        //App.app.brushTheBattleField(this, App.stage, human, CPU);
         createCPUBattleField(CPU);
-        human.shipsOnTheField();
-        CPU.shipsOnTheField();
+        //human.shipsOnTheField();
+        //CPU.shipsOnTheField();
     }
-
-
 
     private void createCPUBattleField(Player player) {
         for (int y = 0; y < SIZE; y++) {

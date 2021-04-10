@@ -14,6 +14,7 @@ import javafx.scene.image.ImageView;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+
 public class StartMenuController implements Initializable {
     @FXML private ComboBox chooseMap;
     @FXML private TextField playerName;
@@ -31,7 +32,9 @@ public class StartMenuController implements Initializable {
     public final void toMainGameUI() throws Exception {
         String sizeMap = chooseMap.getSelectionModel().getSelectedItem().toString();
         String name = playerName.getText();
-        App.seaBattleGame = new SeaBattleGame(sizeMap, name);
+        App.seaBattleGame.getHuman().setName(name);
+        App.brushShipSettingMenu(App.seaBattleGame, App.stage);
+
     }
 
     public final void nameGenerator(){

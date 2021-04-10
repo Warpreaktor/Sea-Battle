@@ -24,7 +24,7 @@ public class App extends Application {
     public static final App app = new App();
     public static final Stage stage = new Stage();
     public static final MainController mainController = new MainController();
-    public static SeaBattleGame seaBattleGame; // Должен быть public static final singleton и только в этом классе. Первая инициализация происходит в StartMenuController
+    public static final SeaBattleGame seaBattleGame = new SeaBattleGame(); // Должен быть public static final singleton и только в этом классе. Первая инициализация происходит в StartMenuController
     public static boolean isHumanTurn = true;
 
     public static void main(String[] args) {
@@ -35,8 +35,8 @@ public class App extends Application {
     public void start(Stage stage) throws Exception {
         stage = this.stage;
         stage.setResizable(false);
-        brushShipSettingMenu(seaBattleGame, stage);
-        //brushStartMenu(stage);
+
+        brushStartMenu(stage);
     }
 
     private final AnchorPane anchorPaneInit(VBox leftBox, VBox rightBox, Label textLabel, Button nextTurn) {
@@ -62,7 +62,7 @@ public class App extends Application {
         }
     }
 
-    public final void brushShipSettingMenu(SeaBattleGame game, Stage stage) throws IOException {
+    public final static void brushShipSettingMenu(SeaBattleGame game, Stage stage) {
             ShipSettingController controller = new ShipSettingController();
         for (int y = 0; y < seaBattleGame.getSIZE(); y++) {
             HBox hBox = new HBox();
@@ -73,6 +73,7 @@ public class App extends Application {
                 gameCell.setFitWidth(60);
                 gameCell.setWave();
                 hBox.getChildren().add(gameCell);
+                game.getHuman().setGameCellToOurFleetMap(gameCell, y, x);
                 gameCell.setCoordinateY(y);
                 gameCell.setCoordinateX(x);
                 Tools.setDragTargetZone(gameCell);
