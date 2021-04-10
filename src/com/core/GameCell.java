@@ -70,34 +70,7 @@ public class GameCell extends ImageView {
         this.setImage(ship);
     }
 
-    public void gameCellAsASource(GameCell source) {
-        //Событие при обнаружении перетаскивания
-        source.setOnDragDetected(new EventHandler<MouseEvent>() {
-            public void handle(MouseEvent event) {
-                /* drag was detected, start a drag-and-drop gesture*/
-                /* allow any transfer mode */
-                Dragboard db = source.startDragAndDrop(TransferMode.MOVE);
-                /* Put a image on a dragboard */
-                ClipboardContent content = new ClipboardContent();
-                content.putImage(source.getImage());
-                db.setContent(content);
-                event.consume();
-            }
-        });
-        //Событие при завершении перетаскивания
-        source.setOnDragDone(new EventHandler<DragEvent>() {
-            public void handle(DragEvent event) {
-                /* the drag and drop gesture ended */
-                /* if the data was successfully moved, clear it */
-                if (event.getTransferMode() == TransferMode.MOVE) {
-                    source.setImage(null);
-                }
-                event.consume();
-            }
-        });
-    }
-
-    public static void gameCellAsATarget(GameCell targetZone){
+    public void setDragTargetZone(GameCell targetZone){
         //Событие при заходе в зону
         targetZone.setOnDragOver(new EventHandler<DragEvent>() {
             public void handle(DragEvent event) {

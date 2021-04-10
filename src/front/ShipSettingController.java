@@ -1,32 +1,17 @@
 package front;
 
-import javafx.event.EventHandler;
+import com.core.Tools;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.ClipboardContent;
-import javafx.scene.input.Dragboard;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.input.TransferMode;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BackgroundImage;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Text;
-import javafx.stage.Stage;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class ShipSettingController implements Initializable {
-    @FXML private AnchorPane shipSetPan = new AnchorPane();
-    @FXML private VBox vBox = new VBox();
     @FXML private HBox hBox1 = new HBox();
     @FXML private HBox hBox2 = new HBox();
     @FXML private HBox hBox3 = new HBox();
@@ -37,21 +22,64 @@ public class ShipSettingController implements Initializable {
     @FXML private HBox hBox8 = new HBox();
     @FXML private HBox hBox9 = new HBox();
     @FXML private HBox hBox10 = new HBox();
+    @FXML private VBox vBox = new VBox(1, hBox1,hBox2,hBox3,hBox4,hBox5,hBox6,hBox7,hBox8,hBox9,hBox10);
+    private final ImageView fullLinkor = new ImageView("/resources/fullLinkor60x240.jpg");
+    @FXML private AnchorPane shipSetPan = new AnchorPane(vBox, fullLinkor);
 
-
-
-    public void dragNDrop(){
-        System.out.println("тык");
+    public AnchorPane getShipSetPan() {
+        return shipSetPan;
     }
+    public VBox getvBox() {
+        return vBox;
+    }
+    public HBox gethBox1() {
+        return hBox1;
+    }
+    public HBox gethBox2() {
+        return hBox2;
+    }
+    public HBox gethBox3() {
+        return hBox3;
+    }
+    public HBox gethBox4() {
+        return hBox4;
+    }
+    public HBox gethBox5() {
+        return hBox5;
+    }
+    public HBox gethBox6() {
+        return hBox6;
+    }
+    public HBox gethBox7() {
+        return hBox7;
+    }
+    public HBox gethBox8() {
+        return hBox8;
+    }
+    public HBox gethBox9() {
+        return hBox9;
+    }
+    public HBox gethBox10() {
+        return hBox10;
+    }
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
+
     }
 
-    public static void main(String[] args) {
-        ShipSettingController shipSettingController = new ShipSettingController();
-
-
+    public ShipSettingController() {
+        this.shipSetPan.setPrefHeight(1024);
+        this.shipSetPan.setPrefWidth(1280);
+        this.shipSetPan.setLayoutY(0);
+        this.vBox.setLayoutX(340);
+        this.vBox.setLayoutY(351);
+        this.vBox.setPrefHeight(600);
+        this.vBox.setPrefWidth(600);
+        this.fullLinkor.setX(50);
+        this.fullLinkor.setY(50);
+        Tools.setDragSource(fullLinkor);
     }
 }

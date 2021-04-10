@@ -3,23 +3,17 @@ package front;
 import com.core.GameCell;
 import com.core.Player;
 import com.core.SeaBattleGame;
+import com.core.Tools;
 import javafx.application.Application;
-import javafx.application.ConditionalFeature;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.fxml.FXML;
 import javafx.scene.Group;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
-import javafx.scene.effect.BoxBlur;
-import javafx.scene.effect.Effect;
-import javafx.scene.effect.Shadow;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.*;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -41,7 +35,7 @@ public class App extends Application {
     public void start(Stage stage) throws Exception {
         stage = this.stage;
         stage.setResizable(false);
-        brushShipSettingMenu(stage);
+        brushShipSettingMenu(seaBattleGame, stage);
         //brushStartMenu(stage);
     }
 
@@ -68,33 +62,25 @@ public class App extends Application {
         }
     }
 
-    public final void brushShipSettingMenu(Stage stage) throws IOException {
-        try{
-            stage.setX(300);
-            stage.setY(100);
-            Parent root = FXMLLoader.load(ShipSettingController.class.getResource("ShipSettingMenu.fxml"));
-            final GameCell source = new GameCell();
-            source.setlinkor();
-            source.setX(50);
-            source.setY(100);
-            source.setFitHeight(60);
-            source.setFitWidth(60);
-            source.gameCellAsASource(source);
-            final GameCell target = new GameCell();
-            target.setX(300);
-            target.setY(100);
-            target.setFitHeight(60);
-            target.setFitWidth(60);
-            target.setWave();
-            Group group = new Group(root, source, target);
-            target.gameCellAsATarget(target);
-
-            Scene scene = new Scene(group);
+    public final void brushShipSettingMenu(SeaBattleGame game, Stage stage) throws IOException {
+            ShipSettingController controller = new ShipSettingController();
+        for (int y = 0; y < seaBattleGame.getSIZE(); y++) {
+            HBox hBox = new HBox();
+            controller.getvBox().getChildren().add(hBox);
+            for (int x = 0; x < seaBattleGame.getSIZE(); x++) {
+                GameCell gameCell = new GameCell();
+                gameCell.setFitHeight(60);
+                gameCell.setFitWidth(60);
+                gameCell.setWave();
+                hBox.getChildren().add(gameCell);
+                gameCell.setCoordinateY(y);
+                gameCell.setCoordinateX(x);
+                Tools.setDragTargetZone(gameCell);
+            }
+        }
+            Scene scene = new Scene(controller.getShipSetPan());
             stage.setScene(scene);
             stage.show();
-        }catch(IOException e){
-            e.printStackTrace();
-        }
     }
 
 

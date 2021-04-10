@@ -12,6 +12,12 @@ public class SeaBattleGame {
     private Player human;
     private Player CPU;
 
+    public Player getHuman() {
+        return human;
+    }
+    public Player getCPU() {
+        return CPU;
+    }
     public static int getSIZE() {
         return SIZE;
     }
@@ -43,6 +49,8 @@ public class SeaBattleGame {
         human.shipsOnTheField();
         CPU.shipsOnTheField();
     }
+
+
 
     private void createCPUBattleField(Player player) {
         for (int y = 0; y < SIZE; y++) {
