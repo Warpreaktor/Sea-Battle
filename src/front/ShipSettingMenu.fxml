@@ -1,39 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.effect.Blend?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-
-<AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1024.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="front.ShipSettingController">
+<AnchorPane fx:id="shipSetPan" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1024.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="front.ShipSettingController">
    <children>
-      <VBox fx:id="vBox" layoutX="256.0" layoutY="374.0" prefHeight="548.0" prefWidth="769.0">
+      <VBox fx:id="vBox" layoutX="340.0" layoutY="351.0" prefHeight="600.0" prefWidth="600.0">
          <children>
-            <HBox fx:id="hBox1" prefHeight="100.0" prefWidth="200.0">
-               <children>
-                  <ImageView fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../resources/waveminBoard.jpg" />
-                     </image>
-                     <effect>
-                        <Blend mode="RED" />
-                     </effect>
-                  </ImageView>
-               </children>
-            </HBox>
+            <HBox fx:id="hBox1" prefHeight="100.0" prefWidth="200.0" />
             <HBox fx:id="hBox2" layoutX="10.0" layoutY="10.0" prefHeight="100.0" prefWidth="200.0" />
             <HBox fx:id="hBox3" layoutX="10.0" layoutY="110.0" prefHeight="100.0" prefWidth="200.0" />
             <HBox fx:id="hBox4" layoutX="10.0" layoutY="210.0" prefHeight="100.0" prefWidth="200.0" />
-            <HBox layoutX="10.0" layoutY="310.0" prefHeight="100.0" prefWidth="200.0" />
-            <HBox layoutX="10.0" layoutY="410.0" prefHeight="100.0" prefWidth="200.0" />
-            <HBox layoutX="10.0" layoutY="466.0" prefHeight="100.0" prefWidth="200.0" />
-            <HBox layoutX="10.0" layoutY="479.0" prefHeight="100.0" prefWidth="200.0" />
-            <HBox layoutX="10.0" layoutY="489.0" prefHeight="100.0" prefWidth="200.0" />
-            <HBox layoutX="10.0" layoutY="498.0" prefHeight="100.0" prefWidth="200.0" />
+            <HBox fx:id="hBox5" layoutX="10.0" layoutY="310.0" prefHeight="100.0" prefWidth="200.0" />
+            <HBox fx:id="hBox6" layoutX="10.0" layoutY="410.0" prefHeight="100.0" prefWidth="200.0" />
+            <HBox fx:id="hBox7" layoutX="10.0" layoutY="466.0" prefHeight="100.0" prefWidth="200.0" />
+            <HBox fx:id="hBox8" layoutX="10.0" layoutY="479.0" prefHeight="100.0" prefWidth="200.0" />
+            <HBox fx:id="hBox9" layoutX="10.0" layoutY="489.0" prefHeight="100.0" prefWidth="200.0" />
+            <HBox fx:id="hBox10" layoutX="10.0" layoutY="498.0" prefHeight="100.0" prefWidth="200.0" />
          </children>
       </VBox>
+      <Button layoutX="79.0" layoutY="433.0" mnemonicParsing="false" prefHeight="54.0" prefWidth="91.0" text="Button" />
    </children>
 </AnchorPane>
