@@ -3,6 +3,7 @@ package front;
 import com.core.Tools;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Group;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
@@ -23,8 +24,19 @@ public class ShipSettingController {
     @FXML private HBox hBox9 = new HBox();
     @FXML private HBox hBox10 = new HBox();
     @FXML private VBox vBox = new VBox(1, hBox1,hBox2,hBox3,hBox4,hBox5,hBox6,hBox7,hBox8,hBox9,hBox10);
-    private final ImageView fullLinkor = new ImageView("/resources/fullLinkor60x240.jpg");
-    @FXML private AnchorPane shipSetPan = new AnchorPane(vBox, fullLinkor);
+    private final ImageView fullLinkor = new ImageView("/resources/fullLinkor60x240.png");
+    private final ImageView fullCruiser1 = new ImageView("/resources/fullCruiser60x180.png");
+    private final ImageView fullCruiser2 = new ImageView("/resources/fullCruiser60x180.png");
+    private final ImageView fullDestroyer1 = new ImageView("/resources/fullDestroyer60x120.png");
+    private final ImageView fullDestroyer2 = new ImageView("/resources/fullDestroyer60x120.png");
+    private final ImageView fullDestroyer3 = new ImageView("/resources/fullDestroyer60x120.png");
+    private final ImageView fullSubmarine1 = new ImageView("/resources/fullSubmarine60x60.png");
+    private final ImageView fullSubmarine2 = new ImageView("/resources/fullSubmarine60x60.png");
+    private final ImageView fullSubmarine3 = new ImageView("/resources/fullSubmarine60x60.png");
+    private final ImageView fullSubmarine4 = new ImageView("/resources/fullSubmarine60x60.png");
+    private Group shipsGroup = new Group(fullLinkor, fullCruiser1, fullCruiser2, fullDestroyer1, fullDestroyer2,
+            fullDestroyer3, fullSubmarine1, fullSubmarine2, fullSubmarine3, fullSubmarine4);
+    @FXML private AnchorPane shipSetPan = new AnchorPane(vBox, shipsGroup);
 
     public AnchorPane getShipSetPan() {
         return shipSetPan;
@@ -68,11 +80,21 @@ public class ShipSettingController {
         this.shipSetPan.setPrefWidth(1280);
         this.shipSetPan.setLayoutY(0);
         this.vBox.setLayoutX(340);
-        this.vBox.setLayoutY(351);
+        this.vBox.setLayoutY(251);
         this.vBox.setPrefHeight(600);
         this.vBox.setPrefWidth(600);
-        this.fullLinkor.setX(50);
-        this.fullLinkor.setY(50);
+        this.fullLinkor.setX(150); this.fullLinkor.setY(50);
+        this.fullCruiser1.setX(400); this.fullCruiser1.setY(50);
+        this.fullCruiser2.setX(590); this.fullCruiser2.setY(50);
+        this.fullSubmarine1.setX(780); this.fullSubmarine1.setY(50);
+        this.fullSubmarine2.setX(850); this.fullSubmarine2.setY(50);
+        this.fullDestroyer1.setX(210); this.fullDestroyer1.setY(150);
+        this.fullDestroyer2.setX(340); this.fullDestroyer2.setY(150);
+        this.fullDestroyer3.setX(470); this.fullDestroyer3.setY(150);
+        this.fullSubmarine3.setX(780); this.fullSubmarine3.setY(150);
+        this.fullSubmarine4.setX(850); this.fullSubmarine4.setY(150);
         Tools.setDragSource(fullLinkor);
+        Tools.setDragSource(fullCruiser1);
+        Tools.setDragSource(fullCruiser2);
     }
 }

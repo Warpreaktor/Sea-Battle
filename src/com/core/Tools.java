@@ -4,6 +4,7 @@ import front.App;
 import javafx.event.EventHandler;
 import javafx.scene.effect.BoxBlur;
 import javafx.scene.effect.Effect;
+import javafx.scene.effect.Shadow;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.*;
 
@@ -131,9 +132,10 @@ public class Tools {
                 /* show to the user that it is an actual gesture targetZone */
                 if (event.getGestureSource() != targetZone &&
                         event.getDragboard().hasImage()) {
-                    Effect fx = new BoxBlur();
+                    Effect fx = new Shadow();
+                    int imgSize = (int)event.getDragboard().getImage().getWidth();
                     targetZone.setEffect(fx);
-                    setFxForNeighbors(targetZone.getCoordinateY(), targetZone.getCoordinateX(), targetZone, fx);
+                    setFxForNeighbors(targetZone.getCoordinateY(), targetZone.getCoordinateX(), targetZone, fx, imgSize);
                 }
                 event.consume();
             }
@@ -143,7 +145,8 @@ public class Tools {
             public void handle(DragEvent event) {
                 /* mouse moved away, remove the graphical cues */
                 targetZone.setEffect(null);
-
+                int imgSize = (int)event.getDragboard().getImage().getWidth();
+                clearFxForNeighbors(targetZone.getCoordinateY(), targetZone.getCoordinateX(), targetZone, imgSize);
                 event.consume();
             }
         });
@@ -165,16 +168,42 @@ public class Tools {
             }
         });
     }
-    public static void setFxForNeighbors(int Y, int X, GameCell cell, Effect fx) {
+    public static void setFxForNeighbors(int Y, int X, GameCell cell, Effect fx, int imgSize) {
         GameCell[][] map = App.seaBattleGame.getHuman().getOurFleetMap();
-        map[4][5].setlinkor();
-        int shipCells = (int)cell.getFitWidth() / 60;
-        System.out.println(shipCells);
-        if(X+1 <= SeaBattleGame.getSIZE()){
-            map[Y][X+1].setEffect(fx);
+        imgSize /= 60;
+        System.out.println(imgSize);
+        switch (imgSize){
+            case 4:
+                if (X + 1 <= SeaBattleGame.getSIZE()) map[Y][X + 1].setEffect(fx);
+                if (X - 1 > 0) map[Y][X - 1].setEffect(fx);
+                if (X - 2 > 0) map[Y][X - 2].setEffect(fx);
+                break;
+            case 3:
+                if (X + 1 <= SeaBattleGame.getSIZE()) map[Y][X + 1].setEffect(fx);
+                if (X - 1 > 0) map[Y][X - 1].setEffect(fx);
+                break;
+            case 2:
+                if (X - 1 > 0) map[Y][X - 1].setEffect(fx);
+                break;
         }
-        if(X+2 <= SeaBattleGame.getSIZE()){
-            map[Y][X+2].setEffect(fx);
+    }
+    public static void clearFxForNeighbors(int Y, int X, GameCell cell, int imgSize) {
+        GameCell[][] map = App.seaBattleGame.getHuman().getOurFleetMap();
+        imgSize /= 60;
+        System.out.println(imgSize);
+        switch (imgSize){
+            case 4:
+                if (X + 1 <= SeaBattleGame.getSIZE()) map[Y][X + 1].setEffect(null);
+                if (X - 1 > 0) map[Y][X - 1].setEffect(null);
+                if (X - 2 > 0) map[Y][X - 2].setEffect(null);
+                break;
+            case 3:
+                if (X + 1 <= SeaBattleGame.getSIZE()) map[Y][X + 1].setEffect(null);
+                if (X - 1 > 0) map[Y][X - 1].setEffect(null);
+                break;
+            case 2:
+                if (X - 1 > 0) map[Y][X - 1].setEffect(null);
+                break;
         }
     }
 }
