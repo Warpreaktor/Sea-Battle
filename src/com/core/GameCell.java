@@ -126,16 +126,7 @@ public class GameCell extends ImageView {
             }
         });
     }
-    public static void setFxForNeighbors(int Y, int X, GameCell cell, Effect fx) {
-        GameCell[][] map = App.seaBattleGame.getHuman().getOurFleetMap();
-        if(X+1 <= SeaBattleGame.getSIZE()){
-            map[Y][X].setEffect(fx);
-        }
-        if(X+2 <= SeaBattleGame.getSIZE()){
-            map[Y][X].setEffect(fx);
-        }
-        int shipCells = (int)cell.getFitWidth() / 60;
-    }
+
 
     public GameCell() {
     }

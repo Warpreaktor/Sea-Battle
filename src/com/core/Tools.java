@@ -1,7 +1,9 @@
 package com.core;
 
+import front.App;
 import javafx.event.EventHandler;
 import javafx.scene.effect.BoxBlur;
+import javafx.scene.effect.Effect;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.*;
 
@@ -107,7 +109,7 @@ public class Tools {
         });
     }
 
-    public static void setDragTargetZone(ImageView targetZone){
+    public static void setDragTargetZone(GameCell targetZone){
         //Событие при заходе в зону
         targetZone.setOnDragOver(new EventHandler<DragEvent>() {
             public void handle(DragEvent event) {
@@ -129,7 +131,9 @@ public class Tools {
                 /* show to the user that it is an actual gesture targetZone */
                 if (event.getGestureSource() != targetZone &&
                         event.getDragboard().hasImage()) {
-                    targetZone.setEffect(new BoxBlur());
+                    Effect fx = new BoxBlur();
+                    targetZone.setEffect(fx);
+                    setFxForNeighbors(targetZone.getCoordinateY(), targetZone.getCoordinateX(), targetZone, fx);
                 }
                 event.consume();
             }
@@ -161,5 +165,16 @@ public class Tools {
             }
         });
     }
-
+    public static void setFxForNeighbors(int Y, int X, GameCell cell, Effect fx) {
+        GameCell[][] map = App.seaBattleGame.getHuman().getOurFleetMap();
+        map[4][5].setlinkor();
+        int shipCells = (int)cell.getFitWidth() / 60;
+        System.out.println(shipCells);
+        if(X+1 <= SeaBattleGame.getSIZE()){
+            map[Y][X+1].setEffect(fx);
+        }
+        if(X+2 <= SeaBattleGame.getSIZE()){
+            map[Y][X+2].setEffect(fx);
+        }
+    }
 }

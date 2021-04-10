@@ -11,7 +11,7 @@ import javafx.scene.layout.VBox;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class ShipSettingController implements Initializable {
+public class ShipSettingController {
     @FXML private HBox hBox1 = new HBox();
     @FXML private HBox hBox2 = new HBox();
     @FXML private HBox hBox3 = new HBox();
@@ -61,13 +61,6 @@ public class ShipSettingController implements Initializable {
     }
     public HBox gethBox10() {
         return hBox10;
-    }
-
-
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-
-
     }
 
     public ShipSettingController() {
