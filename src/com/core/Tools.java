@@ -154,7 +154,7 @@ public class Tools {
         targetZone.setOnDragDropped(new EventHandler<DragEvent>() {
             public void handle(DragEvent event) {
                 /* data dropped */
-                /* if there is a string data on dragboard, read it and use it */
+                /* if there is a image data on dragboard, read it and use it */
                 Dragboard db = event.getDragboard();
                 boolean success = false;
                 if (db.hasImage()) {
@@ -171,38 +171,54 @@ public class Tools {
     public static void setFxForNeighbors(int Y, int X, GameCell cell, Effect fx, int imgSize) {
         GameCell[][] map = App.seaBattleGame.getHuman().getOurFleetMap();
         imgSize /= 60;
-        System.out.println(imgSize);
         switch (imgSize){
             case 4:
                 if (X + 1 <= SeaBattleGame.getSIZE()) map[Y][X + 1].setEffect(fx);
-                if (X - 1 > 0) map[Y][X - 1].setEffect(fx);
-                if (X - 2 > 0) map[Y][X - 2].setEffect(fx);
+                if (X - 1 >= 0) map[Y][X - 1].setEffect(fx);
+                if (X - 2 >= 0) map[Y][X - 2].setEffect(fx);
                 break;
             case 3:
                 if (X + 1 <= SeaBattleGame.getSIZE()) map[Y][X + 1].setEffect(fx);
-                if (X - 1 > 0) map[Y][X - 1].setEffect(fx);
+                if (X - 1 >= 0) map[Y][X - 1].setEffect(fx);
                 break;
             case 2:
-                if (X - 1 > 0) map[Y][X - 1].setEffect(fx);
+                if (X - 1 >= 0) map[Y][X - 1].setEffect(fx);
                 break;
         }
     }
     public static void clearFxForNeighbors(int Y, int X, GameCell cell, int imgSize) {
         GameCell[][] map = App.seaBattleGame.getHuman().getOurFleetMap();
         imgSize /= 60;
-        System.out.println(imgSize);
         switch (imgSize){
             case 4:
                 if (X + 1 <= SeaBattleGame.getSIZE()) map[Y][X + 1].setEffect(null);
-                if (X - 1 > 0) map[Y][X - 1].setEffect(null);
-                if (X - 2 > 0) map[Y][X - 2].setEffect(null);
+                if (X - 1 >= 0) map[Y][X - 1].setEffect(null);
+                if (X - 2 >= 0) map[Y][X - 2].setEffect(null);
                 break;
             case 3:
                 if (X + 1 <= SeaBattleGame.getSIZE()) map[Y][X + 1].setEffect(null);
-                if (X - 1 > 0) map[Y][X - 1].setEffect(null);
+                if (X - 1 >= 0) map[Y][X - 1].setEffect(null);
                 break;
             case 2:
-                if (X - 1 > 0) map[Y][X - 1].setEffect(null);
+                if (X - 1 >= 0) map[Y][X - 1].setEffect(null);
+                break;
+        }
+    }
+    public static void setImageForNeighbors(int Y, int X, GameCell cell, Effect fx, int imgSize) {
+        GameCell[][] map = App.seaBattleGame.getHuman().getOurFleetMap();
+        imgSize /= 60;
+        switch (imgSize){
+            case 4:
+                if (X + 1 <= SeaBattleGame.getSIZE()) map[Y][X + 1].setEffect(fx);
+                if (X - 1 >= 0) map[Y][X - 1].setEffect(fx);
+                if (X - 2 >= 0) map[Y][X - 2].setEffect(fx);
+                break;
+            case 3:
+                if (X + 1 <= SeaBattleGame.getSIZE()) map[Y][X + 1].setEffect(fx);
+                if (X - 1 >= 0) map[Y][X - 1].setEffect(fx);
+                break;
+            case 2:
+                if (X - 1 >= 0) map[Y][X - 1].setEffect(fx);
                 break;
         }
     }

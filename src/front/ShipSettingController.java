@@ -96,5 +96,12 @@ public class ShipSettingController {
         Tools.setDragSource(fullLinkor);
         Tools.setDragSource(fullCruiser1);
         Tools.setDragSource(fullCruiser2);
+        Tools.setDragSource(fullSubmarine1);
+        Tools.setDragSource(fullSubmarine2);
+        Tools.setDragSource(fullSubmarine3);
+        Tools.setDragSource(fullSubmarine4);
+        Tools.setDragSource(fullDestroyer1);
+        Tools.setDragSource(fullDestroyer2);
+        Tools.setDragSource(fullDestroyer3);
     }
 }
