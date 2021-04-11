@@ -34,7 +34,6 @@ public class StartMenuController implements Initializable {
         String name = playerName.getText();
         App.seaBattleGame.getHuman().setName(name);
         App.brushShipSettingMenu();
-
     }
 
     public final void nameGenerator(){

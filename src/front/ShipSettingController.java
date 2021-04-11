@@ -109,7 +109,7 @@ public class ShipSettingController {
         Tools.setDragSource(fullDestroyer1);
         Tools.setDragSource(fullDestroyer2);
         Tools.setDragSource(fullDestroyer3);
-        startButton.setLayoutX(510);
+        startButton.setLayoutX(580);
         startButton.setLayoutY(900);
         startButton.setPrefWidth(120);
         startButton.setPrefHeight(60);

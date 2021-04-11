@@ -1,32 +1,46 @@
 package front;
 
-import com.core.Player;
-import com.core.SeaBattleGame;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
-import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.text.TextAlignment;
-import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
 
-public class MainController implements Initializable {
+public class MainController {
     public String[] battleHistory = {"","","",""};
-    @FXML public static Button nextTurn = new Button();
-    @FXML public static Label battleLogView = new Label();
+    public static Button nextTurn = new Button();
+    public static Label battleLogView = new Label();
 
 
     public MainController() {
         battleLogView.setText("- Битва началась! \n");
+        this.battleLogView.setAlignment(Pos.CENTER);
+        this.battleLogView.setTextAlignment(TextAlignment.CENTER);
+        //Параметры кнопки Next turn
+        nextTurn.setText("Next turn");
+        nextTurn.setPrefHeight(60);
+        nextTurn.setPrefWidth(120);
+        nextTurn.setLayoutX(580);
+        nextTurn.setLayoutY(866);
+        nextTurn.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                nextTurn();
+            }
+        });
+        nextTurn.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent keyEvent) {
+                KeyCode keyCode = keyEvent.getCode();
+                if (keyCode.equals(KeyCode.SPACE)){
+                    nextTurn();
+                }
+            }
+        });
     }
 
     public Label getBattleLogView() {
@@ -45,38 +59,12 @@ public class MainController implements Initializable {
                 "- " + battleHistory[3] + "\n");
     }
 
-    public final void nextTurnButton(){
+    public final void nextTurn(){
         if (App.isHumanTurn == false) {
             App.seaBattleGame.shootCPU();
             App.isHumanTurn = true;
+        }else {
+            //Сообщение пользователю о том, что его ход еще не завершен
         }
     }
-
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        this.battleLogView.setAlignment(Pos.CENTER);
-        this.battleLogView.setTextAlignment(TextAlignment.CENTER);
-
-        //Рисуем кнопку Next turn
-        nextTurn.setText("Next turn");
-        nextTurn.setPrefHeight(67);
-        nextTurn.setPrefWidth(121);
-        nextTurn.setLayoutX(580);
-        nextTurn.setLayoutY(866);
-        nextTurn.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                nextTurnButton();
-            }
-        });
-        nextTurn.setOnKeyPressed(new EventHandler<KeyEvent>() {
-            @Override
-            public void handle(KeyEvent keyEvent) {
-                KeyCode keyCode = keyEvent.getCode();
-                if (keyCode.equals(KeyCode.SPACE)){
-                    nextTurnButton();
-                }
-            }
-        });
-        }
 }
