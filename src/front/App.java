@@ -1,16 +1,13 @@
 package front;
 
 import com.core.GameCell;
-import com.core.Player;
 import com.core.SeaBattleGame;
 import com.core.Tools;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.fxml.FXML;
 import javafx.scene.Group;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.input.*;
 import javafx.scene.layout.*;
@@ -24,6 +21,7 @@ public class App extends Application {
     public static final App app = new App();
     public static final Stage stage = new Stage();
     public static final MainController mainController = new MainController();
+    public static final ShipSettingController shipSettingController = new ShipSettingController();
     public static final SeaBattleGame seaBattleGame = new SeaBattleGame(); // Должен быть public static final singleton и только в этом классе. Первая инициализация происходит в StartMenuController
     public static boolean isHumanTurn = true;
 
@@ -56,23 +54,22 @@ public class App extends Application {
     public final static void brushShipSettingMenu() {
         stage.setX(300);
         stage.setY(0);
-        ShipSettingController controller = new ShipSettingController();
         for (int y = 0; y < seaBattleGame.getSIZE(); y++) {
-            HBox hBox = new HBox();
-            controller.getvBox().getChildren().add(hBox);
+//            HBox hBox = new HBox();
+//            shipSettingController.getvBox().getChildren().add(hBox);
             for (int x = 0; x < seaBattleGame.getSIZE(); x++) {
                 GameCell gameCell = new GameCell();
                 gameCell.setFitHeight(60);
                 gameCell.setFitWidth(60);
                 gameCell.setWave();
-                hBox.getChildren().add(gameCell);
+                shipSettingController.gethBoxes()[y].getChildren().add(gameCell);
                 seaBattleGame.getHuman().setGameCellToOurFleetMap(gameCell, y, x);
                 gameCell.setCoordinateY(y);
                 gameCell.setCoordinateX(x);
                 Tools.setDragTargetZone(gameCell);
             }
         }
-            Scene scene = new Scene(controller.getShipSetPan());
+            Scene scene = new Scene(shipSettingController.getShipSetPan());
             stage.setScene(scene);
             stage.show();
     }
@@ -81,18 +78,18 @@ public class App extends Application {
             stage.setY(0);
             //Parent root = FXMLLoader.load(getClass().getResource("BattleField.fxml"));
             //Отрисовка поля с нашим флотом
-            VBox leftVBox = new VBox();
+            VBox leftVBox = shipSettingController.getvBox();
             leftVBox.setTranslateY(200.0);
             leftVBox.setTranslateX(15.0);
             for (int y = 0; y < SeaBattleGame.getSIZE(); y++) {
-                HBox leftHBox = new HBox();
-                leftVBox.getChildren().add(leftHBox);
+                //HBox leftHBox = new HBox();
+                //leftVBox.getChildren().add(leftHBox);
                 for (int x = 0; x < seaBattleGame.getSIZE(); x++) {
                     GameCell gameCell = seaBattleGame.getHuman().getOurFleetMap()[y][x];
 //                    gameCell.setFitHeight(60);
 //                    gameCell.setFitWidth(60);
 //                    gameCell.setWave();
-                    leftHBox.getChildren().add(gameCell);
+                    //leftHBox.getChildren().add(gameCell);
                     //player.setGameCellToOurFleetMap(gameCell, y, x);
                     //gameCell.setCoordinateY(y);
                     //gameCell.setCoordinateX(x);
