@@ -54,9 +54,9 @@ public class SeaBattleGame {
     }
     public void shoot(Player human, Player CPU, int Y, int X) {
         try {
-            String enemyShipName = CPU.getOurFleetMap()[Y][X].getName();
-            Ship enemyShip = (Ship)CPU.getOurFleetMap()[Y][X];
-            if (CPU.getOurFleetMap()[Y][X].isShip()) {
+            if (CPU.getOurFleetMap()[Y][X].getClass().getSimpleName().equals("Ship")) {
+                String enemyShipName = CPU.getOurFleetMap()[Y][X].getName();
+                Ship enemyShip = (Ship)CPU.getOurFleetMap()[Y][X];
                 enemyShip.setHp(enemyShip.getHp()-1);
                 if (enemyShip.getHp()>0) {
                     mainController.textOutput("Корабль " + enemyShipName + " поврежден!");
@@ -99,10 +99,9 @@ public class SeaBattleGame {
             }
             isVictory();
         }
-        //Повторяющйся код
-        String enemyShipName = human.getOurFleetMap()[Y][X].getName();
-        Ship enemyShip = (Ship)human.getOurFleetMap()[Y][X];
-        if (human.getOurFleetMap()[Y][X].isShip()) {
+        if (human.getOurFleetMap()[Y][X].getClass().getSimpleName().equals("Ship")) {
+            String enemyShipName = human.getOurFleetMap()[Y][X].getName();
+            Ship enemyShip = (Ship)human.getOurFleetMap()[Y][X];
             enemyShip.setHp(enemyShip.getHp()-1);
             if (enemyShip.getHp()>0) {
                 mainController.textOutput("Корабль " + enemyShipName + " поврежден!");  //Выводим на экран сообщение
