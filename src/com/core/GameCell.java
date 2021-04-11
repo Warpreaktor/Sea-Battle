@@ -8,11 +8,13 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.*;
 
-
+/*Необходимо сделать этот класс абстрактным и от него наследовать несколько объектов. Корабли там всякие, и прочее.
+ */
 public class GameCell extends ImageView {
     private boolean isShip = false;//Является ли эта клетка кораблем или его частью.
     private char cellLabel = '~';//Какой символ отображать на консольной карте поля боя.
-    private Ship shipRef;  //Ссылка на объект находящийся в этой клетке.
+    private String name = "Морская волна";
+    //private Ship objRef;  //На стадии рефакторинга.
     private int coordinateX;
     private int coordinateY;
     private Image redCross = new Image(getClass().getResourceAsStream("/resources/redCRoss150x150.png"));
@@ -26,7 +28,9 @@ public class GameCell extends ImageView {
     private Image destroyer = new Image("/resources/destroyer60x60.png");
     private Image submarine = new Image("/resources/submarine60x60.png");
 
-
+    public String getName(){
+        return this.name;
+    };
     public int getCoordinateX() {
         return coordinateX;
     }
@@ -38,12 +42,6 @@ public class GameCell extends ImageView {
     }
     public void setCoordinateY(int coordinateY) {
         this.coordinateY = coordinateY;
-    }
-    public void setShipRef(Ship shipRef) {
-        this.shipRef = shipRef;
-    }
-    public Ship getShipRef() {
-        return shipRef;
     }
     public void setCellLabel(char cellLabel) {
         this.cellLabel = cellLabel;
@@ -76,61 +74,6 @@ public class GameCell extends ImageView {
     public void setSubmarine(){this.setImage(submarine);}
     public void setShip(){
         this.setImage(ship);
-    }
-
-    public void setDragTargetZone(GameCell targetZone){
-        //Событие при заходе в зону
-        targetZone.setOnDragOver(new EventHandler<DragEvent>() {
-            public void handle(DragEvent event) {
-                /* Ресурс находится внутри зоны */
-                /* accept it only if it is not dragged from the same node
-                 * and if it has a image data */
-                if (event.getGestureSource() != targetZone &&
-                        event.getDragboard().hasImage()) {
-                    /* allow for both copying and moving, whatever user chooses */
-                    event.acceptTransferModes(TransferMode.MOVE);
-                }
-                event.consume();
-            }
-        });
-        //Событие которое наступает при входе ресурса в зону
-        targetZone.setOnDragEntered(new EventHandler<DragEvent>() {
-            public void handle(DragEvent event) {
-                /* the drag-and-drop gesture entered the targetZone */
-                /* show to the user that it is an actual gesture targetZone */
-                if (event.getGestureSource() != targetZone &&
-                        event.getDragboard().hasImage()) {
-                    targetZone.setEffect(new BoxBlur());
-                }
-                event.consume();
-            }
-        });
-        //Событие наступающее при выходе ресурса из зоны
-        targetZone.setOnDragExited(new EventHandler<DragEvent>() {
-            public void handle(DragEvent event) {
-                /* mouse moved away, remove the graphical cues */
-                targetZone.setEffect(null);
-
-                event.consume();
-            }
-        });
-        //Событие наступающее при отпускании ресурса в зоне
-        targetZone.setOnDragDropped(new EventHandler<DragEvent>() {
-            public void handle(DragEvent event) {
-                /* data dropped */
-                /* if there is a string data on dragboard, read it and use it */
-                Dragboard db = event.getDragboard();
-                boolean success = false;
-                if (db.hasImage()) {
-                    targetZone.setImage(db.getImage());
-                    success = true;
-                }
-                /* let the source know whether the string was successfully
-                 * transferred and used */
-                event.setDropCompleted(success);
-                event.consume();
-            }
-        });
     }
 
 

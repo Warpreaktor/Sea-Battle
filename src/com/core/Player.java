@@ -10,11 +10,9 @@ public class Player {
     private GameCell[][] enemyFleetMap = new GameCell[SeaBattleGame.getSIZE()][SeaBattleGame.getSIZE()];;
 
     public Player() {
-        //Сделать наполнение верфи изходя из размера карты. Исходя из пропорции - Размер 10 = 1 Линкор(4), 2 Крейсера(3), 3 Эсминца(2), 4 Подлодки(1)
+        //1 Линкор(4), 2 Крейсера(3), 3 Эсминца(2), 4 Подлодки(1)
         /**Каждая клетка игрового поля заполняется объектами пустыми объектами GameCell
          */
-       // if (SeaBattleGame.getSIZE() == 10) {
-
         shipyard = new Ship[10];
             shipyard[0] = new Ship(4, this);
             shipyard[1] = new Ship(3, this);
@@ -26,7 +24,6 @@ public class Player {
             shipyard[7] = new Ship(1, this);
             shipyard[8] = new Ship(1, this);
             shipyard[9] = new Ship(1, this);
-       // }
         this.numberOfShip = shipyard.length;
     }
     public void setCPU(boolean CPU) {
@@ -116,7 +113,7 @@ public class Player {
     }
 
     /**
-     * Метод берет конкретного игрока и проходит по всей его верфи.
+     * Метод вызывается у конкретного игрока и проходит по всей его верфи.
      * На каждом шаге определяется с каким типом корабля мы имеем дело и для дальнейшей его установки на поле
      * вызывается отдельный метод в который мы передаем конкретный объект.
      */

@@ -38,14 +38,6 @@ public class App extends Application {
         brushStartMenu(stage);
     }
 
-//    private final AnchorPane anchorPaneInit(VBox leftBox, VBox rightBox, Label textLabel, Button nextTurn) {
-//        AnchorPane anchorPane = new AnchorPane(leftBox, rightBox, textLabel, nextTurn);
-//        anchorPane.setBackground(Background.EMPTY);
-//        anchorPane.setPrefWidth(1280);
-//        anchorPane.setPrefHeight(1024);
-//        return anchorPane;
-//    }
-
     public final void brushStartMenu(Stage stage) throws IOException {
         try {
             stage.setX(300);

@@ -1,12 +1,14 @@
 package com.core;
 
+import javafx.scene.image.ImageView;
+
 /**
  * shipSize - Количество занимаемых на поле ячеек кораблеём. 4 - Линкор, 3 - Крейсер(), 2 - Эсминец, 1 - Подлодка
  * shipLabel - Не смотря на то что игра имеет графический интерфейс, тем не менее бекэндная часть игры ориентируется
  * на эти простые символы, чтобы понимать состояние клетки: "B" = Линкор, L = Крейсер, M = Эсминец, S = Подлодкаж;
  * "+" = по клетке уже стреляли, "X" = Корабль поврежден\уничтожен, "0" = соседствующая с кораблем клетка.
  */
-public class Ship {
+public class Ship extends GameCell {
     private final String name;
     private int shipSize;        //Количество палуб у корабля
     private char shipLabel;
@@ -62,15 +64,15 @@ public class Ship {
         this.name = naming();
     }
     /**
-     * @param index - Это индекс строки в двумерном массиве координат корабля.
+     * @param index - Это номер палубы коробля. Например 3 палубному кораблю нужно трижды вызвать этот метод и передать
+     *              в него индекс от 0 до 2 где 0 это начало корабля, а 2 его конец.
      */
     public void shipsOnTheSea(int index, int y, int x){
         this.setCoordinates(index, 0, y);
         this.setCoordinates(index, 1, x);
         this.getOwner().getOurFleetMap()[y][x].setIsShip(true);
         this.getOwner().getOurFleetMap()[y][x].setCellLabel(this.getShipLabel());
-        this.getOwner().getOurFleetMap()[y][x].setShipRef(this);
-
+        this.getOwner().getOurFleetMap()[y][x] = this;
     }
     public String naming(){
         String name = "Безымянный";

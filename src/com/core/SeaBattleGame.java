@@ -1,9 +1,6 @@
 package com.core;
 import front.App;
 import front.MainController;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 public class SeaBattleGame {
     public MainController mainController;
@@ -28,23 +25,13 @@ public class SeaBattleGame {
         totalShips = ships;
     }
 
-    /**
-     * Инициализация всех объектов игры должна происходить в классе SeaBattleGame.
-     * Сейчас все освсем не так и инициализации разбросаны по разным местам.
-     * Нужно будет все это соброать воедино.
-     * @param size - Размер клеток на карте. Карта может быть либо 10 на 10 либо 20 на 20.
-     * @param playerName - Имя человеческого игрока. Сюда бы вынесте всех игроков и тогда не нужно будет держать здесь их имена.
-     * @throws IOException - Если убрать из этого класса отрисовку карты, то и IOExceptions тоже можно убрать.
-     * Это вообще не правильно что тут вызываются методы отрисовки карты.
-     */
     public SeaBattleGame() {
         mainController = App.mainController;
         CPU.setName("Адмирал " + Tools.getRandomName());
         CPU.setCPU(true);
-        //App.app.brushTheBattleField(this, App.stage, human, CPU);
         createCPUBattleField(CPU);
         //human.shipsOnTheField();
-        //CPU.shipsOnTheField();
+        CPU.shipsOnTheField();
     }
 
     private void createCPUBattleField(Player player) {
@@ -67,8 +54,8 @@ public class SeaBattleGame {
     }
     public void shoot(Player human, Player CPU, int Y, int X) {
         try {
-            String enemyShipName = CPU.getOurFleetMap()[Y][X].getShipRef().getName();
-            Ship enemyShip = CPU.getOurFleetMap()[Y][X].getShipRef();
+            String enemyShipName = CPU.getOurFleetMap()[Y][X].getName();
+            Ship enemyShip = (Ship)CPU.getOurFleetMap()[Y][X];
             if (CPU.getOurFleetMap()[Y][X].isShip()) {
                 enemyShip.setHp(enemyShip.getHp()-1);
                 if (enemyShip.getHp()>0) {
@@ -113,8 +100,8 @@ public class SeaBattleGame {
             isVictory();
         }
         //Повторяющйся код
-        String enemyShipName = human.getOurFleetMap()[Y][X].getShipRef().getName();
-        Ship enemyShip = human.getOurFleetMap()[Y][X].getShipRef();
+        String enemyShipName = human.getOurFleetMap()[Y][X].getName();
+        Ship enemyShip = (Ship)human.getOurFleetMap()[Y][X];
         if (human.getOurFleetMap()[Y][X].isShip()) {
             enemyShip.setHp(enemyShip.getHp()-1);
             if (enemyShip.getHp()>0) {
