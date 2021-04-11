@@ -132,7 +132,6 @@ public class Tools {
                         event.getDragboard().hasImage() && !targetZone.isShip()){
                     Effect fx = new Shadow();
                     int imgSize = (int)event.getDragboard().getImage().getWidth();
-                    targetZone.setEffect(fx);
                     setFxForNeighbors(targetZone.getCoordinateY(), targetZone.getCoordinateX(), targetZone, fx, imgSize);
                 }
                 event.consume();
@@ -171,32 +170,39 @@ public class Tools {
         imgSize /= 60;
         switch (imgSize){
             case 4:
-                if (X + 1 <= SeaBattleGame.getSIZE()) map[Y][X + 1].setEffect(fx);
+                if (X + 1 < SeaBattleGame.getSIZE()) map[Y][X + 1].setEffect(fx);
+                map[Y][X].setEffect(fx);
                 if (X - 1 >= 0) map[Y][X - 1].setEffect(fx);
                 if (X - 2 >= 0) map[Y][X - 2].setEffect(fx);
                 break;
             case 3:
-                if (X + 1 <= SeaBattleGame.getSIZE()) map[Y][X + 1].setEffect(fx);
+                if (X + 1 < SeaBattleGame.getSIZE()) map[Y][X + 1].setEffect(fx);
+                map[Y][X].setEffect(fx);
                 if (X - 1 >= 0) map[Y][X - 1].setEffect(fx);
                 break;
             case 2:
+                map[Y][X].setEffect(fx);
                 if (X - 1 >= 0) map[Y][X - 1].setEffect(fx);
+                break;
+            case 1:
+                map[Y][X].setEffect(fx);
                 break;
         }
     }
     public static void clearFx(int Y, int X, GameCell cell, int imgSize) {
+        System.out.println(Y + " - " + X);
         GameCell[][] map = App.seaBattleGame.getHuman().getOurFleetMap();
         imgSize /= 60;
         switch (imgSize){
             case 4:
                 map[Y][X].setEffect(null);
-                if (X + 1 <= SeaBattleGame.getSIZE()) map[Y][X + 1].setEffect(null);
+                if (X + 1 < SeaBattleGame.getSIZE()) map[Y][X + 1].setEffect(null);
                 if (X - 1 >= 0) map[Y][X - 1].setEffect(null);
                 if (X - 2 >= 0) map[Y][X - 2].setEffect(null);
                 break;
             case 3:
                 map[Y][X].setEffect(null);
-                if (X + 1 <= SeaBattleGame.getSIZE()) map[Y][X + 1].setEffect(null);
+                if (X + 1 < SeaBattleGame.getSIZE()) map[Y][X + 1].setEffect(null);
                 if (X - 1 >= 0) map[Y][X - 1].setEffect(null);
                 break;
             case 2:
@@ -205,6 +211,7 @@ public class Tools {
                 break;
             case 1:
                 map[Y][X].setEffect(null);
+                break;
         }
     }
     public static boolean setShipToCells(int Y, int X, GameCell cell, int imgSize) {
@@ -213,17 +220,22 @@ public class Tools {
         Ship[] shipYard = App.seaBattleGame.getHuman().getShipyard();
         switch (shipSize) {
             case 4:
-                System.out.println(map[Y][X].getClass().getSimpleName());
-                System.out.println(map[Y][X+1].getClass().getSimpleName());
-                System.out.println(map[Y][X-1].getClass().getSimpleName());
-                System.out.println(map[Y][X-2].getClass().getSimpleName());
+                for (int y = Y - 1; y <= Y + 1; y++) {
+                    for (int x = X - 3; x <= X + 2; x++) {
+                        if(y < 0) continue;
+                        if(y >= SeaBattleGame.getSIZE()) continue;
+                        if(x < 0) continue;
+                        if(x >= SeaBattleGame.getSIZE()) continue;
+                        if (map[y][x].getClass().getSimpleName().equals("Ship") && map[y][x].getClass().getSimpleName().equals("Ship") &&
+                                map[y][x].getClass().getSimpleName().equals("Ship") && map[y][x].getClass().getSimpleName().equals("Ship")) {
+                            System.out.println("Нельзя размещать свои корабли вплотную к другим кораблям");
+                            return false;
+                        }
+                    }
+                }
                 if (!map[Y][X+1].getClass().getSimpleName().equals("Ship") && !map[Y][X].getClass().getSimpleName().equals("Ship") &&
                         !map[Y][X-1].getClass().getSimpleName().equals("Ship") && !map[Y][X-2].getClass().getSimpleName().equals("Ship")) {
-                    System.out.println(map[Y][X].getClass().getSimpleName());
-                    System.out.println(map[Y][X+1].getClass().getSimpleName());
-                    System.out.println(map[Y][X-1].getClass().getSimpleName());
-                    System.out.println(map[Y][X-2].getClass().getSimpleName());
-                    if (X + 1 <= SeaBattleGame.getSIZE() && X - 1 >= 0 && X - 2 >= 0) {
+                    if (X + 1 < SeaBattleGame.getSIZE() && X - 2 >= 0) {
                         map[Y][X + 1].setLinkor();
                         map[Y][X].setLinkor();
                         map[Y][X - 1].setLinkor();
@@ -246,9 +258,22 @@ public class Tools {
                     }
                 }else return false;
             case 3:
+                for (int y = Y - 1; y <= Y + 1; y++) {
+                    for (int x = X - 2; x <= X + 2; x++) {
+                        if(y < 0) continue;
+                        if(y >= SeaBattleGame.getSIZE()) continue;
+                        if(x < 0) continue;
+                        if(x >= SeaBattleGame.getSIZE()) continue;
+                        if (map[y][x].getClass().getSimpleName().equals("Ship") && map[y][x].getClass().getSimpleName().equals("Ship") &&
+                                map[y][x].getClass().getSimpleName().equals("Ship") && map[y][x].getClass().getSimpleName().equals("Ship")) {
+                            System.out.println("Нельзя размещать свои корабли вплотную к другим кораблям");
+                            return false;
+                        }
+                    }
+                }
                 if (!map[Y][X].getClass().getSimpleName().equals("Ship") && !map[Y][X+1].getClass().getSimpleName().equals("Ship") &&
                         !map[Y][X-1].getClass().getSimpleName().equals("Ship")) {
-                    if (X + 1 <= SeaBattleGame.getSIZE() && X - 1 >= 0) {
+                    if (X + 1 < SeaBattleGame.getSIZE() && X - 1 >= 0) {
                         map[Y][X].setCruiser();
                         map[Y][X + 1].setCruiser();
                         map[Y][X - 1].setCruiser();
@@ -258,8 +283,8 @@ public class Tools {
                         for (int i = 0; i < shipYard.length; i++) {
                             if (shipYard[i] != null && shipYard[i].getShipSize() == 3) {
                                 shipYard[i].shipsOnTheSea(0, Y, X);
-                                shipYard[i].shipsOnTheSea(1, Y, X - 1);
-                                shipYard[i].shipsOnTheSea(2, Y, X - 2);
+                                shipYard[i].shipsOnTheSea(1, Y, X + 1);
+                                shipYard[i].shipsOnTheSea(2, Y, X - 1);
                                 shipYard[i] = null;
                                 break;
                             }
@@ -268,6 +293,18 @@ public class Tools {
                     }
                 }else return false;
             case 2:
+                for (int y = Y - 1; y <= Y + 1; y++) {
+                    for (int x = X - 2; x <= X + 1; x++) {
+                        if(y < 0) continue;
+                        if(y >= SeaBattleGame.getSIZE()) continue;
+                        if(x < 0) continue;
+                        if(x >= SeaBattleGame.getSIZE()) continue;
+                            if (map[y][x].getClass().getSimpleName().equals("Ship")) {
+                                System.out.println("Нельзя размещать свои корабли вплотную к другим кораблям");
+                                return false;
+                            }
+                    }
+                }
                 if (!map[Y][X].getClass().getSimpleName().equals("Ship") && !map[Y][X-1].getClass().getSimpleName().equals("Ship")) {
                     if (X - 1 >= 0) {
                         map[Y][X].setDestroyer();
@@ -286,6 +323,19 @@ public class Tools {
                     }
                 }else return false;
             case 1:
+                for (int y = Y - 1; y <= Y + 1; y++) {
+                    for (int x = X - 1; x <= X + 1; x++) {
+                        if(y < 0) continue;
+                        if(y >= SeaBattleGame.getSIZE()) continue;
+                        if(x < 0) continue;
+                        if(x >= SeaBattleGame.getSIZE()) continue;
+                        if (map[y][x].getClass().getSimpleName().equals("Ship") && map[y][x].getClass().getSimpleName().equals("Ship") &&
+                                map[y][x].getClass().getSimpleName().equals("Ship") && map[y][x].getClass().getSimpleName().equals("Ship")) {
+                            System.out.println("Нельзя размещать свои корабли вплотную к другим кораблям");
+                            return false;
+                        }
+                    }
+                }
                 if (!map[Y][X].getClass().getSimpleName().equals("Ship")) {
                         map[Y][X].setSubmarine();
                         map[Y][X].setEffect(null);
