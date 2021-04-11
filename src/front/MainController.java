@@ -2,7 +2,6 @@ package front;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -14,7 +13,6 @@ public class MainController {
     public String[] battleHistory = {"","","",""};
     public static Button nextTurn = new Button();
     public static Label battleLogView = new Label();
-
 
     public MainController() {
         battleLogView.setText("- Битва началась! \n");

@@ -55,8 +55,6 @@ public class App extends Application {
         stage.setX(300);
         stage.setY(0);
         for (int y = 0; y < seaBattleGame.getSIZE(); y++) {
-//            HBox hBox = new HBox();
-//            shipSettingController.getvBox().getChildren().add(hBox);
             for (int x = 0; x < seaBattleGame.getSIZE(); x++) {
                 GameCell gameCell = new GameCell();
                 gameCell.setFitHeight(60);
@@ -73,32 +71,17 @@ public class App extends Application {
             stage.setScene(scene);
             stage.show();
     }
-        public final static void brushTheBattleField(){//SeaBattleGame game, Stage stage, Player player, Player playerCPU) throws IOException{
+        public final static void brushTheBattleField(){
             stage.setX(300);
             stage.setY(0);
-            //Parent root = FXMLLoader.load(getClass().getResource("BattleField.fxml"));
             //Отрисовка поля с нашим флотом
             VBox leftVBox = shipSettingController.getvBox();
-            leftVBox.setTranslateY(200.0);
-            leftVBox.setTranslateX(15.0);
-            for (int y = 0; y < SeaBattleGame.getSIZE(); y++) {
-                //HBox leftHBox = new HBox();
-                //leftVBox.getChildren().add(leftHBox);
-                for (int x = 0; x < seaBattleGame.getSIZE(); x++) {
-                    GameCell gameCell = seaBattleGame.getHuman().getOurFleetMap()[y][x];
-//                    gameCell.setFitHeight(60);
-//                    gameCell.setFitWidth(60);
-//                    gameCell.setWave();
-                    //leftHBox.getChildren().add(gameCell);
-                    //player.setGameCellToOurFleetMap(gameCell, y, x);
-                    //gameCell.setCoordinateY(y);
-                    //gameCell.setCoordinateX(x);
-                }
-            }
+            leftVBox.setLayoutX(20);
+            leftVBox.setLayoutY(200);
             //Отрисовка поля с вражеским полем
-            VBox rightVBox = new VBox();
-            rightVBox.setTranslateX(660);
-            rightVBox.setTranslateY(200.0);
+            VBox rightVBox = new VBox(1);
+            rightVBox.setLayoutX(660);
+            rightVBox.setLayoutY(200);
             for (int y = 0; y < seaBattleGame.getSIZE(); y++) {
                 HBox rightHBox = new HBox();
                 rightVBox.getChildren().add(rightHBox);
