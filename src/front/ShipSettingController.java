@@ -1,10 +1,15 @@
 package front;
 
 import com.core.Tools;
+import javafx.event.ActionEvent;
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Group;
+import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -24,6 +29,7 @@ public class ShipSettingController {
     @FXML private HBox hBox9 = new HBox();
     @FXML private HBox hBox10 = new HBox();
     @FXML private VBox vBox = new VBox(1, hBox1,hBox2,hBox3,hBox4,hBox5,hBox6,hBox7,hBox8,hBox9,hBox10);
+    private Button startButton = new Button("Start");
     private final ImageView fullLinkor = new ImageView("/resources/fullLinkor60x240.png");
     private final ImageView fullCruiser1 = new ImageView("/resources/fullCruiser60x180.png");
     private final ImageView fullCruiser2 = new ImageView("/resources/fullCruiser60x180.png");
@@ -36,7 +42,7 @@ public class ShipSettingController {
     private final ImageView fullSubmarine4 = new ImageView("/resources/fullSubmarine60x60.png");
     private Group shipsGroup = new Group(fullLinkor, fullCruiser1, fullCruiser2, fullDestroyer1, fullDestroyer2,
             fullDestroyer3, fullSubmarine1, fullSubmarine2, fullSubmarine3, fullSubmarine4);
-    @FXML private AnchorPane shipSetPan = new AnchorPane(vBox, shipsGroup);
+    @FXML private AnchorPane shipSetPan = new AnchorPane(vBox, shipsGroup, startButton);
 
     public AnchorPane getShipSetPan() {
         return shipSetPan;
@@ -103,5 +109,15 @@ public class ShipSettingController {
         Tools.setDragSource(fullDestroyer1);
         Tools.setDragSource(fullDestroyer2);
         Tools.setDragSource(fullDestroyer3);
+        startButton.setLayoutX(510);
+        startButton.setLayoutY(900);
+        startButton.setPrefWidth(120);
+        startButton.setPrefHeight(60);
+        startButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                App.brushTheBattleField();
+            }
+        });
     }
 }

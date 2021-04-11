@@ -159,6 +159,11 @@ public class Tools {
                 if (db.hasImage()) {
                     int imgSize = (int)event.getDragboard().getImage().getWidth();
                     success = setImageForCells(targetZone.getCoordinateY(), targetZone.getCoordinateX(), targetZone, imgSize);
+                    if(success){
+
+                        //Установить корабли как объекты на карте нашего флота.
+
+                    }
                 }
                 /* let the source know whether the string was successfully
                  * transferred and used */

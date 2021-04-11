@@ -33,7 +33,7 @@ public class StartMenuController implements Initializable {
         String sizeMap = chooseMap.getSelectionModel().getSelectedItem().toString();
         String name = playerName.getText();
         App.seaBattleGame.getHuman().setName(name);
-        App.brushShipSettingMenu(App.seaBattleGame, App.stage);
+        App.brushShipSettingMenu();
 
     }
 

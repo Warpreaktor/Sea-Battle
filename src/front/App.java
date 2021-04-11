@@ -35,17 +35,16 @@ public class App extends Application {
     public void start(Stage stage) throws Exception {
         stage = this.stage;
         stage.setResizable(false);
-
         brushStartMenu(stage);
     }
 
-    private final AnchorPane anchorPaneInit(VBox leftBox, VBox rightBox, Label textLabel, Button nextTurn) {
-        AnchorPane anchorPane = new AnchorPane(leftBox, rightBox, textLabel, nextTurn);
-        anchorPane.setBackground(Background.EMPTY);
-        anchorPane.setPrefWidth(1280);
-        anchorPane.setPrefHeight(1024);
-        return anchorPane;
-    }
+//    private final AnchorPane anchorPaneInit(VBox leftBox, VBox rightBox, Label textLabel, Button nextTurn) {
+//        AnchorPane anchorPane = new AnchorPane(leftBox, rightBox, textLabel, nextTurn);
+//        anchorPane.setBackground(Background.EMPTY);
+//        anchorPane.setPrefWidth(1280);
+//        anchorPane.setPrefHeight(1024);
+//        return anchorPane;
+//    }
 
     public final void brushStartMenu(Stage stage) throws IOException {
         try {
@@ -62,8 +61,10 @@ public class App extends Application {
         }
     }
 
-    public final static void brushShipSettingMenu(SeaBattleGame game, Stage stage) {
-            ShipSettingController controller = new ShipSettingController();
+    public final static void brushShipSettingMenu() {
+        stage.setX(300);
+        stage.setY(0);
+        ShipSettingController controller = new ShipSettingController();
         for (int y = 0; y < seaBattleGame.getSIZE(); y++) {
             HBox hBox = new HBox();
             controller.getvBox().getChildren().add(hBox);
@@ -73,7 +74,7 @@ public class App extends Application {
                 gameCell.setFitWidth(60);
                 gameCell.setWave();
                 hBox.getChildren().add(gameCell);
-                game.getHuman().setGameCellToOurFleetMap(gameCell, y, x);
+                seaBattleGame.getHuman().setGameCellToOurFleetMap(gameCell, y, x);
                 gameCell.setCoordinateY(y);
                 gameCell.setCoordinateX(x);
                 Tools.setDragTargetZone(gameCell);
@@ -83,72 +84,68 @@ public class App extends Application {
             stage.setScene(scene);
             stage.show();
     }
-
-
-        public final void brushTheBattleField(SeaBattleGame game, Stage stage, Player player, Player playerCPU) throws IOException{
-        try {
+        public final static void brushTheBattleField(){//SeaBattleGame game, Stage stage, Player player, Player playerCPU) throws IOException{
             stage.setX(300);
-            stage.setY(100);
-            Parent root = FXMLLoader.load(getClass().getResource("BattleField.fxml"));
+            stage.setY(0);
+            //Parent root = FXMLLoader.load(getClass().getResource("BattleField.fxml"));
             //Отрисовка поля с нашим флотом
             VBox leftVBox = new VBox();
             leftVBox.setTranslateY(200.0);
             leftVBox.setTranslateX(15.0);
-            for (int y = 0; y < game.getSIZE(); y++) {
+            for (int y = 0; y < SeaBattleGame.getSIZE(); y++) {
                 HBox leftHBox = new HBox();
                 leftVBox.getChildren().add(leftHBox);
-                for (int x = 0; x < game.getSIZE(); x++) {
-                    GameCell gameCell = new GameCell();
-                    gameCell.setFitHeight(60);
-                    gameCell.setFitWidth(60);
-                    gameCell.setWave();
+                for (int x = 0; x < seaBattleGame.getSIZE(); x++) {
+                    GameCell gameCell = seaBattleGame.getHuman().getOurFleetMap()[y][x];
+//                    gameCell.setFitHeight(60);
+//                    gameCell.setFitWidth(60);
+//                    gameCell.setWave();
                     leftHBox.getChildren().add(gameCell);
-                    player.setGameCellToOurFleetMap(gameCell, y, x);
-                    gameCell.setCoordinateY(y);
-                    gameCell.setCoordinateX(x);
+                    //player.setGameCellToOurFleetMap(gameCell, y, x);
+                    //gameCell.setCoordinateY(y);
+                    //gameCell.setCoordinateX(x);
                 }
             }
             //Отрисовка поля с вражеским полем
             VBox rightVBox = new VBox();
             rightVBox.setTranslateX(660);
             rightVBox.setTranslateY(200.0);
-            for (int y = 0; y < game.getSIZE(); y++) {
+            for (int y = 0; y < seaBattleGame.getSIZE(); y++) {
                 HBox rightHBox = new HBox();
                 rightVBox.getChildren().add(rightHBox);
-                for (int x = 0; x < game.getSIZE(); x++) {
+                for (int x = 0; x < seaBattleGame.getSIZE(); x++) {
                     GameCell gameCell = new GameCell();
                     gameCell.setFitHeight(60);
                     gameCell.setFitWidth(60);
                     gameCell.setWave();
                     rightHBox.getChildren().add(gameCell);
-                    player.setGameCellToEnemyFleetMap(gameCell, y, x);
+                    seaBattleGame.getHuman().setGameCellToEnemyFleetMap(gameCell, y, x);
                     gameCell.setCoordinateY(y);
                     gameCell.setCoordinateX(x);
                     gameCell.setOnMouseClicked(new EventHandler<MouseEvent>() {
                         @Override
                         public void handle(MouseEvent mouseEvent) {
                             if (isHumanTurn) {
-                                game.battle(player, playerCPU, gameCell.getCoordinateY(), gameCell.getCoordinateX());
+                                seaBattleGame.battle(seaBattleGame.getHuman(), seaBattleGame.getCPU(), gameCell.getCoordinateY(), gameCell.getCoordinateX());
                                 isHumanTurn = false;
                             }
                         }
                     });
                 }
             }
-            AnchorPane anchorPane = anchorPaneInit(leftVBox, rightVBox, mainController.getBattleLogView(), mainController.nextTurn);
-            Group group = new Group(root, anchorPane);
-            Scene scene = new Scene(group);
-            scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+            //AnchorPane anchorPane = anchorPaneInit(leftVBox, rightVBox, mainController.getBattleLogView(), mainController.nextTurn);
+            AnchorPane anchorPane = new AnchorPane(leftVBox, rightVBox, mainController.getBattleLogView(), mainController.nextTurn);
+            anchorPane.setBackground(Background.EMPTY);
+            anchorPane.setPrefWidth(1280);
+            anchorPane.setPrefHeight(1024);
+            //Group group = new Group(anchorPane);
+            Scene scene = new Scene(anchorPane);
             stage.setScene(scene);
             stage.show();
         }
-        catch(IOException e){
-            brushTheErrorMessage("Некоторые файлы с игрой повреждены или отсутствуют");
-        }
-    }
 
 
-    public void brushTheErrorMessage(String message){
+    public static void brushTheErrorMessage(String message){
         Stage stage = new Stage();
         TextArea error = new TextArea();
         error.setText(message);
