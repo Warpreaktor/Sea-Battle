@@ -2,15 +2,19 @@ package front;
 
 import com.core.Tools;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 public class ShipSettingController {
+    private boolean isVertical = false;
     private HBox[] hBoxes = new HBox[10];
     private VBox vBox = new VBox(1);
     private Button startButton = new Button("Start");
@@ -36,6 +40,17 @@ public class ShipSettingController {
     }
     public VBox getvBox() {
         return vBox;
+    }
+    public boolean isVertical() {
+        return isVertical;
+    }
+    public void setVertical(boolean vertical) {
+        isVertical = vertical;
+    }
+    public void changeRotation(){
+        if (isVertical == true){
+            isVertical = false;
+        }else isVertical = true;
     }
 
     public ShipSettingController() {
@@ -78,6 +93,15 @@ public class ShipSettingController {
             @Override
             public void handle(ActionEvent event) {
                 App.brushTheBattleField();
+            }
+        });
+        shipSetPan.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent keyEvent) {
+            if (keyEvent.getCode().equals(KeyCode.Z)){
+                changeRotation();
+                System.out.println("Rotation changed");
+                }
             }
         });
     }
