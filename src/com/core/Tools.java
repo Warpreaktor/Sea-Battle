@@ -1,7 +1,6 @@
 package com.core;
 import front.App;
 import javafx.event.EventHandler;
-import javafx.scene.Node;
 import javafx.scene.effect.Effect;
 import javafx.scene.effect.Shadow;
 import javafx.scene.image.ImageView;
@@ -131,7 +130,6 @@ public class Tools {
                 /* show to the user that it is an actual gesture targetZone */
                 if (event.getGestureSource() != targetZone &&
                         event.getDragboard().hasImage() && !targetZone.isShip()){
-                    System.out.println(targetZone.isShip());
                     Effect fx = new Shadow();
                     int imgSize = (int)event.getDragboard().getImage().getWidth();
                     targetZone.setEffect(fx);
@@ -156,9 +154,9 @@ public class Tools {
                 /* if there is a image data on dragboard, read it and use it */
                 Dragboard db = event.getDragboard();
                 boolean success = false;
-                if (db.hasImage()) {
+                if (db.hasImage() && !targetZone.isShip()) {
                     int imgSize = (int)event.getDragboard().getImage().getWidth();
-                    success = setImageForCells(targetZone.getCoordinateY(), targetZone.getCoordinateX(), targetZone, imgSize);
+                    success = setShipToCells(targetZone.getCoordinateY(), targetZone.getCoordinateX(), targetZone, imgSize);
                     clearFx(targetZone.getCoordinateY(), targetZone.getCoordinateX(), targetZone, imgSize);
                 }
                 /* let the source know whether the string was successfully
@@ -209,82 +207,97 @@ public class Tools {
                 map[Y][X].setEffect(null);
         }
     }
-    public static boolean setImageForCells(int Y, int X, GameCell cell, int imgSize) {
+    public static boolean setShipToCells(int Y, int X, GameCell cell, int imgSize) {
         GameCell[][] map = App.seaBattleGame.getHuman().getOurFleetMap();
         int shipSize = imgSize / 60;
         Ship[] shipYard = App.seaBattleGame.getHuman().getShipyard();
         switch (shipSize) {
             case 4:
-                if (X + 1 <= SeaBattleGame.getSIZE() && X - 1 >= 0 && X - 2 >= 0) {
-                    System.out.println("Линкор");
-                    map[Y][X + 1].setLinkor();
-                    map[Y][X].setLinkor();
-                    map[Y][X - 1].setLinkor();
-                    map[Y][X - 2].setLinkor();
-                    map[Y][X + 1].setEffect(null);
-                    map[Y][X].setEffect(null);
-                    map[Y][X - 1].setEffect(null);
-                    map[Y][X - 2].setEffect(null);
-                    for(int i = 0; i < shipYard.length; i++) {
-                        if (shipYard[i] != null && shipYard[i].getShipSize() == 4) {
-                            shipYard[i].shipsOnTheSea(0, Y, X + 1);
-                            shipYard[i].shipsOnTheSea(1, Y, X);
-                            shipYard[i].shipsOnTheSea(2, Y, X - 1);
-                            shipYard[i].shipsOnTheSea(3, Y, X - 2);
-                            shipYard[i] = null;
-                            break;
+                System.out.println(map[Y][X].getClass().getSimpleName());
+                System.out.println(map[Y][X+1].getClass().getSimpleName());
+                System.out.println(map[Y][X-1].getClass().getSimpleName());
+                System.out.println(map[Y][X-2].getClass().getSimpleName());
+                if (!map[Y][X+1].getClass().getSimpleName().equals("Ship") && !map[Y][X].getClass().getSimpleName().equals("Ship") &&
+                        !map[Y][X-1].getClass().getSimpleName().equals("Ship") && !map[Y][X-2].getClass().getSimpleName().equals("Ship")) {
+                    System.out.println(map[Y][X].getClass().getSimpleName());
+                    System.out.println(map[Y][X+1].getClass().getSimpleName());
+                    System.out.println(map[Y][X-1].getClass().getSimpleName());
+                    System.out.println(map[Y][X-2].getClass().getSimpleName());
+                    if (X + 1 <= SeaBattleGame.getSIZE() && X - 1 >= 0 && X - 2 >= 0) {
+                        map[Y][X + 1].setLinkor();
+                        map[Y][X].setLinkor();
+                        map[Y][X - 1].setLinkor();
+                        map[Y][X - 2].setLinkor();
+                        map[Y][X + 1].setEffect(null);
+                        map[Y][X].setEffect(null);
+                        map[Y][X - 1].setEffect(null);
+                        map[Y][X - 2].setEffect(null);
+                        for (int i = 0; i < shipYard.length; i++) {
+                            if (shipYard[i] != null && shipYard[i].getShipSize() == 4) {
+                                shipYard[i].shipsOnTheSea(0, Y, X + 1);
+                                shipYard[i].shipsOnTheSea(1, Y, X);
+                                shipYard[i].shipsOnTheSea(2, Y, X - 1);
+                                shipYard[i].shipsOnTheSea(3, Y, X - 2);
+                                shipYard[i] = null;
+                                break;
+                            }
                         }
+                        return true;
                     }
-                    return true;
-                } else return false;
+                }else return false;
             case 3:
-                if (X + 1 <= SeaBattleGame.getSIZE() && X - 1 >= 0){
-                    map[Y][X].setCruiser();
-                    map[Y][X + 1].setCruiser();
-                    map[Y][X - 1].setCruiser();
-                    map[Y][X].setEffect(null);
-                    map[Y][X + 1].setEffect(null);
-                    map[Y][X - 1].setEffect(null);
-                    for(int i = 0; i < shipYard.length; i++) {
-                        if (shipYard[i] != null && shipYard[i].getShipSize() == 3) {
-                            shipYard[i].shipsOnTheSea(0, Y, X);
-                            shipYard[i].shipsOnTheSea(1, Y, X - 1);
-                            shipYard[i].shipsOnTheSea(2, Y, X - 2);
-                            shipYard[i] = null;
-                            break;
+                if (!map[Y][X].getClass().getSimpleName().equals("Ship") && !map[Y][X+1].getClass().getSimpleName().equals("Ship") &&
+                        !map[Y][X-1].getClass().getSimpleName().equals("Ship")) {
+                    if (X + 1 <= SeaBattleGame.getSIZE() && X - 1 >= 0) {
+                        map[Y][X].setCruiser();
+                        map[Y][X + 1].setCruiser();
+                        map[Y][X - 1].setCruiser();
+                        map[Y][X].setEffect(null);
+                        map[Y][X + 1].setEffect(null);
+                        map[Y][X - 1].setEffect(null);
+                        for (int i = 0; i < shipYard.length; i++) {
+                            if (shipYard[i] != null && shipYard[i].getShipSize() == 3) {
+                                shipYard[i].shipsOnTheSea(0, Y, X);
+                                shipYard[i].shipsOnTheSea(1, Y, X - 1);
+                                shipYard[i].shipsOnTheSea(2, Y, X - 2);
+                                shipYard[i] = null;
+                                break;
+                            }
                         }
+                        return true;
                     }
-                return true;
-                } else return false;
+                }else return false;
             case 2:
-                if (X - 1 >= 0) {
-                    map[Y][X].setDestroyer();
-                    map[Y][X - 1].setDestroyer();
-                    map[Y][X].setEffect(null);
-                    map[Y][X - 1].setEffect(null);
-                    for(int i = 0; i < shipYard.length; i++) {
-                        if (shipYard[i] != null && shipYard[i].getShipSize() == 2) {
-                            shipYard[i].shipsOnTheSea(0, Y, X);
-                            shipYard[i].shipsOnTheSea(1, Y, X - 1);
-                            shipYard[i] = null;
-                            break;
+                if (!map[Y][X].getClass().getSimpleName().equals("Ship") && !map[Y][X-1].getClass().getSimpleName().equals("Ship")) {
+                    if (X - 1 >= 0) {
+                        map[Y][X].setDestroyer();
+                        map[Y][X - 1].setDestroyer();
+                        map[Y][X].setEffect(null);
+                        map[Y][X - 1].setEffect(null);
+                        for (int i = 0; i < shipYard.length; i++) {
+                            if (shipYard[i] != null && shipYard[i].getShipSize() == 2) {
+                                shipYard[i].shipsOnTheSea(0, Y, X);
+                                shipYard[i].shipsOnTheSea(1, Y, X - 1);
+                                shipYard[i] = null;
+                                break;
+                            }
                         }
+                        return true;
                     }
-                    return true;
-                } else return false;
+                }else return false;
             case 1:
-                if (X - 1 >= 0) {
-                    map[Y][X].setSubmarine();
-                    map[Y][X].setEffect(null);
-                    for(int i = 0; i < shipYard.length; i++) {
-                        if (shipYard[i] != null && shipYard[i].getShipSize() == 1) {
-                            shipYard[i].shipsOnTheSea(0, Y, X);
-                            shipYard[i] = null;
-                            break;
+                if (!map[Y][X].getClass().getSimpleName().equals("Ship")) {
+                        map[Y][X].setSubmarine();
+                        map[Y][X].setEffect(null);
+                        for (int i = 0; i < shipYard.length; i++) {
+                            if (shipYard[i] != null && shipYard[i].getShipSize() == 1) {
+                                shipYard[i].shipsOnTheSea(0, Y, X);
+                                shipYard[i] = null;
+                                break;
+                            }
                         }
-                    }
-                    return true;
-                } else return false;
+                        return true;
+                }else return false;
         }
         return false;
     }

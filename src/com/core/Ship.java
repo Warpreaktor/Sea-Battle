@@ -49,7 +49,12 @@ public class Ship extends GameCell {
     public char getShipLabel() {
         return shipLabel;
     }
-
+    public boolean isShip(){
+        return super.isShip();
+    }
+    public void setIsShip(boolean var){
+        super.setIsShip(var);
+    }
     public Ship(int decks, Player owner) {
         this.hp = decks;
         this.shipSize = decks;
