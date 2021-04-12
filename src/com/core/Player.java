@@ -67,7 +67,7 @@ public class Player {
     }
 
     /**
-     * Отрисовка карты игрока.
+     * Отрисовка карты старой консольной карты игрока. Сохранено для истории.
      */
     public void brushTheMap() {
         int size = SeaBattleGame.getSIZE();

@@ -17,16 +17,16 @@ public class GameCell extends ImageView {
     //private Ship objRef;  //На стадии рефакторинга.
     private int coordinateX;
     private int coordinateY;
-    private Image redCross = new Image(getClass().getResourceAsStream("/resources/redCRoss150x150.png"));
-    private Image target = new Image(getClass().getResourceAsStream("/resources/target150x150.png"));
-    private Image wave = new Image(getClass().getResourceAsStream("/resources/waveminBoard.jpg"));
-    private Image dot = new Image(getClass().getResourceAsStream("/resources/dot150x150.png"));
-    private Image ship = new Image(getClass().getResourceAsStream("/resources/ship150x150.jpg"));
-    private Image dotGreen = new Image(getClass().getResourceAsStream("/resources/dotGreen150x150.png"));
-    private Image linkor = new Image(getClass().getResourceAsStream("/resources/linkor150x150.png"));
-    private Image cruiser = new Image("/resources/cruiser60x60.png");
-    private Image destroyer = new Image("/resources/destroyer60x60.png");
-    private Image submarine = new Image("/resources/submarine60x60.png");
+    public Image redCross = new Image(getClass().getResourceAsStream("/resources/redCRoss150x150.png"));
+    public Image target = new Image(getClass().getResourceAsStream("/resources/target150x150.png"));
+    public Image wave = new Image(getClass().getResourceAsStream("/resources/waveminBoard.jpg"));
+    public Image dot = new Image(getClass().getResourceAsStream("/resources/dot150x150.png"));
+    public Image ship = new Image(getClass().getResourceAsStream("/resources/ship150x150.jpg"));
+    public Image dotGreen = new Image(getClass().getResourceAsStream("/resources/dotGreen150x150.png"));
+    public Image linkor = new Image("/resources/linkor150x150.png");
+    public Image cruiser = new Image("/resources/cruiser60x60.png");
+    public Image destroyer = new Image("/resources/destroyer60x60.png");
+    public Image submarine = new Image("/resources/submarine60x60.png");
 
     public String getName(){
         return this.name;

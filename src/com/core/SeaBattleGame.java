@@ -90,15 +90,15 @@ public class SeaBattleGame {
         int Y = Tools.getRandomCoordinate();
         int X = Tools.getRandomCoordinate();
         //Делаем проверку. Если компьютер уже стрелял в эту точку, то изменить координаты.
-        for (int i = 0; i < CPU.getEnemyFleetMap().length; i++) {
-            for (int j = 0; j < CPU.getEnemyFleetMap()[i].length; j++) {
-                if (CPU.getEnemyFleetMap()[Y][X].getCellLabel()=='+' || CPU.getEnemyFleetMap()[Y][X].getCellLabel()=='X'){
-                    shootCPU();
-                    return;
-                }
-            }
-            isVictory();
+        //for (int i = 0; i < CPU.getEnemyFleetMap().length; i++) {
+        //    for (int j = 0; j < CPU.getEnemyFleetMap()[i].length; j++) {
+        if (CPU.getEnemyFleetMap()[Y][X].getCellLabel() == '+' || CPU.getEnemyFleetMap()[Y][X].getCellLabel()=='X'){
+            shootCPU();
+            return;
         }
+        //    }
+        isVictory();
+        //}
         if (human.getOurFleetMap()[Y][X].getClass().getSimpleName().equals("Ship")) {
             String enemyShipName = human.getOurFleetMap()[Y][X].getName();
             Ship enemyShip = (Ship)human.getOurFleetMap()[Y][X];

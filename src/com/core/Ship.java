@@ -15,6 +15,17 @@ public class Ship extends GameCell {
     private int[][] coordinates; //[y][x]
     private Player owner;
     private int hp;
+    private char cellLabel = '~';//Cимвол отображать на консольной карте поля боя.
+
+    @Override
+    public char getCellLabel() {
+        return cellLabel;
+    }
+
+    @Override
+    public void setCellLabel(char cellLabel) {
+        this.cellLabel = cellLabel;
+    }
 
     public void setHp(int hp) {
         this.hp = hp;
@@ -55,6 +66,28 @@ public class Ship extends GameCell {
     public void setIsShip(boolean var){
         super.setIsShip(var);
     }
+
+    public void setRedCross(){
+        this.setImage(redCross);
+    }
+    public void setTarget(){
+        this.setImage(target);
+    }
+    public void setWave(){
+        this.setImage(wave);
+    }
+    public void setDot(){
+        this.setImage(dot);
+    }
+    public void setDotGreen(){this.setImage(dotGreen);}
+    public void setLinkor(){this.setImage(linkor);}
+    public void setCruiser(){this.setImage(cruiser);}
+    public void setDestroyer(){this.setImage(destroyer);}
+    public void setSubmarine(){this.setImage(submarine);}
+    public void setShip(){
+        this.setImage(ship);
+    }
+
     public Ship(int decks, Player owner) {
         this.hp = decks;
         this.shipSize = decks;
@@ -68,6 +101,8 @@ public class Ship extends GameCell {
         this.owner = owner;
         this.name = naming();
     }
+
+
     /**
      * @param index - Это номер палубы коробля. Например 3 палубному кораблю нужно трижды вызвать этот метод и передать
      *              в него индекс от 0 до 2 где 0 это начало корабля, а 2 его конец.
