@@ -6,24 +6,24 @@ public class Player {
     private int countOfTurns = 0;   //Счетчик ходов сделанных игроком.
     private int numberOfShip = 0;   //Итоговое количество кораблей игрока на поле, которое уменьшается по ходу их уничтожения.
     private Ship[] shipyard;           //Массив со списком доступных в начале типов кораблей.
-    private GameCell[][] ourFleetMap = new GameCell[SeaBattleGame.getSIZE()][SeaBattleGame.getSIZE()];;
-    private GameCell[][] enemyFleetMap = new GameCell[SeaBattleGame.getSIZE()][SeaBattleGame.getSIZE()];;
+    private GameObject[][] ourFleetMap = new GameObject[SeaBattleGame.getSIZE()][SeaBattleGame.getSIZE()];
+    private GameObject[][] enemyFleetMap = new GameObject[SeaBattleGame.getSIZE()][SeaBattleGame.getSIZE()];
 
     public Player() {
         //1 Линкор(4), 2 Крейсера(3), 3 Эсминца(2), 4 Подлодки(1)
         /**Каждая клетка игрового поля заполняется объектами пустыми объектами GameCell
          */
         shipyard = new Ship[10];
-            shipyard[0] = new Ship(4, this);
-            shipyard[1] = new Ship(3, this);
-            shipyard[2] = new Ship(3, this);
-            shipyard[3] = new Ship(2, this);
-            shipyard[4] = new Ship(2, this);
-            shipyard[5] = new Ship(2, this);
-            shipyard[6] = new Ship(1, this);
-            shipyard[7] = new Ship(1, this);
-            shipyard[8] = new Ship(1, this);
-            shipyard[9] = new Ship(1, this);
+            shipyard[0] = new Linkor( this);
+            shipyard[1] = new Cruiser(this);
+            shipyard[2] = new Cruiser( this);
+            shipyard[3] = new Destroyer(this);
+            shipyard[4] = new Destroyer(this);
+            shipyard[5] = new Destroyer(this);
+            shipyard[6] = new Submarine(this);
+            shipyard[7] = new Submarine(this);
+            shipyard[8] = new Submarine(this);
+            shipyard[9] = new Submarine(this);
         this.numberOfShip = shipyard.length;
     }
     public void setCPU(boolean CPU) {
@@ -38,10 +38,10 @@ public class Player {
     public void setName(String name) {
         this.name = name;
     }
-    public GameCell[][] getEnemyFleetMap() {
+    public GameObject[][] getEnemyFleetMap() {
         return enemyFleetMap;
     }
-    public GameCell[][] getOurFleetMap() {
+    public GameObject[][] getOurFleetMap() {
         return ourFleetMap;
     }
     public void setGameCellToEnemyFleetMap(GameCell gameCell, int y, int x ) {
@@ -98,11 +98,11 @@ public class Player {
                 System.out.print(i + "|");          //Цифры по оси Y + разделитель
                 for (int k = 0; k < size; k++) {
                     if (j == 0) {
-                        System.out.print(ourFleetMap[i][k].getCellLabel());
+                        System.out.print(ourFleetMap[i][k].getLabel());
                         System.out.print(" ");
                     }
                     if (j == 1) {
-                        System.out.print(enemyFleetMap[i][k].getCellLabel());
+                        System.out.print(enemyFleetMap[i][k].getLabel());
                         System.out.print(" ");
                     }
                 }
@@ -138,8 +138,8 @@ public class Player {
                 case (1)://от точки координат вправо
                     //делаем проверку, можем ли мы установить корабль по предполагаемым координатам
                     for (int i = 0; i < ship.getShipSize(); i++) {
-                        if (ourFleetMap[tempY][tempX].isShip() ||
-                                ourFleetMap[tempY][tempX].getCellLabel() == '0') {
+                        if (!ourFleetMap[tempY][tempX].getClass().getSimpleName().equals("GameCell") ||
+                                ourFleetMap[tempY][tempX].getLabel() == '0') {
                             otherShipOnGameField(ship);
                             return;
                         } else {tempX += 1;}
@@ -147,10 +147,14 @@ public class Player {
                     }
                     //Устанавливаем корабль на восток
                     for (int i = 0; i < ship.getShipSize(); i++) {
-                        ship.shipsOnTheSea(i,Y,X);
-                        if (ship.getOwner().getOurFleetMap()[Y][X].getCellLabel() == 'B') {
-                            ourFleetMap[Y][X].setLinkor();
-                        } else {ourFleetMap[Y][X].setShip();}
+                        ship.shipOnTheSea(i,Y,X);
+                        if (ship.getOwner().getOurFleetMap()[Y][X].getLabel() == 'B') {
+                            System.out.println("otherShipOnGameField -> setLinkor");
+                            //ourFleetMap[Y][X].setLinkor();
+                        } else {
+                            System.out.println("otherShipOnGameField -> setShip");
+                            //ourFleetMap[Y][X].setShip();
+                        }
                         SeaBattleGame.setNeighbors(Y,X, ship);
                         X += 1;
                     }
@@ -159,8 +163,8 @@ public class Player {
                 case (2)://от точки координат вниз
                     //делаем проверку, можем ли мы установить корабль по предполагаемым координатам
                     for (int i = 0; i < ship.getShipSize(); i++) {
-                        if (ourFleetMap[tempY][tempX].isShip()||
-                                ourFleetMap[tempY][tempX].getCellLabel()=='0') {
+                        if (!ourFleetMap[tempY][tempX].getClass().getSimpleName().equals("GameCell")||
+                                ourFleetMap[tempY][tempX].getLabel()=='0') {
                             otherShipOnGameField(ship);
                             return;
                         } else {
@@ -169,10 +173,14 @@ public class Player {
                     }
                     //Если прошли проверку устанавливаем корабль
                     for (int i = 0; i < ship.getShipSize(); i++) {
-                        ship.shipsOnTheSea(i,Y,X);
-                        if (ship.getOwner().getOurFleetMap()[Y][X].getCellLabel() == 'B') {
-                            ourFleetMap[Y][X].setLinkor();
-                        } else {ourFleetMap[Y][X].setShip();}
+                        ship.shipOnTheSea(i,Y,X);
+                        if (ship.getOwner().getOurFleetMap()[Y][X].getLabel() == 'B') {
+                            System.out.println("setLinkor");
+                            //ourFleetMap[Y][X].setLinkor();
+                        } else {
+                            System.out.println("setShip");
+                            //ourFleetMap[Y][X].setShip();
+                        }
                        SeaBattleGame.setNeighbors(Y,X, ship);
                         Y += 1;
                     }
@@ -181,8 +189,8 @@ public class Player {
                 case (3)://от точки координат влево
                     //делаем проверку, можем ли мы установить корабль по предполагаемым координатам
                     for (int i = 0; i < ship.getShipSize(); i++) {
-                        if (ourFleetMap[tempY][tempX].isShip()||
-                                ourFleetMap[tempY][tempX].getCellLabel()=='0') {
+                        if (!ourFleetMap[tempY][tempX].getClass().getSimpleName().equals("GameCell")||
+                                ourFleetMap[tempY][tempX].getLabel()=='0') {
                             otherShipOnGameField(ship);
                             return;
                         } else {
@@ -191,10 +199,14 @@ public class Player {
                     }
                     //Если прошли проверку устанавливаем корабль
                     for (int i = 0; i < ship.getShipSize(); i++) {
-                        ship.shipsOnTheSea(i,Y,X);
-                        if (ship.getOwner().getOurFleetMap()[Y][X].getCellLabel() == 'B') {
-                            ourFleetMap[Y][X].setLinkor();
-                        } else {ourFleetMap[Y][X].setShip();}
+                        ship.shipOnTheSea(i,Y,X);
+                        if (ship.getOwner().getOurFleetMap()[Y][X].getLabel() == 'B') {
+                            System.out.println("setLinkor");
+                            //ourFleetMap[Y][X].setLinkor();
+                        } else {
+                            System.out.println("setShip");
+                            //ourFleetMap[Y][X].setShip();
+                        }
                         SeaBattleGame.setNeighbors(Y,X, ship);
                         X -= 1;
                     }
@@ -203,8 +215,8 @@ public class Player {
                 case (4)://от точки координат вверх
                     //делаем проверку, можем ли мы установить корабль по предполагаемым координатам
                     for (int i = 0; i < ship.getShipSize(); i++) {
-                        if (ourFleetMap[tempY][tempX].isShip() ||
-                                ourFleetMap[tempY][tempX].getCellLabel()=='0') {
+                        if (!ourFleetMap[tempY][tempX].getClass().getSimpleName().equals("GameCell") ||
+                                ourFleetMap[tempY][tempX].getLabel()=='0') {
                             otherShipOnGameField(ship);
                             return;
                         } else {
@@ -213,10 +225,14 @@ public class Player {
                     }
                     //Если прошли проверку устанавливаем корабль
                     for (int i = 0; i < ship.getShipSize(); i++) {
-                        ship.shipsOnTheSea(i,Y,X);
-                        if (ship.getOwner().getOurFleetMap()[Y][X].getCellLabel() == 'B') {
-                            ourFleetMap[Y][X].setLinkor();
-                        } else {ourFleetMap[Y][X].setShip();}
+                        ship.shipOnTheSea(i,Y,X);
+                        if (ship.getOwner().getOurFleetMap()[Y][X].getLabel() == 'B') {
+                            System.out.println("setLinkor");
+                            //ourFleetMap[Y][X].setLinkor();
+                        } else {
+                            System.out.println("setShip");
+                            //ourFleetMap[Y][X].setShip();
+                        }
                         SeaBattleGame.setNeighbors(Y,X, ship);
                         Y -= 1;
                     }

@@ -3,6 +3,7 @@ import front.App;
 import javafx.event.EventHandler;
 import javafx.scene.effect.Effect;
 import javafx.scene.effect.Shadow;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.*;
 
@@ -130,10 +131,9 @@ public class Tools {
                 /* the drag-and-drop gesture entered the targetZone */
                 /* show to the user that it is an actual gesture targetZone */
                 if (event.getGestureSource() != targetZone &&
-                        event.getDragboard().hasImage() && !targetZone.isShip()){
+                        event.getDragboard().hasImage() && targetZone.getClass().getSimpleName().equals("GameCell")){
                     Effect fx = new Shadow();
                     int imgSize = (int)event.getDragboard().getImage().getWidth();
-                    System.out.println(App.shipSettingController.isVertical());
                     if (App.shipSettingController.isVertical() == false) {
                         setFxX(targetZone.getCoordinateY(), targetZone.getCoordinateX(), fx, imgSize);
                     }else{
@@ -163,7 +163,7 @@ public class Tools {
                 /* if there is a image data on dragboard, read it and use it */
                 Dragboard db = event.getDragboard();
                 boolean success = false;
-                if (db.hasImage() && !targetZone.isShip()) {
+                if (db.hasImage() && targetZone.getClass().getSimpleName().equals("GameCell")) {
                     int imgSize = (int)event.getDragboard().getImage().getWidth();
                     if (App.shipSettingController.isVertical() == false) {
 
@@ -182,7 +182,7 @@ public class Tools {
         });
     }
     public static void setFxX(int Y, int X, Effect fx, int imgSize) {
-        GameCell[][] map = App.seaBattleGame.getHuman().getOurFleetMap();
+        GameObject[][] map = App.seaBattleGame.getHuman().getOurFleetMap();
         imgSize /= 60;
         switch (imgSize){
             case 4:
@@ -206,7 +206,7 @@ public class Tools {
         }
     }
     public static void setFxY(int Y, int X, Effect fx, int imgSize) {
-        GameCell[][] map = App.seaBattleGame.getHuman().getOurFleetMap();
+        GameObject[][] map = App.seaBattleGame.getHuman().getOurFleetMap();
         imgSize /= 60;
         switch (imgSize){
             case 4:
@@ -230,7 +230,7 @@ public class Tools {
         }
     }
     public static void clearFxX(int Y, int X, int imgSize) {
-        GameCell[][] map = App.seaBattleGame.getHuman().getOurFleetMap();
+        GameObject[][] map = App.seaBattleGame.getHuman().getOurFleetMap();
         imgSize /= 60;
         switch (imgSize){
             case 4:
@@ -254,7 +254,7 @@ public class Tools {
         }
     }
     public static void clearFxY(int Y, int X, int imgSize) {
-        GameCell[][] map = App.seaBattleGame.getHuman().getOurFleetMap();
+        GameObject[][] map = App.seaBattleGame.getHuman().getOurFleetMap();
         imgSize /= 60;
         switch (imgSize){
             case 4:
@@ -278,7 +278,7 @@ public class Tools {
         }
     }
     public static boolean setShipToCellsX(int Y, int X, int imgSize) {
-        GameCell[][] map = App.seaBattleGame.getHuman().getOurFleetMap();
+        GameObject[][] map = App.seaBattleGame.getHuman().getOurFleetMap();
         int shipSize = imgSize / 60;
         Ship[] shipYard = App.seaBattleGame.getHuman().getShipyard();
         switch (shipSize) {
@@ -299,20 +299,20 @@ public class Tools {
                 if (!map[Y][X+1].getClass().getSimpleName().equals("Ship") && !map[Y][X].getClass().getSimpleName().equals("Ship") &&
                         !map[Y][X-1].getClass().getSimpleName().equals("Ship") && !map[Y][X-2].getClass().getSimpleName().equals("Ship")) {
                     if (X + 1 < SeaBattleGame.getSIZE() && X - 2 >= 0) {
-                        map[Y][X + 1].setLinkor();
-                        map[Y][X].setLinkor();
-                        map[Y][X - 1].setLinkor();
-                        map[Y][X - 2].setLinkor();
+                        map[Y][X + 1].setImage(ImageName.LINKOR);
+                        map[Y][X].setImage(ImageName.LINKOR);
+                        map[Y][X - 1].setImage(ImageName.LINKOR);
+                        map[Y][X - 2].setImage(ImageName.LINKOR);
                         map[Y][X + 1].setEffect(null);
                         map[Y][X].setEffect(null);
                         map[Y][X - 1].setEffect(null);
                         map[Y][X - 2].setEffect(null);
                         for (int i = 0; i < shipYard.length; i++) {
                             if (shipYard[i] != null && shipYard[i].getShipSize() == 4) {
-                                shipYard[i].shipsOnTheSea(0, Y, X + 1);
-                                shipYard[i].shipsOnTheSea(1, Y, X);
-                                shipYard[i].shipsOnTheSea(2, Y, X - 1);
-                                shipYard[i].shipsOnTheSea(3, Y, X - 2);
+                                shipYard[i].shipOnTheSea(0, Y, X + 1);
+                                shipYard[i].shipOnTheSea(1, Y, X);
+                                shipYard[i].shipOnTheSea(2, Y, X - 1);
+                                shipYard[i].shipOnTheSea(3, Y, X - 2);
                                 shipYard[i] = null;
                                 break;
                             }
@@ -337,17 +337,17 @@ public class Tools {
                 if (!map[Y][X].getClass().getSimpleName().equals("Ship") && !map[Y][X+1].getClass().getSimpleName().equals("Ship") &&
                         !map[Y][X-1].getClass().getSimpleName().equals("Ship")) {
                     if (X + 1 < SeaBattleGame.getSIZE() && X - 1 >= 0) {
-                        map[Y][X].setCruiser();
-                        map[Y][X + 1].setCruiser();
-                        map[Y][X - 1].setCruiser();
+                        map[Y][X].setImage(ImageName.CRUISER);
+                        map[Y][X + 1].setImage(ImageName.CRUISER);
+                        map[Y][X - 1].setImage(ImageName.CRUISER);
                         map[Y][X].setEffect(null);
                         map[Y][X + 1].setEffect(null);
                         map[Y][X - 1].setEffect(null);
                         for (int i = 0; i < shipYard.length; i++) {
                             if (shipYard[i] != null && shipYard[i].getShipSize() == 3) {
-                                shipYard[i].shipsOnTheSea(0, Y, X);
-                                shipYard[i].shipsOnTheSea(1, Y, X + 1);
-                                shipYard[i].shipsOnTheSea(2, Y, X - 1);
+                                shipYard[i].shipOnTheSea(0, Y, X);
+                                shipYard[i].shipOnTheSea(1, Y, X + 1);
+                                shipYard[i].shipOnTheSea(2, Y, X - 1);
                                 shipYard[i] = null;
                                 break;
                             }
@@ -370,14 +370,14 @@ public class Tools {
                 }
                 if (!map[Y][X].getClass().getSimpleName().equals("Ship") && !map[Y][X-1].getClass().getSimpleName().equals("Ship")) {
                     if (X - 1 >= 0) {
-                        map[Y][X].setDestroyer();
-                        map[Y][X - 1].setDestroyer();
+                        map[Y][X].setImage(ImageName.DESTROYER);
+                        map[Y][X - 1].setImage(ImageName.DESTROYER);
                         map[Y][X].setEffect(null);
                         map[Y][X - 1].setEffect(null);
                         for (int i = 0; i < shipYard.length; i++) {
                             if (shipYard[i] != null && shipYard[i].getShipSize() == 2) {
-                                shipYard[i].shipsOnTheSea(0, Y, X);
-                                shipYard[i].shipsOnTheSea(1, Y, X - 1);
+                                shipYard[i].shipOnTheSea(0, Y, X);
+                                shipYard[i].shipOnTheSea(1, Y, X - 1);
                                 shipYard[i] = null;
                                 break;
                             }
@@ -400,11 +400,12 @@ public class Tools {
                     }
                 }
                 if (!map[Y][X].getClass().getSimpleName().equals("Ship")) {
-                        map[Y][X].setSubmarine();
-                        map[Y][X].setEffect(null);
+                    map[Y][X].setEffect(null);
                         for (int i = 0; i < shipYard.length; i++) {
                             if (shipYard[i] != null && shipYard[i].getShipSize() == 1) {
-                                shipYard[i].shipsOnTheSea(0, Y, X);
+                                System.out.println("SUBMARINE");
+                                map[Y][X].setImage(ImageName.SUBMARINE);
+                                shipYard[i].shipOnTheSea(0, Y, X);
                                 shipYard[i] = null;
                                 break;
                             }
@@ -415,7 +416,7 @@ public class Tools {
         return false;
     }
     public static boolean setShipToCellsY(int Y, int X, int imgSize) {
-        GameCell[][] map = App.seaBattleGame.getHuman().getOurFleetMap();
+        GameObject[][] map = App.seaBattleGame.getHuman().getOurFleetMap();
         int shipSize = imgSize / 60;
         Ship[] shipYard = App.seaBattleGame.getHuman().getShipyard();
         switch (shipSize) {
@@ -436,20 +437,20 @@ public class Tools {
                 if (!map[Y+1][X].getClass().getSimpleName().equals("Ship") && !map[Y][X].getClass().getSimpleName().equals("Ship") &&
                         !map[Y-1][X].getClass().getSimpleName().equals("Ship") && !map[Y-2][X].getClass().getSimpleName().equals("Ship")) {
                     if (Y + 1 < SeaBattleGame.getSIZE() && Y - 2 >= 0) {
-                        map[Y +1][X].setLinkor();
-                        map[Y][X].setLinkor();
-                        map[Y - 1][X].setLinkor();
-                        map[Y - 2][X].setLinkor();
+                        map[Y +1][X].setImage(ImageName.LINKOR);
+                        map[Y][X].setImage(ImageName.LINKOR);
+                        map[Y - 1][X].setImage(ImageName.LINKOR);
+                        map[Y - 2][X].setImage(ImageName.LINKOR);
                         map[Y + 1][X].setEffect(null);
                         map[Y][X].setEffect(null);
                         map[Y - 1][X].setEffect(null);
                         map[Y - 2][X].setEffect(null);
                         for (int i = 0; i < shipYard.length; i++) {
                             if (shipYard[i] != null && shipYard[i].getShipSize() == 4) {
-                                shipYard[i].shipsOnTheSea(0, Y + 1, X);
-                                shipYard[i].shipsOnTheSea(1, Y, X);
-                                shipYard[i].shipsOnTheSea(2, Y - 1, X);
-                                shipYard[i].shipsOnTheSea(3, Y - 2, X);
+                                shipYard[i].shipOnTheSea(0, Y + 1, X);
+                                shipYard[i].shipOnTheSea(1, Y, X);
+                                shipYard[i].shipOnTheSea(2, Y - 1, X);
+                                shipYard[i].shipOnTheSea(3, Y - 2, X);
                                 shipYard[i] = null;
                                 break;
                             }
@@ -474,17 +475,17 @@ public class Tools {
                 if (!map[Y][X].getClass().getSimpleName().equals("Ship") && !map[Y+1][X].getClass().getSimpleName().equals("Ship") &&
                         !map[Y-1][X].getClass().getSimpleName().equals("Ship")) {
                     if (Y + 1 < SeaBattleGame.getSIZE() && Y - 1 >= 0) {
-                        map[Y][X].setCruiser();
-                        map[Y + 1][X].setCruiser();
-                        map[Y - 1][X].setCruiser();
+                        map[Y][X].setImage(ImageName.CRUISER);
+                        map[Y + 1][X].setImage(ImageName.CRUISER);
+                        map[Y - 1][X].setImage(ImageName.CRUISER);
                         map[Y][X].setEffect(null);
                         map[Y + 1][X].setEffect(null);
                         map[Y - 1][X].setEffect(null);
                         for (int i = 0; i < shipYard.length; i++) {
                             if (shipYard[i] != null && shipYard[i].getShipSize() == 3) {
-                                shipYard[i].shipsOnTheSea(0, Y, X);
-                                shipYard[i].shipsOnTheSea(1, Y + 1, X);
-                                shipYard[i].shipsOnTheSea(2, Y - 1, X);
+                                shipYard[i].shipOnTheSea(0, Y, X);
+                                shipYard[i].shipOnTheSea(1, Y + 1, X);
+                                shipYard[i].shipOnTheSea(2, Y - 1, X);
                                 shipYard[i] = null;
                                 break;
                             }
@@ -507,14 +508,14 @@ public class Tools {
                 }
                 if (!map[Y][X].getClass().getSimpleName().equals("Ship") && !map[Y-1][X].getClass().getSimpleName().equals("Ship")) {
                     if (Y - 1 >= 0) {
-                        map[Y][X].setDestroyer();
-                        map[Y - 1][X].setDestroyer();
+                        map[Y][X].setImage(ImageName.DESTROYER);
+                        map[Y - 1][X].setImage(ImageName.DESTROYER);
                         map[Y][X].setEffect(null);
                         map[Y - 1][X].setEffect(null);
                         for (int i = 0; i < shipYard.length; i++) {
                             if (shipYard[i] != null && shipYard[i].getShipSize() == 2) {
-                                shipYard[i].shipsOnTheSea(0, Y, X);
-                                shipYard[i].shipsOnTheSea(1, Y - 1, X);
+                                shipYard[i].shipOnTheSea(0, Y, X);
+                                shipYard[i].shipOnTheSea(1, Y - 1, X);
                                 shipYard[i] = null;
                                 break;
                             }
@@ -537,11 +538,11 @@ public class Tools {
                     }
                 }
                 if (!map[Y][X].getClass().getSimpleName().equals("Ship")) {
-                        map[Y][X].setSubmarine();
+                        map[Y][X].setImage(ImageName.SUBMARINE);
                         map[Y][X].setEffect(null);
                         for (int i = 0; i < shipYard.length; i++) {
                             if (shipYard[i] != null && shipYard[i].getShipSize() == 1) {
-                                shipYard[i].shipsOnTheSea(0, Y, X);
+                                shipYard[i].shipOnTheSea(0, Y, X);
                                 shipYard[i] = null;
                                 break;
                             }

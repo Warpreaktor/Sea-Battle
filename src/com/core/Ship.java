@@ -1,31 +1,16 @@
 package com.core;
 
-import javafx.scene.image.ImageView;
-
 /**
  * shipSize - Количество занимаемых на поле ячеек кораблеём. 4 - Линкор, 3 - Крейсер(), 2 - Эсминец, 1 - Подлодка
  * shipLabel - Не смотря на то что игра имеет графический интерфейс, тем не менее бекэндная часть игры ориентируется
  * на эти простые символы, чтобы понимать состояние клетки: "B" = Линкор, L = Крейсер, M = Эсминец, S = Подлодкаж;
  * "+" = по клетке уже стреляли, "X" = Корабль поврежден\уничтожен, "0" = соседствующая с кораблем клетка.
  */
-public class Ship extends GameCell {
-    private final String name;
+public class Ship extends GameObject {
+    private String name;
     private int shipSize;        //Количество палуб у корабля
-    private char shipLabel;
-    private int[][] coordinates; //[y][x]
     private Player owner;
     private int hp;
-    private char cellLabel = '~';//Cимвол отображать на консольной карте поля боя.
-
-    @Override
-    public char getCellLabel() {
-        return cellLabel;
-    }
-
-    @Override
-    public void setCellLabel(char cellLabel) {
-        this.cellLabel = cellLabel;
-    }
 
     public void setHp(int hp) {
         this.hp = hp;
@@ -39,81 +24,31 @@ public class Ship extends GameCell {
     public void setOwner(Player owner) {
         this.owner = owner;
     }
-    public int[][] getCoordinates() {
-        return coordinates;
-    }
+
     public Player getOwner() {
         return owner;
     }
-    public void setCoordinates(int string, int column, int coordinate) {
-        coordinates[string][column] = coordinate;
-    }
+
     public void setShipSize(int shipSize) {
         this.shipSize = shipSize;
     }
     public int getShipSize() {
         return shipSize;
     }
-    public void setShipLabel(char shipLabel) {
-        this.shipLabel = shipLabel;
-    }
-    public char getShipLabel() {
-        return shipLabel;
-    }
-    public boolean isShip(){
-        return super.isShip();
-    }
-    public void setIsShip(boolean var){
-        super.setIsShip(var);
-    }
-
-    public void setRedCross(){
-        this.setImage(redCross);
-    }
-    public void setTarget(){
-        this.setImage(target);
-    }
-    public void setWave(){
-        this.setImage(wave);
-    }
-    public void setDot(){
-        this.setImage(dot);
-    }
-    public void setDotGreen(){this.setImage(dotGreen);}
-    public void setLinkor(){this.setImage(linkor);}
-    public void setCruiser(){this.setImage(cruiser);}
-    public void setDestroyer(){this.setImage(destroyer);}
-    public void setSubmarine(){this.setImage(submarine);}
-    public void setShip(){
-        this.setImage(ship);
-    }
-
-    public Ship(int decks, Player owner) {
-        this.hp = decks;
-        this.shipSize = decks;
-        this.coordinates = new int[decks][2]; //Создаем пустой массив для хранения в нем таблицы координат [y][x]
-        switch (decks){
-            case(1): this.shipLabel = 'S';break;
-            case(2): this.shipLabel = 'M';break;
-            case(3): this.shipLabel = 'L';break;
-            case(4): this.shipLabel = 'B';break;
-        }
-        this.owner = owner;
-        this.name = naming();
-    }
 
 
     /**
-     * @param index - Это номер палубы коробля. Например 3 палубному кораблю нужно трижды вызвать этот метод и передать
+     * @param partOfShip - Это номер палубы коробля. Например 3 палубному кораблю нужно трижды вызвать этот метод и передать
      *              в него индекс от 0 до 2 где 0 это начало корабля, а 2 его конец.
+     *                   Метод необходимо реализовывать для каждого корабля.
      */
-    public void shipsOnTheSea(int index, int y, int x){
-        this.setCoordinates(index, 0, y);
-        this.setCoordinates(index, 1, x);
-        this.getOwner().getOurFleetMap()[y][x].setIsShip(true);
-        this.getOwner().getOurFleetMap()[y][x].setCellLabel(this.getShipLabel());
-        this.getOwner().getOurFleetMap()[y][x] = this;
+    public void shipOnTheSea(int partOfShip, int y, int x){
+        GameObject[][] map = this.getOwner().getOurFleetMap();
+        map[y][x] = new Ship();
+        map[y][x].setLabel(this.getLabel());
+        System.out.println("Установлен абстрактный корабль");
     }
+
     public String naming(){
         String name = "Безымянный";
         int randomNum = 1 + (int)(Math.random()*6);

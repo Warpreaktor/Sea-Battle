@@ -44,7 +44,7 @@ public class SeaBattleGame {
     }
 
     public void battle(Player human, Player playerCPU, int Y, int X) {
-        if (human.getEnemyFleetMap()[Y][X].getCellLabel() == '+' || human.getEnemyFleetMap()[Y][X].getCellLabel() == 'X'){
+        if (human.getEnemyFleetMap()[Y][X].getLabel() == '+' || human.getEnemyFleetMap()[Y][X].getLabel() == 'X'){
             return;
         }
         this.shoot(human, playerCPU, Y, X);
@@ -64,20 +64,20 @@ public class SeaBattleGame {
                 }
                 if (enemyShip.getHp()<=0) {
                     mainController.textOutput("Корабль " + enemyShipName + " уничтожен!");
-                    CPU.getOurFleetMap()[Y][X].setCellLabel('X'); //Ставим отмеку у противнка в его карте
-                    CPU.getOurFleetMap()[Y][X].setRedCross(); //Ставим отмеку у противнка в его карте
-                    human.getEnemyFleetMap()[Y][X].setCellLabel('X');
-                    human.getEnemyFleetMap()[Y][X].setRedCross();          //Ставим отметку в своей "вражеской" карте
-                    CPU.getOurFleetMap()[Y][X].setIsShip(false);
+                    CPU.getOurFleetMap()[Y][X].setLabel('X'); //Ставим отмеку у противнка в его карте
+                    CPU.getOurFleetMap()[Y][X] = new GameCell(Y, X, ImageName.RED_CROSS) {
+                    }; //Ставим отмеку у противнка в его карте
+                    human.getEnemyFleetMap()[Y][X].setLabel('X');
+                    human.getEnemyFleetMap()[Y][X] = new GameCell(Y, X, ImageName.RED_CROSS);          //Ставим отметку в своей "вражеской" карте
                     CPU.setNumberOfShip(CPU.getNumberOfShip()-1);
                 }
                 human.setCountOfTurns(human.getCountOfTurns()+1);
             } else {
                 mainController.textOutput(human.getName() + " промахнулся!");
-                if (human.getEnemyFleetMap()[Y][X].getCellLabel()=='X'){
+                if (human.getEnemyFleetMap()[Y][X].getLabel()=='X'){
 
-                }else {human.getEnemyFleetMap()[Y][X].setCellLabel('+');}
-                human.getEnemyFleetMap()[Y][X].setDot();          //Ставим точку в своей "вражеской" карте
+                }else {human.getEnemyFleetMap()[Y][X].setLabel('+');}
+                human.getEnemyFleetMap()[Y][X] = new GameCell(Y, X, ImageName.DOT);          //Ставим точку в своей "вражеской" карте
                 human.setCountOfTurns(human.getCountOfTurns()+1);
             }
         } catch (Exception e) {
@@ -92,7 +92,7 @@ public class SeaBattleGame {
         //Делаем проверку. Если компьютер уже стрелял в эту точку, то изменить координаты.
         //for (int i = 0; i < CPU.getEnemyFleetMap().length; i++) {
         //    for (int j = 0; j < CPU.getEnemyFleetMap()[i].length; j++) {
-        if (CPU.getEnemyFleetMap()[Y][X].getCellLabel() == '+' || CPU.getEnemyFleetMap()[Y][X].getCellLabel()=='X'){
+        if (CPU.getEnemyFleetMap()[Y][X].getLabel() == '+' || CPU.getEnemyFleetMap()[Y][X].getLabel()=='X'){
             shootCPU();
             return;
         }
@@ -109,22 +109,21 @@ public class SeaBattleGame {
             }
             if (enemyShip.getHp()<=0) {
                 mainController.textOutput("Корабль " + enemyShipName + " уничтожен!");
-                human.getOurFleetMap()[Y][X].setCellLabel('X');         //Ставим отмеку у противнка в его карте
-                human.getOurFleetMap()[Y][X].setRedCross();             //Ставим отмеку у противнка в его карте
-                CPU.getEnemyFleetMap()[Y][X].setCellLabel('X');
-                CPU.getEnemyFleetMap()[Y][X].setRedCross();
-                human.getOurFleetMap()[Y][X].setIsShip(false);
+                human.getOurFleetMap()[Y][X].setLabel('X');         //Ставим отмеку у противнка в его карте
+                human.getOurFleetMap()[Y][X] = new GameCell(Y, X, ImageName.RED_CROSS);             //Ставим отмеку у противнка в его карте
+                CPU.getEnemyFleetMap()[Y][X].setLabel('X');
+                CPU.getEnemyFleetMap()[Y][X] = new GameCell(Y, X, ImageName.RED_CROSS);
                 human.setNumberOfShip(human.getNumberOfShip()-1);
             }
             CPU.setCountOfTurns(CPU.getCountOfTurns()+1);;
         } else {
             mainController.textOutput(CPU.getName() + " стреляет и промахивается.");
-            if (CPU.getEnemyFleetMap()[Y][X].getCellLabel()=='X'){
+            if (CPU.getEnemyFleetMap()[Y][X].getLabel()=='X'){
 
             }else {
-                human.getOurFleetMap()[Y][X].setDot(); //Ставим отмеку у противнка в его карте
-                CPU.getEnemyFleetMap()[Y][X].setCellLabel('+');
-                CPU.getEnemyFleetMap()[Y][X].setDot();
+                human.getOurFleetMap()[Y][X] = new GameCell(Y, X, ImageName.DOT); //Ставим отмеку у противнка в его карте
+                CPU.getEnemyFleetMap()[Y][X].setLabel('+');
+                CPU.getEnemyFleetMap()[Y][X] = new GameCell(Y, X, ImageName.DOT);
             }
             CPU.setCountOfTurns(CPU.getCountOfTurns()+1);;
         }
@@ -134,8 +133,9 @@ public class SeaBattleGame {
             for (int x = X - 1; x <= X + 1; x++) {
                 if (y < 0 || y >= SIZE) {continue;}
                 if (x < 0 || x >= SIZE) {continue;}
-                if (ship.getOwner().getOurFleetMap()[y][x].isShip()) {continue;}
-                ship.getOwner().getOurFleetMap()[y][x].setCellLabel('0');
+                String className = ship.getOwner().getOurFleetMap()[y][x].getClass().getSimpleName();
+                if (className.equals("Linkor") || className.equals("Cruiser") || className.equals("Destroyer") || className.equals("Submarine")) {continue;}
+                ship.getOwner().getOurFleetMap()[y][x].setLabel('0');
             }
         }
     }
@@ -152,11 +152,10 @@ public class SeaBattleGame {
     }
 
     public void theShipIsDamaged(Player enemy, Player self, int Y, int X){
-        enemy.getOurFleetMap()[Y][X].setCellLabel('X');    //Ставим отмеку в карте противнка
-        enemy.getOurFleetMap()[Y][X].setRedCross();        //Рисуем крест на карте противнка
-        enemy.getOurFleetMap()[Y][X].setIsShip(false);     //Ставим отметку на карте противника, что корабля там больше нет
-        self.getEnemyFleetMap()[Y][X].setCellLabel('X');    //Ставим отметку в своей карте "Радар"
-        self.getEnemyFleetMap()[Y][X].setRedCross();        //Рисуем крест в своей карте "Радар"
+        enemy.getOurFleetMap()[Y][X].setLabel('X');    //Ставим отмеку в карте противнка
+        enemy.getOurFleetMap()[Y][X] = new GameCell(Y, X, ImageName.RED_CROSS);        //Рисуем крест на карте противнка
+        self.getEnemyFleetMap()[Y][X].setLabel('X');    //Ставим отметку в своей карте "Радар"
+        self.getEnemyFleetMap()[Y][X] = new GameCell(Y, X, ImageName.RED_CROSS);        //Рисуем крест в своей карте "Радар"
     }
 
     public void manualShipSetting(){
