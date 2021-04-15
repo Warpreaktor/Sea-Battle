@@ -7,6 +7,8 @@ import javafx.scene.effect.Shadow;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.*;
 
+import java.util.ArrayList;
+
 public class Tools {
     public static String[] nounsBookMan = {"Махаон","Герой","Брат","Бриз", "Император","Массон", "Сахарок", "Бог", "Минотавр", "Враг", "Победитель",
             "Карбид", "Китобоец", "Христианин", "Гнев", "Нормандец", "Плот", "Водолаз", "Туз", "Шарабан", "Капкан", "Маньяк", "Варяг", "Ковбой",
@@ -344,7 +346,7 @@ public class Tools {
     public static boolean setShipToCellsX(int Y, int X, int imgSize) {
         GameObject[][] map = App.seaBattleGame.getHuman().getOurFleetMap();
         int shipSize = imgSize / 60;
-        Ship[] shipYard = App.seaBattleGame.getHuman().getShipyard();
+        ArrayList<Ship> shipYard = App.seaBattleGame.getHuman().getShipyard();
         switch (shipSize) {
             case 4:
                 for (int y = Y - 1; y <= Y + 1; y++) {
@@ -371,16 +373,16 @@ public class Tools {
                         map[Y][X].setEffect(null);
                         map[Y][X - 1].setEffect(null);
                         map[Y][X - 2].setEffect(null);
-                        for (int i = 0; i < shipYard.length; i++) {
-                            if (shipYard[i] != null && shipYard[i].getShipSize() == 4) {
-                                shipYard[i].shipOnTheSea(0, Y, X + 1);
-                                shipYard[i].shipOnTheSea(1, Y, X);
-                                shipYard[i].shipOnTheSea(2, Y, X - 1);
-                                shipYard[i].shipOnTheSea(3, Y, X - 2);
-                                shipYard[i] = null;
-                                break;
-                            }
-                        }
+//                        for (int i = 0; i < shipYard.size(); i++) {
+//                            if (shipYard[i] != null && shipYard[i].getShipSize() == 4) {
+//                                shipYard[i].shipOnTheSea(0, Y, X + 1);
+//                                shipYard[i].shipOnTheSea(1, Y, X);
+//                                shipYard[i].shipOnTheSea(2, Y, X - 1);
+//                                shipYard[i].shipOnTheSea(3, Y, X - 2);
+//                                shipYard[i] = null;
+//                                break;
+//                            }
+//                        }
                         return true;
                     }
                 }else return false;
@@ -407,15 +409,15 @@ public class Tools {
                         map[Y][X].setEffect(null);
                         map[Y][X + 1].setEffect(null);
                         map[Y][X - 1].setEffect(null);
-                        for (int i = 0; i < shipYard.length; i++) {
-                            if (shipYard[i] != null && shipYard[i].getShipSize() == 3) {
-                                shipYard[i].shipOnTheSea(0, Y, X);
-                                shipYard[i].shipOnTheSea(1, Y, X + 1);
-                                shipYard[i].shipOnTheSea(2, Y, X - 1);
-                                shipYard[i] = null;
-                                break;
-                            }
-                        }
+//                        for (int i = 0; i < shipYard.size(); i++) {
+//                            if (shipYard[i] != null && shipYard[i].getShipSize() == 3) {
+//                                shipYard[i].shipOnTheSea(0, Y, X);
+//                                shipYard[i].shipOnTheSea(1, Y, X + 1);
+//                                shipYard[i].shipOnTheSea(2, Y, X - 1);
+//                                shipYard[i] = null;
+//                                break;
+//                            }
+//                        }
                         return true;
                     }
                 }else return false;
@@ -438,14 +440,14 @@ public class Tools {
                         map[Y][X - 1].setImage(ImageName.DESTROYER);
                         map[Y][X].setEffect(null);
                         map[Y][X - 1].setEffect(null);
-                        for (int i = 0; i < shipYard.length; i++) {
-                            if (shipYard[i] != null && shipYard[i].getShipSize() == 2) {
-                                shipYard[i].shipOnTheSea(0, Y, X);
-                                shipYard[i].shipOnTheSea(1, Y, X - 1);
-                                shipYard[i] = null;
-                                break;
-                            }
-                        }
+//                        for (int i = 0; i < shipYard.size(); i++) {
+//                            if (shipYard[i] != null && shipYard[i].getShipSize() == 2) {
+//                                shipYard[i].shipOnTheSea(0, Y, X);
+//                                shipYard[i].shipOnTheSea(1, Y, X - 1);
+//                                shipYard[i] = null;
+//                                break;
+//                            }
+//                        }
                         return true;
                     }
                 }else return false;
@@ -465,24 +467,26 @@ public class Tools {
                 }
                 if (!map[Y][X].getClass().getSimpleName().equals("Ship")) {
                     map[Y][X].setEffect(null);
-                        for (int i = 0; i < shipYard.length; i++) {
-                            if (shipYard[i] != null && shipYard[i].getShipSize() == 1) {
-                                System.out.println("SUBMARINE");
-                                map[Y][X].setImage(ImageName.SUBMARINE);
-                                shipYard[i].shipOnTheSea(0, Y, X);
-                                shipYard[i] = null;
-                                break;
-                            }
-                        }
+//                        for (int i = 0; i < shipYard.size(); i++) {
+//                            if (shipYard[i] != null && shipYard[i].getShipSize() == 1) {
+//                                System.out.println("SUBMARINE");
+//                                map[Y][X].setImage(ImageName.SUBMARINE);
+//                                shipYard[i].shipOnTheSea(0, Y, X);
+//                                shipYard[i] = null;
+//                                break;
+//                            }
+//                        }
                         return true;
                 }else return false;
         }
         return false;
     }
+    //Внести исправляения в связи с новой механикой. Найти способ определять какой именно
+    // объект схватил пользователь и выставить на поле именно его, а за тем удалить его из верфи.
     public static boolean setShipToCellsY(int Y, int X, int imgSize) {
         GameObject[][] map = App.seaBattleGame.getHuman().getOurFleetMap();
         int shipSize = imgSize / 60;
-        Ship[] shipYard = App.seaBattleGame.getHuman().getShipyard();
+        ArrayList<Ship> shipYard = App.seaBattleGame.getHuman().getShipyard();
         switch (shipSize) {
             case 4:
                 for (int y = Y - 3; y <= Y + 2; y++) {
@@ -509,16 +513,16 @@ public class Tools {
                         map[Y][X].setEffect(null);
                         map[Y - 1][X].setEffect(null);
                         map[Y - 2][X].setEffect(null);
-                        for (int i = 0; i < shipYard.length; i++) {
-                            if (shipYard[i] != null && shipYard[i].getShipSize() == 4) {
-                                shipYard[i].shipOnTheSea(0, Y + 1, X);
-                                shipYard[i].shipOnTheSea(1, Y, X);
-                                shipYard[i].shipOnTheSea(2, Y - 1, X);
-                                shipYard[i].shipOnTheSea(3, Y - 2, X);
-                                shipYard[i] = null;
-                                break;
-                            }
-                        }
+//                        for (int i = 0; i < shipYard.size(); i++) {
+//                            if (shipYard[i] != null && shipYard[i].getShipSize() == 4) {
+//                                shipYard[i].shipOnTheSea(0, Y + 1, X);
+//                                shipYard[i].shipOnTheSea(1, Y, X);
+//                                shipYard[i].shipOnTheSea(2, Y - 1, X);
+//                                shipYard[i].shipOnTheSea(3, Y - 2, X);
+//                                shipYard[i] = null;
+//                                break;
+//                            }
+//                        }
                         return true;
                     }
                 }else return false;
@@ -545,15 +549,15 @@ public class Tools {
                         map[Y][X].setEffect(null);
                         map[Y + 1][X].setEffect(null);
                         map[Y - 1][X].setEffect(null);
-                        for (int i = 0; i < shipYard.length; i++) {
-                            if (shipYard[i] != null && shipYard[i].getShipSize() == 3) {
-                                shipYard[i].shipOnTheSea(0, Y, X);
-                                shipYard[i].shipOnTheSea(1, Y + 1, X);
-                                shipYard[i].shipOnTheSea(2, Y - 1, X);
-                                shipYard[i] = null;
-                                break;
-                            }
-                        }
+//                        for (int i = 0; i < shipYard.size(); i++) {
+//                            if (shipYard[i] != null && shipYard[i].getShipSize() == 3) {
+//                                shipYard[i].shipOnTheSea(0, Y, X);
+//                                shipYard[i].shipOnTheSea(1, Y + 1, X);
+//                                shipYard[i].shipOnTheSea(2, Y - 1, X);
+//                                shipYard[i] = null;
+//                                break;
+//                            }
+//                        }
                         return true;
                     }
                 }else return false;
@@ -576,14 +580,14 @@ public class Tools {
                         map[Y - 1][X].setImage(ImageName.DESTROYER);
                         map[Y][X].setEffect(null);
                         map[Y - 1][X].setEffect(null);
-                        for (int i = 0; i < shipYard.length; i++) {
-                            if (shipYard[i] != null && shipYard[i].getShipSize() == 2) {
-                                shipYard[i].shipOnTheSea(0, Y, X);
-                                shipYard[i].shipOnTheSea(1, Y - 1, X);
-                                shipYard[i] = null;
-                                break;
-                            }
-                        }
+//                        for (int i = 0; i < shipYard.size(); i++) {
+//                            if (shipYard[i] != null && shipYard[i].getShipSize() == 2) {
+//                                shipYard[i].shipOnTheSea(0, Y, X);
+//                                shipYard[i].shipOnTheSea(1, Y - 1, X);
+//                                shipYard[i] = null;
+//                                break;
+//                            }
+//                        }
                         return true;
                     }
                 }else return false;
@@ -604,12 +608,12 @@ public class Tools {
                 if (!map[Y][X].getClass().getSimpleName().equals("Ship")) {
                         map[Y][X].setImage(ImageName.SUBMARINE);
                         map[Y][X].setEffect(null);
-                        for (int i = 0; i < shipYard.length; i++) {
-                            if (shipYard[i] != null && shipYard[i].getShipSize() == 1) {
-                                shipYard[i].shipOnTheSea(0, Y, X);
-                                shipYard[i] = null;
-                                break;
-                            }
+                        //shipYard.get(i).shipOnTheSea(0, Y, X);
+                    for (int i = 0; i < shipYard.size(); i++) {
+//                            if (shipYard[i] != null && shipYard[i].getShipSize() == 1) {
+//                                shipYard[i] = null;
+//                                break;
+//                            }
                         }
                         return true;
                 }else return false;

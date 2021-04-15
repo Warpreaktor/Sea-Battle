@@ -2,7 +2,6 @@ package front;
 
 import com.core.Tools;
 import javafx.event.ActionEvent;
-import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.control.Button;
@@ -112,7 +111,7 @@ public class ShipSettingController {
         randomButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-               App.seaBattleGame.getHuman().shipsOnTheField();
+               App.seaBattleGame.getHuman().shipsOnGame();
             }
         });
     }

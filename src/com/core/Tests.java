@@ -35,7 +35,7 @@ public class Tests {
         }
         //Проверяем чтобы при создании игрока в его верфи создавалось нужное количество кораблей
         if (SeaBattleGame.getSIZE() == 10) {
-            if (player.getShipyard().length != 10) {
+            if (player.getShipyard().size() != 10) {
                 System.out.println("В верфи игрока ");
             }
         }
@@ -50,9 +50,9 @@ public class Tests {
         Player playerCPU2 = new Player();
         playerCPU1.setCPU(true);
         playerCPU2.setCPU(true);
-        playerCPU1.shipsOnTheField();
+        playerCPU1.shipsOnGame();
         System.out.println("Количество кораблей у игрока = " + playerCPU1.getNumberOfShip());
-        playerCPU2.shipsOnTheField();
+        playerCPU2.shipsOnGame();
         //SeaBattleGame.battle(playerCPU1, playerCPU2,6,8);
     }
     public static int testRandomNumbers(){

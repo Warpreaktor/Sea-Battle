@@ -32,7 +32,7 @@ public class SeaBattleGame {
         CPU.setName("Адмирал " + Tools.getRandomName());
         CPU.setCPU(true);
         createCPUBattleField(CPU);
-        CPU.shipsOnTheField();
+        CPU.shipsOnGame();
     }
 
     private void createCPUBattleField(Player player) {
