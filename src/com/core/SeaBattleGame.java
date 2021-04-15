@@ -32,7 +32,6 @@ public class SeaBattleGame {
         CPU.setName("Адмирал " + Tools.getRandomName());
         CPU.setCPU(true);
         createCPUBattleField(CPU);
-        //human.shipsOnTheField();
         CPU.shipsOnTheField();
     }
 
@@ -119,7 +118,7 @@ public class SeaBattleGame {
                 if (y < 0 || y >= SIZE) {continue;}
                 if (x < 0 || x >= SIZE) {continue;}
                 String className = ship.getOwner().getOurFleetMap()[y][x].getClass().getSimpleName();
-                if (className.equals("Linkor") || className.equals("Cruiser") || className.equals("Destroyer") || className.equals("Submarine")) {continue;}
+                if (className.equals("DeckOfShip")) {continue;}
                 //Исправить проверку на DeckOfShip
                 ship.getOwner().getOurFleetMap()[y][x].setLabel('0');
             }

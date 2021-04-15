@@ -73,6 +73,38 @@ public class Tools {
         return name;
     }
 
+    /**
+     * Возвращает true если по соседству с ячейкой [Y][X] нет объектов типа DeckOfShip
+     * @param map - передается массив GameObject на котором нужно осуществить проверку.
+     * @return
+     */
+    public static boolean checkNeighboards(GameObject[][] map, int Y, int X){
+        for (int y = Y - 1; y < Y + 2; y++) {
+            for (int x = X - 1; x < X + 2; x++) {
+                if(y >= map.length){continue;}
+                if(y < 0){continue;}
+                if(x >= map[Y].length){continue;}
+                if(x < 0){continue;}
+                if (map[y][x].getClass().getSimpleName().equals("DeckOfShip")){
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+    /**
+     * Возвращает true если [Y][X] не выходят за границы переданного массива массива.
+     * @param map - передается массив GameObject на котором нужно осуществить проверку.
+     * @return
+     */
+    public static boolean checkArrayBounds(GameObject[][] map, int Y, int X){
+                if(Y >= map.length){return false;}
+                if(Y < 0){return false;}
+                if(X >= map[Y].length){return false;}
+                if(X < 0){return false;}
+        return true;
+    }
+
     //Получаем рандомную координату в пропорциях установленного поля
     public static int getRandomCoordinate() {
         return (int) (Math.random() * SeaBattleGame.getSIZE());
