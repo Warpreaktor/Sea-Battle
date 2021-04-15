@@ -18,9 +18,9 @@ import java.io.IOException;
 public class App extends Application {
     public static final App app = new App();
     public static final Stage stage = new Stage();
+    public static final SeaBattleGame seaBattleGame = new SeaBattleGame(); // Должен быть public static final singleton и только в этом классе. Первая инициализация происходит в StartMenuController
     public static final MainController mainController = new MainController();
     public static final ShipSettingController shipSettingController = new ShipSettingController();
-    public static final SeaBattleGame seaBattleGame = new SeaBattleGame(); // Должен быть public static final singleton и только в этом классе. Первая инициализация происходит в StartMenuController
     public static boolean isHumanTurn = true;
 
     public static void main(String[] args) {
@@ -66,7 +66,11 @@ public class App extends Application {
             stage.setScene(scene);
             stage.show();
     }
-        public final static void brushTheBattleField(){
+
+    /**
+     * В это м методе отображается вся динамическая информация и вьюшки на поле.
+      */
+    public final static void brushTheBattleField(){
             stage.setX(300);
             stage.setY(0);
             //Отрисовка поля с нашим флотом
@@ -89,7 +93,7 @@ public class App extends Application {
                         public void handle(MouseEvent mouseEvent) {
                             if (isHumanTurn) {
                                 seaBattleGame.battle(seaBattleGame.getHuman(), seaBattleGame.getCPU(), gameCell.getCoordinateY(), gameCell.getCoordinateX());
-                                //isHumanTurn = false; вернуть обратно
+                                isHumanTurn = false;
                                 Player human = App.seaBattleGame.getHuman();
                                 human.setCountOfTurns(human.getCountOfTurns()+1);
                             }
@@ -97,12 +101,12 @@ public class App extends Application {
                     });
                 }
             }
-            //AnchorPane anchorPane = anchorPaneInit(leftVBox, rightVBox, mainController.getBattleLogView(), mainController.nextTurn);
-            AnchorPane anchorPane = new AnchorPane(leftVBox, rightVBox, mainController.getBattleLogView(), mainController.nextTurn);
+            mainController.selfShipsNum.setText("Наши корабли - " + App.seaBattleGame.getHuman().getNumberOfShip());
+            mainController.enemyShipsNum.setText("Корабли противника - " + App.seaBattleGame.getCPU().getNumberOfShip());
+            AnchorPane anchorPane = new AnchorPane(leftVBox, rightVBox, mainController.getBattleLogView(), mainController.nextTurn, mainController.infoBox);
             anchorPane.setBackground(Background.EMPTY);
             anchorPane.setPrefWidth(1280);
             anchorPane.setPrefHeight(1024);
-            //Group group = new Group(anchorPane);
             Scene scene = new Scene(anchorPane);
             stage.setScene(scene);
             stage.show();

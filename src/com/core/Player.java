@@ -9,7 +9,6 @@ public class Player {
     private String name;
     private int countOfTurns = 0;   //Счетчик ходов сделанных игроком.
     private int numberOfShip = 0;   //Итоговое количество кораблей игрока на поле, которое уменьшается по ходу их уничтожения.
-    //private Ship[] shipyard;           //Массив со списком доступных в начале типов кораблей.
     private ArrayList<Ship> shipyard;
     private GameObject[][] ourFleetMap = new GameObject[SeaBattleGame.getSIZE()][SeaBattleGame.getSIZE()];
     private GameObject[][] enemyFleetMap = new GameObject[SeaBattleGame.getSIZE()][SeaBattleGame.getSIZE()];
@@ -18,18 +17,6 @@ public class Player {
         //1 Линкор(4), 2 Крейсера(3), 3 Эсминца(2), 4 Подлодки(1)
         /**Каждая клетка игрового поля заполняется объектами пустыми объектами GameCell
          */
-//        shipyard = new Ship[10];
-//        shipyard[0] = new Linkor(this);
-//        shipyard[1] = new Cruiser(this);
-//        shipyard[2] = new Cruiser(this);
-//        shipyard[3] = new Destroyer(this);
-//        shipyard[4] = new Destroyer(this);
-//        shipyard[5] = new Destroyer(this);
-//        shipyard[6] = new Submarine(this);
-//        shipyard[7] = new Submarine(this);
-//        shipyard[8] = new Submarine(this);
-//        shipyard[9] = new Submarine(this);
-//        this.numberOfShip = shipyard.length;
         shipyard = new ArrayList<Ship>();
         shipyard.add(new Linkor(this));
         shipyard.add(new Cruiser(this));
@@ -46,46 +33,34 @@ public class Player {
     public void setCPU(boolean CPU) {
         isCPU = CPU;
     }
-
     public boolean isCPU() {
         return isCPU;
     }
-
     public String getName() {
         return name;
     }
-
     public void setName(String name) {
         this.name = name;
     }
-
     public GameObject[][] getEnemyFleetMap() {
         return enemyFleetMap;
     }
-
     public GameObject[][] getOurFleetMap() {
         return ourFleetMap;
     }
-
     public void setGameCellToEnemyFleetMap(GameObject gameCell, int y, int x) {
         this.enemyFleetMap[y][x] = gameCell;
     }
-
     public void setGameCellToOurFleetMap(GameObject gameCell, int y, int x) {
         this.ourFleetMap[y][x] = gameCell;
     }
-
     public void setNumberOfShip(int numberOfShip) {
         this.numberOfShip = numberOfShip;
     }
-
     public int getNumberOfShip() {
         return numberOfShip;
     }
 
-//    public Ship[] getShipyard() {
-//        return shipyard;
-//    }
     public ArrayList<Ship> getShipyard() {
         return shipyard;
     }
@@ -190,6 +165,8 @@ public class Player {
                     ship.shipOnTheSea(i, Y, X);
                     X += 1;
                 }
+                this.numberOfShip +=1;
+                System.out.println(this.numberOfShip);
                 SeaBattleGame.setTotalShips(SeaBattleGame.getTotalShips() + 1);
                 break;
             case (2)://от точки координат вниз
@@ -208,6 +185,8 @@ public class Player {
                     ship.shipOnTheSea(i, Y, X);
                     Y += 1;
                 }
+                this.numberOfShip ++;
+                System.out.println(this.numberOfShip);
                 SeaBattleGame.setTotalShips(SeaBattleGame.getTotalShips() + 1);
                 break;
             case (3)://от точки координат влево
@@ -226,6 +205,8 @@ public class Player {
                     ship.shipOnTheSea(i, Y, X);
                     X -= 1;
                 }
+                this.numberOfShip ++;
+                System.out.println(this.numberOfShip);
                 SeaBattleGame.setTotalShips(SeaBattleGame.getTotalShips() + 1);
                 break;
             case (4)://от точки координат вверх
@@ -244,6 +225,8 @@ public class Player {
                     ship.shipOnTheSea(i, Y, X);
                     Y -= 1;
                 }
+                this.numberOfShip ++;
+                System.out.println(this.numberOfShip);
                 SeaBattleGame.setTotalShips(SeaBattleGame.getTotalShips() + 1);
                 break;
         }

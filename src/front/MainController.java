@@ -3,23 +3,34 @@ package front;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
+import javafx.scene.Group;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.TextAlignment;
 
 public class MainController {
     public String[] battleHistory = {"","","",""};
-    public static Button nextTurn = new Button();
-    public static Label battleLogView = new Label();
+    public static Button nextTurn = new Button("Next turn");
+    public Label battleLogView = new Label();
+    public Label enemyShipsNum = new Label();
+    public Label selfShipsNum = new Label();
+    public VBox infoBox = new VBox(enemyShipsNum, selfShipsNum);
 
     public MainController() {
         battleLogView.setText("- Битва началась! \n");
         this.battleLogView.setAlignment(Pos.CENTER);
         this.battleLogView.setTextAlignment(TextAlignment.CENTER);
+
+
+
+        infoBox.setLayoutY(100);
+        infoBox.setLayoutX(50);
+
         //Параметры кнопки Next turn
-        nextTurn.setText("Next turn");
+        //nextTurn.setText("Next turn");
         nextTurn.setPrefHeight(60);
         nextTurn.setPrefWidth(120);
         nextTurn.setLayoutX(580);

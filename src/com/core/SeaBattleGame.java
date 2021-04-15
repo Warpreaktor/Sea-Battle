@@ -5,11 +5,10 @@ import front.App;
 import front.MainController;
 
 public class SeaBattleGame {
-    public MainController mainController;
     private static int SIZE = 10;
     private static int totalShips = 0;
     private final Player human = new Player();
-    private Player CPU = new Player();
+    private final Player CPU = new Player();
 
     public Player getHuman() {
         return human;
@@ -28,7 +27,6 @@ public class SeaBattleGame {
     }
 
     public SeaBattleGame() {
-        mainController = App.mainController;
         CPU.setName("Адмирал " + Tools.getRandomName());
         CPU.setCPU(true);
         createCPUBattleField(CPU);
@@ -63,15 +61,15 @@ public class SeaBattleGame {
                 String enemyShipName = CPU.getOurFleetMap()[Y][X].getName();
                 DeckOfShip enemyShip = (DeckOfShip)CPU.getOurFleetMap()[Y][X];
                 if (enemyShip.getHp()>0) {
-                    mainController.textOutput("Корабль " + enemyShipName + " поврежден!");
+                    App.mainController.textOutput("Корабль " + enemyShipName + " поврежден!");
                     theShipIsDamaged(enemyShip.getShipOwner(), CPU, human, Y, X);
                 }
                 if (enemyShip.getHp()<=0) {
-                    mainController.textOutput("Корабль " + enemyShipName + " уничтожен!");
+                    App.mainController.textOutput("Корабль " + enemyShipName + " уничтожен!");
                     theShipIsDestroyed(enemyShip.getShipOwner(), CPU, human, Y, X);
                 }
             } else {
-                mainController.textOutput(human.getName() + " промахнулся!");
+                App.mainController.textOutput(human.getName() + " промахнулся!");
                 if (human.getEnemyFleetMap()[Y][X].getLabel()=='X'){
 
                 }else {human.getEnemyFleetMap()[Y][X].setLabel('+');}
@@ -94,16 +92,16 @@ public class SeaBattleGame {
             String enemyShipName = human.getOurFleetMap()[Y][X].getName();
             DeckOfShip enemyShip = (DeckOfShip) human.getOurFleetMap()[Y][X];
             if (enemyShip.getHp()>0) {
-                mainController.textOutput("Корабль " + enemyShipName + " поврежден!");  //Выводим на экран сообщение
+                App.mainController.textOutput("Корабль " + enemyShipName + " поврежден!");  //Выводим на экран сообщение
                 theShipIsDamaged(enemyShip.getShipOwner(), human, CPU, Y, X);
             }
             if (enemyShip.getHp()<=0) {
-                mainController.textOutput("Корабль " + enemyShipName + " уничтожен!");
+                App.mainController.textOutput("Корабль " + enemyShipName + " уничтожен!");
                 theShipIsDestroyed(enemyShip.getShipOwner(), human, CPU, Y, X);
             }
             CPU.setCountOfTurns(CPU.getCountOfTurns()+1);;
         } else {
-            mainController.textOutput(CPU.getName() + " стреляет и промахивается.");
+            App.mainController.textOutput(CPU.getName() + " стреляет и промахивается.");
             if (CPU.getEnemyFleetMap()[Y][X].getLabel()=='X'){
 
             }else {
