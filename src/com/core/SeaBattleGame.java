@@ -1,4 +1,5 @@
 package com.core;
+import com.core.Ships.DeckOfShip;
 import com.core.Ships.Ship;
 import front.App;
 import front.MainController;
@@ -59,16 +60,16 @@ public class SeaBattleGame {
         System.out.println(App.seaBattleGame.getCPU().getOurFleetMap()[Y][X].getName());
         System.out.println(App.seaBattleGame.getCPU().getOurFleetMap()[Y][X].getClass().getSimpleName());
         try {
-            if (CPU.getOurFleetMap()[Y][X].getClass().getSimpleName().equals("Ship")) {
+            if (CPU.getOurFleetMap()[Y][X].getClass().getSimpleName().equals("DeckOfShip")) {
                 String enemyShipName = CPU.getOurFleetMap()[Y][X].getName();
-                Ship enemyShip = (Ship)CPU.getOurFleetMap()[Y][X];
+                DeckOfShip enemyShip = (DeckOfShip)CPU.getOurFleetMap()[Y][X];
                 if (enemyShip.getHp()>0) {
                     mainController.textOutput("Корабль " + enemyShipName + " поврежден!");
-                    theShipIsDamaged(enemyShip, CPU, human, Y, X);
+                    theShipIsDamaged(enemyShip.getShipOwner(), CPU, human, Y, X);
                 }
                 if (enemyShip.getHp()<=0) {
                     mainController.textOutput("Корабль " + enemyShipName + " уничтожен!");
-                    theShipIsDestroyed(enemyShip, CPU, human, Y, X);
+                    theShipIsDestroyed(enemyShip.getShipOwner(), CPU, human, Y, X);
                 }
             } else {
                 mainController.textOutput(human.getName() + " промахнулся!");
@@ -90,16 +91,16 @@ public class SeaBattleGame {
             shootCPU();
             return;
         }
-        if (human.getOurFleetMap()[Y][X].getClass().getSimpleName().equals("Ship")) {
+        if (human.getOurFleetMap()[Y][X].getClass().getSimpleName().equals("DeckOfShip")) {
             String enemyShipName = human.getOurFleetMap()[Y][X].getName();
-            Ship enemyShip = (Ship)human.getOurFleetMap()[Y][X];
+            DeckOfShip enemyShip = (DeckOfShip) human.getOurFleetMap()[Y][X];
             if (enemyShip.getHp()>0) {
                 mainController.textOutput("Корабль " + enemyShipName + " поврежден!");  //Выводим на экран сообщение
-                theShipIsDamaged(enemyShip, human, CPU, Y, X);
+                theShipIsDamaged(enemyShip.getShipOwner(), human, CPU, Y, X);
             }
             if (enemyShip.getHp()<=0) {
                 mainController.textOutput("Корабль " + enemyShipName + " уничтожен!");
-                theShipIsDestroyed(enemyShip, human, CPU, Y, X);
+                theShipIsDestroyed(enemyShip.getShipOwner(), human, CPU, Y, X);
             }
             CPU.setCountOfTurns(CPU.getCountOfTurns()+1);;
         } else {
@@ -119,6 +120,7 @@ public class SeaBattleGame {
                 if (x < 0 || x >= SIZE) {continue;}
                 String className = ship.getOwner().getOurFleetMap()[y][x].getClass().getSimpleName();
                 if (className.equals("Linkor") || className.equals("Cruiser") || className.equals("Destroyer") || className.equals("Submarine")) {continue;}
+                //Исправить проверку на DeckOfShip
                 ship.getOwner().getOurFleetMap()[y][x].setLabel('0');
             }
         }

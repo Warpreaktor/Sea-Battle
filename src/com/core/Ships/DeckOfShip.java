@@ -15,6 +15,17 @@ public class DeckOfShip extends GameObject {
         return shipOwner.getName();
     }
 
+    public int getHp(){
+        return shipOwner.getHp();
+    }
+    public int shipSize(){
+        return shipOwner.getShipSize();
+    }
+
+    public Ship getShipOwner() {
+        return shipOwner;
+    }
+
     public DeckOfShip(int deckNumber, Ship shipowner) {
         this.dekcNumber = deckNumber;
         this.shipOwner = shipowner;

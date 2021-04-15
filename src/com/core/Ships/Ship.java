@@ -33,10 +33,6 @@ public abstract class Ship extends GameObject {
     public int getShipSize() {
         return shipSize;
     }
-    @Override
-    public String getName(){
-        return super.getName();
-    }
     public abstract void shipOnTheSea(int partOfShip, int y, int x);
 
     public String naming(){
