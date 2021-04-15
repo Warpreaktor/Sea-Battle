@@ -10,22 +10,19 @@ public class Linkor extends Ship {
 
     public Linkor(Player owner) {
         this.owner = owner;
-        super.setShipSize(4);
+        super.setShipSize(decks.length);
         super.setName(naming());
-        for (int i = 0; i < super.getShipSize(); i++) {
+        for (int i = 0; i < decks.length; i++) {
              decks[i] = new DeckOfShip(i,this);
              decks[i].setLabel('s');
         }
     }
 
     @Override
-    public String getName(){
-        return super.getName();
+    public Player getOwner() {
+        return owner;
     }
-    @Override
-    public char getLabel() {
-        return super.getLabel();
-    }
+
     @Override
     public void shipOnTheSea(int partOfShip, int y, int x){
         GameObject[][] map = this.getOwner().getOurFleetMap();

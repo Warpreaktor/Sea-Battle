@@ -140,7 +140,8 @@ public class Player {
                 case (1)://от точки координат вправо
                     //делаем проверку, можем ли мы установить корабль по предполагаемым координатам
                     for (int i = 0; i < ship.getShipSize(); i++) {
-                        if (!ourFleetMap[tempY][tempX].getClass().getSimpleName().equals("GameCell") ||
+                        if (!ourFleetMap[tempY][tempX].getClass().getSimpleName().equals("GameObject") &&
+                                !ourFleetMap[tempY][tempX].getClass().getSimpleName().equals("GameCell")&&
                                 ourFleetMap[tempY][tempX].getLabel() == '0') {
                             otherShipOnGameField(ship);
                             return;
@@ -163,7 +164,8 @@ public class Player {
                 case (2)://от точки координат вниз
                     //делаем проверку, можем ли мы установить корабль по предполагаемым координатам
                     for (int i = 0; i < ship.getShipSize(); i++) {
-                        if (!ourFleetMap[tempY][tempX].getClass().getSimpleName().equals("GameCell")||
+                        if (!ourFleetMap[tempY][tempX].getClass().getSimpleName().equals("GameObject")&&
+                                !ourFleetMap[tempY][tempX].getClass().getSimpleName().equals("GameCell")&&
                                 ourFleetMap[tempY][tempX].getLabel()=='0') {
                             otherShipOnGameField(ship);
                             return;
@@ -187,7 +189,8 @@ public class Player {
                 case (3)://от точки координат влево
                     //делаем проверку, можем ли мы установить корабль по предполагаемым координатам
                     for (int i = 0; i < ship.getShipSize(); i++) {
-                        if (!ourFleetMap[tempY][tempX].getClass().getSimpleName().equals("GameCell")||
+                        if (!ourFleetMap[tempY][tempX].getClass().getSimpleName().equals("GameObject")&&
+                                !ourFleetMap[tempY][tempX].getClass().getSimpleName().equals("GameCell")&&
                                 ourFleetMap[tempY][tempX].getLabel()=='0') {
                             otherShipOnGameField(ship);
                             return;
@@ -211,7 +214,8 @@ public class Player {
                 case (4)://от точки координат вверх
                     //делаем проверку, можем ли мы установить корабль по предполагаемым координатам
                     for (int i = 0; i < ship.getShipSize(); i++) {
-                        if (!ourFleetMap[tempY][tempX].getClass().getSimpleName().equals("GameCell") ||
+                        if (!ourFleetMap[tempY][tempX].getClass().getSimpleName().equals("GameObject") &&
+                                !ourFleetMap[tempY][tempX].getClass().getSimpleName().equals("GameCell")&&
                                 ourFleetMap[tempY][tempX].getLabel()=='0') {
                             otherShipOnGameField(ship);
                             return;

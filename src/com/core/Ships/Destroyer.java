@@ -5,18 +5,21 @@ import com.core.ImageName;
 import com.core.Player;
 
 public class Destroyer extends Ship {
-    private Ship[] ships; //[y][x] Это по сути корпус корабля, который состоит из нескольких ячеек
+    private DeckOfShip[] decks = new DeckOfShip[2]; //[y][x] Это, по сути, корпус корабля который состоит из нескольких partOfLinkor
+    private Player owner;
 
     public Destroyer(Player owner) {
-        super.setShipSize(2);
-        ships = new Ship[super.getShipSize()];
-        for (int i = 0; i < super.getShipSize(); i++) {
-            ships[i] = new Ship();
-            //ships[i].setImage(ImageName.DESTROYER);
-            super.setLabel('s');
-            super.setOwner(owner);
-            super.setName(naming());
+        this.owner = owner;
+        super.setShipSize(decks.length);
+        super.setName(naming());
+        for (int i = 0; i < decks.length; i++) {
+            decks[i] = new DeckOfShip(i,this);
+            decks[i].setLabel('s');
         }
+    }
+    @Override
+    public Player getOwner() {
+        return owner;
     }
     @Override
     public char getLabel() {
@@ -25,9 +28,9 @@ public class Destroyer extends Ship {
 
     @Override
     public void shipOnTheSea(int partOfShip, int y, int x){
-        GameObject[][] map = super.getOwner().getOurFleetMap();
+        GameObject[][] map = this.getOwner().getOurFleetMap();
         map[y][x].setImage(ImageName.DESTROYER);
-        map[y][x] = ships[partOfShip];
+        map[y][x] = decks[partOfShip];
         map[y][x].setLabel('D');
     }
 }

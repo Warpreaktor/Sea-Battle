@@ -21,8 +21,6 @@ public abstract class Ship extends GameObject {
     public int getHp() {
         return hp;
     }
-
-
     public void setOwner(Player owner) {
         this.owner = owner;
     }
@@ -35,24 +33,11 @@ public abstract class Ship extends GameObject {
     public int getShipSize() {
         return shipSize;
     }
-
     @Override
     public String getName(){
         return super.getName();
     }
-
-    /**
-     * @param partOfShip - Это номер палубы коробля. Например 3 палубному кораблю нужно трижды вызвать этот метод и передать
-     *              в него индекс от 0 до 2 где 0 это начало корабля, а 2 его конец.
-     *                   Метод необходимо реализовывать для каждого корабля.
-     */
-    public void shipOnTheSea(int partOfShip, int y, int x){
-        GameObject[][] map = this.getOwner().getOurFleetMap();
-        map[y][x].setImage(this.getImage());
-        System.out.println(this.getImage());
-        map[y][x].setLabel(this.getLabel());
-        System.out.println("Установлен абстрактный корабль");
-    }
+    public abstract void shipOnTheSea(int partOfShip, int y, int x);
 
     public String naming(){
         int randomNum = 1 + (int)(Math.random()*6);
