@@ -18,6 +18,7 @@ public class ShipSettingController {
     private HBox[] hBoxes = new HBox[10];
     private VBox vBox = new VBox(1);
     private Button startButton = new Button("Start");
+    private Button randomButton = new Button("Random");
     private final ImageView fullLinkor = new ImageView("/resources/fullLinkor60x240.png");
     private final ImageView fullCruiser1 = new ImageView("/resources/fullCruiser60x180.png");
     private final ImageView fullCruiser2 = new ImageView("/resources/fullCruiser60x180.png");
@@ -30,7 +31,7 @@ public class ShipSettingController {
     private final ImageView fullSubmarine4 = new ImageView("/resources/fullSubmarine60x60.png");
     private Group shipsGroup = new Group(fullLinkor, fullCruiser1, fullCruiser2, fullDestroyer1, fullDestroyer2,
             fullDestroyer3, fullSubmarine1, fullSubmarine2, fullSubmarine3, fullSubmarine4);
-    private AnchorPane shipSetPan = new AnchorPane(vBox, shipsGroup, startButton);
+    private AnchorPane shipSetPan = new AnchorPane(vBox, shipsGroup, startButton, randomButton);
 
     public HBox[] gethBoxes() {
         return hBoxes;
@@ -102,6 +103,16 @@ public class ShipSettingController {
                 changeRotation();
                 System.out.println("Rotation changed");
                 }
+            }
+        });
+        randomButton.setLayoutX(780);
+        randomButton.setLayoutY(900);
+        randomButton.setPrefWidth(120);
+        randomButton.setPrefHeight(60);
+        randomButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+               App.seaBattleGame.getHuman().shipsOnTheField();
             }
         });
     }

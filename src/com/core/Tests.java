@@ -1,5 +1,8 @@
 package com.core;
 
+import com.core.Ships.Cruiser;
+import com.core.Ships.Ship;
+
 public class Tests {
     /**
      * Набор тестов для класса Player

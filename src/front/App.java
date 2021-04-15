@@ -1,8 +1,6 @@
 package front;
 
-import com.core.GameCell;
-import com.core.SeaBattleGame;
-import com.core.Tools;
+import com.core.*;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -56,10 +54,7 @@ public class App extends Application {
         stage.setY(0);
         for (int y = 0; y < seaBattleGame.getSIZE(); y++) {
             for (int x = 0; x < seaBattleGame.getSIZE(); x++) {
-                GameCell gameCell = new GameCell();
-                gameCell.setFitHeight(60);
-                gameCell.setFitWidth(60);
-                gameCell.setWave();
+                GameObject gameCell = new GameCell(y, x);
                 shipSettingController.gethBoxes()[y].getChildren().add(gameCell);
                 seaBattleGame.getHuman().setGameCellToOurFleetMap(gameCell, y, x);
                 gameCell.setCoordinateY(y);
@@ -86,20 +81,17 @@ public class App extends Application {
                 HBox rightHBox = new HBox();
                 rightVBox.getChildren().add(rightHBox);
                 for (int x = 0; x < seaBattleGame.getSIZE(); x++) {
-                    GameCell gameCell = new GameCell();
-                    gameCell.setFitHeight(60);
-                    gameCell.setFitWidth(60);
-                    gameCell.setWave();
+                    GameObject gameCell = new GameCell(y, x);
                     rightHBox.getChildren().add(gameCell);
                     seaBattleGame.getHuman().setGameCellToEnemyFleetMap(gameCell, y, x);
-                    gameCell.setCoordinateY(y);
-                    gameCell.setCoordinateX(x);
                     gameCell.setOnMouseClicked(new EventHandler<MouseEvent>() {
                         @Override
                         public void handle(MouseEvent mouseEvent) {
                             if (isHumanTurn) {
                                 seaBattleGame.battle(seaBattleGame.getHuman(), seaBattleGame.getCPU(), gameCell.getCoordinateY(), gameCell.getCoordinateX());
-                                isHumanTurn = false;
+                                //isHumanTurn = false; вернуть обратно
+                                Player human = App.seaBattleGame.getHuman();
+                                human.setCountOfTurns(human.getCountOfTurns()+1);
                             }
                         }
                     });

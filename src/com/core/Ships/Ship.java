@@ -1,4 +1,8 @@
-package com.core;
+package com.core.Ships;
+
+import com.core.GameObject;
+import com.core.Player;
+import com.core.Tools;
 
 /**
  * shipSize - Количество занимаемых на поле ячеек кораблеём. 4 - Линкор, 3 - Крейсер(), 2 - Эсминец, 1 - Подлодка
@@ -6,8 +10,7 @@ package com.core;
  * на эти простые символы, чтобы понимать состояние клетки: "B" = Линкор, L = Крейсер, M = Эсминец, S = Подлодкаж;
  * "+" = по клетке уже стреляли, "X" = Корабль поврежден\уничтожен, "0" = соседствующая с кораблем клетка.
  */
-public class Ship extends GameObject {
-    private String name;
+public abstract class Ship extends GameObject {
     private int shipSize;        //Количество палуб у корабля
     private Player owner;
     private int hp;
@@ -18,17 +21,14 @@ public class Ship extends GameObject {
     public int getHp() {
         return hp;
     }
-    public String getName() {
-        return name;
-    }
+
+
     public void setOwner(Player owner) {
         this.owner = owner;
     }
-
     public Player getOwner() {
         return owner;
     }
-
     public void setShipSize(int shipSize) {
         this.shipSize = shipSize;
     }
@@ -36,6 +36,10 @@ public class Ship extends GameObject {
         return shipSize;
     }
 
+    @Override
+    public String getName(){
+        return super.getName();
+    }
 
     /**
      * @param partOfShip - Это номер палубы коробля. Например 3 палубному кораблю нужно трижды вызвать этот метод и передать
@@ -44,14 +48,15 @@ public class Ship extends GameObject {
      */
     public void shipOnTheSea(int partOfShip, int y, int x){
         GameObject[][] map = this.getOwner().getOurFleetMap();
-        map[y][x] = new Ship();
+        map[y][x].setImage(this.getImage());
+        System.out.println(this.getImage());
         map[y][x].setLabel(this.getLabel());
         System.out.println("Установлен абстрактный корабль");
     }
 
     public String naming(){
-        String name = "Безымянный";
         int randomNum = 1 + (int)(Math.random()*6);
+        String name = "Безымянный";
         switch (randomNum) {
             case (1)://сущ муж + прил муж
             name = Tools.adjectivesBookMan[(int) (Math.random() * (Tools.adjectivesBookMan.length - 1))] +
@@ -80,4 +85,5 @@ public class Ship extends GameObject {
         }
         return name;
     }
+
 }

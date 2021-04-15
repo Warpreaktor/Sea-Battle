@@ -1,4 +1,5 @@
 package com.core;
+import com.core.Ships.Ship;
 import front.App;
 import front.MainController;
 
@@ -37,8 +38,10 @@ public class SeaBattleGame {
     private void createCPUBattleField(Player player) {
         for (int y = 0; y < SIZE; y++) {
             for (int x = 0; x < SIZE; x++) {
-                player.setGameCellToOurFleetMap(new GameCell(), y, x);
-                player.setGameCellToEnemyFleetMap(new GameCell(), y, x);
+                GameObject cell1 = new GameCell(y, x);
+                GameObject cell2 = new GameCell(y, x);
+                player.setGameCellToOurFleetMap(cell1, y, x);
+                player.setGameCellToEnemyFleetMap(cell2, y, x);
             }
         }
     }
@@ -47,41 +50,35 @@ public class SeaBattleGame {
         if (human.getEnemyFleetMap()[Y][X].getLabel() == '+' || human.getEnemyFleetMap()[Y][X].getLabel() == 'X'){
             return;
         }
-        this.shoot(human, playerCPU, Y, X);
+        this.shoot(Y, X);
             //После хода игрока ожидаем нажатие кнопки next turn игроком.
         isVictory();
 
     }
-    public void shoot(Player human, Player CPU, int Y, int X) {
+    public void shoot(int Y, int X) {
+        System.out.println(App.seaBattleGame.getCPU().getOurFleetMap()[Y][X].getName());
+        System.out.println(App.seaBattleGame.getCPU().getOurFleetMap()[Y][X].getClass().getSimpleName());
         try {
             if (CPU.getOurFleetMap()[Y][X].getClass().getSimpleName().equals("Ship")) {
                 String enemyShipName = CPU.getOurFleetMap()[Y][X].getName();
                 Ship enemyShip = (Ship)CPU.getOurFleetMap()[Y][X];
-                enemyShip.setHp(enemyShip.getHp()-1);
                 if (enemyShip.getHp()>0) {
                     mainController.textOutput("Корабль " + enemyShipName + " поврежден!");
-                    theShipIsDamaged(CPU, human, Y, X);
+                    theShipIsDamaged(enemyShip, CPU, human, Y, X);
                 }
                 if (enemyShip.getHp()<=0) {
                     mainController.textOutput("Корабль " + enemyShipName + " уничтожен!");
-                    CPU.getOurFleetMap()[Y][X].setLabel('X'); //Ставим отмеку у противнка в его карте
-                    CPU.getOurFleetMap()[Y][X] = new GameCell(Y, X, ImageName.RED_CROSS) {
-                    }; //Ставим отмеку у противнка в его карте
-                    human.getEnemyFleetMap()[Y][X].setLabel('X');
-                    human.getEnemyFleetMap()[Y][X] = new GameCell(Y, X, ImageName.RED_CROSS);          //Ставим отметку в своей "вражеской" карте
-                    CPU.setNumberOfShip(CPU.getNumberOfShip()-1);
+                    theShipIsDestroyed(enemyShip, CPU, human, Y, X);
                 }
-                human.setCountOfTurns(human.getCountOfTurns()+1);
             } else {
                 mainController.textOutput(human.getName() + " промахнулся!");
                 if (human.getEnemyFleetMap()[Y][X].getLabel()=='X'){
 
                 }else {human.getEnemyFleetMap()[Y][X].setLabel('+');}
-                human.getEnemyFleetMap()[Y][X] = new GameCell(Y, X, ImageName.DOT);          //Ставим точку в своей "вражеской" карте
-                human.setCountOfTurns(human.getCountOfTurns()+1);
+                missed(CPU, human, Y, X);
             }
         } catch (Exception e) {
-            System.out.println(e.getStackTrace());
+            e.printStackTrace();
             System.out.println(e.getLocalizedMessage());
             System.out.println("Некорректный ввод, попробуйте еще раз");
         }
@@ -89,31 +86,20 @@ public class SeaBattleGame {
     public void shootCPU(){
         int Y = Tools.getRandomCoordinate();
         int X = Tools.getRandomCoordinate();
-        //Делаем проверку. Если компьютер уже стрелял в эту точку, то изменить координаты.
-        //for (int i = 0; i < CPU.getEnemyFleetMap().length; i++) {
-        //    for (int j = 0; j < CPU.getEnemyFleetMap()[i].length; j++) {
         if (CPU.getEnemyFleetMap()[Y][X].getLabel() == '+' || CPU.getEnemyFleetMap()[Y][X].getLabel()=='X'){
             shootCPU();
             return;
         }
-        //    }
-        isVictory();
-        //}
         if (human.getOurFleetMap()[Y][X].getClass().getSimpleName().equals("Ship")) {
             String enemyShipName = human.getOurFleetMap()[Y][X].getName();
             Ship enemyShip = (Ship)human.getOurFleetMap()[Y][X];
-            enemyShip.setHp(enemyShip.getHp()-1);
             if (enemyShip.getHp()>0) {
                 mainController.textOutput("Корабль " + enemyShipName + " поврежден!");  //Выводим на экран сообщение
-                theShipIsDamaged(human, CPU, Y, X);
+                theShipIsDamaged(enemyShip, human, CPU, Y, X);
             }
             if (enemyShip.getHp()<=0) {
                 mainController.textOutput("Корабль " + enemyShipName + " уничтожен!");
-                human.getOurFleetMap()[Y][X].setLabel('X');         //Ставим отмеку у противнка в его карте
-                human.getOurFleetMap()[Y][X] = new GameCell(Y, X, ImageName.RED_CROSS);             //Ставим отмеку у противнка в его карте
-                CPU.getEnemyFleetMap()[Y][X].setLabel('X');
-                CPU.getEnemyFleetMap()[Y][X] = new GameCell(Y, X, ImageName.RED_CROSS);
-                human.setNumberOfShip(human.getNumberOfShip()-1);
+                theShipIsDestroyed(enemyShip, human, CPU, Y, X);
             }
             CPU.setCountOfTurns(CPU.getCountOfTurns()+1);;
         } else {
@@ -121,11 +107,9 @@ public class SeaBattleGame {
             if (CPU.getEnemyFleetMap()[Y][X].getLabel()=='X'){
 
             }else {
-                human.getOurFleetMap()[Y][X] = new GameCell(Y, X, ImageName.DOT); //Ставим отмеку у противнка в его карте
-                CPU.getEnemyFleetMap()[Y][X].setLabel('+');
-                CPU.getEnemyFleetMap()[Y][X] = new GameCell(Y, X, ImageName.DOT);
+                missed(human, CPU, Y, X);
             }
-            CPU.setCountOfTurns(CPU.getCountOfTurns()+1);;
+            CPU.setCountOfTurns(CPU.getCountOfTurns()+1);
         }
     }
     public static void setNeighbors(int Y, int X, Ship ship) {
@@ -148,17 +132,26 @@ public class SeaBattleGame {
                 App.brushTheVictoryMessage("Победил " + human.getName());
                 System.out.println("Победил " + human.getName());
         }
-
     }
 
-    public void theShipIsDamaged(Player enemy, Player self, int Y, int X){
-        enemy.getOurFleetMap()[Y][X].setLabel('X');    //Ставим отмеку в карте противнка
-        enemy.getOurFleetMap()[Y][X] = new GameCell(Y, X, ImageName.RED_CROSS);        //Рисуем крест на карте противнка
-        self.getEnemyFleetMap()[Y][X].setLabel('X');    //Ставим отметку в своей карте "Радар"
-        self.getEnemyFleetMap()[Y][X] = new GameCell(Y, X, ImageName.RED_CROSS);        //Рисуем крест в своей карте "Радар"
+    public void theShipIsDamaged(Ship ship, Player enemy, Player self, int Y, int X){
+        enemy.getOurFleetMap()[Y][X].setLabel('X');                 //Ставим отмеку в карте противнка
+        enemy.getOurFleetMap()[Y][X].setImage(ImageName.RED_CROSS); //Рисуем крест на карте противнка
+        self.getEnemyFleetMap()[Y][X].setLabel('X');                //Ставим отметку в своей карте "Радар"
+        self.getEnemyFleetMap()[Y][X].setImage(ImageName.RED_CROSS);//Рисуем крест в своей карте "Радар"
+        ship.setHp(ship.getHp()-1);
+
     }
-
-    public void manualShipSetting(){
-
+    public void theShipIsDestroyed(Ship ship, Player enemy, Player self, int Y, int X){
+        enemy.getOurFleetMap()[Y][X].setLabel('X');                  //Ставим отмеку в карте противнка
+        enemy.getOurFleetMap()[Y][X].setImage(ImageName.RED_CROSS);  //Рисуем крест на карте противнка
+        self.getEnemyFleetMap()[Y][X].setLabel('X');                 //Ставим отметку в своей карте "Радар"
+        self.getEnemyFleetMap()[Y][X].setImage(ImageName.RED_CROSS); //Рисуем крест в своей карте "Радар"
+        enemy.setNumberOfShip(enemy.getNumberOfShip()-1);
+    }
+    public void missed(Player enemy, Player self, int Y, int X){
+        enemy.getOurFleetMap()[Y][X].setImage(ImageName.DOT);
+        self.getEnemyFleetMap()[Y][X].setLabel('+');
+        self.getEnemyFleetMap()[Y][X].setImage(ImageName.DOT);
     }
 }

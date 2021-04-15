@@ -1,5 +1,7 @@
 package com.core;
 
+import com.core.Ships.*;
+
 public class Player {
     private boolean isCPU;
     private String name;
@@ -13,7 +15,7 @@ public class Player {
         //1 Линкор(4), 2 Крейсера(3), 3 Эсминца(2), 4 Подлодки(1)
         /**Каждая клетка игрового поля заполняется объектами пустыми объектами GameCell
          */
-        shipyard = new Ship[10];
+            shipyard = new Ship[10];
             shipyard[0] = new Linkor( this);
             shipyard[1] = new Cruiser(this);
             shipyard[2] = new Cruiser( this);
@@ -44,10 +46,10 @@ public class Player {
     public GameObject[][] getOurFleetMap() {
         return ourFleetMap;
     }
-    public void setGameCellToEnemyFleetMap(GameCell gameCell, int y, int x ) {
+    public void setGameCellToEnemyFleetMap(GameObject gameCell, int y, int x ) {
         this.enemyFleetMap[y][x] = gameCell;
     }
-    public void setGameCellToOurFleetMap(GameCell gameCell, int y, int x) {
+    public void setGameCellToOurFleetMap(GameObject gameCell, int y, int x) {
         this.ourFleetMap[y][x] = gameCell;
     }
     public void setNumberOfShip(int numberOfShip) {
@@ -69,7 +71,7 @@ public class Player {
     /**
      * Отрисовка карты старой консольной карты игрока. Сохранено для истории.
      */
-    public void brushTheMap() {
+    public void brushOldMap() {
         int size = SeaBattleGame.getSIZE();
         //Рисуем шапку карты
         System.out.println();
@@ -148,11 +150,9 @@ public class Player {
                     //Устанавливаем корабль на восток
                     for (int i = 0; i < ship.getShipSize(); i++) {
                         ship.shipOnTheSea(i,Y,X);
-                        if (ship.getOwner().getOurFleetMap()[Y][X].getLabel() == 'B') {
-                            System.out.println("otherShipOnGameField -> setLinkor");
-                            //ourFleetMap[Y][X].setLinkor();
+                        if (ship.getShipSize() == 4) {
+                            ourFleetMap[Y][X].setImage(ImageName.LINKOR);
                         } else {
-                            System.out.println("otherShipOnGameField -> setShip");
                             //ourFleetMap[Y][X].setShip();
                         }
                         SeaBattleGame.setNeighbors(Y,X, ship);
@@ -174,11 +174,9 @@ public class Player {
                     //Если прошли проверку устанавливаем корабль
                     for (int i = 0; i < ship.getShipSize(); i++) {
                         ship.shipOnTheSea(i,Y,X);
-                        if (ship.getOwner().getOurFleetMap()[Y][X].getLabel() == 'B') {
-                            System.out.println("setLinkor");
+                        if (ship.getOwner().getOurFleetMap()[Y][X].getLabel() == 'L') {
                             //ourFleetMap[Y][X].setLinkor();
                         } else {
-                            System.out.println("setShip");
                             //ourFleetMap[Y][X].setShip();
                         }
                        SeaBattleGame.setNeighbors(Y,X, ship);
@@ -200,11 +198,9 @@ public class Player {
                     //Если прошли проверку устанавливаем корабль
                     for (int i = 0; i < ship.getShipSize(); i++) {
                         ship.shipOnTheSea(i,Y,X);
-                        if (ship.getOwner().getOurFleetMap()[Y][X].getLabel() == 'B') {
-                            System.out.println("setLinkor");
+                        if (ship.getOwner().getOurFleetMap()[Y][X].getLabel() == 'L') {
                             //ourFleetMap[Y][X].setLinkor();
                         } else {
-                            System.out.println("setShip");
                             //ourFleetMap[Y][X].setShip();
                         }
                         SeaBattleGame.setNeighbors(Y,X, ship);
@@ -226,11 +222,9 @@ public class Player {
                     //Если прошли проверку устанавливаем корабль
                     for (int i = 0; i < ship.getShipSize(); i++) {
                         ship.shipOnTheSea(i,Y,X);
-                        if (ship.getOwner().getOurFleetMap()[Y][X].getLabel() == 'B') {
-                            System.out.println("setLinkor");
+                        if (ship.getOwner().getOurFleetMap()[Y][X].getLabel() == 'L') {
                             //ourFleetMap[Y][X].setLinkor();
                         } else {
-                            System.out.println("setShip");
                             //ourFleetMap[Y][X].setShip();
                         }
                         SeaBattleGame.setNeighbors(Y,X, ship);

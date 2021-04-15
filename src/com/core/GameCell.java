@@ -3,9 +3,6 @@ package com.core;
 import javafx.scene.image.Image;
 
 public class GameCell extends GameObject {
-//  private boolean isShip = false;//Зарефакторить все вызовы к этой переменной как определение класса var.getClass()
-  private String name;
-//  private Ship objRef;  //На стадии удаления.
     private int coordinateX;
     private int coordinateY;
 
@@ -22,19 +19,17 @@ public class GameCell extends GameObject {
         this.coordinateY = coordinateY;
     }
 
-
-    @Override
-    public String getName() {
-        return name;
-    }
-
     public GameCell(int Y, int X, ImageName imageName) {
         this.coordinateY = Y;
         this.coordinateX = X;
         super.setImage(imageName);
     }
 
-
-    public GameCell(){
+    public GameCell(int Y, int X){
+        this.setCoordinateY(Y);
+        this.setCoordinateX(X);
+        this.setFitHeight(60);
+        this.setFitWidth(60);
+        this.setImage(ImageName.WAVE);
     }
 }
