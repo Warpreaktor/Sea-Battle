@@ -136,15 +136,14 @@ public class Player {
      * вызывается отдельный метод в который мы передаем конкретный объект.
      */
     public void shipsOnGame() {
-        if (shipyard.isEmpty()) {
+        if (shipyard.size() < 1) {
             System.out.println("Корабли кончились");
             return;
         } else {
-            setShipRandomizer(shipyard.get(0));
-            shipyard.remove(0);
-            if (!shipyard.isEmpty()) {
-                shipsOnGame();
-                return;
+            while (shipyard.size() > 0) {
+                for (int i = shipyard.size() - 1; i >= 0; i--) {
+                    setShipRandomizer(shipyard.get(i));
+                }
             }
         }
     }
@@ -165,19 +164,23 @@ public class Player {
                 if (!Tools.setShipToCellsX(ship, tempY, tempX)) {
                     setShipRandomizer(ship);
                     return;
+                }else {
+                    //Устанавливаем корабль на восток
+                    ship.shipOnTheSeaX(Y, X);
+                    shipyard.remove(ship);
+                    break;
                 }
-                //Устанавливаем корабль на восток
-                ship.shipOnTheSeaX(Y, X);
-                break;
             case (2)://от точки координат вниз
                 //делаем проверку, можем ли мы установить корабль по предполагаемым координатам
                 if (!Tools.setShipToCellsY(ship, tempY, tempX)) {
                     setShipRandomizer(ship);
                     return;
+                }else {
+                    //Устанавливаем корабль на восток
+                    ship.shipOnTheSeaY(Y, X);
+                    shipyard.remove(ship);
+                    break;
                 }
-                //Устанавливаем корабль на восток
-                ship.shipOnTheSeaY(Y, X);
-                break;
         }
     }
 }

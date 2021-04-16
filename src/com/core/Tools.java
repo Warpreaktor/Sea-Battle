@@ -259,12 +259,11 @@ public class Tools {
                 if (db.hasImage() && targetZone.getClass().getSimpleName().equals("GameCell")) {
                     //int imgSize = (int) event.getDragboard().getImage().getWidth();
                     if (App.shipSettingController.isVertical() == false) {
-
                         success = setShipToCellsX(dragObject, targetZone.getCoordinateY(), targetZone.getCoordinateX());
-                        //clearFxX(targetZone.getCoordinateY(), targetZone.getCoordinateX(), imgSize);
+                        dragObject.getOwner().getShipyard().remove(dragObject);
                     } else {
                         success = setShipToCellsY(dragObject, targetZone.getCoordinateY(), targetZone.getCoordinateX());
-                        //clearFxX(targetZone.getCoordinateY(), targetZone.getCoordinateX(), imgSize);
+                        dragObject.getOwner().getShipyard().remove(dragObject);
                     }
                 }
                 /* let the source know whether the string was successfully

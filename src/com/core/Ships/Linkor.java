@@ -35,7 +35,7 @@ public class Linkor extends Ship {
     public void shipOnTheSeaY(int Y, int X){
         GameObject[][] map = this.getOwner().getOurFleetMap();
         int i = 3;
-        for (int y = Y - 2; y <= X+1; y++) {
+        for (int y = Y - 2; y <= Y+1; y++) {
             map[y][X].setImage(ImageName.LINKOR);
             map[y][X].setEffect(null);
             map[y][X] = decks[i];
