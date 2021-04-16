@@ -33,7 +33,8 @@ public abstract class Ship extends GameObject {
     public int getShipSize() {
         return shipSize;
     }
-    public abstract void shipOnTheSea(int partOfShip, int y, int x);
+    public abstract void shipOnTheSeaX(int y, int x);
+    public abstract void shipOnTheSeaY(int y, int x);
     public abstract DeckOfShip[] getDecks();
 
     public String naming(){

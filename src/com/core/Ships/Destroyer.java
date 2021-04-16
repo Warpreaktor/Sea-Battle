@@ -3,6 +3,7 @@ package com.core.Ships;
 import com.core.GameObject;
 import com.core.ImageName;
 import com.core.Player;
+import front.App;
 
 public class Destroyer extends Ship {
     private DeckOfShip[] decks = new DeckOfShip[2]; //[y][x] Это, по сути, корпус корабля который состоит из нескольких partOfLinkor
@@ -29,11 +30,29 @@ public class Destroyer extends Ship {
     }
 
     @Override
-    public void shipOnTheSea(int partOfShip, int y, int x){
+    public void shipOnTheSeaX(int Y, int X){
         GameObject[][] map = this.getOwner().getOurFleetMap();
-        map[y][x].setImage(ImageName.DESTROYER);
-        map[y][x].setEffect(null);
-        map[y][x] = decks[partOfShip];
-        map[y][x].setLabel('D');
+        int i = 1;
+        for (int x = X - 1; x <= X; x++) {
+            map[Y][x].setImage(ImageName.DESTROYER);
+            map[Y][x].setEffect(null);
+            map[Y][x] = decks[i];
+            i--;
+        }
+        App.seaBattleGame.PlayerShipIncrement(this.getOwner());
+
+    }
+    @Override
+    public void shipOnTheSeaY(int Y, int X){
+        GameObject[][] map = this.getOwner().getOurFleetMap();
+        int i = 1;
+        for (int y = Y - 1; y <= Y; y++) {
+            map[y][X].setImage(ImageName.DESTROYER);
+            map[y][X].setEffect(null);
+            map[y][X] = decks[i];
+            i--;
+        }
+        App.seaBattleGame.PlayerShipIncrement(this.getOwner());
+
     }
 }

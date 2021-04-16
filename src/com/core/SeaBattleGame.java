@@ -29,11 +29,10 @@ public class SeaBattleGame {
     public SeaBattleGame() {
         CPU.setName("Адмирал " + Tools.getRandomName());
         CPU.setCPU(true);
-        createCPUBattleField(CPU);
-        CPU.shipsOnGame();
+
     }
 
-    private void createCPUBattleField(Player player) {
+    public static void createCPUBattleField(Player player) {
         for (int y = 0; y < SIZE; y++) {
             for (int x = 0; x < SIZE; x++) {
                 GameObject cell1 = new GameCell(y, x);
@@ -152,5 +151,14 @@ public class SeaBattleGame {
         enemy.getOurFleetMap()[Y][X].setImage(ImageName.DOT);
         self.getEnemyFleetMap()[Y][X].setLabel('+');
         self.getEnemyFleetMap()[Y][X].setImage(ImageName.DOT);
+    }
+
+    public void PlayerShipIncrement(Player owner){
+        owner.setNumberOfShip(owner.getNumberOfShip()+1);
+        SeaBattleGame.setTotalShips(SeaBattleGame.getTotalShips() + 1);
+    }
+    public void PlayerShipDecrement(Player owner){
+        owner.setNumberOfShip(owner.getNumberOfShip() - 1);
+        SeaBattleGame.setTotalShips(SeaBattleGame.getTotalShips() - 1);
     }
 }

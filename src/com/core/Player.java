@@ -14,6 +14,8 @@ public class Player {
     private GameObject[][] enemyFleetMap = new GameObject[SeaBattleGame.getSIZE()][SeaBattleGame.getSIZE()];
 
     public Player() {
+        ourFleetMap = new GameObject[SeaBattleGame.getSIZE()][SeaBattleGame.getSIZE()];
+        enemyFleetMap = new GameObject[SeaBattleGame.getSIZE()][SeaBattleGame.getSIZE()];
         //1 Линкор(4), 2 Крейсера(3), 3 Эсминца(2), 4 Подлодки(1)
         /**Каждая клетка игрового поля заполняется объектами пустыми объектами GameCell
          */
@@ -33,30 +35,39 @@ public class Player {
     public void setCPU(boolean CPU) {
         isCPU = CPU;
     }
+
     public boolean isCPU() {
         return isCPU;
     }
+
     public String getName() {
         return name;
     }
+
     public void setName(String name) {
         this.name = name;
     }
+
     public GameObject[][] getEnemyFleetMap() {
         return enemyFleetMap;
     }
+
     public GameObject[][] getOurFleetMap() {
         return ourFleetMap;
     }
+
     public void setGameCellToEnemyFleetMap(GameObject gameCell, int y, int x) {
         this.enemyFleetMap[y][x] = gameCell;
     }
+
     public void setGameCellToOurFleetMap(GameObject gameCell, int y, int x) {
         this.ourFleetMap[y][x] = gameCell;
     }
+
     public void setNumberOfShip(int numberOfShip) {
         this.numberOfShip = numberOfShip;
     }
+
     public int getNumberOfShip() {
         return numberOfShip;
     }
@@ -125,13 +136,13 @@ public class Player {
      * вызывается отдельный метод в который мы передаем конкретный объект.
      */
     public void shipsOnGame() {
-        if (shipyard.isEmpty()){
+        if (shipyard.isEmpty()) {
             System.out.println("Корабли кончились");
             return;
-        }else {
-            shipOnGame(shipyard.get(0));
+        } else {
+            setShipRandomizer(shipyard.get(0));
             shipyard.remove(0);
-            if (!shipyard.isEmpty()){
+            if (!shipyard.isEmpty()) {
                 shipsOnGame();
                 return;
             }
@@ -142,7 +153,7 @@ public class Player {
      * Метод принимает корабль в качестве параметра и выставляет его на игровое поле, проверяя
      * перед этим не соседствует ли или не заполнена эта ячейка другим кораблем.
      */
-    public void shipOnGame(Ship ship) {
+    public void setShipRandomizer(Ship ship) {
         int Y = Tools.getRandomCoordinate();  //Получаем рандомную координату Y
         int X = Tools.getRandomCoordinate();  //Получаем рандомную координату X
         int side = 1 + (int) (Math.random() * 4);  //Получаем рандомное направление для размещения корабля
@@ -151,79 +162,21 @@ public class Player {
         switch (side) { //4 кейса на каждую сторону света
             case (1)://от точки координат вправо
                 //делаем проверку, можем ли мы установить корабль по предполагаемым координатам
-                for (int i = 0; i < ship.getShipSize(); i++) {
-                    if (!Tools.isOutOfBoards(ourFleetMap, tempY, tempX) ||
-                            !Tools.isNoShipsArround(ourFleetMap, tempY, tempX)) {
-                        shipOnGame(ship);
-                        return;
-                    } else {
-                        tempX += 1;
-                    }
+                if (!Tools.setShipToCellsX(ship, tempY, tempX)) {
+                    setShipRandomizer(ship);
+                    return;
                 }
                 //Устанавливаем корабль на восток
-                for (int i = 0; i < ship.getShipSize(); i++) {
-                    ship.shipOnTheSea(i, Y, X);
-                    X += 1;
-                }
-                this.numberOfShip +=1;
-                SeaBattleGame.setTotalShips(SeaBattleGame.getTotalShips() + 1);
+                ship.shipOnTheSeaX(Y, X);
                 break;
             case (2)://от точки координат вниз
                 //делаем проверку, можем ли мы установить корабль по предполагаемым координатам
-                for (int i = 0; i < ship.getShipSize(); i++) {
-                    if (!Tools.isOutOfBoards(ourFleetMap, tempY, tempX) ||
-                            !Tools.isNoShipsArround(ourFleetMap, tempY, tempX)) {
-                        shipOnGame(ship);
-                        return;
-                    } else {
-                        tempY += 1;
-                    }
+                if (!Tools.setShipToCellsY(ship, tempY, tempX)) {
+                    setShipRandomizer(ship);
+                    return;
                 }
-                //Если прошли проверку устанавливаем корабль
-                for (int i = 0; i < ship.getShipSize(); i++) {
-                    ship.shipOnTheSea(i, Y, X);
-                    Y += 1;
-                }
-                this.numberOfShip ++;
-                SeaBattleGame.setTotalShips(SeaBattleGame.getTotalShips() + 1);
-                break;
-            case (3)://от точки координат влево
-                //делаем проверку, можем ли мы установить корабль по предполагаемым координатам
-                for (int i = 0; i < ship.getShipSize(); i++) {
-                    if (!Tools.isOutOfBoards(ourFleetMap, tempY, tempX) ||
-                            !Tools.isNoShipsArround(ourFleetMap, tempY, tempX)) {
-                        shipOnGame(ship);
-                        return;
-                    } else {
-                        tempX -= 1;
-                    }
-                }
-                //Если прошли проверку устанавливаем корабль
-                for (int i = 0; i < ship.getShipSize(); i++) {
-                    ship.shipOnTheSea(i, Y, X);
-                    X -= 1;
-                }
-                this.numberOfShip ++;
-                SeaBattleGame.setTotalShips(SeaBattleGame.getTotalShips() + 1);
-                break;
-            case (4)://от точки координат вверх
-                //делаем проверку, можем ли мы установить корабль по предполагаемым координатам
-                for (int i = 0; i < ship.getShipSize(); i++) {
-                    if (!Tools.isOutOfBoards(ourFleetMap, tempY, tempX) ||
-                            !Tools.isNoShipsArround(ourFleetMap, tempY, tempX)) {
-                        shipOnGame(ship);
-                        return;
-                    } else {
-                        tempY -= 1;
-                    }
-                }
-                //Если прошли проверку устанавливаем корабль
-                for (int i = 0; i < ship.getShipSize(); i++) {
-                    ship.shipOnTheSea(i, Y, X);
-                    Y -= 1;
-                }
-                this.numberOfShip ++;
-                SeaBattleGame.setTotalShips(SeaBattleGame.getTotalShips() + 1);
+                //Устанавливаем корабль на восток
+                ship.shipOnTheSeaY(Y, X);
                 break;
         }
     }

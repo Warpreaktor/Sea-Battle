@@ -260,10 +260,10 @@ public class Tools {
                     //int imgSize = (int) event.getDragboard().getImage().getWidth();
                     if (App.shipSettingController.isVertical() == false) {
 
-                        success = setShipToCellsX(targetZone.getCoordinateY(), targetZone.getCoordinateX());
+                        success = setShipToCellsX(dragObject, targetZone.getCoordinateY(), targetZone.getCoordinateX());
                         //clearFxX(targetZone.getCoordinateY(), targetZone.getCoordinateX(), imgSize);
                     } else {
-                        success = setShipToCellsY(targetZone.getCoordinateY(), targetZone.getCoordinateX());
+                        success = setShipToCellsY(dragObject, targetZone.getCoordinateY(), targetZone.getCoordinateX());
                         //clearFxX(targetZone.getCoordinateY(), targetZone.getCoordinateX(), imgSize);
                     }
                 }
@@ -375,101 +375,91 @@ public class Tools {
         }
     }
 
-    public static boolean setShipToCellsX(int Y, int X) {
-        GameObject[][] map = App.seaBattleGame.getHuman().getOurFleetMap();
-        int shipSize = dragObject.getShipSize();
+    public static boolean setShipToCellsX(Ship ship, int Y, int X) {
+        GameObject[][] map = ship.getOwner().getOurFleetMap();
+        int shipSize = ship.getShipSize();
         switch (shipSize) {
             case 4:
                 for (int x = X - 2; x <= X + 1; x++) {
-                    if (!isOutOfBoards(map, Y, x)) continue;
+                    if (!isOutOfBoards(map, Y, x)) return false;;
                     if (!isNoShipsArround(map, Y, x)) {
                         System.out.println("Нельзя размещать свои корабли вплотную к другим кораблям");
                         return false;
                     }
                 }
-                dragObject.shipOnTheSea(0, Y, X + 1);
-                dragObject.shipOnTheSea(1, Y, X);
-                dragObject.shipOnTheSea(2, Y, X - 1);
-                dragObject.shipOnTheSea(3, Y, X - 2);
+                ship.shipOnTheSeaX(Y, X);
                 return true;
             case 3:
                 for (int x = X - 1; x <= X + 1; x++) {
-                    if (!isOutOfBoards(map, Y, x)) continue;
+                    if (!isOutOfBoards(map, Y, x)) return false;;
                     if (!isNoShipsArround(map, Y, x)) {
                         System.out.println("Нельзя размещать свои корабли вплотную к другим кораблям");
                         return false;
                     }
                 }
-                dragObject.shipOnTheSea(0, Y, X + 1);
-                dragObject.shipOnTheSea(1, Y, X);
-                dragObject.shipOnTheSea(2, Y, X - 1);
+                ship.shipOnTheSeaX(Y, X);
                 return true;
             case 2:
                 for (int x = X - 1; x <= X; x++) {
-                    if (!isOutOfBoards(map, Y, x)) continue;
+                    if (!isOutOfBoards(map, Y, x)) return false;;
                     if (!isNoShipsArround(map, Y, x)) {
                         System.out.println("Нельзя размещать свои корабли вплотную к другим кораблям");
                         return false;
                     }
                 }
-                dragObject.shipOnTheSea(0, Y, X);
-                dragObject.shipOnTheSea(0, Y, X - 1);
+                ship.shipOnTheSeaX(Y, X);
                 return true;
             case 1:
                 if (!isOutOfBoards(map, Y, X) || !isNoShipsArround(map, Y, X)) {
                     System.out.println("Здесь нельзя разместить корабль");
                     return false;
                 }
-                dragObject.shipOnTheSea(0, Y, X);
+                ship.shipOnTheSeaX(Y, X);
                 return true;
         }
         return false; //Если не подошел ни один из кейсов
     }
 
-    public static boolean setShipToCellsY(int Y, int X) {
-        GameObject[][] map = App.seaBattleGame.getHuman().getOurFleetMap();
-        int shipSize = dragObject.getShipSize();
-        ArrayList<Ship> shipYard = App.seaBattleGame.getHuman().getShipyard();
+    public static boolean setShipToCellsY(Ship ship, int Y, int X) {
+        GameObject[][] map = ship.getOwner().getOurFleetMap();
+        int shipSize = ship.getShipSize();
         switch (shipSize) {
             case 4:
                 for (int y = Y - 2; y <= Y + 1; y++) {
-                    if (!isOutOfBoards(map, y, X)) continue;
+                    if (!isOutOfBoards(map, y, X)) return false;;
                     if (!isNoShipsArround(map, y, X)) {
                         System.out.println("Нельзя размещать свои корабли вплотную к другим кораблям");
                         return false;
                     }
                 }
-                dragObject.shipOnTheSea(0, Y + 1, X);
-                dragObject.shipOnTheSea(1, Y, X);
-                dragObject.shipOnTheSea(2, Y - 1, X);
-                dragObject.shipOnTheSea(3, Y - 2, X);
+                ship.shipOnTheSeaY(Y, X);
                 return true;
             case 3:
                 for (int y = Y - 1; y <= Y + 1; y++) {
-                    if (!isOutOfBoards(map, y, X)) continue;
+                    if (!isOutOfBoards(map, y, X)) return false;;
                     if (!isNoShipsArround(map, y, X)) {
                         System.out.println("Нельзя размещать свои корабли вплотную к другим кораблям");
                         return false;
                     }
                 }
-                dragObject.shipOnTheSea(0, Y + 1, X);
-                dragObject.shipOnTheSea(1, Y, X);
-                dragObject.shipOnTheSea(2, Y - 1, X);
+                ship.shipOnTheSeaY(Y, X);
                 return true;
             case 2:
-                if (!isOutOfBoards(map, Y, X) || !isNoShipsArround(map, Y, X)) {
-                    System.out.println("Нельзя размещать свои корабли вплотную к другим кораблям");
-                    return false;
+                for (int y = Y - 1; y <= Y; y++) {
+                    if (!isOutOfBoards(map, y, X)) return false;;
+                    if (!isNoShipsArround(map, y, X)) {
+                        System.out.println("Нельзя размещать свои корабли вплотную к другим кораблям");
+                        return false;
+                    }
                 }
-                dragObject.shipOnTheSea(0, Y, X);
-                dragObject.shipOnTheSea(1, Y - 1, X);
+                ship.shipOnTheSeaY(Y, X);
                 return true;
             case 1:
                 if (!isOutOfBoards(map, Y, X) || !isNoShipsArround(map, Y, X)) {
                     System.out.println("Здесь нельзя разместить корабль");
                     return false;
                 }
-                dragObject.shipOnTheSea(0, Y, X);
+                ship.shipOnTheSeaY(Y, X);
                 return true;
         }
         return false;
