@@ -30,7 +30,6 @@ public class MainController {
         infoBox.setLayoutX(50);
 
         //Параметры кнопки Next turn
-        //nextTurn.setText("Next turn");
         nextTurn.setPrefHeight(60);
         nextTurn.setPrefWidth(120);
         nextTurn.setLayoutX(580);

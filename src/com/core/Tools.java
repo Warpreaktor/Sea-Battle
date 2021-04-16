@@ -98,7 +98,7 @@ public class Tools {
         return true;
     }
     /**
-     * Возвращает true если [Y][X] не выходят за границы переданного массива массива.
+     * Возвращает true если [Y][X] НЕ выходят за границы переданного массива массива.
      * @param map - передается массив GameObject на котором нужно осуществить проверку.
      * @return
      */
@@ -151,7 +151,7 @@ public class Tools {
         return name;
     }
 
-    public static void setDragSource(ImageView source) {
+    public static void setDragSource(Ship source) {
         //Событие при обнаружении перетаскивания
         source.setOnDragDetected(new EventHandler<MouseEvent>() {
             public void handle(MouseEvent event) {
@@ -171,7 +171,7 @@ public class Tools {
                 /* the drag and drop gesture ended */
                 /* if the data was successfully moved, clear it */
                 if (event.getTransferMode() == TransferMode.MOVE) {
-                    source.setImage(null);
+                    source.setImage(ImageName.NULL);
                 }
                 event.consume();
             }
@@ -372,10 +372,6 @@ public class Tools {
                         map[Y][X].setImage(ImageName.LINKOR);
                         map[Y][X - 1].setImage(ImageName.LINKOR);
                         map[Y][X - 2].setImage(ImageName.LINKOR);
-                        map[Y][X + 1].setEffect(null);
-                        map[Y][X].setEffect(null);
-                        map[Y][X - 1].setEffect(null);
-                        map[Y][X - 2].setEffect(null);
 //                        for (int i = 0; i < shipYard.size(); i++) {
 //                            if (shipYard[i] != null && shipYard[i].getShipSize() == 4) {
 //                                shipYard[i].shipOnTheSea(0, Y, X + 1);
@@ -409,9 +405,6 @@ public class Tools {
                         map[Y][X].setImage(ImageName.CRUISER);
                         map[Y][X + 1].setImage(ImageName.CRUISER);
                         map[Y][X - 1].setImage(ImageName.CRUISER);
-                        map[Y][X].setEffect(null);
-                        map[Y][X + 1].setEffect(null);
-                        map[Y][X - 1].setEffect(null);
 //                        for (int i = 0; i < shipYard.size(); i++) {
 //                            if (shipYard[i] != null && shipYard[i].getShipSize() == 3) {
 //                                shipYard[i].shipOnTheSea(0, Y, X);
@@ -441,8 +434,6 @@ public class Tools {
                     if (X - 1 >= 0) {
                         map[Y][X].setImage(ImageName.DESTROYER);
                         map[Y][X - 1].setImage(ImageName.DESTROYER);
-                        map[Y][X].setEffect(null);
-                        map[Y][X - 1].setEffect(null);
 //                        for (int i = 0; i < shipYard.size(); i++) {
 //                            if (shipYard[i] != null && shipYard[i].getShipSize() == 2) {
 //                                shipYard[i].shipOnTheSea(0, Y, X);
@@ -457,30 +448,14 @@ public class Tools {
             case 1:
                 for (int y = Y - 1; y <= Y + 1; y++) {
                     for (int x = X - 1; x <= X + 1; x++) {
-                        if(y < 0) continue;
-                        if(y >= SeaBattleGame.getSIZE()) continue;
-                        if(x < 0) continue;
-                        if(x >= SeaBattleGame.getSIZE()) continue;
-                        if (map[y][x].getClass().getSimpleName().equals("Ship") && map[y][x].getClass().getSimpleName().equals("Ship") &&
-                                map[y][x].getClass().getSimpleName().equals("Ship") && map[y][x].getClass().getSimpleName().equals("Ship")) {
+                        if(!Tools.checkArrayBounds(map, y, x)) continue;
+                        if (!Tools.checkNeighboards(map, y, x)) {
                             System.out.println("Нельзя размещать свои корабли вплотную к другим кораблям");
                             return false;
                         }
                     }
                 }
-                if (!map[Y][X].getClass().getSimpleName().equals("Ship")) {
-                    map[Y][X].setEffect(null);
-//                        for (int i = 0; i < shipYard.size(); i++) {
-//                            if (shipYard[i] != null && shipYard[i].getShipSize() == 1) {
-//                                System.out.println("SUBMARINE");
-//                                map[Y][X].setImage(ImageName.SUBMARINE);
-//                                shipYard[i].shipOnTheSea(0, Y, X);
-//                                shipYard[i] = null;
-//                                break;
-//                            }
-//                        }
-                        return true;
-                }else return false;
+                return true;
         }
         return false;
     }

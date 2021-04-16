@@ -29,6 +29,9 @@ public abstract class GameObject extends ImageView {
 
     public void setImage(ImageName imageName){
         switch (imageName){
+            case NULL:
+                super.setImage(null);
+                break;
             case RED_CROSS:
                 Image redCross = new Image("/resources/redCRoss150x150.png");
                 super.setImage(redCross);

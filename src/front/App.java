@@ -74,7 +74,7 @@ public class App extends Application {
             stage.setX(300);
             stage.setY(0);
             //Отрисовка поля с нашим флотом
-            VBox leftVBox = shipSettingController.getvBox();
+            VBox leftVBox = shipSettingController.getField();
             leftVBox.setLayoutX(20);
             leftVBox.setLayoutY(200);
             //Отрисовка поля с вражеским полем

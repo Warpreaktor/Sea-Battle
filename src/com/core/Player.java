@@ -166,7 +166,6 @@ public class Player {
                     X += 1;
                 }
                 this.numberOfShip +=1;
-                System.out.println(this.numberOfShip);
                 SeaBattleGame.setTotalShips(SeaBattleGame.getTotalShips() + 1);
                 break;
             case (2)://от точки координат вниз
@@ -186,7 +185,6 @@ public class Player {
                     Y += 1;
                 }
                 this.numberOfShip ++;
-                System.out.println(this.numberOfShip);
                 SeaBattleGame.setTotalShips(SeaBattleGame.getTotalShips() + 1);
                 break;
             case (3)://от точки координат влево
@@ -206,7 +204,6 @@ public class Player {
                     X -= 1;
                 }
                 this.numberOfShip ++;
-                System.out.println(this.numberOfShip);
                 SeaBattleGame.setTotalShips(SeaBattleGame.getTotalShips() + 1);
                 break;
             case (4)://от точки координат вверх
@@ -226,7 +223,6 @@ public class Player {
                     Y -= 1;
                 }
                 this.numberOfShip ++;
-                System.out.println(this.numberOfShip);
                 SeaBattleGame.setTotalShips(SeaBattleGame.getTotalShips() + 1);
                 break;
         }
