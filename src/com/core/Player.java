@@ -168,6 +168,7 @@ public class Player {
                     //Устанавливаем корабль на восток
                     ship.shipOnTheSeaX(Y, X);
                     shipyard.remove(ship);
+                    ship.setImage(ImageName.NULL);
                     break;
                 }
             case (2)://от точки координат вниз
@@ -179,6 +180,7 @@ public class Player {
                     //Устанавливаем корабль на восток
                     ship.shipOnTheSeaY(Y, X);
                     shipyard.remove(ship);
+                    ship.setImage(ImageName.NULL);
                     break;
                 }
         }
