@@ -152,8 +152,8 @@ public class Player {
             case (1)://от точки координат вправо
                 //делаем проверку, можем ли мы установить корабль по предполагаемым координатам
                 for (int i = 0; i < ship.getShipSize(); i++) {
-                    if (!Tools.checkArrayBounds(ourFleetMap, tempY, tempX) ||
-                            !Tools.checkNeighboards(ourFleetMap, tempY, tempX)) {
+                    if (!Tools.isOutOfBoards(ourFleetMap, tempY, tempX) ||
+                            !Tools.isNoShipsArround(ourFleetMap, tempY, tempX)) {
                         shipOnGame(ship);
                         return;
                     } else {
@@ -171,8 +171,8 @@ public class Player {
             case (2)://от точки координат вниз
                 //делаем проверку, можем ли мы установить корабль по предполагаемым координатам
                 for (int i = 0; i < ship.getShipSize(); i++) {
-                    if (!Tools.checkArrayBounds(ourFleetMap, tempY, tempX) ||
-                            !Tools.checkNeighboards(ourFleetMap, tempY, tempX)) {
+                    if (!Tools.isOutOfBoards(ourFleetMap, tempY, tempX) ||
+                            !Tools.isNoShipsArround(ourFleetMap, tempY, tempX)) {
                         shipOnGame(ship);
                         return;
                     } else {
@@ -190,8 +190,8 @@ public class Player {
             case (3)://от точки координат влево
                 //делаем проверку, можем ли мы установить корабль по предполагаемым координатам
                 for (int i = 0; i < ship.getShipSize(); i++) {
-                    if (!Tools.checkArrayBounds(ourFleetMap, tempY, tempX) ||
-                            !Tools.checkNeighboards(ourFleetMap, tempY, tempX)) {
+                    if (!Tools.isOutOfBoards(ourFleetMap, tempY, tempX) ||
+                            !Tools.isNoShipsArround(ourFleetMap, tempY, tempX)) {
                         shipOnGame(ship);
                         return;
                     } else {
@@ -209,8 +209,8 @@ public class Player {
             case (4)://от точки координат вверх
                 //делаем проверку, можем ли мы установить корабль по предполагаемым координатам
                 for (int i = 0; i < ship.getShipSize(); i++) {
-                    if (!Tools.checkArrayBounds(ourFleetMap, tempY, tempX) ||
-                            !Tools.checkNeighboards(ourFleetMap, tempY, tempX)) {
+                    if (!Tools.isOutOfBoards(ourFleetMap, tempY, tempX) ||
+                            !Tools.isNoShipsArround(ourFleetMap, tempY, tempX)) {
                         shipOnGame(ship);
                         return;
                     } else {

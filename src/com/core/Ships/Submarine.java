@@ -19,6 +19,11 @@ public class Submarine extends Ship {
     }
 
     @Override
+    public DeckOfShip[] getDecks() {
+        return decks;
+    }
+
+    @Override
     public char getLabel() {
         return super.getLabel();
     }
@@ -27,6 +32,7 @@ public class Submarine extends Ship {
     public void shipOnTheSea(int partOfShip, int y, int x){
         GameObject[][] map = this.getOwner().getOurFleetMap();
         map[y][x].setImage(ImageName.SUBMARINE);
+        map[y][x].setEffect(null);
         map[y][x] = decks[partOfShip];
         map[y][x].setLabel('S');
     }

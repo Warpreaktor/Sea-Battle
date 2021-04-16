@@ -34,6 +34,7 @@ public abstract class Ship extends GameObject {
         return shipSize;
     }
     public abstract void shipOnTheSea(int partOfShip, int y, int x);
+    public abstract DeckOfShip[] getDecks();
 
     public String naming(){
         int randomNum = 1 + (int)(Math.random()*6);

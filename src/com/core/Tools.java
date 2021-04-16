@@ -1,30 +1,31 @@
 package com.core;
+
 import com.core.Ships.Ship;
 import front.App;
 import javafx.event.EventHandler;
 import javafx.scene.effect.Effect;
 import javafx.scene.effect.Shadow;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.*;
 
 import java.util.ArrayList;
 
 public class Tools {
-    public static String[] nounsBookMan = {"Махаон","Герой","Брат","Бриз", "Император","Массон", "Сахарок", "Бог", "Минотавр", "Враг", "Победитель",
+    private static Ship dragObject;
+    public static String[] nounsBookMan = {"Махаон", "Герой", "Брат", "Бриз", "Император", "Массон", "Сахарок", "Бог", "Минотавр", "Враг", "Победитель",
             "Карбид", "Китобоец", "Христианин", "Гнев", "Нормандец", "Плот", "Водолаз", "Туз", "Шарабан", "Капкан", "Маньяк", "Варяг", "Ковбой",
-    "Гром", "Малыш", "Кашалот", "Воин", "Царь", "Сон", "День", "Свет", "Ураган", "Шторм", "Тайфун", "Смерч", "Катер", "Цунами", "Линкольн", "Сталин", "Айсберг",
+            "Гром", "Малыш", "Кашалот", "Воин", "Царь", "Сон", "День", "Свет", "Ураган", "Шторм", "Тайфун", "Смерч", "Катер", "Цунами", "Линкольн", "Сталин", "Айсберг",
             "Характер", "Свидетель", "Адвокат", "Всадник", "Аркхем"};
 
     public static String[] nounsBookWoman = {"Месть", "Королева", "Гидра", "Мигера", "Горгона", "Дьявольщина", "Касатка", "Удача", "Стихия", "Жена",
-    "Химера", "Мокрядь", "Тварь", "Посудина", "Фантазия", "Мечта", "Ночь", "Лань", "Буря", "Лодка", "Шхуна", "Рыба", "Ярость", "Нехристь", "Аврора", "Аляска",
+            "Химера", "Мокрядь", "Тварь", "Посудина", "Фантазия", "Мечта", "Ночь", "Лань", "Буря", "Лодка", "Шхуна", "Рыба", "Ярость", "Нехристь", "Аврора", "Аляска",
             "Арабелла", "Земля", "Особенность", "Конструкция", "Беда", "Гибель", "Кобыла", "Вдова"};
 
     public static String[] nounsBookIt = {"Приключение", "Возмездие", "Наводнение", "Остервенение", "Бешенство", "Господство", "Корыто", "Предложение",
-    "Мероприятие", "Поручение", "Искусство", "Воспитание", "Достоинство","Убийство", "Рождение", "Становление", "Наказание", "Убеждение", "Мучение",
+            "Мероприятие", "Поручение", "Искусство", "Воспитание", "Достоинство", "Убийство", "Рождение", "Становление", "Наказание", "Убеждение", "Мучение",
             "Свидетельство", "Послание", "Буйство", "Хитроумие", "Чудище", "Чудо-юдо"};
 
     public static String[] adjectivesBookMan = {"Геройский", "Матёрый", "Дорогой", "Морской", "Яростный", "Козырный", "Стальной", "Дубовый", "Кричайщий",
-    "Фантастический", "Дерзкий", "Древний", "Неуязвимый", "Неуловимый", "Прыткий", "Страшный", "Молниеносный", "Черный", "Бешенный", "Пустынный", "Пьяный", "Небесный",
+            "Фантастический", "Дерзкий", "Древний", "Неуязвимый", "Неуловимый", "Прыткий", "Страшный", "Молниеносный", "Черный", "Бешенный", "Пустынный", "Пьяный", "Небесный",
             "Счастливый", "Отвратительный", "Быстрый", "Мужественный", "Огромный", "Стальной", "Унылый", "Корявый"};
 
     public static String[] adjectivesBookWoman = {"Геройская", "Матёрая", "Дорогая", "Морская", "Яростная", "Козырная", "Стальная", "Дубовая", "Кричащая",
@@ -32,7 +33,7 @@ public class Tools {
             "Счастливая", "Золотая", "Прекрасная", "Изящная", "Ловкая", "Скользкая", "Опалённая"};
 
     public static String[] whomBook = {"капитана", "дракона", "Дьявола", "пирата", "брата", "короля", "королевы", "вселенной", "по сути", "в душе", "в море",
-    "в натуре","cреди ясного неба", "из тумана", "без правил", "из ада"};
+            "в натуре", "cреди ясного неба", "из тумана", "без правил", "из ада"};
 
     String ANSI_BLACK = "\u001B[30m";
     String ANSI_RED = "\u001B[31m";
@@ -43,8 +44,8 @@ public class Tools {
     String ANSI_CYAN = "\u001B[36m";
     String ANSI_WHITE = "\u001B[37m";
 
-    public String shipsNaming(){
-        int randomNum = 1 + (int)(Math.random()*6);
+    public String shipsNaming() {
+        int randomNum = 1 + (int) (Math.random() * 6);
         String name = "Безымянный";
         switch (randomNum) {
             case (1)://сущ муж + прил муж
@@ -80,33 +81,52 @@ public class Tools {
 
     /**
      * Возвращает true если по соседству с ячейкой [Y][X] нет объектов типа DeckOfShip
+     *
      * @param map - передается массив GameObject на котором нужно осуществить проверку.
      * @return
      */
-    public static boolean checkNeighboards(GameObject[][] map, int Y, int X){
+    public static boolean isNoShipsArround(GameObject[][] map, int Y, int X) {
         for (int y = Y - 1; y < Y + 2; y++) {
             for (int x = X - 1; x < X + 2; x++) {
-                if(y >= map.length){continue;}
-                if(y < 0){continue;}
-                if(x >= map[Y].length){continue;}
-                if(x < 0){continue;}
-                if (map[y][x].getClass().getSimpleName().equals("DeckOfShip")){
+                if (y >= map.length) {
+                    continue;
+                }
+                if (y < 0) {
+                    continue;
+                }
+                if (x >= map[Y].length) {
+                    continue;
+                }
+                if (x < 0) {
+                    continue;
+                }
+                if (map[y][x].getClass().getSimpleName().equals("DeckOfShip")) {
                     return false;
                 }
             }
         }
         return true;
     }
+
     /**
      * Возвращает true если [Y][X] НЕ выходят за границы переданного массива массива.
+     *
      * @param map - передается массив GameObject на котором нужно осуществить проверку.
      * @return
      */
-    public static boolean checkArrayBounds(GameObject[][] map, int Y, int X){
-                if(Y >= map.length){return false;}
-                if(Y < 0){return false;}
-                if(X >= map[Y].length){return false;}
-                if(X < 0){return false;}
+    public static boolean isOutOfBoards(GameObject[][] map, int Y, int X) {
+        if (Y >= map.length) {
+            return false;
+        }
+        if (Y < 0) {
+            return false;
+        }
+        if (X >= map[Y].length) {
+            return false;
+        }
+        if (X < 0) {
+            return false;
+        }
         return true;
     }
 
@@ -114,14 +134,16 @@ public class Tools {
     public static int getRandomCoordinate() {
         return (int) (Math.random() * SeaBattleGame.getSIZE());
     }
+
     public static boolean isNull(Object object) {
         if (object == null) {
             return true;
         } else return false;
     }
-    public static String getRandomName(){
+
+    public static String getRandomName() {
         String name = "Безымянный";
-        int randomNum = 1 + (int)(Math.random()*6);
+        int randomNum = 1 + (int) (Math.random() * 6);
         switch (randomNum) {
             case (1)://сущ муж + прил муж
                 name = Tools.adjectivesBookMan[(int) (Math.random() * (Tools.adjectivesBookMan.length - 1))] +
@@ -158,7 +180,9 @@ public class Tools {
                 /* drag was detected, start a drag-and-drop gesture*/
                 /* allow any transfer mode */
                 Dragboard db = source.startDragAndDrop(TransferMode.MOVE);
-                /* Put a image on a dragboard */
+                /* Put a image on a dragboard and object to global variable */
+                dragObject = source;
+                System.out.println(source.getName());
                 ClipboardContent content = new ClipboardContent();
                 content.putImage(source.getImage());
                 db.setContent(content);
@@ -178,7 +202,7 @@ public class Tools {
         });
     }
 
-    public static void setDragTargetZone(GameObject targetZone){
+    public static void setDragTargetZone(GameObject targetZone) {
 
         //Событие при заходе в зону
         targetZone.setOnDragOver(new EventHandler<DragEvent>() {
@@ -200,12 +224,12 @@ public class Tools {
                 /* the drag-and-drop gesture entered the targetZone */
                 /* show to the user that it is an actual gesture targetZone */
                 if (event.getGestureSource() != targetZone &&
-                        event.getDragboard().hasImage() && targetZone.getClass().getSimpleName().equals("GameCell")){
+                        event.getDragboard().hasImage() && targetZone.getClass().getSimpleName().equals("GameCell")) {
                     Effect fx = new Shadow();
-                    int imgSize = (int)event.getDragboard().getImage().getWidth();
+                    int imgSize = (int) event.getDragboard().getImage().getWidth();
                     if (App.shipSettingController.isVertical() == false) {
                         setFxX(targetZone.getCoordinateY(), targetZone.getCoordinateX(), fx, imgSize);
-                    }else{
+                    } else {
                         setFxY(targetZone.getCoordinateY(), targetZone.getCoordinateX(), fx, imgSize);
                     }
                 }
@@ -216,10 +240,10 @@ public class Tools {
         targetZone.setOnDragExited(new EventHandler<DragEvent>() {
             public void handle(DragEvent event) {
                 /* mouse moved away, remove the graphical cues */
-                int imgSize = (int)event.getDragboard().getImage().getWidth();
+                int imgSize = (int) event.getDragboard().getImage().getWidth();
                 if (App.shipSettingController.isVertical() == false) {
                     clearFxX(targetZone.getCoordinateY(), targetZone.getCoordinateX(), imgSize);
-                }else{
+                } else {
                     clearFxY(targetZone.getCoordinateY(), targetZone.getCoordinateX(), imgSize);
                 }
                 event.consume();
@@ -233,14 +257,14 @@ public class Tools {
                 Dragboard db = event.getDragboard();
                 boolean success = false;
                 if (db.hasImage() && targetZone.getClass().getSimpleName().equals("GameCell")) {
-                    int imgSize = (int)event.getDragboard().getImage().getWidth();
+                    //int imgSize = (int) event.getDragboard().getImage().getWidth();
                     if (App.shipSettingController.isVertical() == false) {
 
-                        success = setShipToCellsX(targetZone.getCoordinateY(), targetZone.getCoordinateX(), imgSize);
-                        clearFxX(targetZone.getCoordinateY(), targetZone.getCoordinateX(), imgSize);
-                    }else{
-                        success = setShipToCellsY(targetZone.getCoordinateY(), targetZone.getCoordinateX(), imgSize);
-                        clearFxX(targetZone.getCoordinateY(), targetZone.getCoordinateX(), imgSize);
+                        success = setShipToCellsX(targetZone.getCoordinateY(), targetZone.getCoordinateX());
+                        //clearFxX(targetZone.getCoordinateY(), targetZone.getCoordinateX(), imgSize);
+                    } else {
+                        success = setShipToCellsY(targetZone.getCoordinateY(), targetZone.getCoordinateX());
+                        //clearFxX(targetZone.getCoordinateY(), targetZone.getCoordinateX(), imgSize);
                     }
                 }
                 /* let the source know whether the string was successfully
@@ -250,10 +274,11 @@ public class Tools {
             }
         });
     }
+
     public static void setFxX(int Y, int X, Effect fx, int imgSize) {
         GameObject[][] map = App.seaBattleGame.getHuman().getOurFleetMap();
         imgSize /= 60;
-        switch (imgSize){
+        switch (imgSize) {
             case 4:
                 if (X + 1 < SeaBattleGame.getSIZE()) map[Y][X + 1].setEffect(fx);
                 map[Y][X].setEffect(fx);
@@ -274,10 +299,11 @@ public class Tools {
                 break;
         }
     }
+
     public static void setFxY(int Y, int X, Effect fx, int imgSize) {
         GameObject[][] map = App.seaBattleGame.getHuman().getOurFleetMap();
         imgSize /= 60;
-        switch (imgSize){
+        switch (imgSize) {
             case 4:
                 if (Y + 1 < SeaBattleGame.getSIZE()) map[Y + 1][X].setEffect(fx);
                 map[Y][X].setEffect(fx);
@@ -298,10 +324,11 @@ public class Tools {
                 break;
         }
     }
+
     public static void clearFxX(int Y, int X, int imgSize) {
         GameObject[][] map = App.seaBattleGame.getHuman().getOurFleetMap();
         imgSize /= 60;
-        switch (imgSize){
+        switch (imgSize) {
             case 4:
                 map[Y][X].setEffect(null);
                 if (X + 1 < SeaBattleGame.getSIZE()) map[Y][X + 1].setEffect(null);
@@ -322,10 +349,11 @@ public class Tools {
                 break;
         }
     }
+
     public static void clearFxY(int Y, int X, int imgSize) {
         GameObject[][] map = App.seaBattleGame.getHuman().getOurFleetMap();
         imgSize /= 60;
-        switch (imgSize){
+        switch (imgSize) {
             case 4:
                 map[Y][X].setEffect(null);
                 if (Y + 1 < SeaBattleGame.getSIZE()) map[Y + 1][X].setEffect(null);
@@ -346,255 +374,103 @@ public class Tools {
                 break;
         }
     }
-    public static boolean setShipToCellsX(int Y, int X, int imgSize) {
+
+    public static boolean setShipToCellsX(int Y, int X) {
         GameObject[][] map = App.seaBattleGame.getHuman().getOurFleetMap();
-        int shipSize = imgSize / 60;
-        ArrayList<Ship> shipYard = App.seaBattleGame.getHuman().getShipyard();
+        int shipSize = dragObject.getShipSize();
         switch (shipSize) {
             case 4:
-                for (int y = Y - 1; y <= Y + 1; y++) {
-                    for (int x = X - 3; x <= X + 2; x++) {
-                        if(y < 0) continue;
-                        if(y >= SeaBattleGame.getSIZE()) continue;
-                        if(x < 0) continue;
-                        if(x >= SeaBattleGame.getSIZE()) continue;
-                        if (map[y][x].getClass().getSimpleName().equals("Ship") && map[y][x].getClass().getSimpleName().equals("Ship") &&
-                                map[y][x].getClass().getSimpleName().equals("Ship") && map[y][x].getClass().getSimpleName().equals("Ship")) {
-                            System.out.println("Нельзя размещать свои корабли вплотную к другим кораблям");
-                            return false;
-                        }
+                for (int x = X - 2; x <= X + 1; x++) {
+                    if (!isOutOfBoards(map, Y, x)) continue;
+                    if (!isNoShipsArround(map, Y, x)) {
+                        System.out.println("Нельзя размещать свои корабли вплотную к другим кораблям");
+                        return false;
                     }
                 }
-                if (!map[Y][X+1].getClass().getSimpleName().equals("Ship") && !map[Y][X].getClass().getSimpleName().equals("Ship") &&
-                        !map[Y][X-1].getClass().getSimpleName().equals("Ship") && !map[Y][X-2].getClass().getSimpleName().equals("Ship")) {
-                    if (X + 1 < SeaBattleGame.getSIZE() && X - 2 >= 0) {
-                        map[Y][X + 1].setImage(ImageName.LINKOR);
-                        map[Y][X].setImage(ImageName.LINKOR);
-                        map[Y][X - 1].setImage(ImageName.LINKOR);
-                        map[Y][X - 2].setImage(ImageName.LINKOR);
-//                        for (int i = 0; i < shipYard.size(); i++) {
-//                            if (shipYard[i] != null && shipYard[i].getShipSize() == 4) {
-//                                shipYard[i].shipOnTheSea(0, Y, X + 1);
-//                                shipYard[i].shipOnTheSea(1, Y, X);
-//                                shipYard[i].shipOnTheSea(2, Y, X - 1);
-//                                shipYard[i].shipOnTheSea(3, Y, X - 2);
-//                                shipYard[i] = null;
-//                                break;
-//                            }
-//                        }
-                        return true;
-                    }
-                }else return false;
+                dragObject.shipOnTheSea(0, Y, X + 1);
+                dragObject.shipOnTheSea(1, Y, X);
+                dragObject.shipOnTheSea(2, Y, X - 1);
+                dragObject.shipOnTheSea(3, Y, X - 2);
+                return true;
             case 3:
-                for (int y = Y - 1; y <= Y + 1; y++) {
-                    for (int x = X - 2; x <= X + 2; x++) {
-                        if(y < 0) continue;
-                        if(y >= SeaBattleGame.getSIZE()) continue;
-                        if(x < 0) continue;
-                        if(x >= SeaBattleGame.getSIZE()) continue;
-                        if (map[y][x].getClass().getSimpleName().equals("Ship") && map[y][x].getClass().getSimpleName().equals("Ship") &&
-                                map[y][x].getClass().getSimpleName().equals("Ship") && map[y][x].getClass().getSimpleName().equals("Ship")) {
-                            System.out.println("Нельзя размещать свои корабли вплотную к другим кораблям");
-                            return false;
-                        }
+                for (int x = X - 1; x <= X + 1; x++) {
+                    if (!isOutOfBoards(map, Y, x)) continue;
+                    if (!isNoShipsArround(map, Y, x)) {
+                        System.out.println("Нельзя размещать свои корабли вплотную к другим кораблям");
+                        return false;
                     }
                 }
-                if (!map[Y][X].getClass().getSimpleName().equals("Ship") && !map[Y][X+1].getClass().getSimpleName().equals("Ship") &&
-                        !map[Y][X-1].getClass().getSimpleName().equals("Ship")) {
-                    if (X + 1 < SeaBattleGame.getSIZE() && X - 1 >= 0) {
-                        map[Y][X].setImage(ImageName.CRUISER);
-                        map[Y][X + 1].setImage(ImageName.CRUISER);
-                        map[Y][X - 1].setImage(ImageName.CRUISER);
-//                        for (int i = 0; i < shipYard.size(); i++) {
-//                            if (shipYard[i] != null && shipYard[i].getShipSize() == 3) {
-//                                shipYard[i].shipOnTheSea(0, Y, X);
-//                                shipYard[i].shipOnTheSea(1, Y, X + 1);
-//                                shipYard[i].shipOnTheSea(2, Y, X - 1);
-//                                shipYard[i] = null;
-//                                break;
-//                            }
-//                        }
-                        return true;
-                    }
-                }else return false;
+                dragObject.shipOnTheSea(0, Y, X + 1);
+                dragObject.shipOnTheSea(1, Y, X);
+                dragObject.shipOnTheSea(2, Y, X - 1);
+                return true;
             case 2:
-                for (int y = Y - 1; y <= Y + 1; y++) {
-                    for (int x = X - 2; x <= X + 1; x++) {
-                        if(y < 0) continue;
-                        if(y >= SeaBattleGame.getSIZE()) continue;
-                        if(x < 0) continue;
-                        if(x >= SeaBattleGame.getSIZE()) continue;
-                            if (map[y][x].getClass().getSimpleName().equals("Ship")) {
-                                System.out.println("Нельзя размещать свои корабли вплотную к другим кораблям");
-                                return false;
-                            }
+                for (int x = X - 1; x <= X; x++) {
+                    if (!isOutOfBoards(map, Y, x)) continue;
+                    if (!isNoShipsArround(map, Y, x)) {
+                        System.out.println("Нельзя размещать свои корабли вплотную к другим кораблям");
+                        return false;
                     }
                 }
-                if (!map[Y][X].getClass().getSimpleName().equals("Ship") && !map[Y][X-1].getClass().getSimpleName().equals("Ship")) {
-                    if (X - 1 >= 0) {
-                        map[Y][X].setImage(ImageName.DESTROYER);
-                        map[Y][X - 1].setImage(ImageName.DESTROYER);
-//                        for (int i = 0; i < shipYard.size(); i++) {
-//                            if (shipYard[i] != null && shipYard[i].getShipSize() == 2) {
-//                                shipYard[i].shipOnTheSea(0, Y, X);
-//                                shipYard[i].shipOnTheSea(1, Y, X - 1);
-//                                shipYard[i] = null;
-//                                break;
-//                            }
-//                        }
-                        return true;
-                    }
-                }else return false;
+                dragObject.shipOnTheSea(0, Y, X);
+                dragObject.shipOnTheSea(0, Y, X - 1);
+                return true;
             case 1:
-                for (int y = Y - 1; y <= Y + 1; y++) {
-                    for (int x = X - 1; x <= X + 1; x++) {
-                        if(!Tools.checkArrayBounds(map, y, x)) continue;
-                        if (!Tools.checkNeighboards(map, y, x)) {
-                            System.out.println("Нельзя размещать свои корабли вплотную к другим кораблям");
-                            return false;
-                        }
-                    }
+                if (!isOutOfBoards(map, Y, X) || !isNoShipsArround(map, Y, X)) {
+                    System.out.println("Здесь нельзя разместить корабль");
+                    return false;
                 }
+                dragObject.shipOnTheSea(0, Y, X);
                 return true;
         }
-        return false;
+        return false; //Если не подошел ни один из кейсов
     }
-    //Внести исправляения в связи с новой механикой. Найти способ определять какой именно
-    // объект схватил пользователь и выставить на поле именно его, а за тем удалить его из верфи.
-    public static boolean setShipToCellsY(int Y, int X, int imgSize) {
+
+    public static boolean setShipToCellsY(int Y, int X) {
         GameObject[][] map = App.seaBattleGame.getHuman().getOurFleetMap();
-        int shipSize = imgSize / 60;
+        int shipSize = dragObject.getShipSize();
         ArrayList<Ship> shipYard = App.seaBattleGame.getHuman().getShipyard();
         switch (shipSize) {
             case 4:
-                for (int y = Y - 3; y <= Y + 2; y++) {
-                    for (int x = X - 1; x <= X + 1; x++) {
-                        if(y < 0) continue;
-                        if(y >= SeaBattleGame.getSIZE()) continue;
-                        if(x < 0) continue;
-                        if(x >= SeaBattleGame.getSIZE()) continue;
-                        if (map[y][x].getClass().getSimpleName().equals("Ship") && map[y][x].getClass().getSimpleName().equals("Ship") &&
-                                map[y][x].getClass().getSimpleName().equals("Ship") && map[y][x].getClass().getSimpleName().equals("Ship")) {
-                            System.out.println("Нельзя размещать свои корабли вплотную к другим кораблям");
-                            return false;
-                        }
+                for (int y = Y - 2; y <= Y + 1; y++) {
+                    if (!isOutOfBoards(map, y, X)) continue;
+                    if (!isNoShipsArround(map, y, X)) {
+                        System.out.println("Нельзя размещать свои корабли вплотную к другим кораблям");
+                        return false;
                     }
                 }
-                if (!map[Y+1][X].getClass().getSimpleName().equals("Ship") && !map[Y][X].getClass().getSimpleName().equals("Ship") &&
-                        !map[Y-1][X].getClass().getSimpleName().equals("Ship") && !map[Y-2][X].getClass().getSimpleName().equals("Ship")) {
-                    if (Y + 1 < SeaBattleGame.getSIZE() && Y - 2 >= 0) {
-                        map[Y +1][X].setImage(ImageName.LINKOR);
-                        map[Y][X].setImage(ImageName.LINKOR);
-                        map[Y - 1][X].setImage(ImageName.LINKOR);
-                        map[Y - 2][X].setImage(ImageName.LINKOR);
-                        map[Y + 1][X].setEffect(null);
-                        map[Y][X].setEffect(null);
-                        map[Y - 1][X].setEffect(null);
-                        map[Y - 2][X].setEffect(null);
-//                        for (int i = 0; i < shipYard.size(); i++) {
-//                            if (shipYard[i] != null && shipYard[i].getShipSize() == 4) {
-//                                shipYard[i].shipOnTheSea(0, Y + 1, X);
-//                                shipYard[i].shipOnTheSea(1, Y, X);
-//                                shipYard[i].shipOnTheSea(2, Y - 1, X);
-//                                shipYard[i].shipOnTheSea(3, Y - 2, X);
-//                                shipYard[i] = null;
-//                                break;
-//                            }
-//                        }
-                        return true;
-                    }
-                }else return false;
+                dragObject.shipOnTheSea(0, Y + 1, X);
+                dragObject.shipOnTheSea(1, Y, X);
+                dragObject.shipOnTheSea(2, Y - 1, X);
+                dragObject.shipOnTheSea(3, Y - 2, X);
+                return true;
             case 3:
                 for (int y = Y - 1; y <= Y + 1; y++) {
-                    for (int x = X - 2; x <= X + 2; x++) {
-                        if(y < 0) continue;
-                        if(y >= SeaBattleGame.getSIZE()) continue;
-                        if(x < 0) continue;
-                        if(x >= SeaBattleGame.getSIZE()) continue;
-                        if (map[y][x].getClass().getSimpleName().equals("Ship") && map[y][x].getClass().getSimpleName().equals("Ship") &&
-                                map[y][x].getClass().getSimpleName().equals("Ship") && map[y][x].getClass().getSimpleName().equals("Ship")) {
-                            System.out.println("Нельзя размещать свои корабли вплотную к другим кораблям");
-                            return false;
-                        }
+                    if (!isOutOfBoards(map, y, X)) continue;
+                    if (!isNoShipsArround(map, y, X)) {
+                        System.out.println("Нельзя размещать свои корабли вплотную к другим кораблям");
+                        return false;
                     }
                 }
-                if (!map[Y][X].getClass().getSimpleName().equals("Ship") && !map[Y+1][X].getClass().getSimpleName().equals("Ship") &&
-                        !map[Y-1][X].getClass().getSimpleName().equals("Ship")) {
-                    if (Y + 1 < SeaBattleGame.getSIZE() && Y - 1 >= 0) {
-                        map[Y][X].setImage(ImageName.CRUISER);
-                        map[Y + 1][X].setImage(ImageName.CRUISER);
-                        map[Y - 1][X].setImage(ImageName.CRUISER);
-                        map[Y][X].setEffect(null);
-                        map[Y + 1][X].setEffect(null);
-                        map[Y - 1][X].setEffect(null);
-//                        for (int i = 0; i < shipYard.size(); i++) {
-//                            if (shipYard[i] != null && shipYard[i].getShipSize() == 3) {
-//                                shipYard[i].shipOnTheSea(0, Y, X);
-//                                shipYard[i].shipOnTheSea(1, Y + 1, X);
-//                                shipYard[i].shipOnTheSea(2, Y - 1, X);
-//                                shipYard[i] = null;
-//                                break;
-//                            }
-//                        }
-                        return true;
-                    }
-                }else return false;
+                dragObject.shipOnTheSea(0, Y + 1, X);
+                dragObject.shipOnTheSea(1, Y, X);
+                dragObject.shipOnTheSea(2, Y - 1, X);
+                return true;
             case 2:
-                for (int y = Y - 1; y <= Y + 1; y++) {
-                    for (int x = X - 2; x <= X + 1; x++) {
-                        if(y < 0) continue;
-                        if(y >= SeaBattleGame.getSIZE()) continue;
-                        if(x < 0) continue;
-                        if(x >= SeaBattleGame.getSIZE()) continue;
-                            if (map[y][x].getClass().getSimpleName().equals("Ship")) {
-                                System.out.println("Нельзя размещать свои корабли вплотную к другим кораблям");
-                                return false;
-                            }
-                    }
+                if (!isOutOfBoards(map, Y, X) || !isNoShipsArround(map, Y, X)) {
+                    System.out.println("Нельзя размещать свои корабли вплотную к другим кораблям");
+                    return false;
                 }
-                if (!map[Y][X].getClass().getSimpleName().equals("Ship") && !map[Y-1][X].getClass().getSimpleName().equals("Ship")) {
-                    if (Y - 1 >= 0) {
-                        map[Y][X].setImage(ImageName.DESTROYER);
-                        map[Y - 1][X].setImage(ImageName.DESTROYER);
-                        map[Y][X].setEffect(null);
-                        map[Y - 1][X].setEffect(null);
-//                        for (int i = 0; i < shipYard.size(); i++) {
-//                            if (shipYard[i] != null && shipYard[i].getShipSize() == 2) {
-//                                shipYard[i].shipOnTheSea(0, Y, X);
-//                                shipYard[i].shipOnTheSea(1, Y - 1, X);
-//                                shipYard[i] = null;
-//                                break;
-//                            }
-//                        }
-                        return true;
-                    }
-                }else return false;
+                dragObject.shipOnTheSea(0, Y, X);
+                dragObject.shipOnTheSea(1, Y - 1, X);
+                return true;
             case 1:
-                for (int y = Y - 1; y <= Y + 1; y++) {
-                    for (int x = X - 1; x <= X + 1; x++) {
-                        if(y < 0) continue;
-                        if(y >= SeaBattleGame.getSIZE()) continue;
-                        if(x < 0) continue;
-                        if(x >= SeaBattleGame.getSIZE()) continue;
-                        if (map[y][x].getClass().getSimpleName().equals("Ship") && map[y][x].getClass().getSimpleName().equals("Ship") &&
-                                map[y][x].getClass().getSimpleName().equals("Ship") && map[y][x].getClass().getSimpleName().equals("Ship")) {
-                            System.out.println("Нельзя размещать свои корабли вплотную к другим кораблям");
-                            return false;
-                        }
-                    }
+                if (!isOutOfBoards(map, Y, X) || !isNoShipsArround(map, Y, X)) {
+                    System.out.println("Здесь нельзя разместить корабль");
+                    return false;
                 }
-                if (!map[Y][X].getClass().getSimpleName().equals("Ship")) {
-                        map[Y][X].setImage(ImageName.SUBMARINE);
-                        map[Y][X].setEffect(null);
-                        //shipYard.get(i).shipOnTheSea(0, Y, X);
-                    for (int i = 0; i < shipYard.size(); i++) {
-//                            if (shipYard[i] != null && shipYard[i].getShipSize() == 1) {
-//                                shipYard[i] = null;
-//                                break;
-//                            }
-                        }
-                        return true;
-                }else return false;
+                dragObject.shipOnTheSea(0, Y, X);
+                return true;
         }
         return false;
     }

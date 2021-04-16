@@ -19,13 +19,20 @@ public class Cruiser extends Ship {
     }
 
     @Override
+    public DeckOfShip[] getDecks() {
+        return decks;
+    }
+
+    @Override
     public char getLabel() {
         return super.getLabel();
     }
+
     @Override
     public void shipOnTheSea(int partOfShip, int y, int x){
         GameObject[][] map = this.getOwner().getOurFleetMap();
         map[y][x].setImage(ImageName.CRUISER);
+        map[y][x].setEffect(null);
         map[y][x] = decks[partOfShip];
         map[y][x].setLabel('C');
     }
