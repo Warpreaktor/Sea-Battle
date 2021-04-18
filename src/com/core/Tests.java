@@ -2,6 +2,9 @@ package com.core;
 
 import com.core.Ships.Cruiser;
 import com.core.Ships.Ship;
+import front.App;
+
+import java.io.IOException;
 
 public class Tests {
     /**
@@ -64,10 +67,11 @@ public class Tests {
         return number;
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         Player player = new Player();
         Ship cruiser = new Cruiser(player);
-        System.out.println(cruiser.getHp());
+        App app = new App();
+        app.brushTheVictroryScreen();
     }
 
 }

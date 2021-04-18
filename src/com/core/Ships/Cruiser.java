@@ -3,7 +3,6 @@ package com.core.Ships;
 import com.core.GameObject;
 import com.core.ImageName;
 import com.core.Player;
-import com.core.SeaBattleGame;
 import front.App;
 
 public class Cruiser extends Ship {
@@ -40,7 +39,7 @@ public class Cruiser extends Ship {
             map[Y][x] = decks[i];
             i--;
         }
-        App.seaBattleGame.PlayerShipIncrement(this.getOwner());
+        App.seaBattleGame.playerShipIncrement(this.getOwner());
     }
     @Override
     public void shipOnTheSeaY(int Y, int X){
@@ -53,7 +52,6 @@ public class Cruiser extends Ship {
             map[y][X] = decks[i];
             i--;
         }
-        App.seaBattleGame.PlayerShipIncrement(this.getOwner());
-
+        App.seaBattleGame.playerShipIncrement(this.getOwner());
     }
 }

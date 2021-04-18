@@ -34,7 +34,7 @@ public class Submarine extends Ship {
         map[Y][X].setImage(ImageName.SUBMARINE);
         map[Y][X].setEffect(null);
         map[Y][X] = decks[0];
-        App.seaBattleGame.PlayerShipIncrement(this.getOwner());
+        App.seaBattleGame.playerShipIncrement(this.getOwner());
     }
 
     @Override

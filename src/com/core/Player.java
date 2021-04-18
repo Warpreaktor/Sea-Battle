@@ -1,6 +1,7 @@
 package com.core;
 
 import com.core.Ships.*;
+import front.App;
 
 import java.util.ArrayList;
 
@@ -10,12 +11,12 @@ public class Player {
     private int countOfTurns = 0;   //Счетчик ходов сделанных игроком.
     private int numberOfShip = 0;   //Итоговое количество кораблей игрока на поле, которое уменьшается по ходу их уничтожения.
     private ArrayList<Ship> shipyard;
-    private GameObject[][] ourFleetMap = new GameObject[SeaBattleGame.getSIZE()][SeaBattleGame.getSIZE()];
-    private GameObject[][] enemyFleetMap = new GameObject[SeaBattleGame.getSIZE()][SeaBattleGame.getSIZE()];
+    private GameObject[][] ourFleetMap;
+    private GameObject[][] enemyFleetMap;
 
     public Player() {
-        ourFleetMap = new GameObject[SeaBattleGame.getSIZE()][SeaBattleGame.getSIZE()];
-        enemyFleetMap = new GameObject[SeaBattleGame.getSIZE()][SeaBattleGame.getSIZE()];
+        ourFleetMap = new GameObject[App.seaBattleGame.getSIZE()][SeaBattleGame.getSIZE()];
+        enemyFleetMap = new GameObject[App.seaBattleGame.getSIZE()][SeaBattleGame.getSIZE()];
         //1 Линкор(4), 2 Крейсера(3), 3 Эсминца(2), 4 Подлодки(1)
         /**Каждая клетка игрового поля заполняется объектами пустыми объектами GameCell
          */
@@ -82,52 +83,6 @@ public class Player {
 
     public int getCountOfTurns() {
         return countOfTurns;
-    }
-
-    /**
-     * Отрисовка карты старой консольной карты игрока. Сохранено для истории.
-     */
-    public void brushOldMap() {
-        int size = SeaBattleGame.getSIZE();
-        //Рисуем шапку карты
-        System.out.println();
-        System.out.println("---------------------------" + this.name + "----------------------");
-        System.out.println("     <<<Наш флот>>>               <<<Вражеский флот>>>");
-        for (int i = 0; i < 2; i++) {
-            System.out.print("  ");                 //Отсутп от границы слева
-            for (int j = 0; j < size; j++) {
-                System.out.print(j);            //Цифры по оси X
-                System.out.print(" ");          //Знаки между цифрами по оси X
-            }
-            System.out.print("            ");   //12 пробелов между картами
-        }
-        System.out.println();
-        for (int i = 0; i < 2; i++) {
-            System.out.print("  ");                 //Отсутп от границы слева
-            for (int j = 0; j < size * 2; j++) {
-                System.out.print('-');              //Разделитель
-            }
-            System.out.print("            ");
-        }
-        System.out.println();
-        //Рисуем матрицу отображая все объекты карты
-        for (int i = 0; i < size; i++) {
-            for (int j = 0; j < 2; j++) {    //Отрисовка объектов на боевой карте
-                System.out.print(i + "|");          //Цифры по оси Y + разделитель
-                for (int k = 0; k < size; k++) {
-                    if (j == 0) {
-                        System.out.print(ourFleetMap[i][k].getLabel());
-                        System.out.print(" ");
-                    }
-                    if (j == 1) {
-                        System.out.print(enemyFleetMap[i][k].getLabel());
-                        System.out.print(" ");
-                    }
-                }
-                System.out.print("            ");
-            }
-            System.out.println();
-        }
     }
 
     /**

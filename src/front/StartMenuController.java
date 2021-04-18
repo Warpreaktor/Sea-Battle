@@ -29,7 +29,7 @@ public class StartMenuController implements Initializable {
         chooseMap.setValue(list.get(0));
     }
 
-    public final void toMainGameUI() throws Exception {
+    public final void toMainGameUI() {
         String sizeMap = chooseMap.getSelectionModel().getSelectedItem().toString();
         String name = playerName.getText();
         App.seaBattleGame.getHuman().setName(name);

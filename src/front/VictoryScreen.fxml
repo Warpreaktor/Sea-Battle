@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="front.VictoryScreenController">
+   <children>
+      <ImageView fx:id="chest1" fitHeight="150.0" fitWidth="160.0" layoutX="26.0" layoutY="142.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="30.0">
+         <image>
+            <Image url="@../resources/chest.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="chest2" fitHeight="150.0" fitWidth="160.0" layoutX="213.0" layoutY="142.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="225.0" AnchorPane.rightAnchor="225.0">
+         <image>
+            <Image url="@../resources/chest.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="chest3" fitHeight="150.0" fitWidth="160.0" layoutX="411.0" layoutY="142.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="30.0">
+         <image>
+            <Image url="@../resources/chest.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="190.0" layoutY="289.0" prefHeight="79.0" prefWidth="248.0" AnchorPane.leftAnchor="150.0" AnchorPane.rightAnchor="150.0" />
+   </children>
+</AnchorPane>

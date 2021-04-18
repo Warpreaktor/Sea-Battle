@@ -39,7 +39,7 @@ public class Destroyer extends Ship {
             map[Y][x] = decks[i];
             i--;
         }
-        App.seaBattleGame.PlayerShipIncrement(this.getOwner());
+        App.seaBattleGame.playerShipIncrement(this.getOwner());
 
     }
     @Override
@@ -52,7 +52,7 @@ public class Destroyer extends Ship {
             map[y][X] = decks[i];
             i--;
         }
-        App.seaBattleGame.PlayerShipIncrement(this.getOwner());
+        App.seaBattleGame.playerShipIncrement(this.getOwner());
 
     }
 }

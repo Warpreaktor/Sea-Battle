@@ -31,10 +31,11 @@ public class App extends Application {
     public void start(Stage stage) throws Exception {
         stage = this.stage;
         stage.setResizable(false);
-        brushStartMenu(stage);
+        brushTheVictroryScreen();//Тест. Потом удалить.
+        //brushStartMenu(); //закомеченно только для теста. Вернуть обратно.
     }
 
-    public final void brushStartMenu(Stage stage) throws IOException {
+    public final void brushStartMenu() throws IOException {
         try {
             stage.setX(300);
             stage.setY(100);
@@ -92,7 +93,11 @@ public class App extends Application {
                         @Override
                         public void handle(MouseEvent mouseEvent) {
                             if (isHumanTurn) {
-                                seaBattleGame.battle(seaBattleGame.getHuman(), seaBattleGame.getCPU(), gameCell.getCoordinateY(), gameCell.getCoordinateX());
+                                try {
+                                    seaBattleGame.battle(seaBattleGame.getHuman(), seaBattleGame.getCPU(), gameCell.getCoordinateY(), gameCell.getCoordinateX());
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
                                 isHumanTurn = false;
                                 Player human = App.seaBattleGame.getHuman();
                                 human.setCountOfTurns(human.getCountOfTurns()+1);
@@ -112,6 +117,21 @@ public class App extends Application {
             stage.show();
         }
 
+    public final void brushTheVictroryScreen() throws IOException {
+        try {
+            stage.setX(400);
+            stage.setY(200);
+            Parent root = FXMLLoader.load(getClass().getResource("VictoryScreen.fxml"));
+            Group group = new Group(root);
+            Scene scene = new Scene(group);
+            scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            brushTheErrorMessage("Файл \"Victory.fxml\" поврежден или отсутствует");
+        }
+    }
 
     public static void brushTheErrorMessage(String message){
         Stage stage = new Stage();

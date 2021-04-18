@@ -4,6 +4,8 @@ import com.core.Ships.Ship;
 import front.App;
 import front.MainController;
 
+import java.io.IOException;
+
 public class SeaBattleGame {
     private static int SIZE = 10;
     private static int totalShips = 0;
@@ -29,7 +31,6 @@ public class SeaBattleGame {
     public SeaBattleGame() {
         CPU.setName("Адмирал " + Tools.getRandomName());
         CPU.setCPU(true);
-
     }
 
     public static void createCPUBattleField(Player player) {
@@ -43,7 +44,7 @@ public class SeaBattleGame {
         }
     }
 
-    public void battle(Player human, Player playerCPU, int Y, int X) {
+    public void battle(Player human, Player playerCPU, int Y, int X) throws IOException {
         if (human.getEnemyFleetMap()[Y][X].getLabel() == '+' || human.getEnemyFleetMap()[Y][X].getLabel() == 'X'){
             return;
         }
@@ -116,19 +117,16 @@ public class SeaBattleGame {
                 if (x < 0 || x >= SIZE) {continue;}
                 String className = ship.getOwner().getOurFleetMap()[y][x].getClass().getSimpleName();
                 if (className.equals("DeckOfShip")) {continue;}
-                //Исправить проверку на DeckOfShip
                 ship.getOwner().getOurFleetMap()[y][x].setLabel('0');
             }
         }
     }
-    public void isVictory(){
+    public void isVictory() throws IOException {
         if (human.getNumberOfShip() == 0) {
             App.brushTheVictoryMessage("Победил " + CPU.getName());
-            System.out.println("Победил " + CPU.getName());
         } else
             if (CPU.getNumberOfShip() == 0){
-                App.brushTheVictoryMessage("Победил " + human.getName());
-                System.out.println("Победил " + human.getName());
+                App.app.brushTheVictroryScreen();
         }
     }
 
@@ -145,7 +143,7 @@ public class SeaBattleGame {
         enemy.getOurFleetMap()[Y][X].setImage(ImageName.RED_CROSS);  //Рисуем крест на карте противнка
         self.getEnemyFleetMap()[Y][X].setLabel('X');                 //Ставим отметку в своей карте "Радар"
         self.getEnemyFleetMap()[Y][X].setImage(ImageName.RED_CROSS); //Рисуем крест в своей карте "Радар"
-        enemy.setNumberOfShip(enemy.getNumberOfShip()-1);
+        playerShipDecrement(enemy);
     }
     public void missed(Player enemy, Player self, int Y, int X){
         enemy.getOurFleetMap()[Y][X].setImage(ImageName.DOT);
@@ -153,12 +151,13 @@ public class SeaBattleGame {
         self.getEnemyFleetMap()[Y][X].setImage(ImageName.DOT);
     }
 
-    public void PlayerShipIncrement(Player owner){
+    public void playerShipIncrement(Player owner){
         owner.setNumberOfShip(owner.getNumberOfShip()+1);
-        SeaBattleGame.setTotalShips(SeaBattleGame.getTotalShips() + 1);
+        System.out.println(owner.getName() + " - " + owner.getNumberOfShip());
+        this.setTotalShips(this.getTotalShips() + 1);
     }
-    public void PlayerShipDecrement(Player owner){
+    public void playerShipDecrement(Player owner){
         owner.setNumberOfShip(owner.getNumberOfShip() - 1);
-        SeaBattleGame.setTotalShips(SeaBattleGame.getTotalShips() - 1);
+        this.setTotalShips(this.getTotalShips() - 1);
     }
 }
