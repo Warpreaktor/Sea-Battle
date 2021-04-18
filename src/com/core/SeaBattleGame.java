@@ -3,6 +3,7 @@ import com.core.Ships.DeckOfShip;
 import com.core.Ships.Ship;
 import front.App;
 import front.MainController;
+import front.VictoryScreenController;
 
 import java.io.IOException;
 

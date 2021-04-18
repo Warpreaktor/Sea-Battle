@@ -31,22 +31,23 @@ public class App extends Application {
     public void start(Stage stage) throws Exception {
         stage = this.stage;
         stage.setResizable(false);
-        brushTheVictroryScreen();//Тест. Потом удалить.
-        //brushStartMenu(); //закомеченно только для теста. Вернуть обратно.
+        //VictoryScreenController victoryScreenController = new VictoryScreenController();//test
+        //brushTheVictroryScreen();//Тест. Потом удалить.
+        brushStartMenu(); //закомеченно только для теста. Вернуть обратно.
     }
 
     public final void brushStartMenu() throws IOException {
         try {
             stage.setX(300);
             stage.setY(100);
-            Parent root = FXMLLoader.load(getClass().getResource("Menu.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("StartMenu.fxml"));
             Group group = new Group(root);
             Scene scene = new Scene(group);
             scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
             stage.setScene(scene);
             stage.show();
         } catch (IOException e) {
-            brushTheErrorMessage("Файл \"Menu.fxml\" поврежден или отсутствует");
+            brushTheErrorMessage("Файл \"StartMenu.fxml\" поврежден или отсутствует");
         }
     }
 
@@ -118,8 +119,9 @@ public class App extends Application {
         }
 
     public final void brushTheVictroryScreen() throws IOException {
+        VictoryScreenController victoryScreenController = new VictoryScreenController();
         try {
-            stage.setX(400);
+            stage.setX(600);
             stage.setY(200);
             Parent root = FXMLLoader.load(getClass().getResource("VictoryScreen.fxml"));
             Group group = new Group(root);
