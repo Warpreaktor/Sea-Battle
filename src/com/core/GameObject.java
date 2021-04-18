@@ -5,7 +5,9 @@ import javafx.scene.image.ImageView;
 
 public abstract class GameObject extends ImageView {
     /**
-     * label: s - объект Ship часть корабля.
+     * * shipLabel - Не смотря на то что игра имеет графический интерфейс, тем не менее бекэндная часть игры ориентируется
+     *  * на эти простые символы, чтобы понимать состояние клетки: "B" = Линкор, L = Крейсер, M = Эсминец, S = Подлодкаж;
+     *  * "+" = по клетке уже стреляли, "X" = Корабль поврежден\уничтожен, "0" = соседствующая с кораблем клетка.
      */
     private char label; //Какой символ отображать на консольной карте поля боя.
     private String name;
@@ -33,8 +35,7 @@ public abstract class GameObject extends ImageView {
                 super.setImage(null);
                 break;
             case RED_CROSS:
-                Image redCross = new Image("/resources/redCRoss150x150.png");
-                super.setImage(redCross);
+                super.setImage(new Image("/resources/redCRoss150x150.png"));
                 setLabel('X');
                 setName("Красный крест");
                 break;

@@ -113,27 +113,23 @@ public class Player {
         int side = 1 + (int) (Math.random() * 4);  //Получаем рандомное направление для размещения корабля
         int tempY = Y;
         int tempX = X;
-        switch (side) { //4 кейса на каждую сторону света
-            case (1)://от точки координат вправо
-                //делаем проверку, можем ли мы установить корабль по предполагаемым координатам
+        switch (side) {
+            case (1)://По горищонтали
+                //Пытаемся установить корабль по рандомным координатам
                 if (!Tools.setShipToCellsX(ship, tempY, tempX)) {
                     setShipRandomizer(ship);
                     return;
                 }else {
-                    //Устанавливаем корабль на восток
-                    //ship.shipOnTheSeaX(Y, X);
+                    //Удаляем установленный корабль из верфи игрока и стираем картинку корабля со сцены.
                     shipyard.remove(ship);
                     ship.setImage(ImageName.NULL);
                     break;
                 }
-            case (2)://от точки координат вниз
-                //делаем проверку, можем ли мы установить корабль по предполагаемым координатам
+            case (2)://По вертикали
                 if (!Tools.setShipToCellsY(ship, tempY, tempX)) {
                     setShipRandomizer(ship);
                     return;
                 }else {
-                    //Устанавливаем корабль на восток
-                    //ship.shipOnTheSeaY(Y, X);
                     shipyard.remove(ship);
                     ship.setImage(ImageName.NULL);
                     break;

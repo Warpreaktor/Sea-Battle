@@ -31,9 +31,9 @@ public class App extends Application {
     public void start(Stage stage) throws Exception {
         stage = this.stage;
         stage.setResizable(false);
-        //VictoryScreenController victoryScreenController = new VictoryScreenController();//test
-        //brushTheVictroryScreen();//Тест. Потом удалить.
-        brushStartMenu(); //закомеченно только для теста. Вернуть обратно.
+        VictoryScreenController victoryScreenController = new VictoryScreenController();//test
+        brushTheVictroryScreen();//Тест. Потом удалить.
+        //brushStartMenu(); //закомеченно только для теста. Вернуть обратно.
     }
 
     public final void brushStartMenu() throws IOException {

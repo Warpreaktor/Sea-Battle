@@ -152,13 +152,13 @@ public class Chest {
         return name;
     }
 
-    private class whiteItem {
+    private class usuallyItem {
 
     }
-    private class blueItem {
+    private class rareItem {
 
     }
-    private class goldenItem {
+    private class epicItem {
 
     }
 }

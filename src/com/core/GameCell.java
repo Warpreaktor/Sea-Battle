@@ -22,7 +22,7 @@ public class GameCell extends GameObject {
     public GameCell(int Y, int X, ImageName imageName) {
         this.coordinateY = Y;
         this.coordinateX = X;
-        super.setImage(imageName);
+        this.setImage(imageName);
     }
 
     public GameCell(int Y, int X){

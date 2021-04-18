@@ -4,6 +4,7 @@ import com.core.GameObject;
 import com.core.ImageName;
 import com.core.Player;
 import front.App;
+import javafx.scene.layout.HBox;
 
 public class Linkor extends Ship {
     private DeckOfShip[] decks = new DeckOfShip[4]; //[y][x] Это, по сути, корпус корабля который состоит из нескольких partOfLinkor
@@ -23,26 +24,31 @@ public class Linkor extends Ship {
         GameObject[][] map = this.getOwner().getOurFleetMap();
         int i = 3;
         for (int x = X - 2; x <= X+1; x++) {
-            map[Y][x].setImage(ImageName.LINKOR);
             map[Y][x].setEffect(null);
             map[Y][x] = decks[i];
+            //Космп вставляет свои корабли в мои боксы
+            HBox[] hBoxes = App.shipSettingController.gethBoxes();
+            hBoxes[Y].getChildren().add(x, decks[i]);
+            hBoxes[Y].getChildren().remove(x);
+            map[Y][x].setImage(ImageName.LINKOR);
             i--;
         }
         App.seaBattleGame.playerShipIncrement(this.getOwner());
-        System.out.println("РАЗ");
     }
     @Override
     public void shipOnTheSeaY(int Y, int X){
         GameObject[][] map = this.getOwner().getOurFleetMap();
         int i = 3;
         for (int y = Y - 2; y <= Y+1; y++) {
-            map[y][X].setImage(ImageName.LINKOR);
             map[y][X].setEffect(null);
             map[y][X] = decks[i];
+            HBox[] hBoxes = App.shipSettingController.gethBoxes();
+            hBoxes[y].getChildren().add(X, decks[i]);
+            hBoxes[y].getChildren().remove(X);
+            map[y][X].setImage(ImageName.LINKOR);
             i--;
         }
         App.seaBattleGame.playerShipIncrement(this.getOwner());
-        System.out.println("ДВА");
     }
 
     public DeckOfShip[] getDecks() {

@@ -4,6 +4,7 @@ import com.core.GameObject;
 import com.core.ImageName;
 import com.core.Player;
 import front.App;
+import javafx.scene.layout.HBox;
 
 public class Submarine extends Ship {
     private DeckOfShip[] decks = new DeckOfShip[1]; //[y][x] Это, по сути, корпус корабля который состоит из нескольких partOfLinkor
@@ -31,8 +32,11 @@ public class Submarine extends Ship {
     @Override
     public void shipOnTheSeaX(int Y, int X){
         GameObject[][] map = this.getOwner().getOurFleetMap();
-        map[Y][X].setImage(ImageName.SUBMARINE);
         map[Y][X].setEffect(null);
+//        HBox[] hBoxes = App.shipSettingController.gethBoxes();
+//        hBoxes[Y].getChildren().remove(X);
+//        hBoxes[Y].getChildren().add(X, decks[0]);
+        map[Y][X].setImage(ImageName.SUBMARINE);
         map[Y][X] = decks[0];
         App.seaBattleGame.playerShipIncrement(this.getOwner());
     }

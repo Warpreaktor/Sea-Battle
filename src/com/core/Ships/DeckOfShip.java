@@ -1,6 +1,7 @@
 package com.core.Ships;
 
 import com.core.GameObject;
+import com.core.ImageName;
 import com.core.Player;
 import com.core.Tools;
 
@@ -30,4 +31,9 @@ public class DeckOfShip extends GameObject {
         this.dekcNumber = deckNumber;
         this.shipOwner = shipowner;
     }
+
+//    @Override
+//    public void setImage(ImageName imageName){
+//        this.setImage(imageName);
+//    }
 }
