@@ -68,10 +68,7 @@ public class Tests {
     }
 
     public static void main(String[] args) throws IOException {
-        Player player = new Player();
-        Ship cruiser = new Cruiser(player);
-        App app = new App();
-        app.brushTheVictroryScreen();
+    Chest chest = new Chest();
     }
 
 }

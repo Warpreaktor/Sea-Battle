@@ -121,7 +121,7 @@ public class Player {
                     return;
                 }else {
                     //Устанавливаем корабль на восток
-                    ship.shipOnTheSeaX(Y, X);
+                    //ship.shipOnTheSeaX(Y, X);
                     shipyard.remove(ship);
                     ship.setImage(ImageName.NULL);
                     break;
@@ -133,7 +133,7 @@ public class Player {
                     return;
                 }else {
                     //Устанавливаем корабль на восток
-                    ship.shipOnTheSeaY(Y, X);
+                    //ship.shipOnTheSeaY(Y, X);
                     shipyard.remove(ship);
                     ship.setImage(ImageName.NULL);
                     break;
