@@ -32,12 +32,15 @@ public class Submarine extends Ship {
     @Override
     public void shipOnTheSeaX(int Y, int X){
         GameObject[][] map = this.getOwner().getOurFleetMap();
-        map[Y][X].setEffect(null);
-//        HBox[] hBoxes = App.shipSettingController.gethBoxes();
-//        hBoxes[Y].getChildren().remove(X);
-//        hBoxes[Y].getChildren().add(X, decks[0]);
-        map[Y][X].setImage(ImageName.SUBMARINE);
         map[Y][X] = decks[0];
+        if (!this.getOwner().isCPU()) {
+            //Делаем графические изменения только на экране игрока
+            map[Y][X].setEffect(null);
+            HBox[] hBoxes = App.shipSettingController.gethBoxes();
+            hBoxes[Y].getChildren().remove(X);
+            hBoxes[Y].getChildren().add(X, decks[0]);
+            map[Y][X].setImage(ImageName.SUBMARINE);
+        }
         App.seaBattleGame.playerShipIncrement(this.getOwner());
     }
 

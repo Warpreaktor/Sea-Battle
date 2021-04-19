@@ -35,23 +35,31 @@ public abstract class GameObject extends ImageView {
                 super.setImage(null);
                 break;
             case RED_CROSS:
+                this.setFitHeight(60);
+                this.setFitWidth(60);
                 super.setImage(new Image("/resources/redCRoss150x150.png"));
                 setLabel('X');
                 setName("Красный крест");
                 break;
             case DOT:
+                this.setFitHeight(60);
+                this.setFitWidth(60);
                 Image dot = new Image("/resources/dot150x150.png");
                 super.setImage(dot);
                 setLabel('+');
                 setName("Точка");
                 break;
             case WAVE:
+                this.setFitHeight(60);
+                this.setFitWidth(60);
                 Image wave = new Image("/resources/waveminBoard.jpg");
                 super.setImage(wave);
                 setLabel('~');
                 setName("Морская волна");
                 break;
             case GREEN_DOT:
+                this.setFitHeight(60);
+                this.setFitWidth(60);
                 Image greenDot = new Image("/resources/dotGreen150x150.png");
                 super.setImage(greenDot);
                 setLabel('+');

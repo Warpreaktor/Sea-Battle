@@ -24,14 +24,16 @@ public class Linkor extends Ship {
         GameObject[][] map = this.getOwner().getOurFleetMap();
         int i = 3;
         for (int x = X - 2; x <= X+1; x++) {
-            map[Y][x].setEffect(null);
             map[Y][x] = decks[i];
-            //Космп вставляет свои корабли в мои боксы
-            HBox[] hBoxes = App.shipSettingController.gethBoxes();
-            hBoxes[Y].getChildren().add(x, decks[i]);
-            hBoxes[Y].getChildren().remove(x);
-            map[Y][x].setImage(ImageName.LINKOR);
-            i--;
+            if (!this.getOwner().isCPU()) {
+                //Делаем графические изменения на экране игрока
+                map[Y][x].setEffect(null);
+                HBox[] hBoxes = App.shipSettingController.gethBoxes();
+                hBoxes[Y].getChildren().remove(x);
+                hBoxes[Y].getChildren().add(x, decks[i]);
+                map[Y][x].setImage(ImageName.LINKOR);
+                i--;
+            }
         }
         App.seaBattleGame.playerShipIncrement(this.getOwner());
     }
@@ -40,13 +42,16 @@ public class Linkor extends Ship {
         GameObject[][] map = this.getOwner().getOurFleetMap();
         int i = 3;
         for (int y = Y - 2; y <= Y+1; y++) {
-            map[y][X].setEffect(null);
             map[y][X] = decks[i];
-            HBox[] hBoxes = App.shipSettingController.gethBoxes();
-            hBoxes[y].getChildren().add(X, decks[i]);
-            hBoxes[y].getChildren().remove(X);
-            map[y][X].setImage(ImageName.LINKOR);
-            i--;
+            if (!this.getOwner().isCPU()) {
+                //Делаем графические изменения на экране игрока
+                map[y][X].setEffect(null);
+                HBox[] hBoxes = App.shipSettingController.gethBoxes();
+                hBoxes[y].getChildren().remove(X);
+                hBoxes[y].getChildren().add(X, decks[i]);
+                map[y][X].setImage(ImageName.LINKOR);
+                i--;
+            }
         }
         App.seaBattleGame.playerShipIncrement(this.getOwner());
     }

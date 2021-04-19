@@ -6,7 +6,7 @@ import front.App;
 import java.util.ArrayList;
 
 public class Player {
-    private boolean isCPU;
+    private boolean isCPU = false;
     private String name;
     private int countOfTurns = 0;   //Счетчик ходов сделанных игроком.
     private int numberOfShip = 0;   //Итоговое количество кораблей игрока на поле, которое уменьшается по ходу их уничтожения.
@@ -114,7 +114,7 @@ public class Player {
         int tempY = Y;
         int tempX = X;
         switch (side) {
-            case (1)://По горищонтали
+            case (1)://По горизонтали
                 //Пытаемся установить корабль по рандомным координатам
                 if (!Tools.setShipToCellsX(ship, tempY, tempX)) {
                     setShipRandomizer(ship);
