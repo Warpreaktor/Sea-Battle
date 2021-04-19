@@ -1,6 +1,6 @@
-package com.core;
+package com.core.MapObjects;
 
-import javafx.scene.image.Image;
+import com.core.ImageName;
 
 public class GameCell extends GameObject {
     private int coordinateX;
@@ -15,21 +15,29 @@ public class GameCell extends GameObject {
     public void setCoordinateX(int coordinateX) {
         this.coordinateX = coordinateX;
     }
+
+    @Override
+    public boolean spruting() {
+        return false;
+    }
+
     public void setCoordinateY(int coordinateY) {
         this.coordinateY = coordinateY;
     }
 
-    public GameCell(int Y, int X, ImageName imageName) {
+    public GameCell(int Y, int X){
         this.coordinateY = Y;
         this.coordinateX = X;
-        this.setImage(imageName);
-    }
-
-    public GameCell(int Y, int X){
-        this.setCoordinateY(Y);
-        this.setCoordinateX(X);
         this.setFitHeight(60);
         this.setFitWidth(60);
         this.setImage(ImageName.WAVE);
+    }
+
+    public class Octopus extends GameCell{
+
+        public Octopus(int Y, int X) {
+            super(Y, X);
+            this.setImage(ImageName.OCTOPUS);
+        }
     }
 }

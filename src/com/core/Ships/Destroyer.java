@@ -1,6 +1,6 @@
 package com.core.Ships;
 
-import com.core.GameObject;
+import com.core.MapObjects.GameObject;
 import com.core.ImageName;
 import com.core.Player;
 import front.App;
@@ -67,6 +67,12 @@ public class Destroyer extends Ship {
             i--;
         }
         App.seaBattleGame.playerShipIncrement(this.getOwner());
-
+    }
+    @Override
+    public boolean spruting() {
+        for (int i = 0; i < decks.length; i++) {
+            decks[i].setImage(ImageName.OCTOPUS);
+        }
+        return true;
     }
 }

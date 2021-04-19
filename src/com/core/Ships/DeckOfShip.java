@@ -1,9 +1,7 @@
 package com.core.Ships;
 
-import com.core.GameObject;
 import com.core.ImageName;
-import com.core.Player;
-import com.core.Tools;
+import com.core.MapObjects.GameObject;
 
 
 public class DeckOfShip extends GameObject {
@@ -31,9 +29,12 @@ public class DeckOfShip extends GameObject {
         this.dekcNumber = deckNumber;
         this.shipOwner = shipowner;
     }
+    @Override
+    public boolean spruting() {
+        for (int i = 0; i < shipOwner.getDecks().length; i++) {
+            shipOwner.getDecks()[i].setImage(ImageName.OCTOPUS);
+        }
+        return true;
+    }
 
-//    @Override
-//    public void setImage(ImageName imageName){
-//        this.setImage(imageName);
-//    }
 }

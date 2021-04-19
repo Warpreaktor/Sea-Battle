@@ -1,9 +1,9 @@
 package com.core;
+import com.core.MapObjects.GameCell;
+import com.core.MapObjects.GameObject;
 import com.core.Ships.DeckOfShip;
 import com.core.Ships.Ship;
 import front.App;
-import front.MainController;
-import front.VictoryScreenController;
 
 import java.io.IOException;
 
@@ -12,6 +12,11 @@ public class SeaBattleGame {
     private static int totalShips = 0;
     private final Player human = new Player();
     private final Player CPU = new Player();
+    private int octopus = 3; //Количество нападений спрута на корабли перед началом боя.
+
+    public int getOctopus() {
+        return octopus;
+    }
 
     public Player getHuman() {
         return human;
@@ -160,5 +165,29 @@ public class SeaBattleGame {
     public void playerShipDecrement(Player owner){
         owner.setNumberOfShip(owner.getNumberOfShip() - 1);
         this.setTotalShips(this.getTotalShips() - 1);
+    }
+
+    /**
+     * Метод размещает на карте Player спрутов в количестве quantity.
+     * @param player - игрок которому нужно подсунуть спрутов на его карту.
+     * @param quantity - количество спрутов
+     */
+    public void octopusAtack(Player player, int quantity){
+        for (int i = 0; i < quantity; i++) {
+            int Y = Tools.getRandomCoordinate();
+            int X = Tools.getRandomCoordinate();
+            if(player.getOurFleetMap()[Y][X].spruting()){
+                playerShipDecrement(player);
+                player.getEnemyFleetMap()[Y][X].setLabel('X');
+                System.out.println("корабль " + player.getOurFleetMap()[Y][X].getName() + " был атакован " +
+                        "гигантским спрутом и уничтожен");
+                if (player.isCPU()) {
+                    human.getEnemyFleetMap()[Y][X].setImage(ImageName.OCTOPUS);
+                }else {
+                    CPU.getEnemyFleetMap()[Y][X].setImage(ImageName.OCTOPUS);
+                }
+            }
+        }
+
     }
 }

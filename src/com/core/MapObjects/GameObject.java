@@ -1,5 +1,6 @@
-package com.core;
+package com.core.MapObjects;
 
+import com.core.ImageName;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
@@ -44,37 +45,49 @@ public abstract class GameObject extends ImageView {
             case DOT:
                 this.setFitHeight(60);
                 this.setFitWidth(60);
-                Image dot = new Image("/resources/dot150x150.png");
-                super.setImage(dot);
+                super.setImage(new Image("/resources/dot150x150.png"));
                 setLabel('+');
                 setName("Точка");
                 break;
             case WAVE:
                 this.setFitHeight(60);
                 this.setFitWidth(60);
-                Image wave = new Image("/resources/waveminBoard.jpg");
-                super.setImage(wave);
+                super.setImage(new Image("/resources/waveminBoard.jpg"));
                 setLabel('~');
                 setName("Морская волна");
                 break;
             case GREEN_DOT:
                 this.setFitHeight(60);
                 this.setFitWidth(60);
-                Image greenDot = new Image("/resources/dotGreen150x150.png");
-                super.setImage(greenDot);
+                super.setImage(new Image("/resources/dotGreen150x150.png"));
+                setLabel('+');
+                setName("Зеленая точка");
+                break;
+            case OCTOPUS:
+                this.setFitHeight(60);
+                this.setFitWidth(60);
+                super.setImage( new Image("/resources/octopus60x60.png"));
                 setLabel('+');
                 setName("Зеленая точка");
                 break;
             case LINKOR:
+                this.setFitHeight(60);
+                this.setFitWidth(60);
                 super.setImage(new Image("/resources/linkor60x60.png"));
                 break;
             case CRUISER:
+                this.setFitHeight(60);
+                this.setFitWidth(60);
                 super.setImage(new Image("/resources/cruiser60x60.png"));
                 break;
             case DESTROYER:
+                this.setFitHeight(60);
+                this.setFitWidth(60);
                 super.setImage(new Image("/resources/destroyer60x60.png"));
                 break;
             case SUBMARINE:
+                this.setFitHeight(60);
+                this.setFitWidth(60);
                 super.setImage(new Image("/resources/submarine60x60.png"));
                 break;
         }
@@ -94,4 +107,6 @@ public abstract class GameObject extends ImageView {
     public void setCoordinateX(int coordinateX) {
         this.coordinateX = coordinateX;
     }
+
+    public abstract boolean spruting();
 }

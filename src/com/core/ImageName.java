@@ -10,4 +10,5 @@ public enum ImageName {
     CRUISER,
     DESTROYER,
     SUBMARINE,
+    OCTOPUS,
 }

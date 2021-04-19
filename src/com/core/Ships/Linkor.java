@@ -1,6 +1,6 @@
 package com.core.Ships;
 
-import com.core.GameObject;
+import com.core.MapObjects.GameObject;
 import com.core.ImageName;
 import com.core.Player;
 import front.App;
@@ -8,6 +8,10 @@ import javafx.scene.layout.HBox;
 
 public class Linkor extends Ship {
     private DeckOfShip[] decks = new DeckOfShip[4]; //[y][x] Это, по сути, корпус корабля который состоит из нескольких partOfLinkor
+
+    public DeckOfShip[] getDecks() {
+        return decks;
+    }
 
     public Linkor(Player owner) {
         super.setOwner(owner);
@@ -56,7 +60,11 @@ public class Linkor extends Ship {
         App.seaBattleGame.playerShipIncrement(this.getOwner());
     }
 
-    public DeckOfShip[] getDecks() {
-        return decks;
+    @Override
+    public boolean spruting() {
+        for (int i = 0; i < decks.length; i++) {
+            decks[i].setImage(ImageName.OCTOPUS);
+        }
+        return true;
     }
 }

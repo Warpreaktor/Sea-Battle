@@ -1,5 +1,6 @@
 package com.core;
 
+import com.core.MapObjects.GameObject;
 import com.core.Ships.*;
 import front.App;
 

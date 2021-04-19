@@ -1,13 +1,12 @@
 package com.core;
 
+import com.core.MapObjects.GameObject;
 import com.core.Ships.Ship;
 import front.App;
 import javafx.event.EventHandler;
 import javafx.scene.effect.Effect;
 import javafx.scene.effect.Shadow;
 import javafx.scene.input.*;
-
-import java.util.ArrayList;
 
 public class Tools {
     private static Ship dragObject;

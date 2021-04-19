@@ -1,6 +1,6 @@
 package com.core.Ships;
 
-import com.core.GameObject;
+import com.core.MapObjects.GameObject;
 import com.core.Player;
 import com.core.Tools;
 
@@ -33,7 +33,6 @@ public abstract class Ship extends GameObject {
     public abstract void shipOnTheSeaX(int y, int x);
     public abstract void shipOnTheSeaY(int y, int x);
     public abstract DeckOfShip[] getDecks();
-
     public String naming(){
         int randomNum = 1 + (int)(Math.random()*6);
         String name = "Безымянный";

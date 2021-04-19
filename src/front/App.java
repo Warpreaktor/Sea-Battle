@@ -1,12 +1,15 @@
 package front;
 
 import com.core.*;
+import com.core.MapObjects.GameCell;
+import com.core.MapObjects.GameObject;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
+import javafx.scene.image.Image;
 import javafx.scene.input.*;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
@@ -107,10 +110,15 @@ public class App extends Application {
                     });
                 }
             }
+            seaBattleGame.octopusAtack(seaBattleGame.getHuman(), seaBattleGame.getOctopus());
+            seaBattleGame.octopusAtack(seaBattleGame.getCPU(), seaBattleGame.getOctopus());
             mainController.selfShipsNum.setText("Наши корабли - " + App.seaBattleGame.getHuman().getNumberOfShip());
             mainController.enemyShipsNum.setText("Корабли противника - " + App.seaBattleGame.getCPU().getNumberOfShip());
             AnchorPane anchorPane = new AnchorPane(leftVBox, rightVBox, mainController.getBattleLogView(), mainController.nextTurn, mainController.infoBox);
-            anchorPane.setBackground(Background.EMPTY);
+            BackgroundImage backgroundImage = new BackgroundImage(new Image("/resources/sea.jpg"), BackgroundRepeat.SPACE, BackgroundRepeat.SPACE,
+                    BackgroundPosition.CENTER, BackgroundSize.DEFAULT);
+            Background background = new Background(backgroundImage);
+            anchorPane.setBackground(background);
             anchorPane.setPrefWidth(1280);
             anchorPane.setPrefHeight(1024);
             Scene scene = new Scene(anchorPane);
