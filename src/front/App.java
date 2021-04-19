@@ -22,7 +22,7 @@ public class App extends Application {
     public static final App app = new App();
     public static final Stage stage = new Stage();
     public static final SeaBattleGame seaBattleGame = new SeaBattleGame(); // Должен быть public static final singleton и только в этом классе. Первая инициализация происходит в StartMenuController
-    public static final MainController mainController = new MainController();
+    public static BattleFieldController BATTLE_FIELD_CONTROLLER;
     public static final ShipSettingController shipSettingController = new ShipSettingController();
     public static boolean isHumanTurn = true;
 
@@ -76,19 +76,17 @@ public class App extends Application {
      * В это м методе отображается вся динамическая информация и вьюшки на поле.
       */
     public final static void brushTheBattleField(){
-            stage.setX(300);
+        BATTLE_FIELD_CONTROLLER = new BattleFieldController();
+        stage.setX(300);
             stage.setY(0);
             //Отрисовка поля с нашим флотом
             VBox leftVBox = shipSettingController.getField();
             leftVBox.setLayoutX(20);
             leftVBox.setLayoutY(200);
             //Отрисовка поля с вражеским полем
-            VBox rightVBox = new VBox(1);
-            rightVBox.setLayoutX(660);
-            rightVBox.setLayoutY(200);
             for (int y = 0; y < seaBattleGame.getSIZE(); y++) {
                 HBox rightHBox = new HBox();
-                rightVBox.getChildren().add(rightHBox);
+                BATTLE_FIELD_CONTROLLER.rightVBox.getChildren().add(rightHBox);
                 for (int x = 0; x < seaBattleGame.getSIZE(); x++) {
                     GameObject gameCell = new GameCell(y, x);
                     rightHBox.getChildren().add(gameCell);
@@ -98,7 +96,7 @@ public class App extends Application {
                         public void handle(MouseEvent mouseEvent) {
                             if (isHumanTurn) {
                                 try {
-                                    seaBattleGame.battle(seaBattleGame.getHuman(), seaBattleGame.getCPU(), gameCell.getCoordinateY(), gameCell.getCoordinateX());
+                                    seaBattleGame.battle(gameCell.getCoordinateY(), gameCell.getCoordinateX());
                                 } catch (IOException e) {
                                     e.printStackTrace();
                                 }
@@ -112,16 +110,10 @@ public class App extends Application {
             }
             seaBattleGame.octopusAtack(seaBattleGame.getHuman(), seaBattleGame.getOctopus());
             seaBattleGame.octopusAtack(seaBattleGame.getCPU(), seaBattleGame.getOctopus());
-            mainController.selfShipsNum.setText("Наши корабли - " + App.seaBattleGame.getHuman().getNumberOfShip());
-            mainController.enemyShipsNum.setText("Корабли противника - " + App.seaBattleGame.getCPU().getNumberOfShip());
-            AnchorPane anchorPane = new AnchorPane(leftVBox, rightVBox, mainController.getBattleLogView(), mainController.nextTurn, mainController.infoBox);
-            BackgroundImage backgroundImage = new BackgroundImage(new Image("/resources/sea.jpg"), BackgroundRepeat.SPACE, BackgroundRepeat.SPACE,
-                    BackgroundPosition.CENTER, BackgroundSize.DEFAULT);
-            Background background = new Background(backgroundImage);
-            anchorPane.setBackground(background);
-            anchorPane.setPrefWidth(1280);
-            anchorPane.setPrefHeight(1024);
-            Scene scene = new Scene(anchorPane);
+            BATTLE_FIELD_CONTROLLER.selfShipsNum.setText("Наши корабли - " + App.seaBattleGame.getHuman().getNumberOfShip());
+            BATTLE_FIELD_CONTROLLER.enemyShipsNum.setText("Корабли противника - " + App.seaBattleGame.getCPU().getNumberOfShip());
+            BATTLE_FIELD_CONTROLLER.anchorPane.getChildren().add(leftVBox);
+            Scene scene = new Scene(BATTLE_FIELD_CONTROLLER.anchorPane);
             stage.setScene(scene);
             stage.show();
         }

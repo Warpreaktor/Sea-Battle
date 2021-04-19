@@ -1,0 +1,564 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane fx:id="shipSetPan" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1024.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="front.ShipSettingController">
+   <children>
+      <VBox fx:id="vBox" layoutX="340.0" layoutY="351.0" prefHeight="600.0" prefWidth="600.0">
+         <children>
+            <HBox fx:id="hBox1" prefHeight="60.0" prefWidth="600.0">
+               <children>
+                  <ImageView fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../resources/waveminBoard.jpg" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../resources/waveminBoard.jpg" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="70.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../resources/waveminBoard.jpg" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="130.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../resources/waveminBoard.jpg" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="190.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../resources/waveminBoard.jpg" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="250.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../resources/waveminBoard.jpg" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="310.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../resources/waveminBoard.jpg" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="370.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../resources/waveminBoard.jpg" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="430.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../resources/waveminBoard.jpg" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="490.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../resources/waveminBoard.jpg" />
+                     </image>
+                  </ImageView>
+               </children></HBox>
+            <HBox fx:id="hBox11" layoutX="10.0" layoutY="10.0" prefHeight="60.0" prefWidth="600.0">
+               <children>
+                  <ImageView fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../resources/waveminBoard.jpg" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../resources/waveminBoard.jpg" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="70.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../resources/waveminBoard.jpg" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="130.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../resources/waveminBoard.jpg" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="190.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../resources/waveminBoard.jpg" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="250.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../resources/waveminBoard.jpg" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="310.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../resources/waveminBoard.jpg" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="370.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../resources/waveminBoard.jpg" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="430.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../resources/waveminBoard.jpg" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="490.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../resources/waveminBoard.jpg" />
+                     </image>
+                  </ImageView>
+               </children>
+            </HBox>
+            <HBox fx:id="hBox111" layoutX="10.0" layoutY="70.0" prefHeight="60.0" prefWidth="600.0">
+               <children>
+                  <ImageView fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../resources/waveminBoard.jpg" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../resources/waveminBoard.jpg" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="70.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../resources/waveminBoard.jpg" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="130.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../resources/waveminBoard.jpg" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="190.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../resources/waveminBoard.jpg" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="250.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../resources/waveminBoard.jpg" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="310.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../resources/waveminBoard.jpg" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="370.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../resources/waveminBoard.jpg" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="430.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../resources/waveminBoard.jpg" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="490.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../resources/waveminBoard.jpg" />
+                     </image>
+                  </ImageView>
+               </children>
+            </HBox>
+            <HBox fx:id="hBox1111" layoutX="10.0" layoutY="130.0" prefHeight="60.0" prefWidth="600.0">
+               <children>
+                  <ImageView fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../resources/waveminBoard.jpg" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../resources/waveminBoard.jpg" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="70.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../resources/waveminBoard.jpg" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="130.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../resources/waveminBoard.jpg" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="190.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../resources/waveminBoard.jpg" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="250.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../resources/waveminBoard.jpg" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="310.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../resources/waveminBoard.jpg" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="370.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../resources/waveminBoard.jpg" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="430.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../resources/waveminBoard.jpg" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="490.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../resources/waveminBoard.jpg" />
+                     </image>
+                  </ImageView>
+               </children>
+            </HBox>
+            <HBox fx:id="hBox11111" layoutX="10.0" layoutY="190.0" prefHeight="60.0" prefWidth="600.0">
+               <children>
+                  <ImageView fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../resources/waveminBoard.jpg" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../resources/waveminBoard.jpg" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="70.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../resources/waveminBoard.jpg" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="130.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../resources/waveminBoard.jpg" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="190.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../resources/waveminBoard.jpg" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="250.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../resources/waveminBoard.jpg" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="310.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../resources/waveminBoard.jpg" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="370.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../resources/waveminBoard.jpg" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="430.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../resources/waveminBoard.jpg" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="490.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../resources/waveminBoard.jpg" />
+                     </image>
+                  </ImageView>
+               </children>
+            </HBox>
+            <HBox fx:id="hBox111111" layoutX="10.0" layoutY="250.0" prefHeight="60.0" prefWidth="600.0">
+               <children>
+                  <ImageView fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../resources/waveminBoard.jpg" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../resources/waveminBoard.jpg" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="70.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../resources/waveminBoard.jpg" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="130.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../resources/waveminBoard.jpg" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="190.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../resources/waveminBoard.jpg" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="250.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../resources/waveminBoard.jpg" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="310.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../resources/waveminBoard.jpg" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="370.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../resources/waveminBoard.jpg" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="430.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../resources/waveminBoard.jpg" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="490.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../resources/waveminBoard.jpg" />
+                     </image>
+                  </ImageView>
+               </children>
+            </HBox>
+            <HBox fx:id="hBox1111111" layoutX="10.0" layoutY="310.0" prefHeight="60.0" prefWidth="600.0">
+               <children>
+                  <ImageView fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../resources/waveminBoard.jpg" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../resources/waveminBoard.jpg" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="70.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../resources/waveminBoard.jpg" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="130.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../resources/waveminBoard.jpg" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="190.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../resources/waveminBoard.jpg" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="250.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../resources/waveminBoard.jpg" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="310.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../resources/waveminBoard.jpg" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="370.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../resources/waveminBoard.jpg" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="430.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../resources/waveminBoard.jpg" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="490.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../resources/waveminBoard.jpg" />
+                     </image>
+                  </ImageView>
+               </children>
+            </HBox>
+            <HBox fx:id="hBox11111111" layoutX="10.0" layoutY="370.0" prefHeight="60.0" prefWidth="600.0">
+               <children>
+                  <ImageView fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../resources/waveminBoard.jpg" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../resources/waveminBoard.jpg" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="70.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../resources/waveminBoard.jpg" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="130.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../resources/waveminBoard.jpg" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="190.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../resources/waveminBoard.jpg" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="250.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../resources/waveminBoard.jpg" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="310.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../resources/waveminBoard.jpg" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="370.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../resources/waveminBoard.jpg" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="430.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../resources/waveminBoard.jpg" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="490.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../resources/waveminBoard.jpg" />
+                     </image>
+                  </ImageView>
+               </children>
+            </HBox>
+            <HBox fx:id="hBox111111111" layoutX="10.0" layoutY="430.0" prefHeight="60.0" prefWidth="600.0">
+               <children>
+                  <ImageView fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../resources/waveminBoard.jpg" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../resources/waveminBoard.jpg" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="70.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../resources/waveminBoard.jpg" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="130.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../resources/waveminBoard.jpg" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="190.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../resources/waveminBoard.jpg" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="250.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../resources/waveminBoard.jpg" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="310.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../resources/waveminBoard.jpg" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="370.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../resources/waveminBoard.jpg" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="430.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../resources/waveminBoard.jpg" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="490.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../resources/waveminBoard.jpg" />
+                     </image>
+                  </ImageView>
+               </children>
+            </HBox>
+            <HBox fx:id="hBox1111111111" layoutX="10.0" layoutY="490.0" prefHeight="60.0" prefWidth="600.0">
+               <children>
+                  <ImageView fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../resources/waveminBoard.jpg" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../resources/waveminBoard.jpg" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="70.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../resources/waveminBoard.jpg" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="130.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../resources/waveminBoard.jpg" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="190.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../resources/waveminBoard.jpg" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="250.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../resources/waveminBoard.jpg" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="310.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../resources/waveminBoard.jpg" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="370.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../resources/waveminBoard.jpg" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="430.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../resources/waveminBoard.jpg" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="490.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../resources/waveminBoard.jpg" />
+                     </image>
+                  </ImageView>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+      <VBox id="shipyard" layoutX="41.0" layoutY="351.0" prefHeight="600.0" prefWidth="240.0">
+         <children>
+            <ImageView fitHeight="60.0" fitWidth="240.0">
+               <image>
+                  <Image url="@../resources/linkor60x240.png" />
+               </image>
+            </ImageView>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>
