@@ -36,17 +36,19 @@ public class Destroyer extends Ship {
         int i = 1;
         for (int x = X - 1; x <= X; x++) {
             map[Y][x] = decks[i];
+            decks[i].setCoordinateY(Y);
+            decks[i].setCoordinateX(x);
             if (!this.getOwner().isCPU()) {
                 //Делаем графические изменения на экране игрока
                 map[Y][x].setEffect(null);
-                HBox[] hBoxes = App.shipSettingController.gethBoxes();
+                HBox[] hBoxes = App.SHIP_SETTING_CONTROLLER.gethBoxes();
                 hBoxes[Y].getChildren().remove(x);
                 hBoxes[Y].getChildren().add(x, decks[i]);
                 map[Y][x].setImage(ImageName.DESTROYER);
             }
             i--;
         }
-        App.seaBattleGame.playerShipIncrement(this.getOwner());
+        App.SEA_BATTLE_GAME.playerShipIncrement(this.getOwner());
 
     }
 
@@ -56,23 +58,30 @@ public class Destroyer extends Ship {
         int i = 1;
         for (int y = Y - 1; y <= Y; y++) {
             map[y][X] = decks[i];
+            decks[i].setCoordinateY(y);
+            decks[i].setCoordinateX(X);
             if (!this.getOwner().isCPU()) {
                 //Делаем графические изменения на экране игрока
                 map[y][X].setEffect(null);
-                HBox[] hBoxes = App.shipSettingController.gethBoxes();
+                HBox[] hBoxes = App.SHIP_SETTING_CONTROLLER.gethBoxes();
                 hBoxes[y].getChildren().remove(X);
                 hBoxes[y].getChildren().add(X, decks[i]);
                 map[y][X].setImage(ImageName.DESTROYER);
             }
             i--;
         }
-        App.seaBattleGame.playerShipIncrement(this.getOwner());
+        App.SEA_BATTLE_GAME.playerShipIncrement(this.getOwner());
     }
     @Override
     public boolean spruting() {
         for (int i = 0; i < decks.length; i++) {
-            decks[i].setImage(ImageName.OCTOPUS);
+            decks[i].setImage(ImageName.KRAKEN);
         }
+        return true;
+    }
+
+    @Override
+    public boolean isShip() {
         return true;
     }
 }

@@ -63,12 +63,12 @@ public abstract class MapObject extends ImageView {
                 setLabel('+');
                 setName("Зеленая точка");
                 break;
-            case OCTOPUS:
+            case KRAKEN:
                 this.setFitHeight(60);
                 this.setFitWidth(60);
                 super.setImage( new Image("/resources/octopus60x60.png"));
-                setLabel('+');
-                setName("Зеленая точка");
+                setLabel('~');
+                setName("Кракен");
                 break;
             case LINKOR:
                 this.setFitHeight(60);
@@ -99,14 +99,13 @@ public abstract class MapObject extends ImageView {
     public int getCoordinateX(){
         return coordinateX;
     }
-
     public void setCoordinateY(int coordinateY) {
         this.coordinateY = coordinateY;
     }
-
     public void setCoordinateX(int coordinateX) {
         this.coordinateX = coordinateX;
     }
 
+    public abstract boolean isShip();
     public abstract boolean spruting();
 }

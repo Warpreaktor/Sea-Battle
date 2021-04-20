@@ -32,10 +32,10 @@ public class StartMenuController implements Initializable {
     public final void toMainGameUI() {
         String sizeMap = chooseMap.getSelectionModel().getSelectedItem().toString();
         String name = playerName.getText();
-        App.seaBattleGame.getHuman().setName(name);
+        App.SEA_BATTLE_GAME.getHuman().setName(name);
         App.brushShipSettingMenu();
-        App.seaBattleGame.createCPUBattleField(App.seaBattleGame.getCPU());
-        App.seaBattleGame.getCPU().shipsOnGame();
+        App.SEA_BATTLE_GAME.createCPUBattleField(App.SEA_BATTLE_GAME.getCPU());
+        App.SEA_BATTLE_GAME.getCPU().shipsOnGame();
     }
 
     public final void nameGenerator(){

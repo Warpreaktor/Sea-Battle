@@ -131,7 +131,7 @@ public class Tools {
                         event.getDragboard().hasImage() && targetZone.getClass().getSimpleName().equals("MapCell")) {
                     Effect fx = new Shadow();
                     int imgSize = (int) event.getDragboard().getImage().getWidth();
-                    if (App.shipSettingController.isVertical() == false) {
+                    if (App.SHIP_SETTING_CONTROLLER.isVertical() == false) {
                         setFxX(targetZone.getCoordinateY(), targetZone.getCoordinateX(), fx, imgSize);
                     } else {
                         setFxY(targetZone.getCoordinateY(), targetZone.getCoordinateX(), fx, imgSize);
@@ -145,7 +145,7 @@ public class Tools {
             public void handle(DragEvent event) {
                 /* mouse moved away, remove the graphical cues */
                 int imgSize = (int) event.getDragboard().getImage().getWidth();
-                if (App.shipSettingController.isVertical() == false) {
+                if (App.SHIP_SETTING_CONTROLLER.isVertical() == false) {
                     clearFxX(targetZone.getCoordinateY(), targetZone.getCoordinateX(), imgSize);
                 } else {
                     clearFxY(targetZone.getCoordinateY(), targetZone.getCoordinateX(), imgSize);
@@ -162,7 +162,7 @@ public class Tools {
                 boolean success = false;
                 if (db.hasImage() && targetZone.getClass().getSimpleName().equals("MapCell")) {
                     //int imgSize = (int) event.getDragboard().getImage().getWidth();
-                    if (App.shipSettingController.isVertical() == false) {
+                    if (App.SHIP_SETTING_CONTROLLER.isVertical() == false) {
                         success = setShipToCellsX(dragObject, targetZone.getCoordinateY(), targetZone.getCoordinateX());
                         dragObject.getOwner().getShipyard().remove(dragObject);
                     } else {
@@ -179,7 +179,7 @@ public class Tools {
     }
 
     public static void setFxX(int Y, int X, Effect fx, int imgSize) {
-        MapObject[][] map = App.seaBattleGame.getHuman().getOurFleetMap();
+        MapObject[][] map = App.SEA_BATTLE_GAME.getHuman().getOurFleetMap();
         imgSize /= 60;
         switch (imgSize) {
             case 4:
@@ -204,7 +204,7 @@ public class Tools {
     }
 
     public static void setFxY(int Y, int X, Effect fx, int imgSize) {
-        MapObject[][] map = App.seaBattleGame.getHuman().getOurFleetMap();
+        MapObject[][] map = App.SEA_BATTLE_GAME.getHuman().getOurFleetMap();
         imgSize /= 60;
         switch (imgSize) {
             case 4:
@@ -229,7 +229,7 @@ public class Tools {
     }
 
     public static void clearFxX(int Y, int X, int imgSize) {
-        MapObject[][] map = App.seaBattleGame.getHuman().getOurFleetMap();
+        MapObject[][] map = App.SEA_BATTLE_GAME.getHuman().getOurFleetMap();
         imgSize /= 60;
         switch (imgSize) {
             case 4:
@@ -254,7 +254,7 @@ public class Tools {
     }
 
     public static void clearFxY(int Y, int X, int imgSize) {
-        MapObject[][] map = App.seaBattleGame.getHuman().getOurFleetMap();
+        MapObject[][] map = App.SEA_BATTLE_GAME.getHuman().getOurFleetMap();
         imgSize /= 60;
         switch (imgSize) {
             case 4:

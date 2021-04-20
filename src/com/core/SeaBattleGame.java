@@ -123,14 +123,17 @@ public class SeaBattleGame {
             CPU.setCountOfTurns(CPU.getCountOfTurns()+1);
         }
     }
-    public static void setNeighbors(int Y, int X, Ship ship) {
-        for (int y = Y - 1; y <= Y + 1; y++) {
-            for (int x = X - 1; x <= X + 1; x++) {
-                if (y < 0 || y >= SIZE) {continue;}
-                if (x < 0 || x >= SIZE) {continue;}
-                String className = ship.getOwner().getOurFleetMap()[y][x].getClass().getSimpleName();
-                if (className.equals("DeckOfShip")) {continue;}
-                ship.getOwner().getOurFleetMap()[y][x].setLabel('0');
+    public static void setGreenDotsAround(MapObject[][] map, Ship ship) {
+        for (int i = 0; i < ship.getDecks().length; i++) {
+            int Y = ship.getDecks()[i].getCoordinateY();
+            int X = ship.getDecks()[i].getCoordinateX();
+            for (int y = Y - 1; y < Y + 2; y++) {
+                for (int x = X - 1; x < X + 2; x++) {
+                    if(!Tools.isOutOfBoards(map, y, x)) continue;
+                    if (map[y][x].isShip()) continue;
+                    if (map[y][x].getLabel()=='X') continue;
+                    map[y][x].setImage(ImageName.GREEN_DOT);
+                }
             }
         }
     }
@@ -139,7 +142,7 @@ public class SeaBattleGame {
             App.brushTheVictoryMessage("Победил " + CPU.getName());
         } else
             if (CPU.getNumberOfShip() == 0){
-                App.app.brushTheVictroryScreen();
+                App.APP.brushTheVictroryScreen();
         }
     }
 
@@ -152,11 +155,12 @@ public class SeaBattleGame {
 
     }
     public void theShipIsDestroyed(Ship ship, Player enemy, Player self, int Y, int X){
-        enemy.getOurFleetMap()[Y][X].setLabel('X');                  //Ставим отмеку в карте противнка
-        enemy.getOurFleetMap()[Y][X].setImage(ImageName.RED_CROSS);  //Рисуем крест на карте противнка
-        self.getEnemyFleetMap()[Y][X].setLabel('X');                 //Ставим отметку в своей карте "Радар"
-        self.getEnemyFleetMap()[Y][X].setImage(ImageName.RED_CROSS); //Рисуем крест в своей карте "Радар"
+        //enemy.getOurFleetMap()[Y][X].setLabel('X');                  //Ставим отмеку в карте противнка
+        //enemy.getOurFleetMap()[Y][X].setImage(ImageName.RED_CROSS);  //Рисуем крест на карте противнка
+        //self.getEnemyFleetMap()[Y][X].setLabel('X');                 //Ставим отметку в своей карте "Радар"
+        //self.getEnemyFleetMap()[Y][X].setImage(ImageName.RED_CROSS); //Рисуем крест в своей карте "Радар"
         playerShipDecrement(enemy);
+        setGreenDotsAround(self.getEnemyFleetMap(), ship);
     }
     public void missed(Player enemy, Player self, int Y, int X){
         enemy.getOurFleetMap()[Y][X].setImage(ImageName.DOT);
@@ -178,7 +182,7 @@ public class SeaBattleGame {
      * @param player - игрок которому нужно подсунуть спрутов на его карту.
      * @param quantity - количество спрутов
      */
-    public void octopusAtack(Player player, int quantity){
+    public void krakenAtack(Player player, int quantity){
         for (int i = 0; i < quantity; i++) {
             int Y = Tools.getRandomCoordinate();
             int X = Tools.getRandomCoordinate();
@@ -188,9 +192,9 @@ public class SeaBattleGame {
                 System.out.println("корабль " + player.getOurFleetMap()[Y][X].getName() + " был атакован " +
                         "гигантским спрутом и уничтожен");
                 if (player.isCPU()) {
-                    human.getEnemyFleetMap()[Y][X].setImage(ImageName.OCTOPUS);
+                    human.getEnemyFleetMap()[Y][X].setImage(ImageName.KRAKEN);
                 }else {
-                    CPU.getEnemyFleetMap()[Y][X].setImage(ImageName.OCTOPUS);
+                    CPU.getEnemyFleetMap()[Y][X].setImage(ImageName.KRAKEN);
                 }
             }
         }

@@ -58,8 +58,6 @@ public abstract class Ship extends MapObject {
     public abstract void shipOnTheSeaY(int y, int x);
     public abstract DeckOfShip[] getDecks();
 
-
-
     public String naming(){
         int randomNum = 1 + (int)(Math.random()*6);
         String name = "Безымянный";

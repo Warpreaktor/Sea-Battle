@@ -3,7 +3,6 @@ package front;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -63,7 +62,7 @@ public class BattleFieldController {
 
     public final void nextTurn(){
         if (App.isHumanTurn == false) {
-            App.seaBattleGame.shootCPU();
+            App.SEA_BATTLE_GAME.shootCPU();
             App.isHumanTurn = true;
         }else {
             //Сообщение пользователю о том, что его ход еще не завершен

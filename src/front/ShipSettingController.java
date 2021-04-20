@@ -59,7 +59,7 @@ public class ShipSettingController {
         startButtonInit();
         randomButtonInit();
         shipBoxInit();
-        ArrayList<Ship> shipyard = App.seaBattleGame.getHuman().getShipyard();
+        ArrayList<Ship> shipyard = App.SEA_BATTLE_GAME.getHuman().getShipyard();
 
         for (int i = 0; i < shipyard.size(); i++) {
             int shipSize = shipyard.get(i).getShipSize();
@@ -145,7 +145,7 @@ public class ShipSettingController {
         randomButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                App.seaBattleGame.getHuman().shipsOnGame();
+                App.SEA_BATTLE_GAME.getHuman().shipsOnGame();
             }
         });
     }

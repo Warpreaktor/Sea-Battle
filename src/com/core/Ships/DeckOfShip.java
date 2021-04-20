@@ -32,9 +32,13 @@ public class DeckOfShip extends MapObject {
     @Override
     public boolean spruting() {
         for (int i = 0; i < shipOwner.getDecks().length; i++) {
-            shipOwner.getDecks()[i].setImage(ImageName.OCTOPUS);
+            shipOwner.getDecks()[i].setImage(ImageName.KRAKEN);
         }
         return true;
     }
 
+    @Override
+    public boolean isShip() {
+        return true;
+    }
 }

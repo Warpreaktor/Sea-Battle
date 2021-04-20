@@ -20,7 +20,7 @@ public abstract class Player {
 
     public static String[] titulM = {"Матрос", "Старшина", "Мичман", "Лейтенант", "Капитан", "Адмирал"};
 
-    public static String[] firstNames = {"Эдвард", "Джек", "Франсуа", "Стид", "Джон", "Стив", "Пью", "Сильвер",
+    public static String[] firstNames = {"Эдвард", "Джек", "Франсуа", "Стид", "Джон", "Стив", "Стью", "Сильвер",
             "Флинт", "Билли", "Джонни", "Джеки", "Генри", "Джордж", "Бен", "Бенни", "Марти"};
 
     public static String[] nounsW = {"Борода", "Челюсть", "Рука", "Голова", "Шляпа", "Нога", "Шхуна", "Бухта",
@@ -34,12 +34,12 @@ public abstract class Player {
             "Рыжий", "Кровавый", "Беззубый", "Подозрительный"};
 
     public static String[] adjectivesW = {"Чёрная", "Рваная", "Жуткая", "Длинная", "Синяя", "Рыжая",
-            "Стальная", "Дубовая", "Нечеловеческая", "Фантастическая", "Рыхлая", "Дряблая", "Непробиваемая", "Таинственная",
+            "Стальная", "Дубовая", "Нечеловеческая", "Шершавая", "Рыхлая", "Дряблая", "Непробиваемая", "Таинственная",
             "Белая", "Страшная", "Противная", "Скользкая", "Позолоченная", "Изящная", "Опалённая"};
 
     public Player() {
-        ourFleetMap = new MapObject[App.seaBattleGame.getSIZE()][SeaBattleGame.getSIZE()];
-        enemyFleetMap = new MapObject[App.seaBattleGame.getSIZE()][SeaBattleGame.getSIZE()];
+        ourFleetMap = new MapObject[App.SEA_BATTLE_GAME.getSIZE()][SeaBattleGame.getSIZE()];
+        enemyFleetMap = new MapObject[App.SEA_BATTLE_GAME.getSIZE()][SeaBattleGame.getSIZE()];
         //1 Линкор(4), 2 Крейсера(3), 3 Эсминца(2), 4 Подлодки(1)
         /**Каждая клетка игрового поля заполняется объектами пустыми объектами MapCell
          */

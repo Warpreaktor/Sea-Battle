@@ -20,11 +20,11 @@ import javafx.scene.Scene;
 import java.io.IOException;
 
 public class App extends Application {
-    public static final App app = new App();
-    public static final Stage stage = new Stage();
-    public static final SeaBattleGame seaBattleGame = new SeaBattleGame(); // Должен быть public static final singleton и только в этом классе. Первая инициализация происходит в StartMenuController
+    public static final App APP = new App();
+    public static final Stage STAGE = new Stage();
+    public static final SeaBattleGame SEA_BATTLE_GAME = new SeaBattleGame(); // Должен быть public static final singleton и только в этом классе. Первая инициализация происходит в StartMenuController
     public static BattleFieldController BATTLE_FIELD_CONTROLLER;
-    public static final ShipSettingController shipSettingController = new ShipSettingController();
+    public static final ShipSettingController SHIP_SETTING_CONTROLLER = new ShipSettingController();
     public static boolean isHumanTurn = true;
 
     public static void main(String[] args) {
@@ -33,7 +33,7 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        stage = this.stage;
+        stage = this.STAGE;
         stage.setResizable(false);
         //VictoryScreenController victoryScreenController = new VictoryScreenController();//test
         //brushTheVictroryScreen();//Тест. Потом удалить.
@@ -42,35 +42,35 @@ public class App extends Application {
 
     public final void brushStartMenu() throws IOException {
         try {
-            stage.setX(300);
-            stage.setY(100);
+            STAGE.setX(300);
+            STAGE.setY(100);
             Parent root = FXMLLoader.load(getClass().getResource("StartMenu.fxml"));
             Group group = new Group(root);
             Scene scene = new Scene(group);
             scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
-            stage.setScene(scene);
-            stage.show();
+            STAGE.setScene(scene);
+            STAGE.show();
         } catch (IOException e) {
             brushTheErrorMessage("Файл \"StartMenu.fxml\" поврежден или отсутствует");
         }
     }
 
     public final static void brushShipSettingMenu() {
-        stage.setX(300);
-        stage.setY(0);
-        for (int y = 0; y < seaBattleGame.getSIZE(); y++) {
-            for (int x = 0; x < seaBattleGame.getSIZE(); x++) {
+        STAGE.setX(300);
+        STAGE.setY(0);
+        for (int y = 0; y < SEA_BATTLE_GAME.getSIZE(); y++) {
+            for (int x = 0; x < SEA_BATTLE_GAME.getSIZE(); x++) {
                 MapObject gameCell = new MapCell(y, x);
-                shipSettingController.gethBoxes()[y].getChildren().add(gameCell);
-                seaBattleGame.getHuman().setGameCellToOurFleetMap(gameCell, y, x);
+                SHIP_SETTING_CONTROLLER.gethBoxes()[y].getChildren().add(gameCell);
+                SEA_BATTLE_GAME.getHuman().setGameCellToOurFleetMap(gameCell, y, x);
                 gameCell.setCoordinateY(y);
                 gameCell.setCoordinateX(x);
                 Tools.setDragTargetZone(gameCell);
             }
         }
-        Scene scene = new Scene(shipSettingController.getShipSetPan());
-        stage.setScene(scene);
-        stage.show();
+        Scene scene = new Scene(SHIP_SETTING_CONTROLLER.getShipSetPan());
+        STAGE.setScene(scene);
+        STAGE.show();
     }
 
     /**
@@ -78,30 +78,30 @@ public class App extends Application {
      */
     public final static void brushTheBattleField() {
         BATTLE_FIELD_CONTROLLER = new BattleFieldController();
-        stage.setX(300);
-        stage.setY(0);
+        STAGE.setX(300);
+        STAGE.setY(0);
         //Отрисовка поля с нашим флотом
-        VBox leftVBox = shipSettingController.getField();
+        VBox leftVBox = SHIP_SETTING_CONTROLLER.getField();
         leftVBox.setLayoutX(20);
         leftVBox.setLayoutY(200);
         //Отрисовка поля с вражеским полем
-        for (int y = 0; y < seaBattleGame.getSIZE(); y++) {
+        for (int y = 0; y < SEA_BATTLE_GAME.getSIZE(); y++) {
             HBox rightHBox = new HBox();
             BATTLE_FIELD_CONTROLLER.rightVBox.getChildren().add(rightHBox);
-            for (int x = 0; x < seaBattleGame.getSIZE(); x++) {
+            for (int x = 0; x < SEA_BATTLE_GAME.getSIZE(); x++) {
                 MapObject gameCell = new MapCell(y, x);
                 rightHBox.getChildren().add(gameCell);
-                seaBattleGame.getHuman().setGameCellToEnemyFleetMap(gameCell, y, x);
+                SEA_BATTLE_GAME.getHuman().setGameCellToEnemyFleetMap(gameCell, y, x);
                 gameCell.setOnMouseClicked(new EventHandler<MouseEvent>() {
                     @Override
                     public void handle(MouseEvent mouseEvent) {
                         if (isHumanTurn) {
-                            if (seaBattleGame.shootHuman(gameCell.getCoordinateY(), gameCell.getCoordinateX())) {
+                            if (SEA_BATTLE_GAME.shootHuman(gameCell.getCoordinateY(), gameCell.getCoordinateX())) {
                                 isHumanTurn = false;//ход передается компьютеру
-                                Player human = App.seaBattleGame.getHuman();
+                                Player human = App.SEA_BATTLE_GAME.getHuman();
                                 human.setCountOfTurns(human.getCountOfTurns() + 1);
                                 try {
-                                    seaBattleGame.isVictory();
+                                    SEA_BATTLE_GAME.isVictory();
                                 } catch (IOException e) {
                                     e.printStackTrace();
                                 }
@@ -113,27 +113,27 @@ public class App extends Application {
                 });
             }
         }
-        seaBattleGame.octopusAtack(seaBattleGame.getHuman(), seaBattleGame.getOctopus());
-        seaBattleGame.octopusAtack(seaBattleGame.getCPU(), seaBattleGame.getOctopus());
-        BATTLE_FIELD_CONTROLLER.selfShipsNum.setText("Наши корабли - " + App.seaBattleGame.getHuman().getNumberOfShip());
-        BATTLE_FIELD_CONTROLLER.enemyShipsNum.setText("Корабли противника - " + App.seaBattleGame.getCPU().getNumberOfShip());
+        SEA_BATTLE_GAME.krakenAtack(SEA_BATTLE_GAME.getHuman(), SEA_BATTLE_GAME.getOctopus());
+        SEA_BATTLE_GAME.krakenAtack(SEA_BATTLE_GAME.getCPU(), SEA_BATTLE_GAME.getOctopus());
+        BATTLE_FIELD_CONTROLLER.selfShipsNum.setText("Наши корабли - " + App.SEA_BATTLE_GAME.getHuman().getNumberOfShip());
+        BATTLE_FIELD_CONTROLLER.enemyShipsNum.setText("Корабли противника - " + App.SEA_BATTLE_GAME.getCPU().getNumberOfShip());
         BATTLE_FIELD_CONTROLLER.anchorPane.getChildren().add(leftVBox);
         Scene scene = new Scene(BATTLE_FIELD_CONTROLLER.anchorPane);
-        stage.setScene(scene);
-        stage.show();
+        STAGE.setScene(scene);
+        STAGE.show();
     }
 
     public final void brushTheVictroryScreen() throws IOException {
         VictoryScreenController victoryScreenController = new VictoryScreenController();
         try {
-            stage.setX(600);
-            stage.setY(200);
+            STAGE.setX(600);
+            STAGE.setY(200);
             Parent root = FXMLLoader.load(getClass().getResource("VictoryScreen.fxml"));
             Group group = new Group(root);
             Scene scene = new Scene(group);
             scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
-            stage.setScene(scene);
-            stage.show();
+            STAGE.setScene(scene);
+            STAGE.show();
         } catch (IOException e) {
             e.printStackTrace();
             brushTheErrorMessage("Файл \"Victory.fxml\" поврежден или отсутствует");

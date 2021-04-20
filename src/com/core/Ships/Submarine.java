@@ -33,26 +33,34 @@ public class Submarine extends Ship {
     public void shipOnTheSeaX(int Y, int X){
         MapObject[][] map = this.getOwner().getOurFleetMap();
         map[Y][X] = decks[0];
+        decks[0].setCoordinateY(Y);
+        decks[0].setCoordinateX(X);
         if (!this.getOwner().isCPU()) {
             //Делаем графические изменения только на экране игрока
             map[Y][X].setEffect(null);
-            HBox[] hBoxes = App.shipSettingController.gethBoxes();
+            HBox[] hBoxes = App.SHIP_SETTING_CONTROLLER.gethBoxes();
             hBoxes[Y].getChildren().remove(X);
             hBoxes[Y].getChildren().add(X, decks[0]);
             map[Y][X].setImage(ImageName.SUBMARINE);
         }
-        App.seaBattleGame.playerShipIncrement(this.getOwner());
+        App.SEA_BATTLE_GAME.playerShipIncrement(this.getOwner());
     }
 
     @Override
     public void shipOnTheSeaY(int Y, int X){
         shipOnTheSeaX(Y, X);
     }
+
     @Override
     public boolean spruting() {
         for (int i = 0; i < decks.length; i++) {
-            decks[i].setImage(ImageName.OCTOPUS);
+            decks[i].setImage(ImageName.KRAKEN);
         }
+        return true;
+    }
+
+    @Override
+    public boolean isShip() {
         return true;
     }
 }

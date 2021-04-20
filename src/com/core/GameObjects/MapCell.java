@@ -28,16 +28,13 @@ public class MapCell extends MapObject {
     public MapCell(int Y, int X){
         this.coordinateY = Y;
         this.coordinateX = X;
-        this.setFitHeight(60);
-        this.setFitWidth(60);
         this.setImage(ImageName.WAVE);
     }
 
-    public class Octopus extends MapCell {
 
-        public Octopus(int Y, int X) {
-            super(Y, X);
-            this.setImage(ImageName.OCTOPUS);
-        }
+
+    @Override
+    public boolean isShip() {
+        return false;
     }
 }
