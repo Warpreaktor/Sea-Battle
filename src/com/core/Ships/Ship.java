@@ -11,6 +11,31 @@ public abstract class Ship extends GameObject {
     private int shipSize;        //Количество палуб у корабля
     private Player owner;
     private int hp;
+    public static String[] nounsBookMan = {"Махаон", "Герой", "Брат", "Бриз", "Император", "Массон", "Сахарок", "Бог", "Минотавр", "Враг", "Победитель",
+            "Карбид", "Китобоец", "Христианин", "Гнев", "Нормандец", "Плот", "Водолаз", "Туз", "Шарабан", "Капкан", "Маньяк", "Варяг", "Ковбой",
+            "Гром", "Малыш", "Кашалот", "Воин", "Царь", "Сон", "День", "Свет", "Ураган", "Шторм", "Тайфун", "Смерч", "Катер", "Цунами", "Линкольн", "Сталин", "Айсберг",
+            "Характер", "Свидетель", "Адвокат", "Всадник", "Аркхем"};
+
+    public static String[] nounsBookWoman = {"Месть", "Королева", "Гидра", "Мигера", "Горгона", "Дьявольщина", "Касатка", "Удача", "Стихия", "Жена",
+            "Химера", "Тварь", "Посудина", "Фантазия", "Мечта", "Ночь", "Лань", "Буря", "Лодка", "Шхуна", "Рыба", "Ярость", "Нехристь", "Аврора", "Аляска",
+            "Арабелла", "Земля", "Особенность", "Конструкция", "Беда", "Гибель", "Кобыла", "Вдова"};
+
+    public static String[] nounsBookIt = {"Приключение", "Возмездие", "Наводнение", "Остервенение", "Бешенство", "Господство", "Корыто", "Предложение",
+            "Мероприятие", "Поручение", "Искусство", "Воспитание", "Достоинство", "Убийство", "Рождение", "Становление", "Наказание", "Убеждение", "Мучение",
+            "Свидетельство", "Послание", "Буйство", "Хитроумие", "Чудище", "Чудо-юдо"};
+
+    public static String[] adjectivesBookMan = {"Геройский", "Матёрый", "Дорогой", "Морской", "Яростный", "Козырный",
+            "Стальной", "Дубовый", "Кричайщий", "Фантастический", "Дерзкий", "Древний", "Неуязвимый", "Неуловимый",
+            "Прыткий", "Страшный", "Молниеносный", "Черный", "Бешенный", "Пустынный", "Пьяный", "Небесный",
+            "Счастливый", "Отвратительный", "Быстрый", "Мужественный", "Огромный", "Стальной", "Унылый", "Корявый"};
+
+    public static String[] adjectivesBookWoman = {"Геройская", "Матёрая", "Дорогая", "Морская", "Яростная", "Козырная",
+            "Стальная", "Дубовая", "Кричащая", "Фантастическая", "Дерзкая", "Древняя", "Неуязвимая", "Неуловимая",
+            "Прыткая", "Страшная", "Молниеносная", "Черная", "Бешенная", "Пьяная", "Небесная", "Счастливая", "Золотая",
+            "Прекрасная", "Изящная", "Ловкая", "Скользкая", "Опалённая"};
+
+    public static String[] whomBook = {"капитана", "дракона", "Дьявола", "пирата", "брата", "короля", "королевы",
+            "вселенной", "по сути", "в море", "в океане", "cреди ясного неба", "из тумана", "без правил", "из ада"};
 
     public void setHp(int hp) {
         this.hp = hp;
@@ -33,33 +58,36 @@ public abstract class Ship extends GameObject {
     public abstract void shipOnTheSeaX(int y, int x);
     public abstract void shipOnTheSeaY(int y, int x);
     public abstract DeckOfShip[] getDecks();
+
+
+
     public String naming(){
         int randomNum = 1 + (int)(Math.random()*6);
         String name = "Безымянный";
         switch (randomNum) {
             case (1)://сущ муж + прил муж
-            name = Tools.adjectivesBookMan[(int) (Math.random() * (Tools.adjectivesBookMan.length - 1))] +
-                    " " + Tools.nounsBookMan[(int) (Math.random() * (Tools.nounsBookMan.length - 1))];
+            name = adjectivesBookMan[(int) (Math.random() * (adjectivesBookMan.length - 1))] +
+                    " " + nounsBookMan[(int) (Math.random() * (nounsBookMan.length - 1))];
             break;
             case (2)://сущ жен + прил жен
-                name = Tools.adjectivesBookWoman[(int) (Math.random() * (Tools.adjectivesBookWoman.length - 1))] +
-                        " " + Tools.nounsBookWoman[(int) (Math.random() * (Tools.nounsBookWoman.length - 1))];
+                name = adjectivesBookWoman[(int) (Math.random() * (adjectivesBookWoman.length - 1))] +
+                        " " + nounsBookWoman[(int) (Math.random() * (nounsBookWoman.length - 1))];
                 break;
             case (3)://сущ сред + спецэффект
-                name = Tools.nounsBookIt[(int) (Math.random() * (Tools.nounsBookIt.length - 1))] +
-                        " " + Tools.whomBook[(int) (Math.random() * (Tools.whomBook.length - 1))];
+                name = nounsBookIt[(int) (Math.random() * (nounsBookIt.length - 1))] +
+                        " " + whomBook[(int) (Math.random() * (whomBook.length - 1))];
                 break;
             case (4)://сущ муж + спецэффект
-                name = Tools.nounsBookMan[(int) (Math.random() * (Tools.nounsBookMan.length - 1))] +
-                        " " + Tools.whomBook[(int) (Math.random() * (Tools.whomBook.length - 1))];
+                name = nounsBookMan[(int) (Math.random() * (nounsBookMan.length - 1))] +
+                        " " + whomBook[(int) (Math.random() * (whomBook.length - 1))];
                 break;
             case (5)://сущ муж + спецэффект
-                name = Tools.nounsBookWoman[(int) (Math.random() * (Tools.nounsBookWoman.length - 1))] +
-                        " " + Tools.whomBook[(int) (Math.random() * (Tools.whomBook.length - 1))];
+                name = nounsBookWoman[(int) (Math.random() * (nounsBookWoman.length - 1))] +
+                        " " + whomBook[(int) (Math.random() * (whomBook.length - 1))];
                 break;
             case (6)://сущ муж + сущ жен
-                name = Tools.nounsBookMan[(int) (Math.random() * (Tools.nounsBookMan.length - 1))] +
-                        " и " + Tools.nounsBookWoman[(int) (Math.random() * (Tools.nounsBookWoman.length - 1))];
+                name = nounsBookMan[(int) (Math.random() * (nounsBookMan.length - 1))] +
+                        " и " + nounsBookWoman[(int) (Math.random() * (nounsBookWoman.length - 1))];
                 break;
         }
         return name;
