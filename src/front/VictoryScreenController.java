@@ -6,7 +6,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 
 public class VictoryScreenController {
-    private final Chest chestLeft = new Chest();
+    private Chest chestLeft = new Chest();
     private final Chest chestCentre = new Chest();
     private final Chest chestRight = new Chest();
 
@@ -21,11 +21,12 @@ public class VictoryScreenController {
 
     @FXML
     public final void chestOpened(){
-            label.setText(chestLeft.getItems().get(0) + "\n" +
-                    chestLeft.getItems().get(1) + "\n" +
-                    chestLeft.getItems().get(2) + "\n" +
-                    chestLeft.getItems().get(3) + "\n" +
-                    chestLeft.getItems().get(4) + "\n");
+        chestLeft = new Chest();
+        label.setText(chestLeft.getItems().get(0) + "\n"); //+
+//                    chestLeft.getItems().get(1) + "\n" +
+//                    chestLeft.getItems().get(2) + "\n" +
+//                    chestLeft.getItems().get(3) + "\n" +
+//                    chestLeft.getItems().get(4) + "\n");
     }
 
 }
