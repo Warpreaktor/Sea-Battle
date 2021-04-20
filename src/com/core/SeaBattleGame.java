@@ -61,7 +61,6 @@ public class SeaBattleGame {
             //После хода игрока ожидаем нажатие кнопки next turn игроком.
     }
     public boolean shootHuman(int Y, int X) {
-        System.out.println(human.getEnemyFleetMap()[Y][X].getLabel());
         if (human.getEnemyFleetMap()[Y][X].getLabel() == '+' || human.getEnemyFleetMap()[Y][X].getLabel() == 'X'){
             return false;
         }else {
@@ -167,7 +166,6 @@ public class SeaBattleGame {
 
     public void playerShipIncrement(Player owner){
         owner.setNumberOfShip(owner.getNumberOfShip()+1);
-        System.out.println(owner.getName() + " - " + owner.getNumberOfShip());
         this.setTotalShips(this.getTotalShips() + 1);
     }
     public void playerShipDecrement(Player owner){

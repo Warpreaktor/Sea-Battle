@@ -13,7 +13,7 @@
       <ComboBox fx:id="chooseMap" layoutX="226.0" layoutY="224.0" prefWidth="150.0" promptText="Choose size of map" />
       <Button layoutX="239.0" layoutY="329.0" mnemonicParsing="false" onAction="#toMainGameUI" text="Let the battle begin!" />
       <TextField fx:id="playerName" layoutX="183.0" layoutY="279.0" prefHeight="25.0" prefWidth="210.0" promptText="Введите ваше имя" />
-      <Label layoutX="121.0" layoutY="279.0" prefHeight="25.0" prefWidth="61.0" text="Адмирал:" />
+      <Label layoutX="110.0" layoutY="279.0" prefHeight="25.0" prefWidth="67.0" text="Вас зовут:" />
       <ImageView fx:id="imageView" fitHeight="177.0" fitWidth="544.0" layoutX="152.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="152.0" AnchorPane.rightAnchor="133.33334350585938">
          <image>
             <Image url="@../resources/ship.jpg" />
