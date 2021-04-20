@@ -16,7 +16,7 @@ public class SeaBattleGame {
     private static int totalShips = 0;
     private final Player human = new Human();
     private final Player CPU = new CPU(Difficult.EASY);
-    private int krakenChance = 3; //Количество нападений спрута на корабли перед началом боя.
+    private int krakenChance = 90; //Количество нападений спрута на корабли перед началом боя.
 
     public int getKrakenChance() {
         return krakenChance;
@@ -74,7 +74,7 @@ public class SeaBattleGame {
                     }
                     if (enemyShip.getHp() <= 0) {
                         App.BATTLE_FIELD_CONTROLLER.textOutput("Корабль " + enemyShipName + " уничтожен!");
-                        theShipIsDestroyed(enemyShip.getShipOwner(), CPU, human, Y, X);
+                        theShipIsDestroyed(enemyShip.getShipOwner(), CPU, human);
                     }
                 } else {
                     App.BATTLE_FIELD_CONTROLLER.textOutput(human.getName() + " промахнулся!");
@@ -110,7 +110,7 @@ public class SeaBattleGame {
             }
             if (enemyShip.getHp()<=0) {
                 App.BATTLE_FIELD_CONTROLLER.textOutput("Корабль " + enemyShipName + " уничтожен!");
-                theShipIsDestroyed(enemyShip.getShipOwner(), human, CPU, Y, X);
+                theShipIsDestroyed(enemyShip.getShipOwner(), human, CPU);
             }
             CPU.setCountOfTurns(CPU.getCountOfTurns()+1);;
         } else {
@@ -154,13 +154,10 @@ public class SeaBattleGame {
         ship.setHp(ship.getHp()-1);
 
     }
-    public void theShipIsDestroyed(Ship ship, Player enemy, Player self, int Y, int X){
-        //enemy.getOurFleetMap()[Y][X].setLabel('X');                  //Ставим отмеку в карте противнка
-        //enemy.getOurFleetMap()[Y][X].setImage(ImageName.RED_CROSS);  //Рисуем крест на карте противнка
-        //self.getEnemyFleetMap()[Y][X].setLabel('X');                 //Ставим отметку в своей карте "Радар"
-        //self.getEnemyFleetMap()[Y][X].setImage(ImageName.RED_CROSS); //Рисуем крест в своей карте "Радар"
+    public void theShipIsDestroyed(Ship ship, Player enemy, Player self){
         playerShipDecrement(enemy);
         setGreenDotsAround(self.getEnemyFleetMap(), ship);
+        setGreenDotsAround(enemy.getOurFleetMap(), ship);
     }
     public void missed(Player enemy, Player self, int Y, int X){
         enemy.getOurFleetMap()[Y][X].setImage(ImageName.DOT);
@@ -180,14 +177,12 @@ public class SeaBattleGame {
     /**
      * Метод размещает на карте Player спрутов в количестве quantity.
      * @param player - игрок которому нужно подсунуть спрутов на его карту.
-     * @param quantity - количество спрутов
      */
-    public void krakenAtack(Player player, int quantity){
-        for (int i = 0; i < quantity; i++) {
+    public void krakenAtack(Player player){
             int Y = Tools.getRandomCoordinate();
             int X = Tools.getRandomCoordinate();
             if(player.getOurFleetMap()[Y][X].spruting()){
-                playerShipDecrement(player);
+                //playerShipDecrement(player);
                 player.getEnemyFleetMap()[Y][X].setLabel('X');
                 System.out.println("корабль " + player.getOurFleetMap()[Y][X].getName() + " был атакован " +
                         "гигантским спрутом и уничтожен");
@@ -197,11 +192,10 @@ public class SeaBattleGame {
                     CPU.getEnemyFleetMap()[Y][X].setImage(ImageName.KRAKEN);
                 }
             }
-        }
     }
     public void event(){
         if(Tools.getRandomNumber(1, 100) <= App.SEA_BATTLE_GAME.getKrakenChance()){
-            App.SEA_BATTLE_GAME.krakenAtack(App.SEA_BATTLE_GAME.getHuman(), App.SEA_BATTLE_GAME.getKrakenChance());
+            App.SEA_BATTLE_GAME.krakenAtack(App.SEA_BATTLE_GAME.getHuman());
             System.out.println("Вас атаковал КРАКЕН!");
         }
     }
