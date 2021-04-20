@@ -14,6 +14,7 @@ public class Human extends Player{
     public boolean shoot(int Y, int X) {
         Player CPU = App.SEA_BATTLE_GAME.getCPU();
         Player human = App.SEA_BATTLE_GAME.getHuman();
+        System.out.println(human.getEnemyFleetMap()[Y][X].getClass().getSimpleName());
         if (human.getEnemyFleetMap()[Y][X].getLabel() == '+' || human.getEnemyFleetMap()[Y][X].getLabel() == 'X'){
             return false;
         }else {

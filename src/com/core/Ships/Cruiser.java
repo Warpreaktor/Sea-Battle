@@ -9,6 +9,11 @@ import javafx.scene.layout.HBox;
 public class Cruiser extends Ship {
     private DeckOfShip[] decks = new DeckOfShip[3]; //[y][x] Это, по сути, корпус корабля который состоит из нескольких partOfLinkor
 
+    @Override
+    public DeckOfShip[] getDecks() {
+        return decks;
+    }
+
     public Cruiser(Player owner) {
         super.setOwner(owner);
         super.setShipSize(decks.length);
@@ -19,17 +24,7 @@ public class Cruiser extends Ship {
             decks[i].setLabel('s');
         }
     }
-
-    @Override
-    public DeckOfShip[] getDecks() {
-        return decks;
-    }
-
-    @Override
-    public char getLabel() {
-        return super.getLabel();
-    }
-
+    
     @Override
     public void shipOnTheSeaX(int Y, int X) {
         MapObject[][] map = this.getOwner().getOurFleetMap();
