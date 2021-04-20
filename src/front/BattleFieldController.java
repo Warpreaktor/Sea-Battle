@@ -111,12 +111,12 @@ public class BattleFieldController {
         anchorPane.setPrefHeight(1024);
     }
     public void textFlowInit(){
-        textFlow.setLayoutY(50);
+        textFlow.setLayoutY(80);
         textFlow.setLayoutX(240);
         textFlow.setPrefWidth(700);
-        textFlow.setPrefHeight(150);
+        textFlow.setPrefHeight(130);
         textFlow.setTextAlignment(TextAlignment.CENTER);
-        textFlow.setLineSpacing(1);
+        textFlow.setLineSpacing(2);
         Text text1 = new Text("Шторм и гром! \n");
         text1.setFont(new Font(20));
         text1.setFill(Color.RED);

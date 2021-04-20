@@ -1,6 +1,9 @@
 package com.core;
 import com.core.GameObjects.MapCell;
 import com.core.GameObjects.MapObject;
+import com.core.Players.CPU;
+import com.core.Players.Difficult;
+import com.core.Players.Human;
 import com.core.Players.Player;
 import com.core.Ships.DeckOfShip;
 import com.core.Ships.Ship;
@@ -11,8 +14,8 @@ import java.io.IOException;
 public class SeaBattleGame {
     private static int SIZE = 10;
     private static int totalShips = 0;
-    private final Player human = new Player();
-    private final Player CPU = new Player();
+    private final Player human = new Human();
+    private final Player CPU = new CPU(Difficult.EASY);
     private int octopus = 3; //Количество нападений спрута на корабли перед началом боя.
 
     public int getOctopus() {
@@ -37,7 +40,6 @@ public class SeaBattleGame {
 
     public SeaBattleGame() {
         CPU.setName(CPU.getRandomName());
-        CPU.setCPU(true);
     }
 
     public static void createCPUBattleField(Player player) {

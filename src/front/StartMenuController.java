@@ -1,7 +1,5 @@
 package front;
 
-import com.core.SeaBattleGame;
-import com.core.Tools;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -13,6 +11,8 @@ import javafx.scene.image.ImageView;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import static com.core.Players.Player.getRandomName;
 
 
 public class StartMenuController implements Initializable {
@@ -39,6 +39,6 @@ public class StartMenuController implements Initializable {
     }
 
     public final void nameGenerator(){
-        playerName.setText(Tools.getRandomName());
+        playerName.setText(getRandomName());
     }
 }

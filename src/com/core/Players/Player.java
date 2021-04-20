@@ -9,8 +9,8 @@ import front.App;
 
 import java.util.ArrayList;
 
-public class Player {
-    private boolean isCPU = false;
+public abstract class Player {
+    //private boolean isCPU = false;
     private String name;
     private int countOfTurns = 0;   //Счетчик ходов сделанных игроком.
     private int numberOfShip = 0;   //Итоговое количество кораблей игрока на поле, которое уменьшается по ходу их уничтожения.
@@ -18,7 +18,7 @@ public class Player {
     private MapObject[][] ourFleetMap;
     private MapObject[][] enemyFleetMap;
 
-    public static String[] nounsBookMan = {"Махаон", "Герой", "Брат", "Бриз", "Император", "Массон", "Сахарок", "Бог", "Минотавр", "Враг", "Победитель",
+    public static String[] nounsBookMan = {"Герой", "Брат", "Бриз", "Император", "Массон", "Сахарок", "Бог", "Минотавр", "Враг", "Победитель",
             "Карбид", "Китобоец", "Христианин", "Гнев", "Нормандец", "Плот", "Водолаз", "Туз", "Шарабан", "Капкан", "Маньяк", "Варяг", "Ковбой",
             "Гром", "Малыш", "Кашалот", "Воин", "Царь", "Сон", "День", "Свет", "Ураган", "Шторм", "Тайфун", "Смерч", "Катер", "Цунами", "Линкольн", "Сталин", "Айсберг",
             "Характер", "Свидетель", "Адвокат", "Всадник", "Аркхем"};
@@ -63,13 +63,7 @@ public class Player {
         shipyard.add(new Submarine(this));
     }
 
-    public void setCPU(boolean CPU) {
-        isCPU = CPU;
-    }
-
-    public boolean isCPU() {
-        return isCPU;
-    }
+    public abstract boolean isCPU();
 
     public String getName() {
         return name;
