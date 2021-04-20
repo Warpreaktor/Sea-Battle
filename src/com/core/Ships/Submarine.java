@@ -1,8 +1,8 @@
 package com.core.Ships;
 
-import com.core.MapObjects.GameObject;
+import com.core.GameObjects.MapObject;
 import com.core.ImageName;
-import com.core.Player;
+import com.core.Players.Player;
 import front.App;
 import javafx.scene.layout.HBox;
 
@@ -31,7 +31,7 @@ public class Submarine extends Ship {
 
     @Override
     public void shipOnTheSeaX(int Y, int X){
-        GameObject[][] map = this.getOwner().getOurFleetMap();
+        MapObject[][] map = this.getOwner().getOurFleetMap();
         map[Y][X] = decks[0];
         if (!this.getOwner().isCPU()) {
             //Делаем графические изменения только на экране игрока

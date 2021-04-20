@@ -1,15 +1,15 @@
 package front;
 
 import com.core.*;
-import com.core.MapObjects.GameCell;
-import com.core.MapObjects.GameObject;
+import com.core.GameObjects.MapCell;
+import com.core.GameObjects.MapObject;
+import com.core.Players.Player;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
-import javafx.scene.image.Image;
 import javafx.scene.input.*;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
@@ -60,7 +60,7 @@ public class App extends Application {
         stage.setY(0);
         for (int y = 0; y < seaBattleGame.getSIZE(); y++) {
             for (int x = 0; x < seaBattleGame.getSIZE(); x++) {
-                GameObject gameCell = new GameCell(y, x);
+                MapObject gameCell = new MapCell(y, x);
                 shipSettingController.gethBoxes()[y].getChildren().add(gameCell);
                 seaBattleGame.getHuman().setGameCellToOurFleetMap(gameCell, y, x);
                 gameCell.setCoordinateY(y);
@@ -89,7 +89,7 @@ public class App extends Application {
             HBox rightHBox = new HBox();
             BATTLE_FIELD_CONTROLLER.rightVBox.getChildren().add(rightHBox);
             for (int x = 0; x < seaBattleGame.getSIZE(); x++) {
-                GameObject gameCell = new GameCell(y, x);
+                MapObject gameCell = new MapCell(y, x);
                 rightHBox.getChildren().add(gameCell);
                 seaBattleGame.getHuman().setGameCellToEnemyFleetMap(gameCell, y, x);
                 gameCell.setOnMouseClicked(new EventHandler<MouseEvent>() {

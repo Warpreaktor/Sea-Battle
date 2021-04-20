@@ -1,6 +1,6 @@
 package com.core;
 
-import com.core.MapObjects.GameObject;
+import com.core.GameObjects.MapObject;
 import com.core.Ships.Ship;
 import front.App;
 import javafx.event.EventHandler;
@@ -16,10 +16,10 @@ public class Tools {
     /**
      * Возвращает true если по соседству с ячейкой [Y][X] нет объектов типа DeckOfShip
      *
-     * @param map - передается массив GameObject на котором нужно осуществить проверку.
+     * @param map - передается массив MapObject на котором нужно осуществить проверку.
      * @return
      */
-    public static boolean isNoShipsArround(GameObject[][] map, int Y, int X) {
+    public static boolean isNoShipsArround(MapObject[][] map, int Y, int X) {
         for (int y = Y - 1; y < Y + 2; y++) {
             for (int x = X - 1; x < X + 2; x++) {
                 if (y >= map.length) {
@@ -45,10 +45,10 @@ public class Tools {
     /**
      * Возвращает true если [Y][X] НЕ выходят за границы переданного массива массива.
      *
-     * @param map - передается массив GameObject на котором нужно осуществить проверку.
+     * @param map - передается массив MapObject на котором нужно осуществить проверку.
      * @return
      */
-    public static boolean isOutOfBoards(GameObject[][] map, int Y, int X) {
+    public static boolean isOutOfBoards(MapObject[][] map, int Y, int X) {
         if (Y >= map.length) {
             return false;
         }
@@ -75,37 +75,7 @@ public class Tools {
         } else return false;
     }
 
-    public static String getRandomName() {
-        String name = "Безымянный";
-        int randomNum = 1 + (int) (Math.random() * 6);
-        switch (randomNum) {
-            case (1)://сущ муж + прил муж
-                name = Tools.adjectivesBookMan[(int) (Math.random() * (Tools.adjectivesBookMan.length - 1))] +
-                        " " + Tools.nounsBookMan[(int) (Math.random() * (Tools.nounsBookMan.length - 1))];
-                break;
-            case (2)://сущ жен + прил жен
-                name = Tools.adjectivesBookWoman[(int) (Math.random() * (Tools.adjectivesBookWoman.length - 1))] +
-                        " " + Tools.nounsBookWoman[(int) (Math.random() * (Tools.nounsBookWoman.length - 1))];
-                break;
-            case (3)://сущ сред + спецэффект
-                name = Tools.nounsBookIt[(int) (Math.random() * (Tools.nounsBookIt.length - 1))] +
-                        " " + Tools.whomBook[(int) (Math.random() * (Tools.whomBook.length - 1))];
-                break;
-            case (4)://сущ муж + спецэффект
-                name = Tools.nounsBookMan[(int) (Math.random() * (Tools.nounsBookMan.length - 1))] +
-                        " " + Tools.whomBook[(int) (Math.random() * (Tools.whomBook.length - 1))];
-                break;
-            case (5)://сущ муж + спецэффект
-                name = Tools.nounsBookWoman[(int) (Math.random() * (Tools.nounsBookWoman.length - 1))] +
-                        " " + Tools.whomBook[(int) (Math.random() * (Tools.whomBook.length - 1))];
-                break;
-            case (6)://сущ муж + сущ жен
-                name = Tools.nounsBookMan[(int) (Math.random() * (Tools.nounsBookMan.length - 1))] +
-                        " и " + Tools.nounsBookWoman[(int) (Math.random() * (Tools.nounsBookWoman.length - 1))];
-                break;
-        }
-        return name;
-    }
+
 
     public static void setDragSource(Ship source) {
         //Событие при обнаружении перетаскивания
@@ -136,7 +106,7 @@ public class Tools {
         });
     }
 
-    public static void setDragTargetZone(GameObject targetZone) {
+    public static void setDragTargetZone(MapObject targetZone) {
 
         //Событие при заходе в зону
         targetZone.setOnDragOver(new EventHandler<DragEvent>() {
@@ -158,7 +128,7 @@ public class Tools {
                 /* the drag-and-drop gesture entered the targetZone */
                 /* show to the user that it is an actual gesture targetZone */
                 if (event.getGestureSource() != targetZone &&
-                        event.getDragboard().hasImage() && targetZone.getClass().getSimpleName().equals("GameCell")) {
+                        event.getDragboard().hasImage() && targetZone.getClass().getSimpleName().equals("MapCell")) {
                     Effect fx = new Shadow();
                     int imgSize = (int) event.getDragboard().getImage().getWidth();
                     if (App.shipSettingController.isVertical() == false) {
@@ -190,7 +160,7 @@ public class Tools {
                 /* if there is a image data on dragboard, read it and use it */
                 Dragboard db = event.getDragboard();
                 boolean success = false;
-                if (db.hasImage() && targetZone.getClass().getSimpleName().equals("GameCell")) {
+                if (db.hasImage() && targetZone.getClass().getSimpleName().equals("MapCell")) {
                     //int imgSize = (int) event.getDragboard().getImage().getWidth();
                     if (App.shipSettingController.isVertical() == false) {
                         success = setShipToCellsX(dragObject, targetZone.getCoordinateY(), targetZone.getCoordinateX());
@@ -209,7 +179,7 @@ public class Tools {
     }
 
     public static void setFxX(int Y, int X, Effect fx, int imgSize) {
-        GameObject[][] map = App.seaBattleGame.getHuman().getOurFleetMap();
+        MapObject[][] map = App.seaBattleGame.getHuman().getOurFleetMap();
         imgSize /= 60;
         switch (imgSize) {
             case 4:
@@ -234,7 +204,7 @@ public class Tools {
     }
 
     public static void setFxY(int Y, int X, Effect fx, int imgSize) {
-        GameObject[][] map = App.seaBattleGame.getHuman().getOurFleetMap();
+        MapObject[][] map = App.seaBattleGame.getHuman().getOurFleetMap();
         imgSize /= 60;
         switch (imgSize) {
             case 4:
@@ -259,7 +229,7 @@ public class Tools {
     }
 
     public static void clearFxX(int Y, int X, int imgSize) {
-        GameObject[][] map = App.seaBattleGame.getHuman().getOurFleetMap();
+        MapObject[][] map = App.seaBattleGame.getHuman().getOurFleetMap();
         imgSize /= 60;
         switch (imgSize) {
             case 4:
@@ -284,7 +254,7 @@ public class Tools {
     }
 
     public static void clearFxY(int Y, int X, int imgSize) {
-        GameObject[][] map = App.seaBattleGame.getHuman().getOurFleetMap();
+        MapObject[][] map = App.seaBattleGame.getHuman().getOurFleetMap();
         imgSize /= 60;
         switch (imgSize) {
             case 4:
@@ -309,7 +279,7 @@ public class Tools {
     }
 
     public static boolean setShipToCellsX(Ship ship, int Y, int X) {
-        GameObject[][] map = ship.getOwner().getOurFleetMap();
+        MapObject[][] map = ship.getOwner().getOurFleetMap();
         int shipSize = ship.getShipSize();
         switch (shipSize) {
             case 4:
@@ -354,7 +324,7 @@ public class Tools {
     }
 
     public static boolean setShipToCellsY(Ship ship, int Y, int X) {
-        GameObject[][] map = ship.getOwner().getOurFleetMap();
+        MapObject[][] map = ship.getOwner().getOurFleetMap();
         int shipSize = ship.getShipSize();
         switch (shipSize) {
             case 4:

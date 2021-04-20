@@ -1,13 +1,12 @@
 package com.core.Ships;
 
-import com.core.MapObjects.GameObject;
-import com.core.Player;
-import com.core.Tools;
+import com.core.GameObjects.MapObject;
+import com.core.Players.Player;
 
 /**
  * shipSize - Количество занимаемых на поле ячеек кораблеём. 4 - Линкор, 3 - Крейсер(), 2 - Эсминец, 1 - Подлодка
  */
-public abstract class Ship extends GameObject {
+public abstract class Ship extends MapObject {
     private int shipSize;        //Количество палуб у корабля
     private Player owner;
     private int hp;

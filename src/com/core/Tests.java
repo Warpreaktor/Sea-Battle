@@ -1,8 +1,6 @@
 package com.core;
 
-import com.core.Ships.Cruiser;
-import com.core.Ships.Ship;
-import front.App;
+import com.core.Players.Player;
 
 import java.io.IOException;
 

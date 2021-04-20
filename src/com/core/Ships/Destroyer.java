@@ -1,8 +1,8 @@
 package com.core.Ships;
 
-import com.core.MapObjects.GameObject;
+import com.core.GameObjects.MapObject;
 import com.core.ImageName;
-import com.core.Player;
+import com.core.Players.Player;
 import front.App;
 import javafx.scene.layout.HBox;
 
@@ -32,7 +32,7 @@ public class Destroyer extends Ship {
 
     @Override
     public void shipOnTheSeaX(int Y, int X) {
-        GameObject[][] map = this.getOwner().getOurFleetMap();
+        MapObject[][] map = this.getOwner().getOurFleetMap();
         int i = 1;
         for (int x = X - 1; x <= X; x++) {
             map[Y][x] = decks[i];
@@ -52,7 +52,7 @@ public class Destroyer extends Ship {
 
     @Override
     public void shipOnTheSeaY(int Y, int X) {
-        GameObject[][] map = this.getOwner().getOurFleetMap();
+        MapObject[][] map = this.getOwner().getOurFleetMap();
         int i = 1;
         for (int y = Y - 1; y <= Y; y++) {
             map[y][X] = decks[i];

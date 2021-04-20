@@ -1,10 +1,10 @@
 package com.core.Ships;
 
 import com.core.ImageName;
-import com.core.MapObjects.GameObject;
+import com.core.GameObjects.MapObject;
 
 
-public class DeckOfShip extends GameObject {
+public class DeckOfShip extends MapObject {
     private boolean isDamaged = false;
     private int dekcNumber;
     private Ship shipOwner;//Ссылка на корабль, владельца этой деки.

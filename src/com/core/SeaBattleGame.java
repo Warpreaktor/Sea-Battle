@@ -1,6 +1,7 @@
 package com.core;
-import com.core.MapObjects.GameCell;
-import com.core.MapObjects.GameObject;
+import com.core.GameObjects.MapCell;
+import com.core.GameObjects.MapObject;
+import com.core.Players.Player;
 import com.core.Ships.DeckOfShip;
 import com.core.Ships.Ship;
 import front.App;
@@ -35,15 +36,15 @@ public class SeaBattleGame {
     }
 
     public SeaBattleGame() {
-        CPU.setName("Адмирал " + Tools.getRandomName());
+        CPU.setName(CPU.getRandomName());
         CPU.setCPU(true);
     }
 
     public static void createCPUBattleField(Player player) {
         for (int y = 0; y < SIZE; y++) {
             for (int x = 0; x < SIZE; x++) {
-                GameObject cell1 = new GameCell(y, x);
-                GameObject cell2 = new GameCell(y, x);
+                MapObject cell1 = new MapCell(y, x);
+                MapObject cell2 = new MapCell(y, x);
                 player.setGameCellToOurFleetMap(cell1, y, x);
                 player.setGameCellToEnemyFleetMap(cell2, y, x);
             }

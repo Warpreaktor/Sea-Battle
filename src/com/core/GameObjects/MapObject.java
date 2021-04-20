@@ -1,10 +1,10 @@
-package com.core.MapObjects;
+package com.core.GameObjects;
 
 import com.core.ImageName;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-public abstract class GameObject extends ImageView {
+public abstract class MapObject extends ImageView {
     /**
      * * shipLabel - Не смотря на то что игра имеет графический интерфейс, тем не менее бекэндная часть игры ориентируется
      *  * на эти простые символы, чтобы понимать состояние клетки: "B" = Линкор, L = Крейсер, M = Эсминец, S = Подлодкаж;

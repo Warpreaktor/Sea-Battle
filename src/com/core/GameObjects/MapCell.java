@@ -1,8 +1,8 @@
-package com.core.MapObjects;
+package com.core.GameObjects;
 
 import com.core.ImageName;
 
-public class GameCell extends GameObject {
+public class MapCell extends MapObject {
     private int coordinateX;
     private int coordinateY;
 
@@ -25,7 +25,7 @@ public class GameCell extends GameObject {
         this.coordinateY = coordinateY;
     }
 
-    public GameCell(int Y, int X){
+    public MapCell(int Y, int X){
         this.coordinateY = Y;
         this.coordinateX = X;
         this.setFitHeight(60);
@@ -33,7 +33,7 @@ public class GameCell extends GameObject {
         this.setImage(ImageName.WAVE);
     }
 
-    public class Octopus extends GameCell{
+    public class Octopus extends MapCell {
 
         public Octopus(int Y, int X) {
             super(Y, X);
