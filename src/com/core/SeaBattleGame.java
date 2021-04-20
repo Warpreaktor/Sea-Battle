@@ -54,36 +54,42 @@ public class SeaBattleGame {
         if (human.getEnemyFleetMap()[Y][X].getLabel() == '+' || human.getEnemyFleetMap()[Y][X].getLabel() == 'X'){
             return;
         }
-        shoot(Y, X);
+        shootHuman(Y, X);
             //После хода игрока ожидаем нажатие кнопки next turn игроком.
-        isVictory();
-
     }
-    public void shoot(int Y, int X) {
+    public boolean shootHuman(int Y, int X) {
         System.out.println(human.getEnemyFleetMap()[Y][X].getLabel());
-        try {
-            if (CPU.getOurFleetMap()[Y][X].getClass().getSimpleName().equals("DeckOfShip")) {
-                String enemyShipName = CPU.getOurFleetMap()[Y][X].getName();
-                DeckOfShip enemyShip = (DeckOfShip)CPU.getOurFleetMap()[Y][X];
-                if (enemyShip.getHp()>0) {
-                    App.BATTLE_FIELD_CONTROLLER.textOutput("Корабль " + enemyShipName + " поврежден!");
-                    theShipIsDamaged(enemyShip.getShipOwner(), CPU, human, Y, X);
-                }
-                if (enemyShip.getHp()<=0) {
-                    App.BATTLE_FIELD_CONTROLLER.textOutput("Корабль " + enemyShipName + " уничтожен!");
-                    theShipIsDestroyed(enemyShip.getShipOwner(), CPU, human, Y, X);
-                }
-            } else {
-                App.BATTLE_FIELD_CONTROLLER.textOutput(human.getName() + " промахнулся!");
-                if (human.getEnemyFleetMap()[Y][X].getLabel()=='X'){
+        if (human.getEnemyFleetMap()[Y][X].getLabel() == '+' || human.getEnemyFleetMap()[Y][X].getLabel() == 'X'){
+            return false;
+        }else {
+            try {
+                if (CPU.getOurFleetMap()[Y][X].getClass().getSimpleName().equals("DeckOfShip")) {
+                    String enemyShipName = CPU.getOurFleetMap()[Y][X].getName();
+                    DeckOfShip enemyShip = (DeckOfShip) CPU.getOurFleetMap()[Y][X];
+                    if (enemyShip.getHp() > 0) {
+                        App.BATTLE_FIELD_CONTROLLER.textOutput("Корабль " + enemyShipName + " поврежден!");
+                        theShipIsDamaged(enemyShip.getShipOwner(), CPU, human, Y, X);
+                    }
+                    if (enemyShip.getHp() <= 0) {
+                        App.BATTLE_FIELD_CONTROLLER.textOutput("Корабль " + enemyShipName + " уничтожен!");
+                        theShipIsDestroyed(enemyShip.getShipOwner(), CPU, human, Y, X);
+                    }
+                } else {
+                    App.BATTLE_FIELD_CONTROLLER.textOutput(human.getName() + " промахнулся!");
+                    if (human.getEnemyFleetMap()[Y][X].getLabel() == 'X') {
 
-                }else {human.getEnemyFleetMap()[Y][X].setLabel('+');}
-                missed(CPU, human, Y, X);
+                    } else {
+                        human.getEnemyFleetMap()[Y][X].setLabel('+');
+                    }
+                    missed(CPU, human, Y, X);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                System.out.println(e.getLocalizedMessage());
+                System.out.println("Некорректный ввод, попробуйте еще раз");
+                return false;
             }
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.out.println(e.getLocalizedMessage());
-            System.out.println("Некорректный ввод, попробуйте еще раз");
+            return true;
         }
     }
     public void shootCPU(){

@@ -16,6 +16,7 @@ import javafx.stage.Stage;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+
 import java.io.IOException;
 
 public class App extends Application {
@@ -67,56 +68,60 @@ public class App extends Application {
                 Tools.setDragTargetZone(gameCell);
             }
         }
-            Scene scene = new Scene(shipSettingController.getShipSetPan());
-            stage.setScene(scene);
-            stage.show();
+        Scene scene = new Scene(shipSettingController.getShipSetPan());
+        stage.setScene(scene);
+        stage.show();
     }
 
     /**
      * В это м методе отображается вся динамическая информация и вьюшки на поле.
-      */
-    public final static void brushTheBattleField(){
+     */
+    public final static void brushTheBattleField() {
         BATTLE_FIELD_CONTROLLER = new BattleFieldController();
         stage.setX(300);
-            stage.setY(0);
-            //Отрисовка поля с нашим флотом
-            VBox leftVBox = shipSettingController.getField();
-            leftVBox.setLayoutX(20);
-            leftVBox.setLayoutY(200);
-            //Отрисовка поля с вражеским полем
-            for (int y = 0; y < seaBattleGame.getSIZE(); y++) {
-                HBox rightHBox = new HBox();
-                BATTLE_FIELD_CONTROLLER.rightVBox.getChildren().add(rightHBox);
-                for (int x = 0; x < seaBattleGame.getSIZE(); x++) {
-                    GameObject gameCell = new GameCell(y, x);
-                    rightHBox.getChildren().add(gameCell);
-                    seaBattleGame.getHuman().setGameCellToEnemyFleetMap(gameCell, y, x);
-                    gameCell.setOnMouseClicked(new EventHandler<MouseEvent>() {
-                        @Override
-                        public void handle(MouseEvent mouseEvent) {
-                            if (isHumanTurn) {
+        stage.setY(0);
+        //Отрисовка поля с нашим флотом
+        VBox leftVBox = shipSettingController.getField();
+        leftVBox.setLayoutX(20);
+        leftVBox.setLayoutY(200);
+        //Отрисовка поля с вражеским полем
+        for (int y = 0; y < seaBattleGame.getSIZE(); y++) {
+            HBox rightHBox = new HBox();
+            BATTLE_FIELD_CONTROLLER.rightVBox.getChildren().add(rightHBox);
+            for (int x = 0; x < seaBattleGame.getSIZE(); x++) {
+                GameObject gameCell = new GameCell(y, x);
+                rightHBox.getChildren().add(gameCell);
+                seaBattleGame.getHuman().setGameCellToEnemyFleetMap(gameCell, y, x);
+                gameCell.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle(MouseEvent mouseEvent) {
+                        if (isHumanTurn) {
+                            if (seaBattleGame.shootHuman(gameCell.getCoordinateY(), gameCell.getCoordinateX())) {
+                                isHumanTurn = false;//ход передается компьютеру
+                                Player human = App.seaBattleGame.getHuman();
+                                human.setCountOfTurns(human.getCountOfTurns() + 1);
                                 try {
-                                    seaBattleGame.battle(gameCell.getCoordinateY(), gameCell.getCoordinateX());
+                                    seaBattleGame.isVictory();
                                 } catch (IOException e) {
                                     e.printStackTrace();
                                 }
-                                isHumanTurn = false;
-                                Player human = App.seaBattleGame.getHuman();
-                                human.setCountOfTurns(human.getCountOfTurns()+1);
+                            } else {
+                                isHumanTurn = true;//холостой выстрел ход остается у игрока
                             }
                         }
-                    });
-                }
+                    }
+                });
             }
-            seaBattleGame.octopusAtack(seaBattleGame.getHuman(), seaBattleGame.getOctopus());
-            seaBattleGame.octopusAtack(seaBattleGame.getCPU(), seaBattleGame.getOctopus());
-            BATTLE_FIELD_CONTROLLER.selfShipsNum.setText("Наши корабли - " + App.seaBattleGame.getHuman().getNumberOfShip());
-            BATTLE_FIELD_CONTROLLER.enemyShipsNum.setText("Корабли противника - " + App.seaBattleGame.getCPU().getNumberOfShip());
-            BATTLE_FIELD_CONTROLLER.anchorPane.getChildren().add(leftVBox);
-            Scene scene = new Scene(BATTLE_FIELD_CONTROLLER.anchorPane);
-            stage.setScene(scene);
-            stage.show();
         }
+        seaBattleGame.octopusAtack(seaBattleGame.getHuman(), seaBattleGame.getOctopus());
+        seaBattleGame.octopusAtack(seaBattleGame.getCPU(), seaBattleGame.getOctopus());
+        BATTLE_FIELD_CONTROLLER.selfShipsNum.setText("Наши корабли - " + App.seaBattleGame.getHuman().getNumberOfShip());
+        BATTLE_FIELD_CONTROLLER.enemyShipsNum.setText("Корабли противника - " + App.seaBattleGame.getCPU().getNumberOfShip());
+        BATTLE_FIELD_CONTROLLER.anchorPane.getChildren().add(leftVBox);
+        Scene scene = new Scene(BATTLE_FIELD_CONTROLLER.anchorPane);
+        stage.setScene(scene);
+        stage.show();
+    }
 
     public final void brushTheVictroryScreen() throws IOException {
         VictoryScreenController victoryScreenController = new VictoryScreenController();
@@ -135,7 +140,7 @@ public class App extends Application {
         }
     }
 
-    public static void brushTheErrorMessage(String message){
+    public static void brushTheErrorMessage(String message) {
         Stage stage = new Stage();
         TextArea error = new TextArea();
         error.setText(message);
@@ -154,7 +159,7 @@ public class App extends Application {
         stage.show();
     }
 
-    public static void brushTheVictoryMessage(String message){
+    public static void brushTheVictoryMessage(String message) {
         Stage stage = new Stage();
         TextArea error = new TextArea();
         error.setText(message);
