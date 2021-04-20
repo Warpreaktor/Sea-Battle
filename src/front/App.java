@@ -96,7 +96,7 @@ public class App extends Application {
                     @Override
                     public void handle(MouseEvent mouseEvent) {
                         if (isHumanTurn) {
-                            if (SEA_BATTLE_GAME.shootHuman(gameCell.getCoordinateY(), gameCell.getCoordinateX())) {
+                            if (SEA_BATTLE_GAME.getHuman().shoot(gameCell.getCoordinateY(), gameCell.getCoordinateX())) {
                                 isHumanTurn = false;//ход передается компьютеру
                                 Player human = App.SEA_BATTLE_GAME.getHuman();
                                 human.setCountOfTurns(human.getCountOfTurns() + 1);

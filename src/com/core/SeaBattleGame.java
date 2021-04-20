@@ -16,7 +16,7 @@ public class SeaBattleGame {
     private static int totalShips = 0;
     private final Player human = new Human();
     private final Player CPU = new CPU(Difficult.EASY);
-    private int krakenChance = 90; //Количество нападений спрута на корабли перед началом боя.
+    private int krakenChance = 60; //Количество нападений спрута на корабли перед началом боя.
 
     public int getKrakenChance() {
         return krakenChance;
@@ -53,76 +53,8 @@ public class SeaBattleGame {
         }
     }
 
-//    public void battle(int Y, int X) throws IOException {
-//        if (human.getEnemyFleetMap()[Y][X].getLabel() == '+' || human.getEnemyFleetMap()[Y][X].getLabel() == 'X'){
-//            return;
-//        }
-//        shootHuman(Y, X);
-//            //После хода игрока ожидаем нажатие кнопки next turn игроком.
-//    }
-    public boolean shootHuman(int Y, int X) {
-        if (human.getEnemyFleetMap()[Y][X].getLabel() == '+' || human.getEnemyFleetMap()[Y][X].getLabel() == 'X'){
-            return false;
-        }else {
-            try {
-                if (CPU.getOurFleetMap()[Y][X].getClass().getSimpleName().equals("DeckOfShip")) {
-                    String enemyShipName = CPU.getOurFleetMap()[Y][X].getName();
-                    DeckOfShip enemyShip = (DeckOfShip) CPU.getOurFleetMap()[Y][X];
-                    if (enemyShip.getHp() > 0) {
-                        App.BATTLE_FIELD_CONTROLLER.textOutput("Корабль " + enemyShipName + " поврежден!");
-                        theShipIsDamaged(enemyShip.getShipOwner(), CPU, human, Y, X);
-                    }
-                    if (enemyShip.getHp() <= 0) {
-                        App.BATTLE_FIELD_CONTROLLER.textOutput("Корабль " + enemyShipName + " уничтожен!");
-                        theShipIsDestroyed(enemyShip.getShipOwner(), CPU, human);
-                    }
-                } else {
-                    App.BATTLE_FIELD_CONTROLLER.textOutput(human.getName() + " промахнулся!");
-                    if (human.getEnemyFleetMap()[Y][X].getLabel() == 'X') {
 
-                    } else {
-                        human.getEnemyFleetMap()[Y][X].setLabel('+');
-                    }
-                    missed(CPU, human, Y, X);
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-                System.out.println(e.getLocalizedMessage());
-                System.out.println("Некорректный ввод, попробуйте еще раз");
-                return false;
-            }
-            return true;
-        }
-    }
-    public void shootCPU(){
-        int Y = Tools.getRandomCoordinate();
-        int X = Tools.getRandomCoordinate();
-        if (CPU.getEnemyFleetMap()[Y][X].getLabel() == '+' || CPU.getEnemyFleetMap()[Y][X].getLabel()=='X'){
-            shootCPU();
-            return;
-        }
-        if (human.getOurFleetMap()[Y][X].getClass().getSimpleName().equals("DeckOfShip")) {
-            String enemyShipName = human.getOurFleetMap()[Y][X].getName();
-            DeckOfShip enemyShip = (DeckOfShip) human.getOurFleetMap()[Y][X];
-            if (enemyShip.getHp()>0) {
-                App.BATTLE_FIELD_CONTROLLER.textOutput("Корабль " + enemyShipName + " поврежден!");  //Выводим на экран сообщение
-                theShipIsDamaged(enemyShip.getShipOwner(), human, CPU, Y, X);
-            }
-            if (enemyShip.getHp()<=0) {
-                App.BATTLE_FIELD_CONTROLLER.textOutput("Корабль " + enemyShipName + " уничтожен!");
-                theShipIsDestroyed(enemyShip.getShipOwner(), human, CPU);
-            }
-            CPU.setCountOfTurns(CPU.getCountOfTurns()+1);;
-        } else {
-            App.BATTLE_FIELD_CONTROLLER.textOutput(CPU.getName() + " стреляет и промахивается.");
-            if (CPU.getEnemyFleetMap()[Y][X].getLabel()=='X'){
 
-            }else {
-                missed(human, CPU, Y, X);
-            }
-            CPU.setCountOfTurns(CPU.getCountOfTurns()+1);
-        }
-    }
     public static void setGreenDotsAround(MapObject[][] map, Ship ship) {
         for (int i = 0; i < ship.getDecks().length; i++) {
             int Y = ship.getDecks()[i].getCoordinateY();
@@ -158,6 +90,7 @@ public class SeaBattleGame {
         playerShipDecrement(enemy);
         setGreenDotsAround(self.getEnemyFleetMap(), ship);
         setGreenDotsAround(enemy.getOurFleetMap(), ship);
+        App.BATTLE_FIELD_CONTROLLER.stateUpdate();
     }
     public void missed(Player enemy, Player self, int Y, int X){
         enemy.getOurFleetMap()[Y][X].setImage(ImageName.DOT);
@@ -182,7 +115,6 @@ public class SeaBattleGame {
             int Y = Tools.getRandomCoordinate();
             int X = Tools.getRandomCoordinate();
             if(player.getOurFleetMap()[Y][X].spruting()){
-                //playerShipDecrement(player);
                 player.getEnemyFleetMap()[Y][X].setLabel('X');
                 System.out.println("корабль " + player.getOurFleetMap()[Y][X].getName() + " был атакован " +
                         "гигантским спрутом и уничтожен");

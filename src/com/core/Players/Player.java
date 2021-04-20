@@ -55,52 +55,42 @@ public abstract class Player {
         shipyard.add(new Submarine(this));
         shipyard.add(new Submarine(this));
     }
-
-    public abstract boolean isCPU();
-
     public String getName() {
         return name;
     }
-
     public void setName(String name) {
         this.name = name;
     }
-
     public MapObject[][] getEnemyFleetMap() {
         return enemyFleetMap;
     }
-
     public MapObject[][] getOurFleetMap() {
         return ourFleetMap;
     }
-
     public void setGameCellToEnemyFleetMap(MapObject gameCell, int y, int x) {
         this.enemyFleetMap[y][x] = gameCell;
     }
-
     public void setGameCellToOurFleetMap(MapObject gameCell, int y, int x) {
         this.ourFleetMap[y][x] = gameCell;
     }
-
     public void setNumberOfShip(int numberOfShip) {
         this.numberOfShip = numberOfShip;
     }
-
     public int getNumberOfShip() {
         return numberOfShip;
     }
-
     public ArrayList<Ship> getShipyard() {
         return shipyard;
     }
-
     public void setCountOfTurns(int countOfTurns) {
         this.countOfTurns = countOfTurns;
     }
-
     public int getCountOfTurns() {
         return countOfTurns;
     }
+
+    public abstract boolean isCPU();
+    public abstract boolean shoot(int Y, int X);
 
     /**
      * Метод вызывается у конкретного игрока и проходит по всей его верфи.

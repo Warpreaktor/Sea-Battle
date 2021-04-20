@@ -1,5 +1,6 @@
 package front;
 
+import com.core.Tools;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -16,10 +17,10 @@ import javafx.scene.text.TextAlignment;
 import javafx.scene.text.TextFlow;
 
 public class BattleFieldController {
-    public String[] battleHistory = {"",""};
+    public String[] battleHistory = {"",""};    //updateble
     public static Button nextTurn = new Button("Next turn \n  [SPACE]");
-    public Label enemyShipsNum = new Label();
-    public Label selfShipsNum = new Label();
+    public Label enemyShipsNum = new Label();   //updateble
+    public Label selfShipsNum = new Label();    //updateble
     public TextFlow textFlow = new TextFlow();
     public VBox infoBox = new VBox(enemyShipsNum, selfShipsNum);
     public VBox rightVBox = new VBox(1);
@@ -63,8 +64,9 @@ public class BattleFieldController {
     public final void nextTurn(){
         if (App.isHumanTurn == false) {
             App.SEA_BATTLE_GAME.event();
-            App.SEA_BATTLE_GAME.shootCPU();
+            App.SEA_BATTLE_GAME.getCPU().shoot(Tools.getRandomCoordinate(), Tools.getRandomCoordinate());
             App.isHumanTurn = true;
+            stateUpdate();
         }else {
             //Сообщение пользователю о том, что его ход еще не завершен
         }
@@ -126,5 +128,9 @@ public class BattleFieldController {
         text2.setFill(Color.RED);
         battleHistory[0] = text2.getText();
         textFlow.getChildren().addAll(text1, text2);
+    }
+    public void stateUpdate(){
+        enemyShipsNum.setText("Корабли противника - " + App.SEA_BATTLE_GAME.getCPU().getNumberOfShip());
+        selfShipsNum.setText("Наши корабли - " + App.SEA_BATTLE_GAME.getHuman().getNumberOfShip());
     }
 }

@@ -22,11 +22,11 @@ public class VictoryScreenController {
     @FXML
     public final void chestOpened(){
         chestLeft = new Chest();
-        label.setText(chestLeft.getItems().get(0) + "\n"); //+
-//                    chestLeft.getItems().get(1) + "\n" +
-//                    chestLeft.getItems().get(2) + "\n" +
-//                    chestLeft.getItems().get(3) + "\n" +
-//                    chestLeft.getItems().get(4) + "\n");
+        label.setText(chestLeft.getItems().get(0) + "\n" +
+                    chestLeft.getItems().get(1) + "\n" +
+                    chestLeft.getItems().get(2) + "\n" +
+                    chestLeft.getItems().get(3) + "\n" +
+                    chestLeft.getItems().get(4) + "\n");
     }
 
 }
