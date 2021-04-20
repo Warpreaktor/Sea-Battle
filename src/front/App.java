@@ -113,8 +113,6 @@ public class App extends Application {
                 });
             }
         }
-        SEA_BATTLE_GAME.krakenAtack(SEA_BATTLE_GAME.getHuman(), SEA_BATTLE_GAME.getOctopus());
-        SEA_BATTLE_GAME.krakenAtack(SEA_BATTLE_GAME.getCPU(), SEA_BATTLE_GAME.getOctopus());
         BATTLE_FIELD_CONTROLLER.selfShipsNum.setText("Наши корабли - " + App.SEA_BATTLE_GAME.getHuman().getNumberOfShip());
         BATTLE_FIELD_CONTROLLER.enemyShipsNum.setText("Корабли противника - " + App.SEA_BATTLE_GAME.getCPU().getNumberOfShip());
         BATTLE_FIELD_CONTROLLER.anchorPane.getChildren().add(leftVBox);

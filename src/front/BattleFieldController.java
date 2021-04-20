@@ -62,6 +62,7 @@ public class BattleFieldController {
 
     public final void nextTurn(){
         if (App.isHumanTurn == false) {
+            App.SEA_BATTLE_GAME.event();
             App.SEA_BATTLE_GAME.shootCPU();
             App.isHumanTurn = true;
         }else {

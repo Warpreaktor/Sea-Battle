@@ -67,7 +67,7 @@ public abstract class MapObject extends ImageView {
                 this.setFitHeight(60);
                 this.setFitWidth(60);
                 super.setImage( new Image("/resources/octopus60x60.png"));
-                setLabel('~');
+                setLabel('+');
                 setName("Кракен");
                 break;
             case LINKOR:

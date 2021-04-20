@@ -64,6 +64,11 @@ public class Tools {
         return true;
     }
 
+    public static int getRandomNumber(int from, int to){
+        int num = from + (int) (Math.random() * to);
+        return num;
+    }
+
     //Получаем рандомную координату в пропорциях установленного поля
     public static int getRandomCoordinate() {
         return (int) (Math.random() * SeaBattleGame.getSIZE());

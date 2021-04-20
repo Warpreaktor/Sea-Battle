@@ -16,10 +16,10 @@ public class SeaBattleGame {
     private static int totalShips = 0;
     private final Player human = new Human();
     private final Player CPU = new CPU(Difficult.EASY);
-    private int octopus = 3; //Количество нападений спрута на корабли перед началом боя.
+    private int krakenChance = 3; //Количество нападений спрута на корабли перед началом боя.
 
-    public int getOctopus() {
-        return octopus;
+    public int getKrakenChance() {
+        return krakenChance;
     }
 
     public Player getHuman() {
@@ -53,13 +53,13 @@ public class SeaBattleGame {
         }
     }
 
-    public void battle(int Y, int X) throws IOException {
-        if (human.getEnemyFleetMap()[Y][X].getLabel() == '+' || human.getEnemyFleetMap()[Y][X].getLabel() == 'X'){
-            return;
-        }
-        shootHuman(Y, X);
-            //После хода игрока ожидаем нажатие кнопки next turn игроком.
-    }
+//    public void battle(int Y, int X) throws IOException {
+//        if (human.getEnemyFleetMap()[Y][X].getLabel() == '+' || human.getEnemyFleetMap()[Y][X].getLabel() == 'X'){
+//            return;
+//        }
+//        shootHuman(Y, X);
+//            //После хода игрока ожидаем нажатие кнопки next turn игроком.
+//    }
     public boolean shootHuman(int Y, int X) {
         if (human.getEnemyFleetMap()[Y][X].getLabel() == '+' || human.getEnemyFleetMap()[Y][X].getLabel() == 'X'){
             return false;
@@ -198,6 +198,11 @@ public class SeaBattleGame {
                 }
             }
         }
-
+    }
+    public void event(){
+        if(Tools.getRandomNumber(1, 100) <= App.SEA_BATTLE_GAME.getKrakenChance()){
+            App.SEA_BATTLE_GAME.krakenAtack(App.SEA_BATTLE_GAME.getHuman(), App.SEA_BATTLE_GAME.getKrakenChance());
+            System.out.println("Вас атаковал КРАКЕН!");
+        }
     }
 }
