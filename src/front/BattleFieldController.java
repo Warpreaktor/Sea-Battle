@@ -21,8 +21,10 @@ public class BattleFieldController {
     public static Button nextTurn = new Button("Next turn \n  [SPACE]");
     public Label enemyShipsNum = new Label();   //updateble
     public Label selfShipsNum = new Label();    //updateble
+    public Label ourFleetMapName = new Label("Наш флот");
+    public Label enemyFleetMapName = new Label("Вражеский флот");
     public TextFlow textFlow = new TextFlow();
-    public VBox infoBox = new VBox(enemyShipsNum, selfShipsNum);
+    public VBox infoBox = new VBox(enemyShipsNum, selfShipsNum, ourFleetMapName, enemyFleetMapName);
     public VBox rightVBox = new VBox(1);
     AnchorPane anchorPane;
 
@@ -31,8 +33,8 @@ public class BattleFieldController {
         infoBoxInit();
         nextTurnInit();
         textFlowInit();
+        mapNameInit();
         anchorPaneInit();
-
     }
 
     /**
@@ -64,9 +66,8 @@ public class BattleFieldController {
     public final void nextTurn(){
         if (App.isHumanTurn == false) {
             App.SEA_BATTLE_GAME.event();
-            App.SEA_BATTLE_GAME.getCPU().shoot(Tools.getRandomCoordinate(), Tools.getRandomCoordinate());
+            App.SEA_BATTLE_GAME.shootCPU();
             App.isHumanTurn = true;
-            stateUpdate();
         }else {
             //Сообщение пользователю о том, что его ход еще не завершен
         }
@@ -128,6 +129,12 @@ public class BattleFieldController {
         text2.setFill(Color.RED);
         battleHistory[0] = text2.getText();
         textFlow.getChildren().addAll(text1, text2);
+    }
+    public void mapNameInit(){
+        ourFleetMapName.setLayoutY(600);
+        ourFleetMapName.setLayoutX(100);
+        enemyFleetMapName.setLayoutY(1000);
+        enemyFleetMapName.setLayoutX(100);
     }
     public void stateUpdate(){
         enemyShipsNum.setText("Корабли противника - " + App.SEA_BATTLE_GAME.getCPU().getNumberOfShip());

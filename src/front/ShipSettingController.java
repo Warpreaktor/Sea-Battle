@@ -18,7 +18,7 @@ public class ShipSettingController {
     private boolean isVertical = false;
     private HBox[] hBoxes = new HBox[10];
     private VBox field = new VBox(1);
-    private Button startButton = new Button("Start  \n[SPACE]");
+    private Button startButton = new Button("Start \n[SPACE]");
     private Button randomButton = new Button("Random");
     private VBox shipBox = new VBox(5);
     private AnchorPane shipSetPan = new AnchorPane(field, shipBox, startButton, randomButton);
