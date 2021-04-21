@@ -63,8 +63,7 @@ public class App extends Application {
                 MapObject gameCell = new MapCell(y, x);
                 SHIP_SETTING_CONTROLLER.getFieldRows()[y].getChildren().add(gameCell);
                 SEA_BATTLE_GAME.getHuman().setGameCellToOurFleetMap(gameCell, y, x);
-//                gameCell.setCoordinateY(y);
-//                gameCell.setCoordinateX(x);
+                
                 Tools.setDragTargetZone(gameCell);
             }
         }

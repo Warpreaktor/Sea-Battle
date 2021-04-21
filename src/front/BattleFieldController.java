@@ -137,6 +137,7 @@ public class BattleFieldController {
         textFlow.setPrefHeight(130);
         textFlow.setTextAlignment(TextAlignment.CENTER);
         textFlow.setLineSpacing(2);
+        //textFlow.setBackground(); зафигачить сюда крутую рамку для текста
         Text text1 = new Text("Шторм и гром! \n");
         text1.setFont(new Font(20));
         text1.setFill(Color.RED);
@@ -170,34 +171,33 @@ public class BattleFieldController {
         leftStateFrame = new ImageView(new Image("/resources/stateFrame.jpg"));
         leftStateFrame.setFitHeight(70);
         leftStateFrame.setFitWidth(160);
-        leftStateFrame.setLayoutY(210);
+        leftStateFrame.setLayoutY(220);
         leftStateFrame.setLayoutX(20);
 
         selfShipsNum = new Text("Наш флот \n" + App.SEA_BATTLE_GAME.getHuman().getNumberOfShip());
         selfShipsNum.setTextAlignment(TextAlignment.CENTER);
         selfShipsNum.setFont(new Font(16));
         selfShipsNum.setFill(Color.BROWN);
-        selfShipsNum.setLayoutY(220);
+        selfShipsNum.setLayoutY(240);
         selfShipsNum.setLayoutX(60);
 
         rightStateFrame = new ImageView(new Image("/resources/stateFrame.jpg"));
         rightStateFrame.setFitHeight(70);
         rightStateFrame.setFitWidth(160);
-        rightStateFrame.setLayoutY(210);
+        rightStateFrame.setLayoutY(220);
         rightStateFrame.setLayoutX(1110);
 
         enemyShipsNum = new Text("Флот врага \n" + App.SEA_BATTLE_GAME.getCPU().getNumberOfShip());
         enemyShipsNum.setTextAlignment(TextAlignment.CENTER);
         enemyShipsNum.setFont(new Font(16));
         enemyShipsNum.setFill(Color.BROWN);
-        enemyShipsNum.setLayoutY(220);
+        enemyShipsNum.setLayoutY(240);
         enemyShipsNum.setLayoutX(1150);
-
 
     }
 
     public void stateUpdate(){
-        enemyShipsNum.setText("Корабли противника - " + App.SEA_BATTLE_GAME.getCPU().getNumberOfShip());
-        selfShipsNum.setText("Наши корабли - " + App.SEA_BATTLE_GAME.getHuman().getNumberOfShip());
+        selfShipsNum.setText("Наш флот \n" + App.SEA_BATTLE_GAME.getHuman().getNumberOfShip());
+        enemyShipsNum.setText("Флот врага \n" + App.SEA_BATTLE_GAME.getCPU().getNumberOfShip());
     }
 }

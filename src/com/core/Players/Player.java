@@ -95,9 +95,9 @@ public abstract class Player {
         this.enemyFleetMap[Y][X] = gameCell;
     }
     public void setGameCellToOurFleetMap(MapObject gameCell, int Y, int X) {
-        ourFleetMap[Y][X] = gameCell;
         gameCell.setCoordinateY(Y);
-        gameCell.setCoordinateY(X);
+        gameCell.setCoordinateX(X);
+        ourFleetMap[Y][X] = gameCell;
     }
     public void setNumberOfShip(int numberOfShip) {
         this.numberOfShip = numberOfShip;

@@ -2,7 +2,6 @@ package front;
 
 import com.core.GameObjects.MapCell;
 import com.core.GameObjects.MapObject;
-import com.core.ImageName;
 import com.core.Ships.Ship;
 import com.core.Tools;
 import javafx.event.ActionEvent;
@@ -16,7 +15,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
-import javax.swing.*;
 import java.util.ArrayList;
 
 public class ShipSettingController {
@@ -34,15 +32,21 @@ public class ShipSettingController {
             isVertical = false;
         } else isVertical = true;
     }
-    public HBox[] getFieldRows() {
-        return fieldRows;
-    }
-    public AnchorPane getMainPanel() {
-        return mainPanel;
-    }
     public VBox getField() {
         return field;
     }
+    public HBox[] getFieldRows() {
+        return fieldRows;
+    }
+
+    public VBox getShipYard() {
+        return shipYard;
+    }
+
+    public AnchorPane getMainPanel() {
+        return mainPanel;
+    }
+
     public void hBoxesInit(){
         fieldRows = new HBox[10];
     }
@@ -146,7 +150,6 @@ public class ShipSettingController {
         startButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                System.out.println(App.SEA_BATTLE_GAME.getHuman().getShipyard().size());
                 if (App.SEA_BATTLE_GAME.getHuman().getShipyard().size() > 0) {
                     System.out.println("Не все корабли спущены на воду");
                 }else{
@@ -159,6 +162,7 @@ public class ShipSettingController {
     }
     public void randomButtonInit(){
         randomButton = new Button("Random");
+        randomButton.setAlignment(Pos.CENTER);
         randomButton.setLayoutY(900);
         randomButton.setLayoutX(780);
         randomButton.setPrefWidth(120);
@@ -166,12 +170,14 @@ public class ShipSettingController {
         randomButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
+                randomButton.setAlignment(Pos.CENTER);
                 App.SEA_BATTLE_GAME.getHuman().shipsOnGame();
             }
         });
     }
     public void resetButtonInit(){
         resetButton = new Button("Reset");
+        resetButton.setAlignment(Pos.CENTER);
         resetButton.setLayoutY(900);
         resetButton.setLayoutX(380);
         resetButton.setPrefWidth(120);
@@ -179,8 +185,9 @@ public class ShipSettingController {
         resetButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                for (int y = 0; y < App.SEA_BATTLE_GAME.getSIZE(); y++) {
-                    for (int x = 0; x < App.SEA_BATTLE_GAME.getSIZE(); x++) {
+                resetButton.setAlignment(Pos.CENTER);
+                for (int y = fieldRows.length-1; y >= 0; y--) {
+                    for (int x = fieldRows[y].getChildren().size() - 1; x >= 0; x--) {
                         fieldRows[y].getChildren().remove(x);
                         MapObject gameCell = new MapCell(y, x);
                         fieldRows[y].getChildren().add(x, gameCell);
@@ -189,6 +196,9 @@ public class ShipSettingController {
                     }
                 }
                 App.SEA_BATTLE_GAME.getHuman().shipYardInit();
+                for(int i = shipYard.getChildren().size() - 1; i >= 0; i--){
+                    shipYard.getChildren().remove(i);
+                }
                 App.SHIP_SETTING_CONTROLLER.shipYardInit();
                 mainPanel.getChildren().add(shipYard);
                 App.SEA_BATTLE_GAME.getHuman().setNumberOfShip(0);
