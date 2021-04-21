@@ -18,17 +18,17 @@ public class ShipSettingController {
     private boolean isVertical = false;
     private HBox[] hBoxes = new HBox[10];
     private VBox field = new VBox(1);
-    private Button startButton = new Button("Start \n[SPACE]");
+    private Button startButton;
     private Button randomButton = new Button("Random");
     private VBox shipBox = new VBox(1);
-    private AnchorPane shipSetPan = new AnchorPane(field, shipBox, startButton, randomButton);
+    private AnchorPane mainPanel;
 
 
     public HBox[] gethBoxes() {
         return hBoxes;
     }
-    public AnchorPane getShipSetPan() {
-        return shipSetPan;
+    public AnchorPane getMainPanel() {
+        return mainPanel;
     }
     public VBox getField() {
         return field;
@@ -51,7 +51,6 @@ public class ShipSettingController {
             hBoxes[i] = new HBox();
             field.getChildren().add(hBoxes[i]);
         }
-        shipSetPanInit();
         vBoxInit();
         startButtonInit();
         randomButtonInit();
@@ -92,7 +91,7 @@ public class ShipSettingController {
                     break;
             }
         }
-
+        mainPanelInit();
     }
 
     public void shipBoxInit() {
@@ -100,10 +99,20 @@ public class ShipSettingController {
         shipBox.setLayoutX(50);
     }
 
-    public void shipSetPanInit() {
-        this.shipSetPan.setPrefHeight(1024);
-        this.shipSetPan.setPrefWidth(1280);
-        this.shipSetPan.setLayoutY(0);
+    public void mainPanelInit() {
+        mainPanel = new AnchorPane(field, shipBox, startButton, randomButton);
+        mainPanel.setPrefHeight(1024);
+        mainPanel.setPrefWidth(1280);
+        mainPanel.setLayoutY(0);
+        mainPanel.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent keyEvent) {
+                if (keyEvent.getCode().equals(KeyCode.R)) {
+                    changeRotation();
+                    System.out.println("Rotation changed");
+                }
+            }
+        });
     }
 
     public void vBoxInit() {
@@ -113,6 +122,7 @@ public class ShipSettingController {
         this.field.setPrefWidth(600);
     }
     public void startButtonInit(){
+        startButton  = new Button(" Start\n[SPACE]");
         startButton.setLayoutY(900);
         startButton.setLayoutX(580);
         startButton.setPrefWidth(120);
@@ -120,18 +130,14 @@ public class ShipSettingController {
         startButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                App.brushTheBattleField();
-            }
-        });
-        shipSetPan.setOnKeyPressed(new EventHandler<KeyEvent>() {
-            @Override
-            public void handle(KeyEvent keyEvent) {
-                if (keyEvent.getCode().equals(KeyCode.Z)) {
-                    changeRotation();
-                    System.out.println("Rotation changed");
+                if (App.SEA_BATTLE_GAME.getHuman().getNumberOfShip() == 10) {
+                    App.brushTheBattleField();
+                }else{
+                    System.out.println("Не все корабли спущены на воду");
                 }
             }
         });
+
 
     }
     public void randomButtonInit(){

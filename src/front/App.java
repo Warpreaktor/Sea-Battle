@@ -68,7 +68,7 @@ public class App extends Application {
                 Tools.setDragTargetZone(gameCell);
             }
         }
-        Scene scene = new Scene(SHIP_SETTING_CONTROLLER.getShipSetPan());
+        Scene scene = new Scene(SHIP_SETTING_CONTROLLER.getMainPanel());
         STAGE.setScene(scene);
         STAGE.show();
     }
