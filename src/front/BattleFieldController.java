@@ -7,6 +7,7 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.*;
@@ -16,13 +17,18 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.scene.text.TextFlow;
 
+/**
+ * Width - Ширина
+ * Height - Высота
+ */
 public class BattleFieldController {
     public String[] battleHistory = {"",""};    //updateble
-    public static Button nextTurn = new Button("Next turn \n  [SPACE]");
+    public static Button nextTurnButton;
+    public ImageView stateFrame;
     public Label enemyShipsNum = new Label();   //updateble
     public Label selfShipsNum = new Label();    //updateble
-    public Label ourFleetMapName = new Label("Наш флот");
-    public Label enemyFleetMapName = new Label("Вражеский флот");
+    public Label ourFleetMapName = new Label();
+    public Label enemyFleetMapName = new Label();
     public TextFlow textFlow = new TextFlow();
     public VBox infoBox = new VBox(enemyShipsNum, selfShipsNum);
     public VBox leftField;
@@ -33,9 +39,10 @@ public class BattleFieldController {
         rightFieldInit();
         leftFieldInit();
         infoBoxInit();
-        nextTurnInit();
+        nextTurnButtonInit();
         textFlowInit();
-        mapNameInit();
+        mapLabelsInit();
+        stateFrameInit();
         anchorPaneInit();
     }
 
@@ -75,18 +82,19 @@ public class BattleFieldController {
         }
     }
 
-    public void nextTurnInit(){
-        nextTurn.setPrefHeight(60);
-        nextTurn.setPrefWidth(120);
-        nextTurn.setLayoutX(580);
-        nextTurn.setLayoutY(866);
-        nextTurn.setOnAction(new EventHandler<ActionEvent>() {
+    public void nextTurnButtonInit(){
+        nextTurnButton = new Button("Next turn \n  [SPACE]");
+        nextTurnButton.setPrefHeight(60);
+        nextTurnButton.setPrefWidth(120);
+        nextTurnButton.setLayoutX(580);
+        nextTurnButton.setLayoutY(940);
+        nextTurnButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 nextTurn();
             }
         });
-        nextTurn.setOnKeyPressed(new EventHandler<KeyEvent>() {
+        nextTurnButton.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent keyEvent) {
                 KeyCode keyCode = keyEvent.getCode();
@@ -101,21 +109,23 @@ public class BattleFieldController {
         infoBox.setLayoutY(100);
         infoBox.setLayoutX(50);
     }
-    public void rightFieldInit(){
-        rightField.setLayoutX(670);
-        rightField.setLayoutY(200);
-        rightField.setAlignment(Pos.TOP_CENTER);
-        rightField.getChildren().add(0, enemyFleetMapName);
-    }
     public void leftFieldInit(){
         leftField = App.SHIP_SETTING_CONTROLLER.getField();
         leftField.setLayoutX(20);
-        leftField.setLayoutY(200);
+        leftField.setLayoutY(280);
         leftField.setAlignment(Pos.TOP_CENTER);
         leftField.getChildren().add(0, ourFleetMapName);
     }
+
+    public void rightFieldInit(){
+        rightField.setLayoutX(670);
+        rightField.setLayoutY(280);
+        rightField.setAlignment(Pos.TOP_CENTER);
+        rightField.getChildren().add(0, enemyFleetMapName);
+    }
+
     public void anchorPaneInit(){
-        anchorPane = new AnchorPane(rightField, leftField, nextTurn, infoBox, textFlow);
+        anchorPane = new AnchorPane(rightField, leftField, nextTurnButton, infoBox, textFlow, stateFrame);
         BackgroundImage backgroundImage = new BackgroundImage(new Image("/resources/sea.jpg"),
                 BackgroundRepeat.SPACE, BackgroundRepeat.SPACE,
                 BackgroundPosition.CENTER, BackgroundSize.DEFAULT);
@@ -141,12 +151,33 @@ public class BattleFieldController {
         battleHistory[0] = text2.getText();
         textFlow.getChildren().addAll(text1, text2);
     }
-    public void mapNameInit(){
+    public void mapLabelsInit(){
         ourFleetMapName.setLayoutY(600);
         ourFleetMapName.setLayoutX(100);
+        //Text text1 = new Text("Наш флот");
+        //ourFleetMapName.setFont(new Font(16));
+        //text1.setFill(Color.BROWN);
+        ourFleetMapName.setFont(new Font(16));
+        ourFleetMapName.setText("Наш флот");
+        ourFleetMapName.setLabelFor(leftField);
+
         enemyFleetMapName.setLayoutY(1000);
         enemyFleetMapName.setLayoutX(100);
+//        Text text2 = new Text("Вражеский флот");
+//        text2.setFill(Color.BROWN);
+        enemyFleetMapName.setFont(new Font(16));
+        enemyFleetMapName.setText("Вражеский флот");
+        ourFleetMapName.setLabelFor(rightField);
     }
+
+    public void stateFrameInit(){
+        stateFrame = new ImageView(new Image("/resources/stateFrame.jpg"));
+        stateFrame.setFitHeight(80);
+        stateFrame.setFitWidth(160);
+        stateFrame.setLayoutX(20);
+        stateFrame.setLayoutY(190);
+    }
+
     public void stateUpdate(){
         enemyShipsNum.setText("Корабли противника - " + App.SEA_BATTLE_GAME.getCPU().getNumberOfShip());
         selfShipsNum.setText("Наши корабли - " + App.SEA_BATTLE_GAME.getHuman().getNumberOfShip());
