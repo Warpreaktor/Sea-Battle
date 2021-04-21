@@ -1,9 +1,13 @@
 package front;
 
+import com.core.GameObjects.MapCell;
+import com.core.GameObjects.MapObject;
+import com.core.ImageName;
 import com.core.Ships.Ship;
 import com.core.Tools;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
@@ -12,26 +16,35 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
+import javax.swing.*;
 import java.util.ArrayList;
 
 public class ShipSettingController {
     private boolean isVertical = false;
-    private HBox[] hBoxes = new HBox[10];
-    private VBox field = new VBox(1);
+    private HBox[] fieldRows;
+    private VBox field;
     private Button startButton;
-    private Button randomButton = new Button("Random");
-    private VBox shipBox = new VBox(1);
+    private Button resetButton;
+    private Button randomButton;
+    private VBox shipYard;
     private AnchorPane mainPanel;
 
-
-    public HBox[] gethBoxes() {
-        return hBoxes;
+    public void changeRotation() {
+        if (isVertical == true) {
+            isVertical = false;
+        } else isVertical = true;
+    }
+    public HBox[] getFieldRows() {
+        return fieldRows;
     }
     public AnchorPane getMainPanel() {
         return mainPanel;
     }
     public VBox getField() {
         return field;
+    }
+    public void hBoxesInit(){
+        fieldRows = new HBox[10];
     }
     public boolean isVertical() {
         return isVertical;
@@ -40,21 +53,21 @@ public class ShipSettingController {
         isVertical = vertical;
     }
 
-    public void changeRotation() {
-        if (isVertical == true) {
-            isVertical = false;
-        } else isVertical = true;
+    public ShipSettingController() {
+        hBoxesInit();
+        fieldInit();
+        shipYardInit();
+        startButtonInit();
+        resetButtonInit();
+        randomButtonInit();
+        mainPanelInit();
     }
 
-    public ShipSettingController() {
-        for (int i = 0; i < 10; i++) {
-            hBoxes[i] = new HBox();
-            field.getChildren().add(hBoxes[i]);
-        }
-        vBoxInit();
-        startButtonInit();
-        randomButtonInit();
-        shipBoxInit();
+    private void shipYardInit(){
+        shipYard = new VBox(1);
+        shipYard.setLayoutY(251);
+        shipYard.setLayoutX(50);
+
         ArrayList<Ship> shipyard = App.SEA_BATTLE_GAME.getHuman().getShipyard();
 
         for (int i = 0; i < shipyard.size(); i++) {
@@ -65,42 +78,49 @@ public class ShipSettingController {
                     ship.setFitWidth(240);
                     ship.setFitHeight(60);
                     ship.setImage(new Image("/resources/linkor60x240.png"));
-                    shipBox.getChildren().add(ship);
+                    shipYard.getChildren().add(ship);
                     Tools.setDragSource(ship);
                     break;
                 case 3:
                     shipyard.get(i).setFitWidth(180);
                     shipyard.get(i).setFitHeight(60);
                     shipyard.get(i).setImage(new Image("/resources/cruiser60x180.png"));
-                    shipBox.getChildren().add(shipyard.get(i));
+                    shipYard.getChildren().add(shipyard.get(i));
                     Tools.setDragSource(ship);
                     break;
                 case 2:
                     shipyard.get(i).setFitWidth(120);
                     shipyard.get(i).setFitHeight(60);
                     shipyard.get(i).setImage(new Image("/resources/destroyer60x120.png"));
-                    shipBox.getChildren().add(shipyard.get(i));
+                    shipYard.getChildren().add(shipyard.get(i));
                     Tools.setDragSource(ship);
                     break;
                 case 1:
                     shipyard.get(i).setFitWidth(60);
                     shipyard.get(i).setFitHeight(60);
                     shipyard.get(i).setImage(new Image("/resources/submarine60x60.png"));
-                    shipBox.getChildren().add(shipyard.get(i));
+                    shipYard.getChildren().add(shipyard.get(i));
                     Tools.setDragSource(ship);
                     break;
             }
         }
-        mainPanelInit();
     }
 
-    public void shipBoxInit() {
-        shipBox.setLayoutY(251);
-        shipBox.setLayoutX(50);
+
+    public void fieldInit() {
+        field  = new VBox(1);
+        field.setLayoutY(251);
+        field.setLayoutX(340);
+        field.setPrefHeight(600);
+        field.setPrefWidth(600);
+        for (int i = 0; i < 10; i++) {
+            fieldRows[i] = new HBox();
+            field.getChildren().add(fieldRows[i]);
+        }
     }
 
     public void mainPanelInit() {
-        mainPanel = new AnchorPane(field, shipBox, startButton, randomButton);
+        mainPanel = new AnchorPane(field, shipYard, startButton, randomButton, resetButton);
         mainPanel.setPrefHeight(1024);
         mainPanel.setPrefWidth(1280);
         mainPanel.setLayoutY(0);
@@ -115,14 +135,10 @@ public class ShipSettingController {
         });
     }
 
-    public void vBoxInit() {
-        this.field.setLayoutY(251);
-        this.field.setLayoutX(340);
-        this.field.setPrefHeight(600);
-        this.field.setPrefWidth(600);
-    }
+
     public void startButtonInit(){
         startButton  = new Button(" Start\n[SPACE]");
+        startButton.setAlignment(Pos.CENTER);
         startButton.setLayoutY(900);
         startButton.setLayoutX(580);
         startButton.setPrefWidth(120);
@@ -130,10 +146,11 @@ public class ShipSettingController {
         startButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                if (App.SEA_BATTLE_GAME.getHuman().getNumberOfShip() == 10) {
-                    App.brushTheBattleField();
-                }else{
+                System.out.println(App.SEA_BATTLE_GAME.getHuman().getShipyard().size());
+                if (App.SEA_BATTLE_GAME.getHuman().getShipyard().size() > 0) {
                     System.out.println("Не все корабли спущены на воду");
+                }else{
+                    App.brushTheBattleField();
                 }
             }
         });
@@ -141,14 +158,40 @@ public class ShipSettingController {
 
     }
     public void randomButtonInit(){
-        randomButton.setLayoutX(780);
+        randomButton = new Button("Random");
         randomButton.setLayoutY(900);
+        randomButton.setLayoutX(780);
         randomButton.setPrefWidth(120);
         randomButton.setPrefHeight(60);
         randomButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 App.SEA_BATTLE_GAME.getHuman().shipsOnGame();
+            }
+        });
+    }
+    public void resetButtonInit(){
+        resetButton = new Button("Reset");
+        resetButton.setLayoutY(900);
+        resetButton.setLayoutX(380);
+        resetButton.setPrefWidth(120);
+        resetButton.setPrefHeight(60);
+        resetButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                for (int y = 0; y < App.SEA_BATTLE_GAME.getSIZE(); y++) {
+                    for (int x = 0; x < App.SEA_BATTLE_GAME.getSIZE(); x++) {
+                        fieldRows[y].getChildren().remove(x);
+                        MapObject gameCell = new MapCell(y, x);
+                        fieldRows[y].getChildren().add(x, gameCell);
+                        App.SEA_BATTLE_GAME.getHuman().setGameCellToOurFleetMap(gameCell, y, x);
+                        Tools.setDragTargetZone(gameCell);
+                    }
+                }
+                App.SEA_BATTLE_GAME.getHuman().shipYardInit();
+                App.SHIP_SETTING_CONTROLLER.shipYardInit();
+                mainPanel.getChildren().add(shipYard);
+                App.SEA_BATTLE_GAME.getHuman().setNumberOfShip(0);
             }
         });
     }

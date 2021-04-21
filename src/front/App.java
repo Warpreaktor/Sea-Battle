@@ -61,10 +61,10 @@ public class App extends Application {
         for (int y = 0; y < SEA_BATTLE_GAME.getSIZE(); y++) {
             for (int x = 0; x < SEA_BATTLE_GAME.getSIZE(); x++) {
                 MapObject gameCell = new MapCell(y, x);
-                SHIP_SETTING_CONTROLLER.gethBoxes()[y].getChildren().add(gameCell);
+                SHIP_SETTING_CONTROLLER.getFieldRows()[y].getChildren().add(gameCell);
                 SEA_BATTLE_GAME.getHuman().setGameCellToOurFleetMap(gameCell, y, x);
-                gameCell.setCoordinateY(y);
-                gameCell.setCoordinateX(x);
+//                gameCell.setCoordinateY(y);
+//                gameCell.setCoordinateX(x);
                 Tools.setDragTargetZone(gameCell);
             }
         }

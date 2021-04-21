@@ -38,7 +38,7 @@ public class Submarine extends Ship {
         if (!this.getOwner().isCPU()) {
             //Делаем графические изменения только на экране игрока
             map[Y][X].setEffect(null);
-            HBox[] hBoxes = App.SHIP_SETTING_CONTROLLER.gethBoxes();
+            HBox[] hBoxes = App.SHIP_SETTING_CONTROLLER.getFieldRows();
             hBoxes[Y].getChildren().remove(X);
             hBoxes[Y].getChildren().add(X, decks[0]);
             map[Y][X].setImage(ImageName.SUBMARINE);

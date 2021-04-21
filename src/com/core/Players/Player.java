@@ -37,29 +37,8 @@ public abstract class Player {
             "Стальная", "Дубовая", "Нечеловеческая", "Шершавая", "Рыхлая", "Дряблая", "Непробиваемая", "Таинственная",
             "Белая", "Страшная", "Противная", "Скользкая", "Позолоченная", "Гладкая", "Опалённая", "Кожа"};
 
-    public Player() {
-        ourFleetMap = new MapObject[App.SEA_BATTLE_GAME.getSIZE()][SeaBattleGame.getSIZE()];
-        enemyFleetMap = new MapObject[App.SEA_BATTLE_GAME.getSIZE()][SeaBattleGame.getSIZE()];
-        //1 Линкор(4), 2 Крейсера(3), 3 Эсминца(2), 4 Подлодки(1)
-        /**Каждая клетка игрового поля заполняется объектами пустыми объектами MapCell
-         */
-        shipyard = new ArrayList<Ship>();
-        shipyard.add(new Linkor(this));
-        shipyard.add(new Cruiser(this));
-        shipyard.add(new Cruiser(this));
-        shipyard.add(new Destroyer(this));
-        shipyard.add(new Destroyer(this));
-        shipyard.add(new Destroyer(this));
-        shipyard.add(new Submarine(this));
-        shipyard.add(new Submarine(this));
-        shipyard.add(new Submarine(this));
-        shipyard.add(new Submarine(this));
-    }
     public String getName() {
         return name;
-    }
-    public void setName(String name) {
-        this.name = name;
     }
     public MapObject[][] getEnemyFleetMap() {
         return enemyFleetMap;
@@ -67,26 +46,67 @@ public abstract class Player {
     public MapObject[][] getOurFleetMap() {
         return ourFleetMap;
     }
-    public void setGameCellToEnemyFleetMap(MapObject gameCell, int y, int x) {
-        this.enemyFleetMap[y][x] = gameCell;
+    public int getNumberOfShip() {
+        return numberOfShip;
     }
-    public void setGameCellToOurFleetMap(MapObject gameCell, int y, int x) {
-        this.ourFleetMap[y][x] = gameCell;
+    public int getCountOfTurns() {
+        return countOfTurns;
+    }
+
+    public static String getRandomName() {
+        String name = "Безымянный";
+        int randomNum = 1 + (int) (Math.random() * 4);
+        switch (randomNum) {
+            case (1)://прозвище + имя. напр: Беззубый Джон
+                name = nickname[(int) (Math.random() * (nickname.length - 1))] +
+                        " " + firstNames[(int) (Math.random() * (firstNames.length - 1))];
+                break;
+            case (2)://прил жен + сущ. жен. напр: Чёрная Борода
+                name = adjectivesW[(int) (Math.random() * (adjectivesW.length - 1))] +
+                        " " + nounsW[(int) (Math.random() * (nounsW.length - 1))];
+                break;
+            case (3)://имя + прил жен + сущ. жен. напр: Джек Чёрная Борода
+                name = firstNames[(int) (Math.random() * (firstNames.length - 1))] +
+                        " " + adjectivesW[(int) (Math.random() * (adjectivesW.length - 1))] +
+                        " " + nounsW[(int) (Math.random() * (nounsW.length - 1))];
+                break;
+            case (4)://титул + прозвище + имя. напр: Капитан Беззубый Джон
+                name = titulM[(int) (Math.random() * (titulM.length - 1))] +
+                        " " + nickname[(int) (Math.random() * (nickname.length - 1))] +
+                        " " + firstNames[(int) (Math.random() * (firstNames.length - 1))];
+                break;
+            case (5)://титул + прил жен + сущ. жен.: Адмирал Чёрная Борода
+                name = titulM[(int) (Math.random() * (titulM.length - 1))] +
+                        " " + adjectivesW[(int) (Math.random() * (adjectivesW.length - 1))] +
+                        " " + nounsW[(int) (Math.random() * (nounsW.length - 1))];
+                break;
+        }
+        return name;
+    }
+    public Player() {
+        ourFleetMap = new MapObject[App.SEA_BATTLE_GAME.getSIZE()][SeaBattleGame.getSIZE()];
+        enemyFleetMap = new MapObject[App.SEA_BATTLE_GAME.getSIZE()][SeaBattleGame.getSIZE()];
+        shipYardInit();
+    }
+    public void setName(String name) {
+        this.name = name;
+    }
+    public void setGameCellToEnemyFleetMap(MapObject gameCell, int Y, int X) {
+        this.enemyFleetMap[Y][X] = gameCell;
+    }
+    public void setGameCellToOurFleetMap(MapObject gameCell, int Y, int X) {
+        ourFleetMap[Y][X] = gameCell;
+        gameCell.setCoordinateY(Y);
+        gameCell.setCoordinateY(X);
     }
     public void setNumberOfShip(int numberOfShip) {
         this.numberOfShip = numberOfShip;
-    }
-    public int getNumberOfShip() {
-        return numberOfShip;
     }
     public ArrayList<Ship> getShipyard() {
         return shipyard;
     }
     public void setCountOfTurns(int countOfTurns) {
         this.countOfTurns = countOfTurns;
-    }
-    public int getCountOfTurns() {
-        return countOfTurns;
     }
 
     public abstract boolean isCPU();
@@ -110,6 +130,22 @@ public abstract class Player {
         }
     }
 
+    public void shipYardInit(){
+        //1 Линкор(4), 2 Крейсера(3), 3 Эсминца(2), 4 Подлодки(1)
+        /**Каждая клетка игрового поля заполняется объектами пустыми объектами MapCell
+         */
+        shipyard = new ArrayList<Ship>();
+        shipyard.add(new Linkor(this));
+        shipyard.add(new Cruiser(this));
+        shipyard.add(new Cruiser(this));
+        shipyard.add(new Destroyer(this));
+        shipyard.add(new Destroyer(this));
+        shipyard.add(new Destroyer(this));
+        shipyard.add(new Submarine(this));
+        shipyard.add(new Submarine(this));
+        shipyard.add(new Submarine(this));
+        shipyard.add(new Submarine(this));
+    }
     /**
      * Метод принимает корабль в качестве параметра и выставляет его на игровое поле, проверяя
      * перед этим не соседствует ли или не заполнена эта ячейка другим кораблем.
@@ -143,34 +179,5 @@ public abstract class Player {
                 }
         }
     }
-    public static String getRandomName() {
-        String name = "Безымянный";
-        int randomNum = 1 + (int) (Math.random() * 4);
-        switch (randomNum) {
-            case (1)://прозвище + имя. напр: Беззубый Джон
-                name = nickname[(int) (Math.random() * (nickname.length - 1))] +
-                        " " + firstNames[(int) (Math.random() * (firstNames.length - 1))];
-                break;
-            case (2)://прил жен + сущ. жен. напр: Чёрная Борода
-                name = adjectivesW[(int) (Math.random() * (adjectivesW.length - 1))] +
-                        " " + nounsW[(int) (Math.random() * (nounsW.length - 1))];
-                break;
-            case (3)://имя + прил жен + сущ. жен. напр: Джек Чёрная Борода
-                name = firstNames[(int) (Math.random() * (firstNames.length - 1))] +
-                        " " + adjectivesW[(int) (Math.random() * (adjectivesW.length - 1))] +
-                        " " + nounsW[(int) (Math.random() * (nounsW.length - 1))];
-                break;
-            case (4)://титул + прозвище + имя. напр: Капитан Беззубый Джон
-                name = titulM[(int) (Math.random() * (titulM.length - 1))] +
-                        " " + nickname[(int) (Math.random() * (nickname.length - 1))] +
-                        " " + firstNames[(int) (Math.random() * (firstNames.length - 1))];
-                break;
-            case (5)://титул + прил жен + сущ. жен.: Адмирал Чёрная Борода
-                name = titulM[(int) (Math.random() * (titulM.length - 1))] +
-                        " " + adjectivesW[(int) (Math.random() * (adjectivesW.length - 1))] +
-                        " " + nounsW[(int) (Math.random() * (nounsW.length - 1))];
-                break;
-        }
-        return name;
-    }
+
 }

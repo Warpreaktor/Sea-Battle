@@ -170,7 +170,7 @@ public class BattleFieldController {
         leftStateFrame = new ImageView(new Image("/resources/stateFrame.jpg"));
         leftStateFrame.setFitHeight(70);
         leftStateFrame.setFitWidth(160);
-        leftStateFrame.setLayoutY(200);
+        leftStateFrame.setLayoutY(210);
         leftStateFrame.setLayoutX(20);
 
         selfShipsNum = new Text("Наш флот \n" + App.SEA_BATTLE_GAME.getHuman().getNumberOfShip());
@@ -183,7 +183,7 @@ public class BattleFieldController {
         rightStateFrame = new ImageView(new Image("/resources/stateFrame.jpg"));
         rightStateFrame.setFitHeight(70);
         rightStateFrame.setFitWidth(160);
-        rightStateFrame.setLayoutY(200);
+        rightStateFrame.setLayoutY(210);
         rightStateFrame.setLayoutX(1110);
 
         enemyShipsNum = new Text("Флот врага \n" + App.SEA_BATTLE_GAME.getCPU().getNumberOfShip());

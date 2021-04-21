@@ -41,7 +41,7 @@ public class Destroyer extends Ship {
             if (!this.getOwner().isCPU()) {
                 //Делаем графические изменения на экране игрока
                 map[Y][x].setEffect(null);
-                HBox[] hBoxes = App.SHIP_SETTING_CONTROLLER.gethBoxes();
+                HBox[] hBoxes = App.SHIP_SETTING_CONTROLLER.getFieldRows();
                 hBoxes[Y].getChildren().remove(x);
                 hBoxes[Y].getChildren().add(x, decks[i]);
                 map[Y][x].setImage(ImageName.DESTROYER);
@@ -63,7 +63,7 @@ public class Destroyer extends Ship {
             if (!this.getOwner().isCPU()) {
                 //Делаем графические изменения на экране игрока
                 map[y][X].setEffect(null);
-                HBox[] hBoxes = App.SHIP_SETTING_CONTROLLER.gethBoxes();
+                HBox[] hBoxes = App.SHIP_SETTING_CONTROLLER.getFieldRows();
                 hBoxes[y].getChildren().remove(X);
                 hBoxes[y].getChildren().add(X, decks[i]);
                 map[y][X].setImage(ImageName.DESTROYER);
