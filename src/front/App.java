@@ -10,6 +10,7 @@ import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
+import javafx.scene.image.Image;
 import javafx.scene.input.*;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
@@ -21,10 +22,11 @@ import java.io.IOException;
 
 public class App extends Application {
     public static final App APP = new App();
-    public static final Stage STAGE = new Stage();
+    public static Stage STAGE;
     public static final SeaBattleGame SEA_BATTLE_GAME = new SeaBattleGame(); // Должен быть public static final singleton и только в этом классе. Первая инициализация происходит в StartMenuController
     public static BattleFieldController BATTLE_FIELD_CONTROLLER;
     public static final ShipSettingController SHIP_SETTING_CONTROLLER = new ShipSettingController();
+    public static Image[] allPortraits;
     public static boolean isHumanTurn = true;
 
     public static void main(String[] args) {
@@ -33,11 +35,24 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        stage = this.STAGE;
-        stage.setResizable(false);
+       gameInit(stage);
         //VictoryScreenController victoryScreenController = new VictoryScreenController();//test
         //brushTheVictroryScreen();//Тест. Потом удалить.
         brushStartMenu(); //закомеченно только для теста. Вернуть обратно.
+    }
+
+    private final void gameInit(Stage stage){
+        this.STAGE = stage;
+        this.STAGE.setResizable(false);
+        allPortraits = new Image[10];
+        String portraitPath = "/resources/persons/pirate";
+        for (int i = 0; i < 10; i++) {
+            allPortraits[i] = new Image(portraitPath + (i+1) + ".jpg");
+        }
+    }
+
+    public static Image[] getAllPortraits() {
+        return allPortraits;
     }
 
     public final void brushStartMenu() throws IOException {
@@ -63,7 +78,7 @@ public class App extends Application {
                 MapObject gameCell = new MapCell(y, x);
                 SHIP_SETTING_CONTROLLER.getFieldRows()[y].getChildren().add(gameCell);
                 SEA_BATTLE_GAME.getHuman().setGameCellToOurFleetMap(gameCell, y, x);
-                
+
                 Tools.setDragTargetZone(gameCell);
             }
         }

@@ -291,7 +291,7 @@ public class Tools {
                 for (int x = X - 2; x <= X + 1; x++) {
                     if (!isOutOfBoards(map, Y, x)) return false;;
                     if (!isNoShipsArround(map, Y, x)) {
-                        System.out.println("Нельзя размещать свои корабли вплотную к другим кораблям");
+//                        System.out.println("Нельзя размещать свои корабли вплотную к другим кораблям");
                         return false;
                     }
                 }
@@ -301,7 +301,7 @@ public class Tools {
                 for (int x = X - 1; x <= X + 1; x++) {
                     if (!isOutOfBoards(map, Y, x)) return false;;
                     if (!isNoShipsArround(map, Y, x)) {
-                        System.out.println("Нельзя размещать свои корабли вплотную к другим кораблям");
+//                        System.out.println("Нельзя размещать свои корабли вплотную к другим кораблям");
                         return false;
                     }
                 }
@@ -311,7 +311,7 @@ public class Tools {
                 for (int x = X - 1; x <= X; x++) {
                     if (!isOutOfBoards(map, Y, x)) return false;;
                     if (!isNoShipsArround(map, Y, x)) {
-                        System.out.println("Нельзя размещать свои корабли вплотную к другим кораблям");
+//                        System.out.println("Нельзя размещать свои корабли вплотную к другим кораблям");
                         return false;
                     }
                 }
@@ -319,7 +319,7 @@ public class Tools {
                 return true;
             case 1:
                 if (!isOutOfBoards(map, Y, X) || !isNoShipsArround(map, Y, X)) {
-                    System.out.println("Здесь нельзя разместить корабль");
+//                    System.out.println("Здесь нельзя разместить корабль");
                     return false;
                 }
                 ship.shipOnTheSeaX(Y, X);
@@ -336,7 +336,7 @@ public class Tools {
                 for (int y = Y - 2; y <= Y + 1; y++) {
                     if (!isOutOfBoards(map, y, X)) return false;;
                     if (!isNoShipsArround(map, y, X)) {
-                        System.out.println("Нельзя размещать свои корабли вплотную к другим кораблям");
+//                        System.out.println("Нельзя размещать свои корабли вплотную к другим кораблям");
                         return false;
                     }
                 }
@@ -346,7 +346,7 @@ public class Tools {
                 for (int y = Y - 1; y <= Y + 1; y++) {
                     if (!isOutOfBoards(map, y, X)) return false;;
                     if (!isNoShipsArround(map, y, X)) {
-                        System.out.println("Нельзя размещать свои корабли вплотную к другим кораблям");
+//                        System.out.println("Нельзя размещать свои корабли вплотную к другим кораблям");
                         return false;
                     }
                 }
@@ -356,7 +356,7 @@ public class Tools {
                 for (int y = Y - 1; y <= Y; y++) {
                     if (!isOutOfBoards(map, y, X)) return false;;
                     if (!isNoShipsArround(map, y, X)) {
-                        System.out.println("Нельзя размещать свои корабли вплотную к другим кораблям");
+//                        System.out.println("Нельзя размещать свои корабли вплотную к другим кораблям");
                         return false;
                     }
                 }
@@ -364,7 +364,7 @@ public class Tools {
                 return true;
             case 1:
                 if (!isOutOfBoards(map, Y, X) || !isNoShipsArround(map, Y, X)) {
-                    System.out.println("Здесь нельзя разместить корабль");
+//                    System.out.println("Здесь нельзя разместить корабль");
                     return false;
                 }
                 ship.shipOnTheSeaY(Y, X);

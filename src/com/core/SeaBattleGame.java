@@ -8,6 +8,7 @@ import com.core.Players.Player;
 import com.core.Ships.DeckOfShip;
 import com.core.Ships.Ship;
 import front.App;
+import javafx.scene.image.Image;
 
 import java.io.IOException;
 
