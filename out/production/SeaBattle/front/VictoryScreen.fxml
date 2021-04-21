@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.Bloom?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="front.VictoryScreenController">
+   <children>
+      <ImageView fx:id="chest1" fitHeight="150.0" fitWidth="160.0" layoutX="30.0" layoutY="89.0" onMouseClicked="#chestOpened" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="30.0">
+         <image>
+            <Image url="@../resources/chest.png" />
+         </image>
+         <cursor>
+            <Cursor fx:constant="OPEN_HAND" />
+         </cursor>
+         <effect>
+            <Bloom />
+         </effect>
+      </ImageView>
+      <ImageView fx:id="chest2" fitHeight="150.0" fitWidth="160.0" layoutX="225.0" layoutY="89.0" onMouseClicked="#chestOpened" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="225.0" AnchorPane.rightAnchor="215.0">
+         <image>
+            <Image url="@../resources/chest.png" />
+         </image>
+         <effect>
+            <Bloom />
+         </effect>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </ImageView>
+      <ImageView fx:id="chest3" fitHeight="150.0" fitWidth="160.0" layoutX="410.0" layoutY="89.0" onMouseClicked="#chestOpened" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="30.0">
+         <image>
+            <Image url="@../resources/chest.png" />
+         </image>
+         <effect>
+            <Bloom />
+         </effect>
+         <cursor>
+            <Cursor fx:constant="MOVE" />
+         </cursor>
+      </ImageView>
+      <Label fx:id="label" alignment="CENTER" contentDisplay="CENTER" text="Choose your chest" textAlignment="CENTER" textOverrun="WORD_ELLIPSIS" wrapText="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="150.0" AnchorPane.rightAnchor="150.0" AnchorPane.topAnchor="210.0">
+         <font>
+            <Font name="BATAVIA" size="18.0" />
+         </font></Label>
+   </children>
+</AnchorPane>
