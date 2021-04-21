@@ -27,18 +27,20 @@ public class StartMenuController implements Initializable {
     @FXML private Button nameGenerator;
     private int portraitIndex;
 
-    ObservableList<String> list  = FXCollections.observableArrayList("10 на 10","20 на 20 (в разработке)");
+//    ObservableList<String> list  = FXCollections.observableArrayList("10 на 10","20 на 20 (в разработке)");
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         portraitIndex = Tools.getRandomNumber(1, 10);
         portrait.setImage(App.getAllPortraits()[portraitIndex]);
-        chooseMap.setItems(list);
-        chooseMap.setValue(list.get(0));
+//        portrait.setFitHeight(140);
+//        portrait.setFitWidth(140);
+//        chooseMap.setItems(list);
+//        chooseMap.setValue(list.get(0));
     }
 
     public final void toMainGameUI() {
-        String sizeMap = chooseMap.getSelectionModel().getSelectedItem().toString();
+//        String sizeMap = chooseMap.getSelectionModel().getSelectedItem().toString(); удалить
         App.SEA_BATTLE_GAME.getHuman().setName(playerName.getText());
         App.SEA_BATTLE_GAME.getHuman().setPortrait(portrait.getImage());
         App.brushShipSettingMenu();

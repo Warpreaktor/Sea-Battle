@@ -23,10 +23,10 @@ import java.io.IOException;
 public class App extends Application {
     public static final App APP = new App();
     public static Stage STAGE;
-    public static final SeaBattleGame SEA_BATTLE_GAME = new SeaBattleGame(); // Должен быть public static final singleton и только в этом классе. Первая инициализация происходит в StartMenuController
-    public static BattleFieldController BATTLE_FIELD_CONTROLLER;
-    public static final ShipSettingController SHIP_SETTING_CONTROLLER = new ShipSettingController();
     public static Image[] allPortraits;
+    public static SeaBattleGame SEA_BATTLE_GAME; // Должен быть public static final singleton и только в этом классе. Первая инициализация происходит в StartMenuController
+    public static BattleFieldController BATTLE_FIELD_CONTROLLER;
+    public static ShipSettingController SHIP_SETTING_CONTROLLER;
     public static boolean isHumanTurn = true;
 
     public static void main(String[] args) {
@@ -47,8 +47,9 @@ public class App extends Application {
         allPortraits = new Image[10];
         String portraitPath = "/resources/persons/pirate";
         for (int i = 0; i < 10; i++) {
-            allPortraits[i] = new Image(portraitPath + (i+1) + ".jpg");
+            allPortraits[i] = new Image(portraitPath + (i+1) + ".png");
         }
+        this.SEA_BATTLE_GAME = new SeaBattleGame();
     }
 
     public static Image[] getAllPortraits() {
@@ -56,6 +57,7 @@ public class App extends Application {
     }
 
     public final void brushStartMenu() throws IOException {
+        SHIP_SETTING_CONTROLLER= new ShipSettingController();
         try {
             STAGE.setX(300);
             STAGE.setY(100);

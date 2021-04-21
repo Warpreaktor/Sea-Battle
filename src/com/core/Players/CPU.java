@@ -15,8 +15,7 @@ public class CPU extends Player{
         super();
         this.difficult = difficult;
         int rand = Tools.getRandomNumber(1, 10);
-        String portraitPath = "/resources/persons/pirate" + rand + ".jpg";
-        this.setPortrait(new Image(portraitPath));
+        this.setPortrait(App.getAllPortraits()[rand]);
     }
 
     public boolean shoot(int Y, int X){
