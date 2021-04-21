@@ -12,10 +12,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
-import javafx.scene.text.Text;
-import javafx.scene.text.TextAlignment;
-import javafx.scene.text.TextFlow;
+import javafx.scene.text.*;
 
 /**
  * Width - Ширина
@@ -176,9 +173,10 @@ public class BattleFieldController {
 
         selfShipsNum = new Text("Наш флот \n" + App.SEA_BATTLE_GAME.getHuman().getNumberOfShip());
         selfShipsNum.setTextAlignment(TextAlignment.CENTER);
-        selfShipsNum.setFont(new Font(16));
+        selfShipsNum.setFont(new Font(17));
+        selfShipsNum.setLineSpacing(2);
         selfShipsNum.setFill(Color.BROWN);
-        selfShipsNum.setLayoutY(240);
+        selfShipsNum.setLayoutY(250);
         selfShipsNum.setLayoutX(60);
 
         rightStateFrame = new ImageView(new Image("/resources/stateFrame.jpg"));
@@ -189,9 +187,10 @@ public class BattleFieldController {
 
         enemyShipsNum = new Text("Флот врага \n" + App.SEA_BATTLE_GAME.getCPU().getNumberOfShip());
         enemyShipsNum.setTextAlignment(TextAlignment.CENTER);
-        enemyShipsNum.setFont(new Font(16));
+        enemyShipsNum.setFont(new Font(17));
+        enemyShipsNum.setLineSpacing(2);
         enemyShipsNum.setFill(Color.BROWN);
-        enemyShipsNum.setLayoutY(240);
+        enemyShipsNum.setLayoutY(250);
         enemyShipsNum.setLayoutX(1150);
 
     }

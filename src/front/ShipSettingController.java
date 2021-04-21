@@ -141,7 +141,7 @@ public class ShipSettingController {
 
 
     public void startButtonInit(){
-        startButton  = new Button(" Start\n[SPACE]");
+        startButton  = new Button("Start\n[SPACE]");
         startButton.setAlignment(Pos.CENTER);
         startButton.setLayoutY(900);
         startButton.setLayoutX(580);

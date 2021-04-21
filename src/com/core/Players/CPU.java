@@ -25,13 +25,13 @@ public class CPU extends Player{
         if (human.getOurFleetMap()[Y][X].getClass().getSimpleName().equals("DeckOfShip")) {
             String enemyShipName = human.getOurFleetMap()[Y][X].getName();
             DeckOfShip enemyShip = (DeckOfShip) human.getOurFleetMap()[Y][X];
+            App.SEA_BATTLE_GAME.theShipIsDamaged(enemyShip.getShipOwner(), human, CPU, Y, X);
             if (enemyShip.getHp()>0) {
                 App.BATTLE_FIELD_CONTROLLER.textOutput("Корабль " + enemyShipName + " поврежден!");  //Выводим на экран сообщение
-                App.SEA_BATTLE_GAME.theShipIsDamaged(enemyShip.getShipOwner(), human, CPU, Y, X);
             }
             if (enemyShip.getHp()<=0) {
-                App.BATTLE_FIELD_CONTROLLER.textOutput("Корабль " + enemyShipName + " уничтожен!");
                 App.SEA_BATTLE_GAME.theShipIsDestroyed(enemyShip.getShipOwner(), human, CPU);
+                App.BATTLE_FIELD_CONTROLLER.textOutput("Корабль " + enemyShipName + " уничтожен!");
             }
             CPU.setCountOfTurns(CPU.getCountOfTurns()+1);;
         } else {

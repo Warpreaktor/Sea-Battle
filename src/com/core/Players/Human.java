@@ -3,7 +3,7 @@ package com.core.Players;
 import com.core.Ships.DeckOfShip;
 import front.App;
 
-public class Human extends Player{
+public class Human extends Player {
     public boolean isCPU() {
         return false;
     }
@@ -18,20 +18,20 @@ public class Human extends Player{
         System.out.println(CPU.getOurFleetMap()[Y][X].getClass().getSimpleName());
         System.out.println(CPU.getOurFleetMap()[Y][X].getLabel());
         System.out.println(CPU.getOurFleetMap()[Y][X].getName());
-        if (human.getEnemyFleetMap()[Y][X].getLabel() == '+' || human.getEnemyFleetMap()[Y][X].getLabel() == 'X'){
+        if (human.getEnemyFleetMap()[Y][X].getLabel() == '+' || human.getEnemyFleetMap()[Y][X].getLabel() == 'X') {
             return false;
-        }else {
+        } else {
             try {
                 if (CPU.getOurFleetMap()[Y][X].getClass().getSimpleName().equals("DeckOfShip")) {
                     String enemyShipName = CPU.getOurFleetMap()[Y][X].getName();
                     DeckOfShip enemyShip = (DeckOfShip) CPU.getOurFleetMap()[Y][X];
+                    App.SEA_BATTLE_GAME.theShipIsDamaged(enemyShip.getShipOwner(), CPU, human, Y, X);
                     if (enemyShip.getHp() > 0) {
                         App.BATTLE_FIELD_CONTROLLER.textOutput("Корабль " + enemyShipName + " поврежден!");
-                        App.SEA_BATTLE_GAME.theShipIsDamaged(enemyShip.getShipOwner(), CPU, human, Y, X);
                     }
                     if (enemyShip.getHp() <= 0) {
-                        App.BATTLE_FIELD_CONTROLLER.textOutput("Корабль " + enemyShipName + " уничтожен!");
                         App.SEA_BATTLE_GAME.theShipIsDestroyed(enemyShip.getShipOwner(), CPU, human);
+                        App.BATTLE_FIELD_CONTROLLER.textOutput("Корабль " + enemyShipName + " уничтожен!");
                     }
                 } else {
                     App.BATTLE_FIELD_CONTROLLER.textOutput(human.getName() + " промахнулся!");
