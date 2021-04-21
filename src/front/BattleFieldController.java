@@ -208,8 +208,8 @@ public class BattleFieldController {
         leftPersonFrame.setFitWidth(160);
         leftPersonFrame.setFitHeight(160);
 
-//        leftPersonPortrait = new ImageView(App.SEA_BATTLE_GAME.getHuman().getPortrait());
-        leftPersonPortrait = new ImageView("/resources/persons/pirate01.jpg");
+        leftPersonPortrait = new ImageView(App.SEA_BATTLE_GAME.getHuman().getPortrait());
+        //leftPersonPortrait = new ImageView("/resources/persons/pirate01.jpg");
         leftPersonPortrait.setLayoutY(40);
         leftPersonPortrait.setLayoutX(30);
         leftPersonPortrait.setFitWidth(140);
@@ -222,7 +222,7 @@ public class BattleFieldController {
         rightPersonFrame.setFitHeight(160);
 
         rightPersonPortrait = new ImageView(App.SEA_BATTLE_GAME.getCPU().getPortrait());
-        rightPersonPortrait = new ImageView("/resources/persons/pirate02.jpg");
+        //rightPersonPortrait = new ImageView("/resources/persons/pirate02.jpg");
         rightPersonPortrait.setLayoutY(40);
         rightPersonPortrait.setLayoutX(1120);
         rightPersonPortrait.setFitWidth(140);

@@ -3,16 +3,22 @@ package com.core.Players;
 import com.core.Ships.DeckOfShip;
 import com.core.Tools;
 import front.App;
+import javafx.scene.image.Image;
 
 public class CPU extends Player{
     Difficult difficult = Difficult.EASY;
     public boolean isCPU() {
         return true;
     }
+
     public CPU(Difficult difficult) {
         super();
         this.difficult = difficult;
+        int rand = Tools.getRandomNumber(1, 10);
+        String portraitPath = "/resources/persons/pirate" + rand + ".jpg";
+        this.setPortrait(new Image(portraitPath));
     }
+
     public boolean shoot(int Y, int X){
         Player CPU = App.SEA_BATTLE_GAME.getCPU();
         Player human = App.SEA_BATTLE_GAME.getHuman();
