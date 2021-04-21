@@ -1,6 +1,5 @@
 package front;
 
-import com.core.Tools;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -40,7 +39,7 @@ public class BattleFieldController {
     /**
      * Выводит на экран сообщение. При этом, сообщение что было на экране до этого сохраняется и в следующий раз оно
      * выводится с измененным текстом сдивигаясь вверх.
-     * @param text
+     * @param text - Текст выводимый на экран.
      */
     public void textOutput(String text) {
         ObservableList list = textFlow.getChildren();
@@ -66,7 +65,7 @@ public class BattleFieldController {
     public final void nextTurn(){
         if (App.isHumanTurn == false) {
             App.SEA_BATTLE_GAME.event();
-            App.SEA_BATTLE_GAME.shootCPU();
+            App.SEA_BATTLE_GAME.getCPU().shoot(0, 0);//Сюда можно передавать любые координаты, все равно они изменятся внутри метода.
             App.isHumanTurn = true;
         }else {
             //Сообщение пользователю о том, что его ход еще не завершен

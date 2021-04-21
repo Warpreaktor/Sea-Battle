@@ -16,7 +16,7 @@ public class SeaBattleGame {
     private static int totalShips = 0;
     private final Player human = new Human();
     private final Player CPU = new CPU(Difficult.EASY);
-    private int krakenChance = 60; //Количество нападений спрута на корабли перед началом боя.
+    private int krakenChance = 30; //Количество нападений спрута на корабли перед началом боя.
 
     public int getKrakenChance() {
         return krakenChance;

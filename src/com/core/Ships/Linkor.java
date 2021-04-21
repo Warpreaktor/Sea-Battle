@@ -19,7 +19,7 @@ public class Linkor extends Ship {
         super.setName(naming());
         super.setHp(decks.length);
         for (int i = 0; i < decks.length; i++) {
-             decks[i] = new DeckOfShip(i,this);
+             decks[i] = new DeckOfShip(i,this, 'L');
         }
     }
 
@@ -68,6 +68,7 @@ public class Linkor extends Ship {
     public boolean spruting() {
         for (int i = 0; i < decks.length; i++) {
             decks[i].setImage(ImageName.KRAKEN);
+            decks[i].setLabel('X');
         }
         return true;
     }

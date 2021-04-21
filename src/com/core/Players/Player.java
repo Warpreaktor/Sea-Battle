@@ -18,7 +18,7 @@ public abstract class Player {
     private MapObject[][] ourFleetMap;
     private MapObject[][] enemyFleetMap;
 
-    public static String[] titulM = {"Матрос", "Старшина", "Мичман", "Лейтенант", "Капитан", "Адмирал"};
+    public static String[] titulM = {"Пират", "Старшина", "Мичман", "Лейтенант", "Капитан", "Адмирал"};
 
     public static String[] firstNames = {"Эдвард", "Джек", "Франсуа", "Стид", "Джон", "Стив", "Стью", "Сильвер",
             "Флинт", "Билли", "Джонни", "Джеки", "Генри", "Джордж", "Бен", "Бенни", "Марти"};
@@ -35,7 +35,7 @@ public abstract class Player {
 
     public static String[] adjectivesW = {"Чёрная", "Рваная", "Жуткая", "Длинная", "Синяя", "Рыжая",
             "Стальная", "Дубовая", "Нечеловеческая", "Шершавая", "Рыхлая", "Дряблая", "Непробиваемая", "Таинственная",
-            "Белая", "Страшная", "Противная", "Скользкая", "Позолоченная", "Изящная", "Опалённая"};
+            "Белая", "Страшная", "Противная", "Скользкая", "Позолоченная", "Гладкая", "Опалённая", "Кожа"};
 
     public Player() {
         ourFleetMap = new MapObject[App.SEA_BATTLE_GAME.getSIZE()][SeaBattleGame.getSIZE()];

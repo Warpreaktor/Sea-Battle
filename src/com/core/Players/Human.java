@@ -11,10 +11,13 @@ public class Human extends Player{
     public Human() {
         super();
     }
+
     public boolean shoot(int Y, int X) {
         Player CPU = App.SEA_BATTLE_GAME.getCPU();
         Player human = App.SEA_BATTLE_GAME.getHuman();
-        System.out.println(human.getEnemyFleetMap()[Y][X].getClass().getSimpleName());
+        System.out.println(CPU.getOurFleetMap()[Y][X].getClass().getSimpleName());
+        System.out.println(CPU.getOurFleetMap()[Y][X].getLabel());
+        System.out.println(CPU.getOurFleetMap()[Y][X].getName());
         if (human.getEnemyFleetMap()[Y][X].getLabel() == '+' || human.getEnemyFleetMap()[Y][X].getLabel() == 'X'){
             return false;
         }else {

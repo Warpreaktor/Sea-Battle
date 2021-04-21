@@ -26,9 +26,10 @@ public class DeckOfShip extends MapObject {
         return shipOwner;
     }
 
-    public DeckOfShip(int deckNumber, Ship shipowner) {
+    public DeckOfShip(int deckNumber, Ship shipowner, char label) {
         this.dekcNumber = deckNumber;
         this.shipOwner = shipowner;
+        this.setLabel(label);
     }
     @Override
     public boolean spruting() {

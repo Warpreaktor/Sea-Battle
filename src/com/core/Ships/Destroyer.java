@@ -15,7 +15,7 @@ public class Destroyer extends Ship {
         super.setName(naming());
         super.setHp(decks.length);
         for (int i = 0; i < decks.length; i++) {
-            decks[i] = new DeckOfShip(i, this);
+            decks[i] = new DeckOfShip(i, this, 'D');
             decks[i].setLabel('s');
         }
     }
@@ -76,6 +76,7 @@ public class Destroyer extends Ship {
     public boolean spruting() {
         for (int i = 0; i < decks.length; i++) {
             decks[i].setImage(ImageName.KRAKEN);
+            decks[i].setLabel('X');
         }
         return true;
     }
