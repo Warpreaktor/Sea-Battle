@@ -39,8 +39,8 @@ public class StartMenuController implements Initializable {
 
     public final void toMainGameUI() {
         String sizeMap = chooseMap.getSelectionModel().getSelectedItem().toString();
-        String name = playerName.getText();
-        App.SEA_BATTLE_GAME.getHuman().setName(name);
+        App.SEA_BATTLE_GAME.getHuman().setName(playerName.getText());
+        App.SEA_BATTLE_GAME.getHuman().setPortrait(portrait.getImage());
         App.brushShipSettingMenu();
         App.SEA_BATTLE_GAME.createCPUBattleField(App.SEA_BATTLE_GAME.getCPU());
         App.SEA_BATTLE_GAME.getCPU().shipsOnGame();
@@ -57,16 +57,17 @@ public class StartMenuController implements Initializable {
         }
         portrait.setImage(App.getAllPortraits()[portraitIndex]);
     }
-    public final void previousPortrait(){
-        portrait.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-            }
-        });
-        portraitIndex-=1;
-        if (portraitIndex < 0){
-            portraitIndex = 10;
-        }
-        portrait.setImage(App.getAllPortraits()[portraitIndex]);
-    }
+//    public final void previousPortrait(){
+//        portrait.setOnMouseClicked(new EventHandler<MouseEvent>() {
+//            @Override
+//            public void handle(MouseEvent mouseEvent) {
+//            //написать обработчик для правой кнопки мыши
+//            }
+//        });
+//        portraitIndex-=1;
+//        if (portraitIndex < 0){
+//            portraitIndex = 10;
+//        }
+//        portrait.setImage(App.getAllPortraits()[portraitIndex]);
+//    }
 }
