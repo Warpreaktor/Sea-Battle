@@ -6,6 +6,7 @@ import com.core.SeaBattleGame;
 import com.core.Ships.*;
 import com.core.Tools;
 import front.App;
+import javafx.scene.image.Image;
 
 import java.util.ArrayList;
 
@@ -17,6 +18,7 @@ public abstract class Player {
     private ArrayList<Ship> shipyard;
     private MapObject[][] ourFleetMap;
     private MapObject[][] enemyFleetMap;
+    private Image portrait;
 
     public static String[] titulM = {"Пират", "Старшина", "Мичман", "Лейтенант", "Капитан", "Адмирал"};
 
@@ -51,6 +53,10 @@ public abstract class Player {
     }
     public int getCountOfTurns() {
         return countOfTurns;
+    }
+
+    public Image getPortrait() {
+        return portrait;
     }
 
     public static String getRandomName() {
@@ -88,9 +94,6 @@ public abstract class Player {
         enemyFleetMap = new MapObject[App.SEA_BATTLE_GAME.getSIZE()][SeaBattleGame.getSIZE()];
         shipYardInit();
     }
-    public void setName(String name) {
-        this.name = name;
-    }
     public void setGameCellToEnemyFleetMap(MapObject gameCell, int Y, int X) {
         this.enemyFleetMap[Y][X] = gameCell;
     }
@@ -98,6 +101,13 @@ public abstract class Player {
         gameCell.setCoordinateY(Y);
         gameCell.setCoordinateX(X);
         ourFleetMap[Y][X] = gameCell;
+    }
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setPortrait(Image portrait){
+        this.portrait = portrait;
     }
     public void setNumberOfShip(int numberOfShip) {
         this.numberOfShip = numberOfShip;

@@ -23,6 +23,10 @@ public class BattleFieldController {
     public static Button nextTurnButton;
     public ImageView leftStateFrame;
     public ImageView rightStateFrame;
+    public ImageView leftPersonFrame;
+    public ImageView leftPersonPortrait;
+    public ImageView rightPersonFrame;
+    public ImageView rightPersonPortrait;
     public Text enemyShipsNum;   //updateble
     public Text selfShipsNum;    //updateble
     public Label ourFleetMapName = new Label();
@@ -33,6 +37,7 @@ public class BattleFieldController {
     AnchorPane anchorPane;
 
     public BattleFieldController() {
+        personFramesInit();
         rightFieldInit();
         leftFieldInit();
         nextTurnButtonInit();
@@ -118,7 +123,8 @@ public class BattleFieldController {
 
     public void anchorPaneInit(){
         anchorPane = new AnchorPane(rightField, leftField, nextTurnButton, textFlow, leftStateFrame,
-                rightStateFrame, selfShipsNum, enemyShipsNum);
+                rightStateFrame, selfShipsNum, enemyShipsNum,
+                leftPersonFrame, rightPersonFrame, leftPersonPortrait, rightPersonPortrait);
         BackgroundImage backgroundImage = new BackgroundImage(new Image("/resources/sea.jpg"),
                 BackgroundRepeat.SPACE, BackgroundRepeat.SPACE,
                 BackgroundPosition.CENTER, BackgroundSize.DEFAULT);
@@ -148,17 +154,12 @@ public class BattleFieldController {
     public void mapLabelsInit(){
         ourFleetMapName.setLayoutY(600);
         ourFleetMapName.setLayoutX(100);
-        //Text text1 = new Text("Наш флот");
-        //ourFleetMapName.setFont(new Font(16));
-        //text1.setFill(Color.BROWN);
         ourFleetMapName.setFont(new Font(16));
         ourFleetMapName.setText("Наш флот");
         ourFleetMapName.setLabelFor(leftField);
 
         enemyFleetMapName.setLayoutY(1000);
         enemyFleetMapName.setLayoutX(100);
-//        Text text2 = new Text("Вражеский флот");
-//        text2.setFill(Color.BROWN);
         enemyFleetMapName.setFont(new Font(16));
         enemyFleetMapName.setText("Вражеский флот");
         ourFleetMapName.setLabelFor(rightField);
@@ -198,5 +199,34 @@ public class BattleFieldController {
     public void stateUpdate(){
         selfShipsNum.setText("Наш флот \n" + App.SEA_BATTLE_GAME.getHuman().getNumberOfShip());
         enemyShipsNum.setText("Флот врага \n" + App.SEA_BATTLE_GAME.getCPU().getNumberOfShip());
+    }
+
+    public void personFramesInit(){
+        leftPersonFrame = new ImageView("/resources/persons/portraitFrame250x250.png");
+        leftPersonFrame.setLayoutY(30);
+        leftPersonFrame.setLayoutX(20);
+        leftPersonFrame.setFitWidth(160);
+        leftPersonFrame.setFitHeight(160);
+
+//        leftPersonPortrait = new ImageView(App.SEA_BATTLE_GAME.getHuman().getPortrait());
+        leftPersonPortrait = new ImageView("/resources/persons/pirate01.jpg");
+        leftPersonPortrait.setLayoutY(40);
+        leftPersonPortrait.setLayoutX(30);
+        leftPersonPortrait.setFitWidth(140);
+        leftPersonPortrait.setFitHeight(140);
+
+        rightPersonFrame = new ImageView("/resources/persons/portraitFrame250x250.png");
+        rightPersonFrame.setLayoutY(30);
+        rightPersonFrame.setLayoutX(1110);
+        rightPersonFrame.setFitWidth(160);
+        rightPersonFrame.setFitHeight(160);
+
+        rightPersonPortrait = new ImageView(App.SEA_BATTLE_GAME.getCPU().getPortrait());
+        rightPersonPortrait = new ImageView("/resources/persons/pirate02.jpg");
+        rightPersonPortrait.setLayoutY(40);
+        rightPersonPortrait.setLayoutX(1120);
+        rightPersonPortrait.setFitWidth(140);
+        rightPersonPortrait.setFitHeight(140);
+
     }
 }
