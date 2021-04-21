@@ -109,8 +109,6 @@ public class App extends Application {
                 });
             }
         }
-        BATTLE_FIELD_CONTROLLER.selfShipsNum.setText("Наши корабли - " + App.SEA_BATTLE_GAME.getHuman().getNumberOfShip());
-        BATTLE_FIELD_CONTROLLER.enemyShipsNum.setText("Корабли противника - " + App.SEA_BATTLE_GAME.getCPU().getNumberOfShip());
         Scene scene = new Scene(BATTLE_FIELD_CONTROLLER.anchorPane);
         STAGE.setScene(scene);
         STAGE.show();

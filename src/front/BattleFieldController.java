@@ -24,13 +24,13 @@ import javafx.scene.text.TextFlow;
 public class BattleFieldController {
     public String[] battleHistory = {"",""};    //updateble
     public static Button nextTurnButton;
-    public ImageView stateFrame;
-    public Label enemyShipsNum = new Label();   //updateble
-    public Label selfShipsNum = new Label();    //updateble
+    public ImageView leftStateFrame;
+    public ImageView rightStateFrame;
+    public Text enemyShipsNum;   //updateble
+    public Text selfShipsNum;    //updateble
     public Label ourFleetMapName = new Label();
     public Label enemyFleetMapName = new Label();
     public TextFlow textFlow = new TextFlow();
-    public VBox infoBox = new VBox(enemyShipsNum, selfShipsNum);
     public VBox leftField;
     public VBox rightField = new VBox(1);
     AnchorPane anchorPane;
@@ -38,7 +38,6 @@ public class BattleFieldController {
     public BattleFieldController() {
         rightFieldInit();
         leftFieldInit();
-        infoBoxInit();
         nextTurnButtonInit();
         textFlowInit();
         mapLabelsInit();
@@ -105,10 +104,6 @@ public class BattleFieldController {
         });
     }
 
-    public void infoBoxInit(){
-        infoBox.setLayoutY(100);
-        infoBox.setLayoutX(50);
-    }
     public void leftFieldInit(){
         leftField = App.SHIP_SETTING_CONTROLLER.getField();
         leftField.setLayoutX(20);
@@ -125,7 +120,8 @@ public class BattleFieldController {
     }
 
     public void anchorPaneInit(){
-        anchorPane = new AnchorPane(rightField, leftField, nextTurnButton, infoBox, textFlow, stateFrame);
+        anchorPane = new AnchorPane(rightField, leftField, nextTurnButton, textFlow, leftStateFrame,
+                rightStateFrame, selfShipsNum, enemyShipsNum);
         BackgroundImage backgroundImage = new BackgroundImage(new Image("/resources/sea.jpg"),
                 BackgroundRepeat.SPACE, BackgroundRepeat.SPACE,
                 BackgroundPosition.CENTER, BackgroundSize.DEFAULT);
@@ -171,11 +167,33 @@ public class BattleFieldController {
     }
 
     public void stateFrameInit(){
-        stateFrame = new ImageView(new Image("/resources/stateFrame.jpg"));
-        stateFrame.setFitHeight(80);
-        stateFrame.setFitWidth(160);
-        stateFrame.setLayoutX(20);
-        stateFrame.setLayoutY(190);
+        leftStateFrame = new ImageView(new Image("/resources/stateFrame.jpg"));
+        leftStateFrame.setFitHeight(70);
+        leftStateFrame.setFitWidth(160);
+        leftStateFrame.setLayoutY(190);
+        leftStateFrame.setLayoutX(20);
+
+        selfShipsNum = new Text("Наш флот \n" + App.SEA_BATTLE_GAME.getHuman().getNumberOfShip());
+        selfShipsNum.setTextAlignment(TextAlignment.CENTER);
+        selfShipsNum.setFont(new Font(16));
+        selfShipsNum.setFill(Color.BROWN);
+        selfShipsNum.setLayoutY(220);
+        selfShipsNum.setLayoutX(60);
+
+        rightStateFrame = new ImageView(new Image("/resources/stateFrame.jpg"));
+        rightStateFrame.setFitHeight(70);
+        rightStateFrame.setFitWidth(160);
+        rightStateFrame.setLayoutY(190);
+        rightStateFrame.setLayoutX(1110);
+
+        enemyShipsNum = new Text("Флот врага \n" + App.SEA_BATTLE_GAME.getCPU().getNumberOfShip());
+        enemyShipsNum.setTextAlignment(TextAlignment.CENTER);
+        enemyShipsNum.setFont(new Font(16));
+        enemyShipsNum.setFill(Color.BROWN);
+        enemyShipsNum.setLayoutY(220);
+        enemyShipsNum.setLayoutX(1150);
+
+
     }
 
     public void stateUpdate(){
