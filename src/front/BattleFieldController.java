@@ -3,6 +3,7 @@ package front;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -23,12 +24,14 @@ public class BattleFieldController {
     public Label ourFleetMapName = new Label("Наш флот");
     public Label enemyFleetMapName = new Label("Вражеский флот");
     public TextFlow textFlow = new TextFlow();
-    public VBox infoBox = new VBox(enemyShipsNum, selfShipsNum, ourFleetMapName, enemyFleetMapName);
-    public VBox rightVBox = new VBox(1);
+    public VBox infoBox = new VBox(enemyShipsNum, selfShipsNum);
+    public VBox leftField;
+    public VBox rightField = new VBox(1);
     AnchorPane anchorPane;
 
     public BattleFieldController() {
-        rightVBoxInit();
+        rightFieldInit();
+        leftFieldInit();
         infoBoxInit();
         nextTurnInit();
         textFlowInit();
@@ -98,12 +101,21 @@ public class BattleFieldController {
         infoBox.setLayoutY(100);
         infoBox.setLayoutX(50);
     }
-    public void rightVBoxInit(){
-        rightVBox.setLayoutX(670);
-        rightVBox.setLayoutY(200);
+    public void rightFieldInit(){
+        rightField.setLayoutX(670);
+        rightField.setLayoutY(200);
+        rightField.setAlignment(Pos.TOP_CENTER);
+        rightField.getChildren().add(0, enemyFleetMapName);
+    }
+    public void leftFieldInit(){
+        leftField = App.SHIP_SETTING_CONTROLLER.getField();
+        leftField.setLayoutX(20);
+        leftField.setLayoutY(200);
+        leftField.setAlignment(Pos.TOP_CENTER);
+        leftField.getChildren().add(0, ourFleetMapName);
     }
     public void anchorPaneInit(){
-        anchorPane = new AnchorPane(rightVBox, nextTurn, infoBox, textFlow);
+        anchorPane = new AnchorPane(rightField, leftField, nextTurn, infoBox, textFlow);
         BackgroundImage backgroundImage = new BackgroundImage(new Image("/resources/sea.jpg"),
                 BackgroundRepeat.SPACE, BackgroundRepeat.SPACE,
                 BackgroundPosition.CENTER, BackgroundSize.DEFAULT);

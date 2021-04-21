@@ -7,7 +7,7 @@ import front.App;
 import javafx.scene.layout.HBox;
 
 public class Submarine extends Ship {
-    private DeckOfShip[] decks = new DeckOfShip[1]; //[y][x] Это, по сути, корпус корабля который состоит из нескольких partOfLinkor
+    private DeckOfShip[] decks = new DeckOfShip[1]; //[y][x] Корпус корабля который состоит из нескольких DeckOfShip
 
     public Submarine(Player owner) {
         super.setOwner(owner);

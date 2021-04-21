@@ -20,25 +20,22 @@ public class ShipSettingController {
     private VBox field = new VBox(1);
     private Button startButton = new Button("Start \n[SPACE]");
     private Button randomButton = new Button("Random");
-    private VBox shipBox = new VBox(5);
+    private VBox shipBox = new VBox(1);
     private AnchorPane shipSetPan = new AnchorPane(field, shipBox, startButton, randomButton);
+
 
     public HBox[] gethBoxes() {
         return hBoxes;
     }
-
     public AnchorPane getShipSetPan() {
         return shipSetPan;
     }
-
     public VBox getField() {
         return field;
     }
-
     public boolean isVertical() {
         return isVertical;
     }
-
     public void setVertical(boolean vertical) {
         isVertical = vertical;
     }

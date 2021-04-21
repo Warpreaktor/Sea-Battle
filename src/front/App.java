@@ -80,14 +80,10 @@ public class App extends Application {
         BATTLE_FIELD_CONTROLLER = new BattleFieldController();
         STAGE.setX(300);
         STAGE.setY(0);
-        //Отрисовка поля с нашим флотом
-        VBox leftVBox = SHIP_SETTING_CONTROLLER.getField();
-        leftVBox.setLayoutX(20);
-        leftVBox.setLayoutY(200);
-        //Отрисовка поля с вражеским полем
+        //Отрисовка поля с вражеским флотом
         for (int y = 0; y < SEA_BATTLE_GAME.getSIZE(); y++) {
             HBox rightHBox = new HBox();
-            BATTLE_FIELD_CONTROLLER.rightVBox.getChildren().add(rightHBox);
+            BATTLE_FIELD_CONTROLLER.rightField.getChildren().add(rightHBox);
             for (int x = 0; x < SEA_BATTLE_GAME.getSIZE(); x++) {
                 MapObject gameCell = new MapCell(y, x);
                 rightHBox.getChildren().add(gameCell);
@@ -115,7 +111,6 @@ public class App extends Application {
         }
         BATTLE_FIELD_CONTROLLER.selfShipsNum.setText("Наши корабли - " + App.SEA_BATTLE_GAME.getHuman().getNumberOfShip());
         BATTLE_FIELD_CONTROLLER.enemyShipsNum.setText("Корабли противника - " + App.SEA_BATTLE_GAME.getCPU().getNumberOfShip());
-        BATTLE_FIELD_CONTROLLER.anchorPane.getChildren().add(leftVBox);
         Scene scene = new Scene(BATTLE_FIELD_CONTROLLER.anchorPane);
         STAGE.setScene(scene);
         STAGE.show();
