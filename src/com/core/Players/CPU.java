@@ -14,7 +14,7 @@ public class CPU extends Player{
     public CPU(Difficult difficult) {
         super();
         this.difficult = difficult;
-        int rand = Tools.getRandomNumber(1, 10);
+        int rand = Tools.getRandomNumber(0, 9);
         this.setPortrait(App.getAllPortraits()[rand]);
     }
 

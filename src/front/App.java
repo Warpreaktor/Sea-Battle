@@ -128,6 +128,8 @@ public class App extends Application {
         Scene scene = new Scene(BATTLE_FIELD_CONTROLLER.anchorPane);
         STAGE.setScene(scene);
         STAGE.show();
+        Tests.killThemAll();
+
     }
 
     public final void brushTheVictroryScreen() throws IOException {
