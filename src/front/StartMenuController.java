@@ -12,6 +12,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.*;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -25,10 +26,16 @@ public class StartMenuController implements Initializable {
     @FXML private ImageView mainImage;
     @FXML private ImageView portrait;
     @FXML private Button nameGenerator;
+    @FXML private AnchorPane mainPanel;
     private int portraitIndex;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        BackgroundImage backgroundImage = new BackgroundImage(new Image("/resources/woodWall.jpg"),
+                BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT,
+                BackgroundPosition.CENTER, BackgroundSize.DEFAULT);
+        Background background = new Background(backgroundImage);
+        mainPanel.setBackground(background);
         portraitIndex = Tools.getRandomNumber(0, 9);
         portrait.setImage(App.getAllPortraits()[portraitIndex]);
 //        portrait.setFitHeight(140);
