@@ -1,6 +1,6 @@
 package com.core.Ships;
 
-import com.core.GameObjects.MapObject;
+import com.core.MapObjects.MapObject;
 import com.core.Players.Player;
 
 /**

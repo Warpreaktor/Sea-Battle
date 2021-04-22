@@ -1,8 +1,8 @@
 package front;
 
 import com.core.*;
-import com.core.GameObjects.MapCell;
-import com.core.GameObjects.MapObject;
+import com.core.MapObjects.MapCell;
+import com.core.MapObjects.MapObject;
 import com.core.Players.Player;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -44,16 +44,20 @@ public class App extends Application {
     private final void gameInit(Stage stage){
         this.STAGE = stage;
         this.STAGE.setResizable(false);
-        allPortraits = new Image[10];
-        String portraitPath = "/resources/persons/pirate";
-        for (int i = 0; i < 10; i++) {
-            allPortraits[i] = new Image(portraitPath + (i+1) + ".png");
-        }
+        portraitsInit();
         this.SEA_BATTLE_GAME = new SeaBattleGame();
     }
 
     public static Image[] getAllPortraits() {
         return allPortraits;
+    }
+
+    public void portraitsInit(){
+        allPortraits = new Image[10];
+        String portraitPath = "/resources/persons/pirate";
+        for (int i = 0; i < allPortraits.length; i++) {
+            allPortraits[i] = new Image(portraitPath + (i) + ".png");
+        }
     }
 
     public final void brushStartMenu() throws IOException {
@@ -107,6 +111,11 @@ public class App extends Application {
                 gameCell.setOnMouseClicked(new EventHandler<MouseEvent>() {
                     @Override
                     public void handle(MouseEvent mouseEvent) {
+                        System.out.println(App.SEA_BATTLE_GAME.getCPU().getOurFleetMap()[gameCell.getCoordinateY()][gameCell.getCoordinateX()].getClass().getSimpleName());
+                        System.out.println(App.SEA_BATTLE_GAME.getCPU().getOurFleetMap()[gameCell.getCoordinateY()][gameCell.getCoordinateX()].getLabel());
+                        System.out.println(App.SEA_BATTLE_GAME.getCPU().getOurFleetMap()[gameCell.getCoordinateY()][gameCell.getCoordinateX()].getName());
+                        System.out.println(App.SEA_BATTLE_GAME.getCPU().getOurFleetMap()[gameCell.getCoordinateY()][gameCell.getCoordinateX()]);
+                        System.out.println(App.SEA_BATTLE_GAME.getCPU().getOurFleetMap()[gameCell.getCoordinateY()][gameCell.getCoordinateX()].getImage().getUrl());
                         if (isHumanTurn) {
                             if (SEA_BATTLE_GAME.getHuman().shoot(gameCell.getCoordinateY(), gameCell.getCoordinateX())) {
                                 isHumanTurn = false;//ход передается компьютеру
@@ -128,8 +137,6 @@ public class App extends Application {
         Scene scene = new Scene(BATTLE_FIELD_CONTROLLER.anchorPane);
         STAGE.setScene(scene);
         STAGE.show();
-        Tests.killThemAll();
-
     }
 
     public final void brushTheVictroryScreen() throws IOException {

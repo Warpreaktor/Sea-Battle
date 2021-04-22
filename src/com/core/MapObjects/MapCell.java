@@ -1,4 +1,4 @@
-package com.core.GameObjects;
+package com.core.MapObjects;
 
 import com.core.ImageName;
 
@@ -30,8 +30,6 @@ public class MapCell extends MapObject {
         this.coordinateX = X;
         this.setImage(ImageName.WAVE);
     }
-
-
 
     @Override
     public boolean isShip() {

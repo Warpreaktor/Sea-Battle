@@ -1,6 +1,6 @@
 package com.core.Ships;
 
-import com.core.GameObjects.MapObject;
+import com.core.MapObjects.MapObject;
 import com.core.ImageName;
 import com.core.Players.Player;
 import front.App;
@@ -38,6 +38,9 @@ public class Linkor extends Ship {
                 hBoxes[Y].getChildren().remove(x);
                 hBoxes[Y].getChildren().add(x, decks[i]);
                 map[Y][x].setImage(ImageName.LINKOR);
+            }else{
+                map[Y][x].setEffect(null);
+                map[Y][x].setImage(ImageName.LINKOR);
             }
             i--;
         }
@@ -57,6 +60,9 @@ public class Linkor extends Ship {
                 HBox[] hBoxes = App.SHIP_SETTING_CONTROLLER.getFieldRows();
                 hBoxes[y].getChildren().remove(X);
                 hBoxes[y].getChildren().add(X, decks[i]);
+                map[y][X].setImage(ImageName.LINKOR);
+            }else{
+                map[y][X].setEffect(null);
                 map[y][X].setImage(ImageName.LINKOR);
             }
             i--;

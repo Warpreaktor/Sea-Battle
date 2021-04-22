@@ -1,6 +1,6 @@
 package com.core;
 
-import com.core.GameObjects.MapObject;
+import com.core.MapObjects.MapObject;
 import com.core.Ships.Ship;
 import front.App;
 import javafx.event.EventHandler;

@@ -1,7 +1,7 @@
 package com.core.Ships;
 
 import com.core.ImageName;
-import com.core.GameObjects.MapObject;
+import com.core.MapObjects.MapObject;
 import front.App;
 
 
@@ -30,6 +30,7 @@ public class DeckOfShip extends MapObject {
         this.dekcNumber = deckNumber;
         this.shipOwner = shipowner;
         this.setLabel(label);
+        this.setImage(shipowner.getImage());
     }
     @Override
     public boolean spruting() {
@@ -37,9 +38,9 @@ public class DeckOfShip extends MapObject {
             shipOwner.getDecks()[i].setImage(ImageName.KRAKEN);
         }
         if (shipOwner.getOwner().isCPU()){
-            App.SEA_BATTLE_GAME.theShipIsDestroyed(shipOwner, App.SEA_BATTLE_GAME.getCPU(), App.SEA_BATTLE_GAME.getHuman());
+            shipOwner.getOwner().theShipIsDestroyed(shipOwner, App.SEA_BATTLE_GAME.getCPU(), App.SEA_BATTLE_GAME.getHuman());
         }else {
-            App.SEA_BATTLE_GAME.theShipIsDestroyed(shipOwner, App.SEA_BATTLE_GAME.getHuman(), App.SEA_BATTLE_GAME.getCPU());
+            shipOwner.getOwner().theShipIsDestroyed(shipOwner, App.SEA_BATTLE_GAME.getHuman(), App.SEA_BATTLE_GAME.getCPU());
         }
         return true;
     }

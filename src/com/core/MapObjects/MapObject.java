@@ -1,4 +1,4 @@
-package com.core.GameObjects;
+package com.core.MapObjects;
 
 import com.core.ImageName;
 import javafx.scene.image.Image;

@@ -66,11 +66,11 @@ public class BattleFieldController {
         textNew.setFont(new Font(20));
         textNew.setFill(Color.BLUE);
 
-        list.remove(1);
         list.remove(0);
-        list.add(0, textOld);
-        list.add(1, textNew);
-
+        list.remove(0);
+//        list.add(0, textOld);
+//        list.add(1, textNew);
+        list.addAll(textOld, textNew);
     }
 
     public final void nextTurn(){
@@ -136,7 +136,7 @@ public class BattleFieldController {
     public void textFlowInit(){
         textFlow.setLayoutY(80);
         textFlow.setLayoutX(240);
-        textFlow.setPrefWidth(700);
+        textFlow.setPrefWidth(300);
         textFlow.setPrefHeight(130);
         textFlow.setTextAlignment(TextAlignment.CENTER);
         textFlow.setLineSpacing(2);

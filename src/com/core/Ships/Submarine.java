@@ -1,6 +1,6 @@
 package com.core.Ships;
 
-import com.core.GameObjects.MapObject;
+import com.core.MapObjects.MapObject;
 import com.core.ImageName;
 import com.core.Players.Player;
 import front.App;
@@ -41,6 +41,9 @@ public class Submarine extends Ship {
             HBox[] hBoxes = App.SHIP_SETTING_CONTROLLER.getFieldRows();
             hBoxes[Y].getChildren().remove(X);
             hBoxes[Y].getChildren().add(X, decks[0]);
+            map[Y][X].setImage(ImageName.SUBMARINE);
+        }else{
+            map[Y][X].setEffect(null);
             map[Y][X].setImage(ImageName.SUBMARINE);
         }
         App.SEA_BATTLE_GAME.playerShipIncrement(this.getOwner());

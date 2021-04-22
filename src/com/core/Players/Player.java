@@ -1,6 +1,6 @@
 package com.core.Players;
 
-import com.core.GameObjects.MapObject;
+import com.core.MapObjects.MapObject;
 import com.core.ImageName;
 import com.core.SeaBattleGame;
 import com.core.Ships.*;
@@ -189,5 +189,7 @@ public abstract class Player {
                 }
         }
     }
-
+    public abstract void theShipIsDamaged(Ship ship, Player enemy, Player self, int Y, int X);
+    public abstract void theShipIsDestroyed(Ship ship, Player enemy, Player self);
+    public abstract void missed(Player enemy, Player self, int Y, int X);
 }

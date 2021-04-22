@@ -1,6 +1,6 @@
 package com.core.Ships;
 
-import com.core.GameObjects.MapObject;
+import com.core.MapObjects.MapObject;
 import com.core.ImageName;
 import com.core.Players.Player;
 import front.App;
@@ -45,6 +45,9 @@ public class Destroyer extends Ship {
                 hBoxes[Y].getChildren().remove(x);
                 hBoxes[Y].getChildren().add(x, decks[i]);
                 map[Y][x].setImage(ImageName.DESTROYER);
+            }else{
+                map[Y][x].setEffect(null);
+                map[Y][x].setImage(ImageName.DESTROYER);
             }
             i--;
         }
@@ -66,6 +69,9 @@ public class Destroyer extends Ship {
                 HBox[] hBoxes = App.SHIP_SETTING_CONTROLLER.getFieldRows();
                 hBoxes[y].getChildren().remove(X);
                 hBoxes[y].getChildren().add(X, decks[i]);
+                map[y][X].setImage(ImageName.DESTROYER);
+            }else{
+                map[y][X].setEffect(null);
                 map[y][X].setImage(ImageName.DESTROYER);
             }
             i--;

@@ -1,7 +1,7 @@
 package front;
 
-import com.core.GameObjects.MapCell;
-import com.core.GameObjects.MapObject;
+import com.core.MapObjects.MapCell;
+import com.core.MapObjects.MapObject;
 import com.core.Ships.Ship;
 import com.core.Tools;
 import javafx.event.ActionEvent;

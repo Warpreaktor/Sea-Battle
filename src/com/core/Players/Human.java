@@ -1,7 +1,11 @@
 package com.core.Players;
 
+import com.core.ImageName;
 import com.core.Ships.DeckOfShip;
+import com.core.Ships.Ship;
 import front.App;
+
+import static com.core.SeaBattleGame.setGreenDotsAround;
 
 public class Human extends Player {
     public boolean isCPU() {
@@ -15,9 +19,6 @@ public class Human extends Player {
     public boolean shoot(int Y, int X) {
         Player CPU = App.SEA_BATTLE_GAME.getCPU();
         Player human = App.SEA_BATTLE_GAME.getHuman();
-        System.out.println(CPU.getOurFleetMap()[Y][X].getClass().getSimpleName());
-        System.out.println(CPU.getOurFleetMap()[Y][X].getLabel());
-        System.out.println(CPU.getOurFleetMap()[Y][X].getName());
         if (human.getEnemyFleetMap()[Y][X].getLabel() == '+' || human.getEnemyFleetMap()[Y][X].getLabel() == 'X') {
             return false;
         } else {
@@ -25,12 +26,12 @@ public class Human extends Player {
                 if (CPU.getOurFleetMap()[Y][X].getClass().getSimpleName().equals("DeckOfShip")) {
                     String enemyShipName = CPU.getOurFleetMap()[Y][X].getName();
                     DeckOfShip enemyShip = (DeckOfShip) CPU.getOurFleetMap()[Y][X];
-                    App.SEA_BATTLE_GAME.theShipIsDamaged(enemyShip.getShipOwner(), CPU, human, Y, X);
+                    theShipIsDamaged(enemyShip.getShipOwner(), CPU, human, Y, X);
                     if (enemyShip.getHp() > 0) {
                         App.BATTLE_FIELD_CONTROLLER.textOutput("Корабль " + enemyShipName + " поврежден!");
                     }
                     if (enemyShip.getHp() <= 0) {
-                        App.SEA_BATTLE_GAME.theShipIsDestroyed(enemyShip.getShipOwner(), CPU, human);
+                        theShipIsDestroyed(enemyShip.getShipOwner(), CPU, human);
                         App.BATTLE_FIELD_CONTROLLER.textOutput("Корабль " + enemyShipName + " уничтожен!");
                     }
                 } else {
@@ -40,7 +41,7 @@ public class Human extends Player {
                     } else {
                         human.getEnemyFleetMap()[Y][X].setLabel('+');
                     }
-                    App.SEA_BATTLE_GAME.missed(CPU, human, Y, X);
+                    missed(CPU, human, Y, X);
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -50,5 +51,29 @@ public class Human extends Player {
             }
             return true;
         }
+    }
+
+    @Override
+    public void theShipIsDamaged(Ship ship, Player enemy, Player self, int Y, int X) {
+        enemy.getOurFleetMap()[Y][X].setLabel('X');                 //Ставим отмеку в карте противнка
+        enemy.getOurFleetMap()[Y][X].setImage(ImageName.RED_CROSS); //Рисуем крест на карте противнка
+        self.getEnemyFleetMap()[Y][X].setLabel('X');                //Ставим отметку в своей карте "Радар"
+        self.getEnemyFleetMap()[Y][X].setImage(ImageName.RED_CROSS);//Рисуем крест в своей карте "Радар"
+        ship.setHp(ship.getHp()-1);
+    }
+
+    @Override
+    public void theShipIsDestroyed(Ship ship, Player enemy, Player self) {
+        setGreenDotsAround(self.getEnemyFleetMap(), ship);
+        setGreenDotsAround(enemy.getOurFleetMap(), ship);
+        App.SEA_BATTLE_GAME.playerShipDecrement(enemy);
+        App.BATTLE_FIELD_CONTROLLER.stateUpdate();
+    }
+
+    @Override
+    public void missed(Player enemy, Player self, int Y, int X) {
+        enemy.getOurFleetMap()[Y][X].setImage(ImageName.DOT);
+        self.getEnemyFleetMap()[Y][X].setLabel('+');
+        self.getEnemyFleetMap()[Y][X].setImage(ImageName.DOT);
     }
 }
