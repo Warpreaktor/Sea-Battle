@@ -43,25 +43,25 @@ public class Tools {
     }
 
     /**
-     * Возвращает true если [Y][X] НЕ выходят за границы переданного массива массива.
+     * Возвращает true если [Y][X] выходят за границы переданного массива массива.
      *
      * @param map - передается массив MapObject на котором нужно осуществить проверку.
      * @return
      */
     public static boolean isOutOfBoards(MapObject[][] map, int Y, int X) {
         if (Y >= map.length) {
-            return false;
+            return true;
         }
         if (Y < 0) {
-            return false;
+            return true;
         }
         if (X >= map[Y].length) {
-            return false;
+            return true;
         }
         if (X < 0) {
-            return false;
+            return true;
         }
-        return true;
+        return false;
     }
 
     public static int getRandomNumber(int from, int to){
@@ -289,7 +289,7 @@ public class Tools {
         switch (shipSize) {
             case 4:
                 for (int x = X - 2; x <= X + 1; x++) {
-                    if (!isOutOfBoards(map, Y, x)) return false;;
+                    if (isOutOfBoards(map, Y, x)) return false;;
                     if (!isNoShipsArround(map, Y, x)) {
 //                        System.out.println("Нельзя размещать свои корабли вплотную к другим кораблям");
                         return false;
@@ -299,7 +299,7 @@ public class Tools {
                 return true;
             case 3:
                 for (int x = X - 1; x <= X + 1; x++) {
-                    if (!isOutOfBoards(map, Y, x)) return false;;
+                    if (isOutOfBoards(map, Y, x)) return false;;
                     if (!isNoShipsArround(map, Y, x)) {
 //                        System.out.println("Нельзя размещать свои корабли вплотную к другим кораблям");
                         return false;
@@ -309,7 +309,7 @@ public class Tools {
                 return true;
             case 2:
                 for (int x = X - 1; x <= X; x++) {
-                    if (!isOutOfBoards(map, Y, x)) return false;;
+                    if (isOutOfBoards(map, Y, x)) return false;;
                     if (!isNoShipsArround(map, Y, x)) {
 //                        System.out.println("Нельзя размещать свои корабли вплотную к другим кораблям");
                         return false;
@@ -318,7 +318,7 @@ public class Tools {
                 ship.shipOnTheSeaX(Y, X);
                 return true;
             case 1:
-                if (!isOutOfBoards(map, Y, X) || !isNoShipsArround(map, Y, X)) {
+                if (isOutOfBoards(map, Y, X) || !isNoShipsArround(map, Y, X)) {
 //                    System.out.println("Здесь нельзя разместить корабль");
                     return false;
                 }
@@ -334,7 +334,7 @@ public class Tools {
         switch (shipSize) {
             case 4:
                 for (int y = Y - 2; y <= Y + 1; y++) {
-                    if (!isOutOfBoards(map, y, X)) return false;;
+                    if (isOutOfBoards(map, y, X)) return false;;
                     if (!isNoShipsArround(map, y, X)) {
 //                        System.out.println("Нельзя размещать свои корабли вплотную к другим кораблям");
                         return false;
@@ -344,7 +344,7 @@ public class Tools {
                 return true;
             case 3:
                 for (int y = Y - 1; y <= Y + 1; y++) {
-                    if (!isOutOfBoards(map, y, X)) return false;;
+                    if (isOutOfBoards(map, y, X)) return false;;
                     if (!isNoShipsArround(map, y, X)) {
 //                        System.out.println("Нельзя размещать свои корабли вплотную к другим кораблям");
                         return false;
@@ -354,7 +354,7 @@ public class Tools {
                 return true;
             case 2:
                 for (int y = Y - 1; y <= Y; y++) {
-                    if (!isOutOfBoards(map, y, X)) return false;;
+                    if (isOutOfBoards(map, y, X)) return false;;
                     if (!isNoShipsArround(map, y, X)) {
 //                        System.out.println("Нельзя размещать свои корабли вплотную к другим кораблям");
                         return false;
@@ -363,7 +363,7 @@ public class Tools {
                 ship.shipOnTheSeaY(Y, X);
                 return true;
             case 1:
-                if (!isOutOfBoards(map, Y, X) || !isNoShipsArround(map, Y, X)) {
+                if (isOutOfBoards(map, Y, X) || !isNoShipsArround(map, Y, X)) {
 //                    System.out.println("Здесь нельзя разместить корабль");
                     return false;
                 }

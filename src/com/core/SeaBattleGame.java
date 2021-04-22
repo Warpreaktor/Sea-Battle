@@ -57,7 +57,7 @@ public class SeaBattleGame {
             int X = ship.getDecks()[i].getCoordinateX();
             for (int y = Y - 1; y < Y + 2; y++) {
                 for (int x = X - 1; x < X + 2; x++) {
-                    if(!Tools.isOutOfBoards(map, y, x)) continue;
+                    if(Tools.isOutOfBoards(map, y, x)) continue;
                     if (map[y][x].getLabel()=='+') continue;
                     if (map[y][x].getLabel()=='X') continue;
                     if (map[y][x].isShip()) continue;

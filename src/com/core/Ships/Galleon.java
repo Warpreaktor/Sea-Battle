@@ -6,7 +6,7 @@ import com.core.Players.Player;
 import front.App;
 import javafx.scene.layout.HBox;
 
-public class Cruiser extends Ship {
+public class Galleon extends Ship {
     private DeckOfShip[] decks = new DeckOfShip[3]; //[y][x] Это, по сути, корпус корабля который состоит из нескольких partOfLinkor
 
     @Override
@@ -14,7 +14,7 @@ public class Cruiser extends Ship {
         return decks;
     }
 
-    public Cruiser(Player owner) {
+    public Galleon(Player owner) {
         super.setOwner(owner);
         super.setShipSize(decks.length);
         super.setName(naming());

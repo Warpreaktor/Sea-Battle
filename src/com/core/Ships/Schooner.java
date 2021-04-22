@@ -6,10 +6,10 @@ import com.core.Players.Player;
 import front.App;
 import javafx.scene.layout.HBox;
 
-public class Submarine extends Ship {
+public class Schooner extends Ship {
     private DeckOfShip[] decks = new DeckOfShip[1]; //[y][x] Корпус корабля который состоит из нескольких DeckOfShip
 
-    public Submarine(Player owner) {
+    public Schooner(Player owner) {
         super.setOwner(owner);
         super.setShipSize(decks.length);
         super.setName(naming());

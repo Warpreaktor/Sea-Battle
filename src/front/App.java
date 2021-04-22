@@ -111,11 +111,11 @@ public class App extends Application {
                 gameCell.setOnMouseClicked(new EventHandler<MouseEvent>() {
                     @Override
                     public void handle(MouseEvent mouseEvent) {
-                        System.out.println(App.SEA_BATTLE_GAME.getCPU().getOurFleetMap()[gameCell.getCoordinateY()][gameCell.getCoordinateX()].getClass().getSimpleName());
-                        System.out.println(App.SEA_BATTLE_GAME.getCPU().getOurFleetMap()[gameCell.getCoordinateY()][gameCell.getCoordinateX()].getLabel());
-                        System.out.println(App.SEA_BATTLE_GAME.getCPU().getOurFleetMap()[gameCell.getCoordinateY()][gameCell.getCoordinateX()].getName());
-                        System.out.println(App.SEA_BATTLE_GAME.getCPU().getOurFleetMap()[gameCell.getCoordinateY()][gameCell.getCoordinateX()]);
-                        System.out.println(App.SEA_BATTLE_GAME.getCPU().getOurFleetMap()[gameCell.getCoordinateY()][gameCell.getCoordinateX()].getImage().getUrl());
+//                        System.out.println(App.SEA_BATTLE_GAME.getCPU().getOurFleetMap()[gameCell.getCoordinateY()][gameCell.getCoordinateX()].getClass().getSimpleName());
+//                        System.out.println(App.SEA_BATTLE_GAME.getCPU().getOurFleetMap()[gameCell.getCoordinateY()][gameCell.getCoordinateX()].getLabel());
+//                        System.out.println(App.SEA_BATTLE_GAME.getCPU().getOurFleetMap()[gameCell.getCoordinateY()][gameCell.getCoordinateX()].getName());
+//                        System.out.println(App.SEA_BATTLE_GAME.getCPU().getOurFleetMap()[gameCell.getCoordinateY()][gameCell.getCoordinateX()]);
+//                        System.out.println(App.SEA_BATTLE_GAME.getCPU().getOurFleetMap()[gameCell.getCoordinateY()][gameCell.getCoordinateX()].getImage().getUrl());
                         if (isHumanTurn) {
                             if (SEA_BATTLE_GAME.getHuman().shoot(gameCell.getCoordinateY(), gameCell.getCoordinateX())) {
                                 isHumanTurn = false;//ход передается компьютеру

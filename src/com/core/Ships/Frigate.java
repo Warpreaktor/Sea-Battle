@@ -6,10 +6,10 @@ import com.core.Players.Player;
 import front.App;
 import javafx.scene.layout.HBox;
 
-public class Destroyer extends Ship {
+public class Frigate extends Ship {
     private DeckOfShip[] decks = new DeckOfShip[2]; //[y][x] Это, по сути, корпус корабля который состоит из нескольких partOfLinkor
 
-    public Destroyer(Player owner) {
+    public Frigate(Player owner) {
         super.setOwner(owner);
         super.setShipSize(decks.length);
         super.setName(naming());
