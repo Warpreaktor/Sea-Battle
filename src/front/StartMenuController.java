@@ -27,11 +27,9 @@ public class StartMenuController implements Initializable {
     @FXML private Button nameGenerator;
     private int portraitIndex;
 
-//    ObservableList<String> list  = FXCollections.observableArrayList("10 на 10","20 на 20 (в разработке)");
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        portraitIndex = Tools.getRandomNumber(1, 10);
+        portraitIndex = Tools.getRandomNumber(0, 9);
         portrait.setImage(App.getAllPortraits()[portraitIndex]);
 //        portrait.setFitHeight(140);
 //        portrait.setFitWidth(140);
