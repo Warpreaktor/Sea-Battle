@@ -13,7 +13,7 @@ public class Tools {
     private static Ship dragObject;
 
     public void easyStat(){
-        int[] stat = {28, 45, 37, 38};
+        int[] stat = {28, 45, 37, 38, 48, 52};
         int sum = 0;
         for(int itr: stat){
             sum +=itr;
@@ -75,7 +75,6 @@ public class Tools {
     public static int getRandomNumber(int from, int to){
         //нужно погонять в тестах тут зарыта ошибка. Могут вылехать не те числа что ты думаешь.
         int rand = from + (int) (Math.random() * to);
-        System.out.println("RandomNumber " + rand);
         return rand;
     }
 
@@ -85,7 +84,6 @@ public class Tools {
         if (rand == 10){
             return 9;
         }
-        System.out.println("RandomCoordinate " + rand);
         return rand;
     }
 

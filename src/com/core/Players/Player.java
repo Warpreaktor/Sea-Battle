@@ -142,19 +142,19 @@ public abstract class Player {
 
     public void shipYardInit(){
         //1 Линкор(4), 2 Крейсера(3), 3 Эсминца(2), 4 Подлодки(1)
-        /**Каждая клетка игрового поля заполняется объектами пустыми объектами MapCell
+        /**Каждая клетка игрового поля заполняется объектами пустыми объектами MapCell.
          */
         shipyard = new ArrayList<Ship>();
+        shipyard.add(new Schooner(this));
+        shipyard.add(new Schooner(this));
+        shipyard.add(new Schooner(this));
+        shipyard.add(new Schooner(this));
+        shipyard.add(new Frigate(this));
+        shipyard.add(new Frigate(this));
+        shipyard.add(new Frigate(this));
+        shipyard.add(new Galleon(this));
+        shipyard.add(new Galleon(this));
         shipyard.add(new Battleship(this));
-        shipyard.add(new Galleon(this));
-        shipyard.add(new Galleon(this));
-        shipyard.add(new Frigate(this));
-        shipyard.add(new Frigate(this));
-        shipyard.add(new Frigate(this));
-        shipyard.add(new Schooner(this));
-        shipyard.add(new Schooner(this));
-        shipyard.add(new Schooner(this));
-        shipyard.add(new Schooner(this));
     }
     /**
      * Метод принимает корабль в качестве параметра и выставляет его на игровое поле, проверяя

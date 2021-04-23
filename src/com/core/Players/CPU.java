@@ -124,6 +124,7 @@ public class CPU extends Player {
 //                x = Tools.getRandomCoordinate(); пробуем новый интеллектуальны выбор координат
                 coordinates = chooseCoordinates();
             }
+            App.SEA_BATTLE_GAME.isVictory();
             return true;
         }
     }
