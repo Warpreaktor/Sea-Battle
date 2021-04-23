@@ -12,6 +12,7 @@ import front.App;
 import java.util.ArrayList;
 
 import static com.core.SeaBattleGame.setGreenDotsAround;
+import static com.core.Tools.isOutOfBoards;
 
 public class CPU extends Player {
     private Difficult difficult = Difficult.EASY;
@@ -73,7 +74,7 @@ public class CPU extends Player {
         switch (rand) {
             case (1):
                 int z = Y - 1;
-                if (Tools.isOutOfBoards(map, z, X) || map[z][X].getLabel() == '+'
+                if (isOutOfBoards(map, z, X) || map[z][X].getLabel() == '+'
                         || map[z][X].getLabel() == 'X') {
                     lookAround(Y, X);
                 } else {
@@ -82,7 +83,7 @@ public class CPU extends Player {
                 break;
             case (2):
                 z = Y + 1;
-                if (Tools.isOutOfBoards(map, z, X) || map[z][X].getLabel() == '+'
+                if (isOutOfBoards(map, z, X) || map[z][X].getLabel() == '+'
                         || map[z][X].getLabel() == 'X') {
                     lookAround(Y, X);
                 } else {
@@ -91,7 +92,7 @@ public class CPU extends Player {
                 break;
             case (3):
                 z = X - 1;
-                if (Tools.isOutOfBoards(map, Y, z) || map[Y][z].getLabel() == '+'
+                if (isOutOfBoards(map, Y, z) || map[Y][z].getLabel() == '+'
                         || map[Y][z].getLabel() == 'X') {
                     lookAround(Y, X);
                 } else {
@@ -101,7 +102,7 @@ public class CPU extends Player {
                 break;
             case (4):
                 z = X + 1;
-                if (Tools.isOutOfBoards(map, Y, z) || map[Y][z].getLabel() == '+'
+                if (isOutOfBoards(map, Y, z) || map[Y][z].getLabel() == '+'
                         || map[Y][z].getLabel() == 'X') {
                     lookAround(Y, X);
                 } else {
@@ -149,8 +150,11 @@ public class CPU extends Player {
     public boolean oneShot(int Y, int X) {
         Player CPU = App.SEA_BATTLE_GAME.getCPU();
         Player human = App.SEA_BATTLE_GAME.getHuman();
-        if (human.getOurFleetMap()[Y][X].getLabel() == '+' || human.getOurFleetMap()[Y][X].getLabel() == 'X') {
-            human.getOurFleetMap()[Y][X].setImage(ImageName.KRAKEN);
+
+        if (    isOutOfBoards(human.getOurFleetMap(), Y, X)
+                || human.getOurFleetMap()[Y][X].getLabel() == '+'
+                || human.getOurFleetMap()[Y][X].getLabel() == 'X') {
+            //human.getOurFleetMap()[Y][X].setImage(ImageName.KRAKEN);
             return false;
         }
         if (human.getOurFleetMap()[Y][X].getClass().getSimpleName().equals("DeckOfShip")) {

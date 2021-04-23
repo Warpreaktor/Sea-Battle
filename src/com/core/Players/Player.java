@@ -37,7 +37,7 @@ public abstract class Player {
 
     public static String[] adjectivesW = {"Чёрная", "Рваная", "Жуткая", "Длинная", "Синяя", "Рыжая",
             "Стальная", "Дубовая", "Нечеловеческая", "Шершавая", "Рыхлая", "Дряблая", "Непробиваемая", "Таинственная",
-            "Белая", "Страшная", "Противная", "Скользкая", "Позолоченная", "Гладкая", "Опалённая", "Кожа", "Шальная"};
+            "Белая", "Страшная", "Противная", "Скользкая", "Позолоченная", "Гладкая", "Опалённая", "Кожаная", "Шальная"};
 
     public String getName() {
         return name;
@@ -67,10 +67,6 @@ public abstract class Player {
                 name = nickname[(int) (Math.random() * (nickname.length - 1))] +
                         " " + firstNames[(int) (Math.random() * (firstNames.length - 1))];
                 break;
-//            case (2)://прил жен + сущ. жен. напр: Чёрная Борода
-//                name = adjectivesW[(int) (Math.random() * (adjectivesW.length - 1))] +
-//                        " " + nounsW[(int) (Math.random() * (nounsW.length - 1))];
-//                break;
             case (2)://имя + прил жен + сущ. жен. напр: Джек Чёрная Борода
                 name = firstNames[(int) (Math.random() * (firstNames.length - 1))] +
                         " " + adjectivesW[(int) (Math.random() * (adjectivesW.length - 1))] +

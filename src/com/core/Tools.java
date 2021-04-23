@@ -12,8 +12,8 @@ import javafx.scene.input.*;
 public class Tools {
     private static Ship dragObject;
 
-    public void easyStat(){
-        int[] stat = {28, 45, 37, 38, 48, 52};
+    public static void easyStat(){
+        int[] stat = {28, 45, 37, 38, 48, 52, 27, 37};
         int sum = 0;
         for(int itr: stat){
             sum +=itr;
