@@ -74,12 +74,9 @@ public class BattleFieldController {
     }
 
     public final void nextTurn(){
-        if (App.isHumanTurn == false) {
-            App.SEA_BATTLE_GAME.event();
+        App.SEA_BATTLE_GAME.event();
+        while (App.isHumanTurn == false) {
             App.SEA_BATTLE_GAME.getCPU().shoot(0, 0);//Сюда можно передавать любые координаты, все равно они изменятся внутри метода.
-            App.isHumanTurn = true;
-        }else {
-            //Сообщение пользователю о том, что его ход еще не завершен
         }
     }
 

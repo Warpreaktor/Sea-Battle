@@ -111,14 +111,9 @@ public class App extends Application {
                 gameCell.setOnMouseClicked(new EventHandler<MouseEvent>() {
                     @Override
                     public void handle(MouseEvent mouseEvent) {
-//                        System.out.println(App.SEA_BATTLE_GAME.getCPU().getOurFleetMap()[gameCell.getCoordinateY()][gameCell.getCoordinateX()].getClass().getSimpleName());
-//                        System.out.println(App.SEA_BATTLE_GAME.getCPU().getOurFleetMap()[gameCell.getCoordinateY()][gameCell.getCoordinateX()].getLabel());
-//                        System.out.println(App.SEA_BATTLE_GAME.getCPU().getOurFleetMap()[gameCell.getCoordinateY()][gameCell.getCoordinateX()].getName());
-//                        System.out.println(App.SEA_BATTLE_GAME.getCPU().getOurFleetMap()[gameCell.getCoordinateY()][gameCell.getCoordinateX()]);
-//                        System.out.println(App.SEA_BATTLE_GAME.getCPU().getOurFleetMap()[gameCell.getCoordinateY()][gameCell.getCoordinateX()].getImage().getUrl());
                         if (isHumanTurn) {
                             if (SEA_BATTLE_GAME.getHuman().shoot(gameCell.getCoordinateY(), gameCell.getCoordinateX())) {
-                                isHumanTurn = false;//ход передается компьютеру
+                                setIsHumanTurn(false);//ход передается компьютеру
                                 Player human = App.SEA_BATTLE_GAME.getHuman();
                                 human.setCountOfTurns(human.getCountOfTurns() + 1);
                                 try {
@@ -127,7 +122,7 @@ public class App extends Application {
                                     e.printStackTrace();
                                 }
                             } else {
-                                isHumanTurn = true;//холостой выстрел ход остается у игрока
+                                setIsHumanTurn(true);//холостой выстрел или попадение ход остается у игрока
                             }
                         }
                     }
@@ -192,5 +187,13 @@ public class App extends Application {
         Group group = new Group(error, button);
         stage.setScene(new Scene(group));
         stage.show();
+    }
+
+    public static boolean isIsHumanTurn() {
+        return isHumanTurn;
+    }
+
+    public static void setIsHumanTurn(boolean isHumanTurn) {
+        App.isHumanTurn = isHumanTurn;
     }
 }

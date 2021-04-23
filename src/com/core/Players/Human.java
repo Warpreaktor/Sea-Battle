@@ -29,10 +29,12 @@ public class Human extends Player {
                     theShipIsDamaged(enemyShip.getShipOwner(), CPU, human, Y, X);
                     if (enemyShip.getHp() > 0) {
                         App.BATTLE_FIELD_CONTROLLER.textOutput("Корабль " + enemyShipName + " поврежден!");
+                        return false;
                     }
                     if (enemyShip.getHp() <= 0) {
                         theShipIsDestroyed(enemyShip.getShipOwner(), CPU, human);
                         App.BATTLE_FIELD_CONTROLLER.textOutput("Корабль " + enemyShipName + " уничтожен!");
+                        return false;
                     }
                 } else {
                     App.BATTLE_FIELD_CONTROLLER.textOutput(human.getName() + " промахнулся!");

@@ -47,7 +47,7 @@ public class SeaBattleGame {
                 MapObject cell1 = new MapCell(y, x);
 //                MapObject cell2 = new MapCell(y, x); //непонятно зачем создается две ячейки и пихается в один массив.
                 player.setGameCellToOurFleetMap(cell1, y, x);
-//                player.setGameCellToEnemyFleetMap(cell2, y, x);
+//                player.setGameCellToEnemyFleetMap(cell2, y, x); //Удалить это на хер.
             }
         }
     }

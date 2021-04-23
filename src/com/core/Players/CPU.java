@@ -142,12 +142,12 @@ public class CPU extends Player {
                 App.BATTLE_FIELD_CONTROLLER.textOutput("Корабль " + enemyShipName + " уничтожен!");
             }
             CPU.setCountOfTurns(CPU.getCountOfTurns() + 1);
-            ;
         } else {
             human.getOurFleetMap()[Y][X].setLabel('+');
             App.BATTLE_FIELD_CONTROLLER.textOutput(CPU.getName() + " стреляет и промахивается.");
             missed(human, CPU, Y, X);
             CPU.setCountOfTurns(CPU.getCountOfTurns() + 1);
+            App.isHumanTurn = true;
         }
         return true;
     }

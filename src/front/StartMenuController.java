@@ -26,20 +26,21 @@ public class StartMenuController implements Initializable {
     @FXML private ImageView mainImage;
     @FXML private ImageView portrait;
     @FXML private Button nameGenerator;
+    @FXML private Button nextPortrait;
+    @FXML private Button previousPortrait;
     @FXML private AnchorPane mainPanel;
+
     private int portraitIndex;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        BackgroundImage backgroundImage = new BackgroundImage(new Image("/resources/woodWall.jpg"),
+        BackgroundImage backgroundImage = new BackgroundImage(new Image("/resources/seaBattleMain800x600.png"),
                 BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT,
                 BackgroundPosition.CENTER, BackgroundSize.DEFAULT);
         Background background = new Background(backgroundImage);
         mainPanel.setBackground(background);
         portraitIndex = Tools.getRandomNumber(0, 9);
         portrait.setImage(App.getAllPortraits()[portraitIndex]);
-//        portrait.setFitHeight(140);
-//        portrait.setFitWidth(140);
 //        chooseMap.setItems(list);
 //        chooseMap.setValue(list.get(0));
     }
@@ -64,17 +65,11 @@ public class StartMenuController implements Initializable {
         }
         portrait.setImage(App.getAllPortraits()[portraitIndex]);
     }
-//    public final void previousPortrait(){
-//        portrait.setOnMouseClicked(new EventHandler<MouseEvent>() {
-//            @Override
-//            public void handle(MouseEvent mouseEvent) {
-//            //написать обработчик для правой кнопки мыши
-//            }
-//        });
-//        portraitIndex-=1;
-//        if (portraitIndex < 0){
-//            portraitIndex = 10;
-//        }
-//        portrait.setImage(App.getAllPortraits()[portraitIndex]);
-//    }
+    public final void previousPortrait(){
+        portraitIndex-=1;
+        if (portraitIndex < 0){
+            portraitIndex = App.getAllPortraits().length-1;
+        }
+        portrait.setImage(App.getAllPortraits()[portraitIndex]);
+    }
 }
