@@ -1,6 +1,7 @@
 package com.core.Players;
 
 import com.core.ImageName;
+import com.core.MapObjects.MapCell;
 import com.core.MapObjects.MapObject;
 import com.core.SeaBattleGame;
 import com.core.Ships.DeckOfShip;
@@ -112,21 +113,37 @@ public class CPU extends Player {
     }
 
     public boolean shoot(int Y, int X) {
-        if (isFinishing()) {
-            toFinishHim();
-            return true;
-        } else {
-//            int y = Tools.getRandomCoordinate();
-//            int x = Tools.getRandomCoordinate(); //пробуем новый интеллектуальный выбор координат
-            Memory coordinates = chooseCoordinates();
-            while (oneShot(coordinates.Y, coordinates.X) == false) {
-//                y = Tools.getRandomCoordinate();
-//                x = Tools.getRandomCoordinate(); пробуем новый интеллектуальны выбор координат
-                coordinates = chooseCoordinates();
+        switch (this.difficult) {
+            case HARD -> {
+                //в разработке
             }
-            App.SEA_BATTLE_GAME.isVictory();
-            return true;
+            case NORMAL -> {
+                if (isFinishing()) {
+                    toFinishHim();
+                    return true;
+                }
+                Memory coordinates = chooseCoordinates();
+                if (getTurnCounter()==0) oneShot(coordinates.Y, coordinates.X);
+                else zonalShot();
+            }
+            case EASY -> {
+                if (isFinishing()) {
+                    toFinishHim();
+                    return true;
+                } else {
+    //            int y = Tools.getRandomCoordinate();
+    //            int x = Tools.getRandomCoordinate(); //пробуем новый интеллектуальный выбор координат
+                    Memory coordinates = chooseCoordinates();
+                    while (oneShot(coordinates.Y, coordinates.X) == false) {
+    //                y = Tools.getRandomCoordinate();
+    //                x = Tools.getRandomCoordinate(); пробуем новый интеллектуальны выбор координат
+                        coordinates = chooseCoordinates();
+                    }
+                    App.SEA_BATTLE_GAME.isVictory();
+                }
+            }
         }
+        return true;
     }
 
     public boolean oneShot(int Y, int X) {
@@ -163,7 +180,7 @@ public class CPU extends Player {
         return true;
     }
 
-    public void intellectualShot() {
+    public void zonalShot() {
         int zoneA_Y;
         int zoneA_X;
         int zoneB_Y;
@@ -172,6 +189,9 @@ public class CPU extends Player {
         int zoneC_X;
         int zoneD_Y;
         int zoneD_X;
+
+        MapObject[][] mapObjects = App.SEA_BATTLE_GAME.getHuman().getOurFleetMap();
+
     }
 
     public Memory chooseCoordinates() {
