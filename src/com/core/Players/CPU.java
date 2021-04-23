@@ -1,7 +1,6 @@
 package com.core.Players;
 
 import com.core.ImageName;
-import com.core.MapObjects.MapCell;
 import com.core.MapObjects.MapObject;
 import com.core.SeaBattleGame;
 import com.core.Ships.DeckOfShip;
@@ -16,9 +15,13 @@ import static com.core.Tools.isOutOfBoards;
 
 public class CPU extends Player {
     private Difficult difficult = Difficult.EASY;
-    private ArrayList<Memory> memory = new ArrayList<>();
-    private ArrayList<Memory> allCoordinates = new ArrayList<>();
-    private boolean finishing = false;
+    private boolean finishing = false;//Режим добивания
+    private ArrayList<Memory> finishingMemory = new ArrayList<>();//сюда сохраняются координаты в режиме добивания
+    private ArrayList<Memory> zoneA = new ArrayList<>();//Координаты по которым CPU еще не стрелял.
+    private ArrayList<Memory> zoneB = new ArrayList<>();//Координаты по которым CPU еще не стрелял.
+    private ArrayList<Memory> zoneC = new ArrayList<>();//Координаты по которым CPU еще не стрелял.
+    private ArrayList<Memory> zoneD = new ArrayList<>();//Координаты по которым CPU еще не стрелял.
+    private Memory lastZone;
 
     public boolean isCPU() {
         return true;
@@ -29,39 +32,42 @@ public class CPU extends Player {
         this.difficult = difficult;
         int rand = Tools.getRandomNumber(0, 9);
         this.setPortrait(App.getAllPortraits()[rand]);
+
         for (int y = 0; y < SeaBattleGame.getSIZE(); y++) {
             for (int x = 0; x < SeaBattleGame.getSIZE(); x++) {
-                Memory memory = new Memory(y, x);
-                allCoordinates.add(memory);
+                if(y<=4 && x<=4)  zoneA.add(new Memory(y,x));
+                if(y<=4 && x>4)  zoneB.add(new Memory(y,x));
+                if(y>4 && x<=4)  zoneC.add(new Memory(y,x));
+                if(y>4 && x>4)  zoneD.add(new Memory(y,x));
             }
         }
     }
 
     public boolean toFinishHim() {
-        if (memory.size() == 1) {//Добиваем Фрегат
-            lookAround(memory.get(0).Y, memory.get(0).X);
+        if (finishingMemory.size() == 1) {//Добиваем Фрегат
+            lookAround(finishingMemory.get(0).Y, finishingMemory.get(0).X);
             return true;
         }
-        if (memory.size() > 1) {//Добиваем Галлеон
-            int z = memory.size() - 1;
-            if (memory.get(z).X < memory.get(z - 1).X) {
-                if (oneShot(memory.get(z).Y, memory.get(z).X - 1)) return true;
-                else if (oneShot(memory.get(z - 1).Y, memory.get(z - 1).X + 1)) ;
+        if (finishingMemory.size() > 1) {//Добиваем Галлеон
+            int z = finishingMemory.size() - 1;
+            if (finishingMemory.get(z).X < finishingMemory.get(z - 1).X) {
+                if (oneShot(finishingMemory.get(z).Y, finishingMemory.get(z).X - 1)) return true;
+                else if (oneShot(finishingMemory.get(z - 1).Y, finishingMemory.get(z - 1).X + 1)) ;
                 return true;
             }
-            if (memory.get(z).X > memory.get(z - 1).X) {
-                if (oneShot(memory.get(z).Y, memory.get(z).X + 1)) return true;
-                else oneShot(memory.get(z - 1).Y, memory.get(z - 1).X - 1);
+            if (finishingMemory.get(z).X > finishingMemory.get(z - 1).X) {
+                if (oneShot(finishingMemory.get(z).Y, finishingMemory.get(z).X + 1)) return true;
+                else oneShot(finishingMemory.get(z - 1).Y, finishingMemory.get(z - 1).X - 1);
                 return true;
             }
-            if (memory.get(z).Y < memory.get(z - 1).Y) {
-                if (oneShot(memory.get(z).Y - 1, memory.get(z).X)) return true;
-                else oneShot(memory.get(z - 1).Y + 1, memory.get(z - 1).X);
+            if (finishingMemory.get(z).Y < finishingMemory.get(z - 1).Y) {
+                if (oneShot(finishingMemory.get(z).Y - 1, finishingMemory.get(z).X)) return true;
+                else oneShot(finishingMemory.get(z - 1).Y + 1, finishingMemory.get(z - 1).X);
                 return true;
             }
-            if (memory.get(z).Y > memory.get(z - 1).Y) {
-                if (oneShot(memory.get(z).Y + 1, memory.get(z).X)) return true;
-                else oneShot(memory.get(z - 1).Y - 1, memory.get(z - 1).X);
+            if (finishingMemory.get(z).Y > finishingMemory.get(z - 1).Y) {
+                if (oneShot(finishingMemory.get(z).Y + 1, finishingMemory.get(z).X)) return true;
+                else oneShot(finishingMemory.get(z - 1).Y - 1, finishingMemory.get(z - 1).X);
                 return true;
             }
         }
@@ -150,11 +156,9 @@ public class CPU extends Player {
     public boolean oneShot(int Y, int X) {
         Player CPU = App.SEA_BATTLE_GAME.getCPU();
         Player human = App.SEA_BATTLE_GAME.getHuman();
-
         if (    isOutOfBoards(human.getOurFleetMap(), Y, X)
                 || human.getOurFleetMap()[Y][X].getLabel() == '+'
                 || human.getOurFleetMap()[Y][X].getLabel() == 'X') {
-            //human.getOurFleetMap()[Y][X].setImage(ImageName.KRAKEN);
             return false;
         }
         if (human.getOurFleetMap()[Y][X].getClass().getSimpleName().equals("DeckOfShip")) {
@@ -164,20 +168,23 @@ public class CPU extends Player {
             if (enemyShip.getHp() > 0) {
                 human.getOurFleetMap()[Y][X].setLabel('X');
                 setFinishing(true);//включить режим добивания
-                memory.add(new Memory(Y, X));
+                finishingMemory.add(new Memory(Y, X));
+                lastZone = new Memory(Y,X);
                 App.BATTLE_FIELD_CONTROLLER.textUpdate("Корабль " + enemyShipName + " поврежден!");  //Выводим на экран сообщение
             }
             if (enemyShip.getHp() <= 0) {
                 human.getOurFleetMap()[Y][X].setLabel('X');
                 theShipIsDestroyed(enemyShip.getShipOwner(), human, CPU);
                 setFinishing(false);//выключить режим добивания
-                memory.clear();
+                finishingMemory.clear();
+                lastZone = new Memory(Y,X);
                 App.BATTLE_FIELD_CONTROLLER.textUpdate("Корабль " + enemyShipName + " уничтожен!");
             }
         } else {
             human.getOurFleetMap()[Y][X].setLabel('+');
             App.BATTLE_FIELD_CONTROLLER.textUpdate(CPU.getName() + " стреляет и промахивается.");
             missed(human, CPU, Y, X);
+            lastZone = new Memory(Y,X);
             CPU.setTurnCounter(CPU.getTurnCounter() + 1);
             App.setNexTurn();
         }
@@ -185,26 +192,34 @@ public class CPU extends Player {
     }
 
     public void zonalShot() {
-        int zoneA_Y;
-        int zoneA_X;
-        int zoneB_Y;
-        int zoneB_X;
-        int zoneC_Y;
-        int zoneC_X;
-        int zoneD_Y;
-        int zoneD_X;
-
-        MapObject[][] mapObjects = App.SEA_BATTLE_GAME.getHuman().getOurFleetMap();
 
     }
 
     public Memory chooseCoordinates() {
-        int rand = Tools.getRandomNumber(0, allCoordinates.size());
-        if (rand == allCoordinates.size()) {
-            rand = allCoordinates.size() - 1;
+        int r = Tools.getRandomNumber(1,4);
+        int rand = Tools.getRandomNumber(0, zoneA.size());//здесь может быть любая зона у них одинаковый размер
+        if (rand == zoneA.size()) {
+            rand = zoneA.size() - 1;
         }
-        Memory mem = allCoordinates.get(rand);
-        allCoordinates.remove(rand);
+        Memory mem = null;
+        switch (r){
+            case 1:
+                mem = zoneA.get(rand);
+                zoneA.remove(rand);
+                break;
+            case 2:
+                mem = zoneB.get(rand);
+                zoneA.remove(rand);
+                break;
+            case 3:
+                mem = zoneC.get(rand);
+                zoneA.remove(rand);
+                break;
+            case 4:
+                mem = zoneD.get(rand);
+                zoneA.remove(rand);
+                break;
+        }
         return mem;
     }
 
@@ -243,10 +258,15 @@ public class CPU extends Player {
     private class Memory {
         int Y;
         int X;
+        char zone;
 
         private Memory(int y, int x) {
             Y = y;
             X = x;
+            if(y<=4 && x<=4)  zone = 'A';
+            if(y<=4 && x>4)  zone = 'B';
+            if(y>4 && x<=4)  zone = 'C';
+            if(y>4 && x>4)  zone = 'D';
         }
     }
 }

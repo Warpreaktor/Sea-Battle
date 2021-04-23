@@ -20,7 +20,7 @@ public abstract class Player {
     private MapObject[][] enemyFleetMap;
     private Image portrait;
 
-    public static String[] titulM = {"Пират", "Старшина", "Мичман", "Лейтенант", "Капитан", "Адмирал"};
+    public static String[] titulM = {"Пират", "Корсар", "Мичман", "Капитан", "Адмирал"};
 
     public static String[] firstNames = {"Эдвард", "Джек", "Стид", "Джон", "Стив", "Стью", "Сильвер",
             "Флинт", "Билли", "Джонни", "Джеки", "Генри", "Джордж", "Бен", "Бенни", "Марти", "Гарри", "Бобби"};

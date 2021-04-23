@@ -14,20 +14,22 @@ public class Tests {
     /**
      * Тест запускает игру создав двух компьютерных игроков и рубиться сам с собой проверяя игру.
      */
-        //Написать тест
+    //Написать тест
+
     /**
-     *Стреляет сразу по всем клеткам. Предварительно необходимо отключить условие победы.
+     * Стреляет сразу по всем клеткам. Предварительно необходимо отключить условие победы.
      */
-    public static void killThemAll(){
+    public static void killThemAll() {
         for (int i = 0; i < 10; i++) {
             for (int j = 0; j < 10; j++) {
-                if (App.SEA_BATTLE_GAME.getHuman().shoot(i,j)) continue;
+                if (App.SEA_BATTLE_GAME.getHuman().shoot(i, j)) continue;
             }
         }
     }
 
-    public static void main(String[] args) throws IOException {
-        Tools.easyStat();
-    }
 
+    public static void main(String[] args) throws IOException {
+        // Tools.easyStat();
+
+    }
 }
