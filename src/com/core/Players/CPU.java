@@ -132,22 +132,21 @@ public class CPU extends Player {
                 human.getOurFleetMap()[Y][X].setLabel('X');
                 setFinishing(true);//включить режим добивания
                 memory.add(new Memory(Y, X));
-                App.BATTLE_FIELD_CONTROLLER.textOutput("Корабль " + enemyShipName + " поврежден!");  //Выводим на экран сообщение
+                App.BATTLE_FIELD_CONTROLLER.textUpdate("Корабль " + enemyShipName + " поврежден!");  //Выводим на экран сообщение
             }
             if (enemyShip.getHp() <= 0) {
                 human.getOurFleetMap()[Y][X].setLabel('X');
                 theShipIsDestroyed(enemyShip.getShipOwner(), human, CPU);
                 setFinishing(false);//выключить режим добивания
                 memory.clear();
-                App.BATTLE_FIELD_CONTROLLER.textOutput("Корабль " + enemyShipName + " уничтожен!");
+                App.BATTLE_FIELD_CONTROLLER.textUpdate("Корабль " + enemyShipName + " уничтожен!");
             }
-            CPU.setCountOfTurns(CPU.getCountOfTurns() + 1);
         } else {
             human.getOurFleetMap()[Y][X].setLabel('+');
-            App.BATTLE_FIELD_CONTROLLER.textOutput(CPU.getName() + " стреляет и промахивается.");
+            App.BATTLE_FIELD_CONTROLLER.textUpdate(CPU.getName() + " стреляет и промахивается.");
             missed(human, CPU, Y, X);
-            CPU.setCountOfTurns(CPU.getCountOfTurns() + 1);
-            App.isHumanTurn = true;
+            CPU.setTurnCounter(CPU.getTurnCounter() + 1);
+            App.setIsHumanTurn(true);
         }
         return true;
     }

@@ -27,7 +27,7 @@ public class App extends Application {
     public static SeaBattleGame SEA_BATTLE_GAME; // Должен быть public static final singleton и только в этом классе. Первая инициализация происходит в StartMenuController
     public static BattleFieldController BATTLE_FIELD_CONTROLLER;
     public static ShipSettingController SHIP_SETTING_CONTROLLER;
-    public static boolean isHumanTurn = true;
+    private static boolean isHumanTurn = true;
 
     public static void main(String[] args) {
         launch(args);
@@ -115,7 +115,8 @@ public class App extends Application {
                             if (SEA_BATTLE_GAME.getHuman().shoot(gameCell.getCoordinateY(), gameCell.getCoordinateX())) {
                                 setIsHumanTurn(false);//ход передается компьютеру
                                 Player human = App.SEA_BATTLE_GAME.getHuman();
-                                human.setCountOfTurns(human.getCountOfTurns() + 1);
+                                human.setTurnCounter(human.getTurnCounter() + 1);
+                                App.BATTLE_FIELD_CONTROLLER.stateUpdate();
                                 try {
                                     SEA_BATTLE_GAME.isVictory();
                                 } catch (IOException e) {
@@ -189,11 +190,12 @@ public class App extends Application {
         stage.show();
     }
 
-    public static boolean isIsHumanTurn() {
+    public static boolean getIsHumanTurn() {
         return isHumanTurn;
     }
 
     public static void setIsHumanTurn(boolean isHumanTurn) {
         App.isHumanTurn = isHumanTurn;
     }
+
 }

@@ -13,7 +13,7 @@ import java.util.ArrayList;
 public abstract class Player {
     //private boolean isCPU = false;
     private String name;
-    private int countOfTurns = 0;   //Счетчик ходов сделанных игроком.
+    private int turnCounter = 0;   //Счетчик ходов сделанных игроком.
     private int numberOfShip = 0;   //Итоговое количество кораблей игрока на поле, которое уменьшается по ходу их уничтожения.
     private ArrayList<Ship> shipyard;
     private MapObject[][] ourFleetMap;
@@ -22,8 +22,8 @@ public abstract class Player {
 
     public static String[] titulM = {"Пират", "Старшина", "Мичман", "Лейтенант", "Капитан", "Адмирал"};
 
-    public static String[] firstNames = {"Эдвард", "Джек", "Франсуа", "Стид", "Джон", "Стив", "Стью", "Сильвер",
-            "Флинт", "Билли", "Джонни", "Джеки", "Генри", "Джордж", "Бен", "Бенни", "Марти"};
+    public static String[] firstNames = {"Эдвард", "Джек", "Стид", "Джон", "Стив", "Стью", "Сильвер",
+            "Флинт", "Билли", "Джонни", "Джеки", "Генри", "Джордж", "Бен", "Бенни", "Марти", "Гарри", "Бобби"};
 
     public static String[] nounsW = {"Борода", "Челюсть", "Рука", "Голова", "Шляпа", "Нога", "Шхуна", "Сабля",
             "Ярость", "Муха", "Пушка", "Игра", "Улыбка", "Дыра", "Фигура", "Смерть", "Нечисть", "Мысль",
@@ -51,8 +51,8 @@ public abstract class Player {
     public int getNumberOfShip() {
         return numberOfShip;
     }
-    public int getCountOfTurns() {
-        return countOfTurns;
+    public int getTurnCounter() {
+        return turnCounter;
     }
 
     public Image getPortrait() {
@@ -61,27 +61,27 @@ public abstract class Player {
 
     public static String getRandomName() {
         String name = "Безымянный";
-        int randomNum = 1 + (int) (Math.random() * 4);
+        int randomNum = Tools.getRandomNumber(1, 4);
         switch (randomNum) {
             case (1)://прозвище + имя. напр: Беззубый Джон
                 name = nickname[(int) (Math.random() * (nickname.length - 1))] +
                         " " + firstNames[(int) (Math.random() * (firstNames.length - 1))];
                 break;
-            case (2)://прил жен + сущ. жен. напр: Чёрная Борода
-                name = adjectivesW[(int) (Math.random() * (adjectivesW.length - 1))] +
-                        " " + nounsW[(int) (Math.random() * (nounsW.length - 1))];
-                break;
-            case (3)://имя + прил жен + сущ. жен. напр: Джек Чёрная Борода
+//            case (2)://прил жен + сущ. жен. напр: Чёрная Борода
+//                name = adjectivesW[(int) (Math.random() * (adjectivesW.length - 1))] +
+//                        " " + nounsW[(int) (Math.random() * (nounsW.length - 1))];
+//                break;
+            case (2)://имя + прил жен + сущ. жен. напр: Джек Чёрная Борода
                 name = firstNames[(int) (Math.random() * (firstNames.length - 1))] +
                         " " + adjectivesW[(int) (Math.random() * (adjectivesW.length - 1))] +
                         " " + nounsW[(int) (Math.random() * (nounsW.length - 1))];
                 break;
-            case (4)://титул + прозвище + имя. напр: Капитан Беззубый Джон
+            case (3)://титул + прозвище + имя. напр: Капитан Беззубый Джон
                 name = titulM[(int) (Math.random() * (titulM.length - 1))] +
                         " " + nickname[(int) (Math.random() * (nickname.length - 1))] +
                         " " + firstNames[(int) (Math.random() * (firstNames.length - 1))];
                 break;
-            case (5)://титул + прил жен + сущ. жен.: Адмирал Чёрная Борода
+            case (4)://титул + прил жен + сущ. жен.: Адмирал Чёрная Борода
                 name = titulM[(int) (Math.random() * (titulM.length - 1))] +
                         " " + adjectivesW[(int) (Math.random() * (adjectivesW.length - 1))] +
                         " " + nounsW[(int) (Math.random() * (nounsW.length - 1))];
@@ -115,8 +115,8 @@ public abstract class Player {
     public ArrayList<Ship> getShipyard() {
         return shipyard;
     }
-    public void setCountOfTurns(int countOfTurns) {
-        this.countOfTurns = countOfTurns;
+    public void setTurnCounter(int turnCounter) {
+        this.turnCounter = turnCounter;
     }
 
     public abstract boolean isCPU();
