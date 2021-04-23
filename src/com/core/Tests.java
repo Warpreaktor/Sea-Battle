@@ -14,8 +14,7 @@ public class Tests {
     /**
      * Тест запускает игру создав двух компьютерных игроков и рубиться сам с собой проверяя игру.
      */
-    //Написать тест
-
+        //Написать тест
     /**
      *Стреляет сразу по всем клеткам. Предварительно необходимо отключить условие победы.
      */
@@ -28,7 +27,11 @@ public class Tests {
     }
 
     public static void main(String[] args) throws IOException {
-
+        for (int i = 0; i < 100; i++) {
+            //System.out.println(Tools.getRandomNumber(-1,10));
+            //System.out.println(1 + (int) (Math.random() * 10));
+            System.out.println(Tools.getRandomNumber(0,10));
+        }
     }
 
 }

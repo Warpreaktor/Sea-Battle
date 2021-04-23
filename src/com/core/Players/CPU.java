@@ -1,7 +1,9 @@
 package com.core.Players;
 
 import com.core.ImageName;
+import com.core.MapObjects.MapCell;
 import com.core.MapObjects.MapObject;
+import com.core.SeaBattleGame;
 import com.core.Ships.DeckOfShip;
 import com.core.Ships.Ship;
 import com.core.Tools;
@@ -14,6 +16,7 @@ import static com.core.SeaBattleGame.setGreenDotsAround;
 public class CPU extends Player {
     private Difficult difficult = Difficult.EASY;
     private ArrayList<Memory> memory = new ArrayList<>();
+    private ArrayList<Memory> allCoordinates = new ArrayList<>();
     private boolean finishing = false;
 
     public boolean isCPU() {
@@ -25,6 +28,12 @@ public class CPU extends Player {
         this.difficult = difficult;
         int rand = Tools.getRandomNumber(0, 9);
         this.setPortrait(App.getAllPortraits()[rand]);
+        for (int y = 0; y < SeaBattleGame.getSIZE(); y++) {
+            for (int x = 0; x < SeaBattleGame.getSIZE(); x++) {
+                Memory memory = new Memory(y, x);
+                allCoordinates.add(memory);
+            }
+        }
     }
 
     public boolean toFinishHim() {
@@ -35,23 +44,23 @@ public class CPU extends Player {
         if (memory.size() > 1) {//Добиваем Галлеон
             int z = memory.size() - 1;
             if (memory.get(z).X < memory.get(z - 1).X) {
-                if (shootOne(memory.get(z).Y, memory.get(z).X - 1)) return true;
-                else if (shootOne(memory.get(z - 1).Y, memory.get(z - 1).X + 1)) ;
+                if (oneShot(memory.get(z).Y, memory.get(z).X - 1)) return true;
+                else if (oneShot(memory.get(z - 1).Y, memory.get(z - 1).X + 1)) ;
                 return true;
             }
             if (memory.get(z).X > memory.get(z - 1).X) {
-                if (shootOne(memory.get(z).Y, memory.get(z).X + 1)) return true;
-                else shootOne(memory.get(z - 1).Y, memory.get(z - 1).X - 1);
+                if (oneShot(memory.get(z).Y, memory.get(z).X + 1)) return true;
+                else oneShot(memory.get(z - 1).Y, memory.get(z - 1).X - 1);
                 return true;
             }
             if (memory.get(z).Y < memory.get(z - 1).Y) {
-                if (shootOne(memory.get(z).Y - 1, memory.get(z).X)) return true;
-                else shootOne(memory.get(z - 1).Y + 1, memory.get(z - 1).X);
+                if (oneShot(memory.get(z).Y - 1, memory.get(z).X)) return true;
+                else oneShot(memory.get(z - 1).Y + 1, memory.get(z - 1).X);
                 return true;
             }
             if (memory.get(z).Y > memory.get(z - 1).Y) {
-                if (shootOne(memory.get(z).Y + 1, memory.get(z).X)) return true;
-                else shootOne(memory.get(z-1).Y - 1, memory.get(z-1).X);
+                if (oneShot(memory.get(z).Y + 1, memory.get(z).X)) return true;
+                else oneShot(memory.get(z - 1).Y - 1, memory.get(z - 1).X);
                 return true;
             }
         }
@@ -68,7 +77,7 @@ public class CPU extends Player {
                         || map[z][X].getLabel() == 'X') {
                     lookAround(Y, X);
                 } else {
-                    return shootOne(z, X);
+                    return oneShot(z, X);
                 }
                 break;
             case (2):
@@ -77,7 +86,7 @@ public class CPU extends Player {
                         || map[z][X].getLabel() == 'X') {
                     lookAround(Y, X);
                 } else {
-                    return shootOne(z, X);
+                    return oneShot(z, X);
                 }
                 break;
             case (3):
@@ -87,7 +96,7 @@ public class CPU extends Player {
                     lookAround(Y, X);
                 } else {
 
-                    return shootOne(Y, z);
+                    return oneShot(Y, z);
                 }
                 break;
             case (4):
@@ -96,7 +105,7 @@ public class CPU extends Player {
                         || map[Y][z].getLabel() == 'X') {
                     lookAround(Y, X);
                 } else {
-                    return shootOne(Y, z);
+                    return oneShot(Y, z);
                 }
                 break;
         }
@@ -104,24 +113,44 @@ public class CPU extends Player {
     }
 
     public boolean shoot(int Y, int X) {
-        if (isFinishing()) {
-            toFinishHim();
-            return true;
-        } else {
-            int y = Tools.getRandomCoordinate();
-            int x = Tools.getRandomCoordinate();
-            while (shootOne(y, x) == false) {
-                y = Tools.getRandomCoordinate();
-                x = Tools.getRandomCoordinate();
+        switch (this.difficult) {
+            case HARD -> {
+                //в разработке
             }
-            return true;
+            case NORMAL -> {
+                if (isFinishing()) {
+                    toFinishHim();
+                    return true;
+                }
+                Memory coordinates = chooseCoordinates();
+                if (getTurnCounter()==0) oneShot(coordinates.Y, coordinates.X);
+                else zonalShot();
+            }
+            case EASY -> {
+                if (isFinishing()) {
+                    toFinishHim();
+                    return true;
+                } else {
+    //            int y = Tools.getRandomCoordinate();
+    //            int x = Tools.getRandomCoordinate(); //пробуем новый интеллектуальный выбор координат
+                    Memory coordinates = chooseCoordinates();
+                    while (oneShot(coordinates.Y, coordinates.X) == false) {
+    //                y = Tools.getRandomCoordinate();
+    //                x = Tools.getRandomCoordinate(); пробуем новый интеллектуальны выбор координат
+                        coordinates = chooseCoordinates();
+                    }
+                    App.SEA_BATTLE_GAME.isVictory();
+                }
+            }
         }
+        return true;
     }
 
-    public boolean shootOne(int Y, int X) {
+    public boolean oneShot(int Y, int X) {
         Player CPU = App.SEA_BATTLE_GAME.getCPU();
         Player human = App.SEA_BATTLE_GAME.getHuman();
         if (human.getOurFleetMap()[Y][X].getLabel() == '+' || human.getOurFleetMap()[Y][X].getLabel() == 'X') {
+            human.getOurFleetMap()[Y][X].setImage(ImageName.KRAKEN);
             return false;
         }
         if (human.getOurFleetMap()[Y][X].getClass().getSimpleName().equals("DeckOfShip")) {
@@ -132,24 +161,47 @@ public class CPU extends Player {
                 human.getOurFleetMap()[Y][X].setLabel('X');
                 setFinishing(true);//включить режим добивания
                 memory.add(new Memory(Y, X));
-                App.BATTLE_FIELD_CONTROLLER.textOutput("Корабль " + enemyShipName + " поврежден!");  //Выводим на экран сообщение
+                App.BATTLE_FIELD_CONTROLLER.textUpdate("Корабль " + enemyShipName + " поврежден!");  //Выводим на экран сообщение
             }
             if (enemyShip.getHp() <= 0) {
                 human.getOurFleetMap()[Y][X].setLabel('X');
                 theShipIsDestroyed(enemyShip.getShipOwner(), human, CPU);
                 setFinishing(false);//выключить режим добивания
                 memory.clear();
-                App.BATTLE_FIELD_CONTROLLER.textOutput("Корабль " + enemyShipName + " уничтожен!");
+                App.BATTLE_FIELD_CONTROLLER.textUpdate("Корабль " + enemyShipName + " уничтожен!");
             }
-            CPU.setCountOfTurns(CPU.getCountOfTurns() + 1);
-            ;
         } else {
             human.getOurFleetMap()[Y][X].setLabel('+');
-            App.BATTLE_FIELD_CONTROLLER.textOutput(CPU.getName() + " стреляет и промахивается.");
+            App.BATTLE_FIELD_CONTROLLER.textUpdate(CPU.getName() + " стреляет и промахивается.");
             missed(human, CPU, Y, X);
-            CPU.setCountOfTurns(CPU.getCountOfTurns() + 1);
+            CPU.setTurnCounter(CPU.getTurnCounter() + 1);
+            App.setNexTurn();
         }
         return true;
+    }
+
+    public void zonalShot() {
+        int zoneA_Y;
+        int zoneA_X;
+        int zoneB_Y;
+        int zoneB_X;
+        int zoneC_Y;
+        int zoneC_X;
+        int zoneD_Y;
+        int zoneD_X;
+
+        MapObject[][] mapObjects = App.SEA_BATTLE_GAME.getHuman().getOurFleetMap();
+
+    }
+
+    public Memory chooseCoordinates() {
+        int rand = Tools.getRandomNumber(0, allCoordinates.size());
+        if (rand == allCoordinates.size()) {
+            rand = allCoordinates.size() - 1;
+        }
+        Memory mem = allCoordinates.get(rand);
+        allCoordinates.remove(rand);
+        return mem;
     }
 
     @Override

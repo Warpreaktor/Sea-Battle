@@ -1,7 +1,6 @@
 package front;
 
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -13,6 +12,8 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.*;
+
+import static java.lang.Thread.sleep;
 
 /**
  * Width - Ширина
@@ -29,6 +30,8 @@ public class BattleFieldController {
     public ImageView rightPersonPortrait;
     public Text enemyShipsNum;   //updateble
     public Text selfShipsNum;    //updateble
+    public Text enemyTurns;    //updateble
+    public Text selfTurns;    //updateble
     public Label ourFleetMapName = new Label();
     public Label enemyFleetMapName = new Label();
     public TextFlow textFlow = new TextFlow();
@@ -46,17 +49,26 @@ public class BattleFieldController {
         stateFrameInit();
         anchorPaneInit();
     }
-
+    public void stateUpdate(){
+        selfShipsNum.setText("Флот ||\n" + App.SEA_BATTLE_GAME.getHuman().getNumberOfShip());
+        enemyShipsNum.setText("Флот ||\n" + App.SEA_BATTLE_GAME.getCPU().getNumberOfShip());
+        textOutput();
+        turnsUpdate();
+    }
+    public void textUpdate(String text){
+        battleHistory[1] = battleHistory[0];//Old
+        battleHistory[0] = text; //New
+    }
+    public void turnsUpdate(){
+        selfTurns.setText("Ходов \n" + App.SEA_BATTLE_GAME.getHuman().getTurnCounter());
+        enemyTurns.setText("Ходов \n" + App.SEA_BATTLE_GAME.getCPU().getTurnCounter());
+    }
     /**
      * Выводит на экран сообщение. При этом, сообщение что было на экране до этого сохраняется и в следующий раз оно
      * выводится с измененным текстом сдивигаясь вверх.
-     * @param text - Текст выводимый на экран.
      */
-    public void textOutput(String text) {
+    public void textOutput() {
         ObservableList list = textFlow.getChildren();
-
-        battleHistory[1] = battleHistory[0];//Old
-        battleHistory[0] = text; //New
 
         Text textOld = new Text(battleHistory[1] + "\n");
         textOld.setFont(new Font(14));
@@ -66,22 +78,26 @@ public class BattleFieldController {
         textNew.setFont(new Font(20));
         textNew.setFill(Color.BLUE);
 
-        list.remove(0);
-        list.remove(0);
-//        list.add(0, textOld);
-//        list.add(1, textNew);
-        list.addAll(textOld, textNew);
+        try {
+            list.remove(0);
+            sleep(50);
+            list.remove(0);
+            sleep(50);
+            list.addAll(textOld, textNew);
+        } catch (InterruptedException e){
+            e.printStackTrace();
+        }
     }
 
     public final void nextTurn(){
-        if (App.isHumanTurn == false) {
-            App.SEA_BATTLE_GAME.event();
+        App.setNexTurn();
+        App.SEA_BATTLE_GAME.event();
+        while (App.getIsHumanTurn()==false) {
             App.SEA_BATTLE_GAME.getCPU().shoot(0, 0);//Сюда можно передавать любые координаты, все равно они изменятся внутри метода.
-            App.isHumanTurn = true;
-        }else {
-            //Сообщение пользователю о том, что его ход еще не завершен
         }
+        stateUpdate();
     }
+
 
     public void nextTurnButtonInit(){
         nextTurnButton = new Button("Next turn \n  [SPACE]");
@@ -89,12 +105,14 @@ public class BattleFieldController {
         nextTurnButton.setPrefWidth(120);
         nextTurnButton.setLayoutX(580);
         nextTurnButton.setLayoutY(940);
-        nextTurnButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                nextTurn();
-            }
-        });
+//        разобраться как на кнопку назначить клик мыши и кнопку одновременно.
+//        nextTurnButton.setOnAction(new EventHandler<ActionEvent>() {
+//            @Override
+//            public void handle(ActionEvent event) {
+//                nextTurn();
+//                event.consume();
+//            }
+//        });
         nextTurnButton.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent keyEvent) {
@@ -123,7 +141,7 @@ public class BattleFieldController {
 
     public void anchorPaneInit(){
         anchorPane = new AnchorPane(rightField, leftField, nextTurnButton, textFlow, leftStateFrame,
-                rightStateFrame, selfShipsNum, enemyShipsNum,
+                rightStateFrame, selfShipsNum, enemyShipsNum, selfTurns, enemyTurns,
                 leftPersonFrame, rightPersonFrame, leftPersonPortrait, rightPersonPortrait);
         BackgroundImage backgroundImage = new BackgroundImage(new Image("/resources/sea.jpg"),
                 BackgroundRepeat.SPACE, BackgroundRepeat.SPACE,
@@ -172,13 +190,21 @@ public class BattleFieldController {
         leftStateFrame.setLayoutY(220);
         leftStateFrame.setLayoutX(20);
 
-        selfShipsNum = new Text("Наш флот \n" + App.SEA_BATTLE_GAME.getHuman().getNumberOfShip());
+        selfShipsNum = new Text("Флот ||\n" + App.SEA_BATTLE_GAME.getHuman().getNumberOfShip());
         selfShipsNum.setTextAlignment(TextAlignment.CENTER);
         selfShipsNum.setFont(new Font(17));
         selfShipsNum.setLineSpacing(2);
         selfShipsNum.setFill(Color.BROWN);
         selfShipsNum.setLayoutY(250);
-        selfShipsNum.setLayoutX(60);
+        selfShipsNum.setLayoutX(35);
+
+        selfTurns = new Text("Ходов \n" + App.SEA_BATTLE_GAME.getHuman().getTurnCounter());
+        selfTurns.setTextAlignment(TextAlignment.CENTER);
+        selfTurns.setFont(new Font(17));
+        selfTurns.setLineSpacing(2);
+        selfTurns.setFill(Color.BROWN);
+        selfTurns.setLayoutY(250);
+        selfTurns.setLayoutX(95);
 
         rightStateFrame = new ImageView(new Image("/resources/stateFrame.jpg"));
         rightStateFrame.setFitHeight(70);
@@ -186,20 +212,25 @@ public class BattleFieldController {
         rightStateFrame.setLayoutY(220);
         rightStateFrame.setLayoutX(1110);
 
-        enemyShipsNum = new Text("Флот врага \n" + App.SEA_BATTLE_GAME.getCPU().getNumberOfShip());
+        enemyShipsNum = new Text("Флот ||\n" + App.SEA_BATTLE_GAME.getCPU().getNumberOfShip());
         enemyShipsNum.setTextAlignment(TextAlignment.CENTER);
         enemyShipsNum.setFont(new Font(17));
         enemyShipsNum.setLineSpacing(2);
         enemyShipsNum.setFill(Color.BROWN);
         enemyShipsNum.setLayoutY(250);
-        enemyShipsNum.setLayoutX(1150);
+        enemyShipsNum.setLayoutX(1125);
+
+        enemyTurns = new Text("Ходов \n" + App.SEA_BATTLE_GAME.getCPU().getTurnCounter());
+        enemyTurns.setTextAlignment(TextAlignment.CENTER);
+        enemyTurns.setFont(new Font(17));
+        enemyTurns.setLineSpacing(2);
+        enemyTurns.setFill(Color.BROWN);
+        enemyTurns.setLayoutY(250);
+        enemyTurns.setLayoutX(1190);
 
     }
 
-    public void stateUpdate(){
-        selfShipsNum.setText("Наш флот \n" + App.SEA_BATTLE_GAME.getHuman().getNumberOfShip());
-        enemyShipsNum.setText("Флот врага \n" + App.SEA_BATTLE_GAME.getCPU().getNumberOfShip());
-    }
+
 
     public void personFramesInit(){
         leftPersonFrame = new ImageView("/resources/persons/portraitFrame250x250.png");

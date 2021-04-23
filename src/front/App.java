@@ -27,7 +27,7 @@ public class App extends Application {
     public static SeaBattleGame SEA_BATTLE_GAME; // Должен быть public static final singleton и только в этом классе. Первая инициализация происходит в StartMenuController
     public static BattleFieldController BATTLE_FIELD_CONTROLLER;
     public static ShipSettingController SHIP_SETTING_CONTROLLER;
-    public static boolean isHumanTurn = true;
+    private static boolean isHumanTurn = true;
 
     public static void main(String[] args) {
         launch(args);
@@ -94,7 +94,7 @@ public class App extends Application {
     }
 
     /**
-     * В это м методе отображается вся динамическая информация и вьюшки на поле.
+     * В этом методе отображается вся динамическая информация и вьюшки на поле.
      */
     public final static void brushTheBattleField() {
         BATTLE_FIELD_CONTROLLER = new BattleFieldController();
@@ -111,23 +111,15 @@ public class App extends Application {
                 gameCell.setOnMouseClicked(new EventHandler<MouseEvent>() {
                     @Override
                     public void handle(MouseEvent mouseEvent) {
-//                        System.out.println(App.SEA_BATTLE_GAME.getCPU().getOurFleetMap()[gameCell.getCoordinateY()][gameCell.getCoordinateX()].getClass().getSimpleName());
-//                        System.out.println(App.SEA_BATTLE_GAME.getCPU().getOurFleetMap()[gameCell.getCoordinateY()][gameCell.getCoordinateX()].getLabel());
-//                        System.out.println(App.SEA_BATTLE_GAME.getCPU().getOurFleetMap()[gameCell.getCoordinateY()][gameCell.getCoordinateX()].getName());
-//                        System.out.println(App.SEA_BATTLE_GAME.getCPU().getOurFleetMap()[gameCell.getCoordinateY()][gameCell.getCoordinateX()]);
-//                        System.out.println(App.SEA_BATTLE_GAME.getCPU().getOurFleetMap()[gameCell.getCoordinateY()][gameCell.getCoordinateX()].getImage().getUrl());
                         if (isHumanTurn) {
                             if (SEA_BATTLE_GAME.getHuman().shoot(gameCell.getCoordinateY(), gameCell.getCoordinateX())) {
-                                isHumanTurn = false;//ход передается компьютеру
                                 Player human = App.SEA_BATTLE_GAME.getHuman();
-                                human.setCountOfTurns(human.getCountOfTurns() + 1);
-                                try {
-                                    SEA_BATTLE_GAME.isVictory();
-                                } catch (IOException e) {
-                                    e.printStackTrace();
-                                }
+                                human.setTurnCounter(human.getTurnCounter() + 1);
+                                App.BATTLE_FIELD_CONTROLLER.stateUpdate();
+                                setNexTurn();//ход передается компьютеру
+                                SEA_BATTLE_GAME.isVictory();
                             } else {
-                                isHumanTurn = true;//холостой выстрел ход остается у игрока
+                                //setNexTurn();//холостой выстрел или попадение ход остается у игрока
                             }
                         }
                     }
@@ -139,7 +131,7 @@ public class App extends Application {
         STAGE.show();
     }
 
-    public final void brushTheVictroryScreen() throws IOException {
+    public final void brushTheVictroryScreen() {
         VictoryScreenController victoryScreenController = new VictoryScreenController();
         try {
             STAGE.setX(600);
@@ -193,4 +185,13 @@ public class App extends Application {
         stage.setScene(new Scene(group));
         stage.show();
     }
+
+    public static boolean getIsHumanTurn() {
+        return isHumanTurn;
+    }
+
+    public static void setNexTurn() {
+        App.isHumanTurn = !isHumanTurn;
+    }
+
 }

@@ -1,6 +1,7 @@
 package com.core;
 
 import com.core.MapObjects.MapObject;
+import com.core.Players.CPU;
 import com.core.Ships.Ship;
 import front.App;
 import javafx.event.EventHandler;
@@ -11,7 +12,14 @@ import javafx.scene.input.*;
 public class Tools {
     private static Ship dragObject;
 
-
+    public void easyStat(){
+        int[] stat = {28, 45, 37, 38, 48, 52};
+        int sum = 0;
+        for(int itr: stat){
+            sum +=itr;
+        }
+        System.out.println(sum/stat.length);
+    }
 
     /**
      * Возвращает true если по соседству с ячейкой [Y][X] нет объектов типа DeckOfShip
@@ -65,13 +73,18 @@ public class Tools {
     }
 
     public static int getRandomNumber(int from, int to){
-        int num = from + (int) (Math.random() * to);
-        return num;
+        //нужно погонять в тестах тут зарыта ошибка. Могут вылехать не те числа что ты думаешь.
+        int rand = from + (int) (Math.random() * to);
+        return rand;
     }
 
     //Получаем рандомную координату в пропорциях установленного поля
     public static int getRandomCoordinate() {
-        return (int) (Math.random() * SeaBattleGame.getSIZE());
+        int rand = Tools.getRandomNumber(0,10);//Так должно быть. Trust me.
+        if (rand == 10){
+            return 9;
+        }
+        return rand;
     }
 
     public static boolean isNull(Object object) {
