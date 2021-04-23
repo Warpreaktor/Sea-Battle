@@ -94,7 +94,7 @@ public class App extends Application {
     }
 
     /**
-     * В это м методе отображается вся динамическая информация и вьюшки на поле.
+     * В этом методе отображается вся динамическая информация и вьюшки на поле.
      */
     public final static void brushTheBattleField() {
         BATTLE_FIELD_CONTROLLER = new BattleFieldController();
@@ -113,17 +113,13 @@ public class App extends Application {
                     public void handle(MouseEvent mouseEvent) {
                         if (isHumanTurn) {
                             if (SEA_BATTLE_GAME.getHuman().shoot(gameCell.getCoordinateY(), gameCell.getCoordinateX())) {
-                                setIsHumanTurn(false);//ход передается компьютеру
                                 Player human = App.SEA_BATTLE_GAME.getHuman();
                                 human.setTurnCounter(human.getTurnCounter() + 1);
                                 App.BATTLE_FIELD_CONTROLLER.stateUpdate();
-                                try {
-                                    SEA_BATTLE_GAME.isVictory();
-                                } catch (IOException e) {
-                                    e.printStackTrace();
-                                }
+                                setNexTurn();//ход передается компьютеру
+                                SEA_BATTLE_GAME.isVictory();
                             } else {
-                                setIsHumanTurn(true);//холостой выстрел или попадение ход остается у игрока
+                                //setNexTurn();//холостой выстрел или попадение ход остается у игрока
                             }
                         }
                     }
@@ -135,7 +131,7 @@ public class App extends Application {
         STAGE.show();
     }
 
-    public final void brushTheVictroryScreen() throws IOException {
+    public final void brushTheVictroryScreen() {
         VictoryScreenController victoryScreenController = new VictoryScreenController();
         try {
             STAGE.setX(600);
@@ -194,8 +190,8 @@ public class App extends Application {
         return isHumanTurn;
     }
 
-    public static void setIsHumanTurn(boolean isHumanTurn) {
-        App.isHumanTurn = isHumanTurn;
+    public static void setNexTurn() {
+        App.isHumanTurn = !isHumanTurn;
     }
 
 }

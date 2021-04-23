@@ -1,7 +1,7 @@
 package com.core.Players;
 
 public enum Difficult {
-    EASY,
+    EASY, //В среднем = 28 -
     NORMAL,
     HARD,
 }

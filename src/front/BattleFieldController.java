@@ -1,7 +1,6 @@
 package front;
 
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -91,6 +90,7 @@ public class BattleFieldController {
     }
 
     public final void nextTurn(){
+        App.setNexTurn();
         App.SEA_BATTLE_GAME.event();
         while (App.getIsHumanTurn()==false) {
             App.SEA_BATTLE_GAME.getCPU().shoot(0, 0);//Сюда можно передавать любые координаты, все равно они изменятся внутри метода.
@@ -98,18 +98,21 @@ public class BattleFieldController {
         stateUpdate();
     }
 
+
     public void nextTurnButtonInit(){
         nextTurnButton = new Button("Next turn \n  [SPACE]");
         nextTurnButton.setPrefHeight(60);
         nextTurnButton.setPrefWidth(120);
         nextTurnButton.setLayoutX(580);
         nextTurnButton.setLayoutY(940);
-        nextTurnButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                nextTurn();
-            }
-        });
+//        разобраться как на кнопку назначить клик мыши и кнопку одновременно.
+//        nextTurnButton.setOnAction(new EventHandler<ActionEvent>() {
+//            @Override
+//            public void handle(ActionEvent event) {
+//                nextTurn();
+//                event.consume();
+//            }
+//        });
         nextTurnButton.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent keyEvent) {

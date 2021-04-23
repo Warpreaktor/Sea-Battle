@@ -146,7 +146,7 @@ public class CPU extends Player {
             App.BATTLE_FIELD_CONTROLLER.textUpdate(CPU.getName() + " стреляет и промахивается.");
             missed(human, CPU, Y, X);
             CPU.setTurnCounter(CPU.getTurnCounter() + 1);
-            App.setIsHumanTurn(true);
+            App.setNexTurn();
         }
         return true;
     }
