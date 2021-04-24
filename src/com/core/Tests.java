@@ -29,7 +29,6 @@ public class Tests {
 
 
     public static void main(String[] args) throws IOException {
-        // Tools.easyStat();
-
+         Tools.easyStat();
     }
 }

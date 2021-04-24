@@ -11,17 +11,15 @@ import front.App;
 import java.util.ArrayList;
 
 import static com.core.SeaBattleGame.setGreenDotsAround;
+import static com.core.Tools.getRandomNumber;
 import static com.core.Tools.isOutOfBoards;
 
 public class CPU extends Player {
     private Difficult difficult = Difficult.EASY;
     private boolean finishing = false;//Режим добивания
     private ArrayList<Memory> finishingMemory = new ArrayList<>();//сюда сохраняются координаты в режиме добивания
-    private ArrayList<Memory> zoneA = new ArrayList<>();//Координаты по которым CPU еще не стрелял.
-    private ArrayList<Memory> zoneB = new ArrayList<>();//Координаты по которым CPU еще не стрелял.
-    private ArrayList<Memory> zoneC = new ArrayList<>();//Координаты по которым CPU еще не стрелял.
-    private ArrayList<Memory> zoneD = new ArrayList<>();//Координаты по которым CPU еще не стрелял.
-    private Memory lastZone;
+    private ArrayList<ArrayList<Memory>> zones = new ArrayList<>();
+    private Memory lastZone;//Последняя зона в которую стрелял
 
     public boolean isCPU() {
         return true;
@@ -33,12 +31,16 @@ public class CPU extends Player {
         int rand = Tools.getRandomNumber(0, 9);
         this.setPortrait(App.getAllPortraits()[rand]);
 
+        for (int i = 0; i < 4; i++) {
+            zones.add(new ArrayList<Memory>());
+        }
+
         for (int y = 0; y < SeaBattleGame.getSIZE(); y++) {
             for (int x = 0; x < SeaBattleGame.getSIZE(); x++) {
-                if(y<=4 && x<=4)  zoneA.add(new Memory(y,x));
-                if(y<=4 && x>4)  zoneB.add(new Memory(y,x));
-                if(y>4 && x<=4)  zoneC.add(new Memory(y,x));
-                if(y>4 && x>4)  zoneD.add(new Memory(y,x));
+                if (y <= 4 && x <= 4) zones.get(0).add(new Memory(y, x));
+                if (y <= 4 && x > 4) zones.get(1).add(new Memory(y, x));
+                if (y > 4 && x <= 4) zones.get(2).add(new Memory(y, x));
+                if (y > 4 && x > 4) zones.get(3).add(new Memory(y, x));
             }
         }
     }
@@ -130,7 +132,7 @@ public class CPU extends Player {
                     return true;
                 }
                 Memory coordinates = chooseCoordinates();
-                if (getTurnCounter()==0) oneShot(coordinates.Y, coordinates.X);
+                if (getTurnCounter() == 0) oneShot(coordinates.Y, coordinates.X);
                 else zonalShot();
             }
             case EASY -> {
@@ -138,12 +140,12 @@ public class CPU extends Player {
                     toFinishHim();
                     return true;
                 } else {
-    //            int y = Tools.getRandomCoordinate();
-    //            int x = Tools.getRandomCoordinate(); //пробуем новый интеллектуальный выбор координат
+                    //            int y = Tools.getRandomCoordinate();
+                    //            int x = Tools.getRandomCoordinate(); //пробуем новый интеллектуальный выбор координат
                     Memory coordinates = chooseCoordinates();
                     while (oneShot(coordinates.Y, coordinates.X) == false) {
-    //                y = Tools.getRandomCoordinate();
-    //                x = Tools.getRandomCoordinate(); пробуем новый интеллектуальны выбор координат
+                        //                y = Tools.getRandomCoordinate();
+                        //                x = Tools.getRandomCoordinate(); пробуем новый интеллектуальны выбор координат
                         coordinates = chooseCoordinates();
                     }
                     App.SEA_BATTLE_GAME.isVictory();
@@ -156,7 +158,7 @@ public class CPU extends Player {
     public boolean oneShot(int Y, int X) {
         Player CPU = App.SEA_BATTLE_GAME.getCPU();
         Player human = App.SEA_BATTLE_GAME.getHuman();
-        if (    isOutOfBoards(human.getOurFleetMap(), Y, X)
+        if (isOutOfBoards(human.getOurFleetMap(), Y, X)
                 || human.getOurFleetMap()[Y][X].getLabel() == '+'
                 || human.getOurFleetMap()[Y][X].getLabel() == 'X') {
             return false;
@@ -169,7 +171,7 @@ public class CPU extends Player {
                 human.getOurFleetMap()[Y][X].setLabel('X');
                 setFinishing(true);//включить режим добивания
                 finishingMemory.add(new Memory(Y, X));
-                lastZone = new Memory(Y,X);
+                lastZone = new Memory(Y, X);
                 App.BATTLE_FIELD_CONTROLLER.textUpdate("Корабль " + enemyShipName + " поврежден!");  //Выводим на экран сообщение
             }
             if (enemyShip.getHp() <= 0) {
@@ -177,14 +179,14 @@ public class CPU extends Player {
                 theShipIsDestroyed(enemyShip.getShipOwner(), human, CPU);
                 setFinishing(false);//выключить режим добивания
                 finishingMemory.clear();
-                lastZone = new Memory(Y,X);
+                lastZone = new Memory(Y, X);
                 App.BATTLE_FIELD_CONTROLLER.textUpdate("Корабль " + enemyShipName + " уничтожен!");
             }
         } else {
             human.getOurFleetMap()[Y][X].setLabel('+');
             App.BATTLE_FIELD_CONTROLLER.textUpdate(CPU.getName() + " стреляет и промахивается.");
             missed(human, CPU, Y, X);
-            lastZone = new Memory(Y,X);
+            lastZone = new Memory(Y, X);
             CPU.setTurnCounter(CPU.getTurnCounter() + 1);
             App.setNexTurn();
         }
@@ -196,29 +198,12 @@ public class CPU extends Player {
     }
 
     public Memory chooseCoordinates() {
-        int r = Tools.getRandomNumber(1,4);
-        int rand = Tools.getRandomNumber(0, zoneA.size());//здесь может быть любая зона у них одинаковый размер
-        if (rand == zoneA.size()) {
-            rand = zoneA.size() - 1;
-        }
-        Memory mem = null;
-        switch (r){
-            case 1:
-                mem = zoneA.get(rand);
-                zoneA.remove(rand);
-                break;
-            case 2:
-                mem = zoneB.get(rand);
-                zoneA.remove(rand);
-                break;
-            case 3:
-                mem = zoneC.get(rand);
-                zoneA.remove(rand);
-                break;
-            case 4:
-                mem = zoneD.get(rand);
-                zoneA.remove(rand);
-                break;
+        int zoneIndex = Tools.getRandomNumber(0, zones.size() - 1);//Получаем рандомную зону координат.
+        int memoryIndex = getRandomNumber(0, zones.get(zoneIndex).size() - 1);//Получаем рандомный индекс ячейки из зоны коордлинат
+        Memory mem = zones.get(zoneIndex).get(memoryIndex); //Получаем ячейку из зоны координат.
+        zones.get(zoneIndex).remove(memoryIndex);//Удаляем ячейку из зоны
+        if (zones.get(zoneIndex).size() < 1) {
+            zones.remove(zoneIndex);//Удаляем зону в которой закончились все координаты
         }
         return mem;
     }
@@ -263,10 +248,10 @@ public class CPU extends Player {
         private Memory(int y, int x) {
             Y = y;
             X = x;
-            if(y<=4 && x<=4)  zone = 'A';
-            if(y<=4 && x>4)  zone = 'B';
-            if(y>4 && x<=4)  zone = 'C';
-            if(y>4 && x>4)  zone = 'D';
+            if (y <= 4 && x <= 4) zone = 'A';
+            if (y <= 4 && x > 4) zone = 'B';
+            if (y > 4 && x <= 4) zone = 'C';
+            if (y > 4 && x > 4) zone = 'D';
         }
     }
 }
