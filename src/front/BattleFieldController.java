@@ -90,12 +90,14 @@ public class BattleFieldController {
     }
 
     public final void nextTurn(){
-        App.setNexTurn();
-        App.SEA_BATTLE_GAME.event();
-        while (App.getIsHumanTurn()==false) {
-            App.SEA_BATTLE_GAME.getCPU().shoot(0, 0);//Сюда можно передавать любые координаты, все равно они изменятся внутри метода.
+        if (!App.getIsHumanTurn()) {
+            App.SEA_BATTLE_GAME.event();
+            while (App.getIsHumanTurn() == false) {
+                App.SEA_BATTLE_GAME.getCPU().shoot(0, 0);//Сюда можно передавать любые координаты, все равно они изменятся внутри метода.
+            }
+            stateUpdate();
+            //App.setNexTurn(); проверить где еще вызывается этот метод и оставить только тут
         }
-        stateUpdate();
     }
 
 

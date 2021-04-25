@@ -9,18 +9,46 @@ import javafx.scene.effect.Effect;
 import javafx.scene.effect.Shadow;
 import javafx.scene.input.*;
 
+import java.util.ArrayList;
+
 public class Tools {
     private static Ship dragObject;
 
     public static void easyStat() {
-        int[] stat = {28, 45, 37, 38, 48, 52, 27, 37, 39, 39, 34, 37};
+        int[] stat = {39, 34, 37, 38, 42, 46};
         int sum = 0;
         for (int itr : stat) {
             sum += itr;
         }
         System.out.println(sum / stat.length);
     }
+    public static void normalStat() {
+        int[] stat = {28, 39, 37, 40, 35};
+        int sum = 0;
+        for (int itr : stat) {
+            sum += itr;
+        }
+        System.out.println(sum / stat.length);
+    }
+    public static void hardStat() {
+        int[] stat = {32,42, 37, 38, 27, 47, 40, 40};
+        double sum = 0;
+        for (int itr : stat) {
+            sum += itr;
+        }
+        System.out.println(sum / stat.length);
+    }
 
+    public static ArrayList compareMax(ArrayList a, ArrayList b){
+        if (a.size() > b.size()) {
+            return a;
+        }else return b;
+    }
+    public static ArrayList compareMin(ArrayList a, ArrayList b){
+        if (a.size() > b.size()) {
+            return a;
+        }else return b;
+    }
     /**
      * Возвращает true если по соседству с ячейкой [Y][X] нет объектов типа DeckOfShip
      *
@@ -52,7 +80,6 @@ public class Tools {
 
     /**
      * Возвращает true если [Y][X] выходят за границы переданного массива массива.
-     *
      * @param map - передается массив MapObject на котором нужно осуществить проверку.
      * @return
      */

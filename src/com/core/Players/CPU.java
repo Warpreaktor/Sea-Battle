@@ -10,7 +10,6 @@ import front.App;
 
 import java.util.ArrayList;
 
-import static com.core.SeaBattleGame.setGreenDotsAround;
 import static com.core.Tools.getRandomNumber;
 import static com.core.Tools.isOutOfBoards;
 
@@ -18,23 +17,20 @@ public class CPU extends Player {
     private Difficult difficult = Difficult.EASY;
     private boolean finishing = false;//Режим добивания
     private ArrayList<Memory> finishingMemory = new ArrayList<>();//сюда сохраняются координаты в режиме добивания
+    private ArrayList<Memory> intelCoordinates1 = new ArrayList<>();//список из координат для поиска линкоров и галлеонов
+    private ArrayList<Memory> intelCoordinates2 = new ArrayList<>();//список из координат для поиска линкоров и галлеонов
     private ArrayList<ArrayList<Memory>> zones = new ArrayList<>();
     private Memory lastZone;//Последняя зона в которую стрелял
+    //private boolean isBigShipDestroyed;
 
     public boolean isCPU() {
         return true;
     }
 
-    public CPU(Difficult difficult) {
-        super();
-        this.difficult = difficult;
-        int rand = Tools.getRandomNumber(0, 9);
-        this.setPortrait(App.getAllPortraits()[rand]);
-
+    private void zonesInit() {
         for (int i = 0; i < 4; i++) {
             zones.add(new ArrayList<Memory>());
         }
-
         for (int y = 0; y < SeaBattleGame.getSIZE(); y++) {
             for (int x = 0; x < SeaBattleGame.getSIZE(); x++) {
                 if (y <= 4 && x <= 4) zones.get(0).add(new Memory(y, x));
@@ -43,6 +39,72 @@ public class CPU extends Player {
                 if (y > 4 && x > 4) zones.get(3).add(new Memory(y, x));
             }
         }
+    }
+
+    private void intelCoordinateInit() {
+        //Координаты для первой фазы игры
+        intelCoordinates1.add(new Memory(3, 0));
+        intelCoordinates1.add(new Memory(7, 0));
+        intelCoordinates1.add(new Memory(2, 1));
+        intelCoordinates1.add(new Memory(6, 1));
+        intelCoordinates1.add(new Memory(9, 2));
+        intelCoordinates1.add(new Memory(5, 2));
+        intelCoordinates1.add(new Memory(1, 2));
+        intelCoordinates1.add(new Memory(0, 3));
+        intelCoordinates1.add(new Memory(4, 3));
+        intelCoordinates1.add(new Memory(8, 3));
+        intelCoordinates1.add(new Memory(3, 4));
+        intelCoordinates1.add(new Memory(7, 4));
+        intelCoordinates1.add(new Memory(2, 5));
+        intelCoordinates1.add(new Memory(6, 5));
+        intelCoordinates1.add(new Memory(1, 6));
+        intelCoordinates1.add(new Memory(5, 6));
+        intelCoordinates1.add(new Memory(9, 6));
+        intelCoordinates1.add(new Memory(0, 7));
+        intelCoordinates1.add(new Memory(4, 7));
+        intelCoordinates1.add(new Memory(8, 7));
+        intelCoordinates1.add(new Memory(3, 8));
+        intelCoordinates1.add(new Memory(7, 8));
+        intelCoordinates1.add(new Memory(2, 9));
+        intelCoordinates1.add(new Memory(6, 9));
+
+        //Координаты для первой фазы игры
+        intelCoordinates2.add(new Memory(1, 0));
+        intelCoordinates2.add(new Memory(5, 0));
+        intelCoordinates2.add(new Memory(9, 0));
+        intelCoordinates2.add(new Memory(0, 1));
+        intelCoordinates2.add(new Memory(4, 1));
+        intelCoordinates2.add(new Memory(8, 1));
+        intelCoordinates2.add(new Memory(3, 2));
+        intelCoordinates2.add(new Memory(7, 2));
+        intelCoordinates2.add(new Memory(2, 3));
+        intelCoordinates2.add(new Memory(6, 3));
+        intelCoordinates2.add(new Memory(1, 4));
+        intelCoordinates2.add(new Memory(5, 4));
+        intelCoordinates2.add(new Memory(9, 4));
+        intelCoordinates2.add(new Memory(0, 5));
+        intelCoordinates2.add(new Memory(4, 5));
+        intelCoordinates2.add(new Memory(8, 5));
+        intelCoordinates2.add(new Memory(3, 6));
+        intelCoordinates2.add(new Memory(7, 6));
+        intelCoordinates2.add(new Memory(2, 7));
+        intelCoordinates2.add(new Memory(6, 7));
+        intelCoordinates2.add(new Memory(1, 8));
+        intelCoordinates2.add(new Memory(5, 8));
+        intelCoordinates2.add(new Memory(9, 8));
+        intelCoordinates2.add(new Memory(0, 9));
+        intelCoordinates2.add(new Memory(4, 9));
+        intelCoordinates2.add(new Memory(8, 9));
+    }
+
+
+    public CPU(Difficult difficult) {
+        super();
+        this.difficult = difficult;
+        int rand = Tools.getRandomNumber(0, 9);
+        this.setPortrait(App.getAllPortraits()[rand]);
+        zonesInit();
+        if (difficult == Difficult.HARD) intelCoordinateInit();
     }
 
     public boolean toFinishHim() {
@@ -54,22 +116,22 @@ public class CPU extends Player {
             int z = finishingMemory.size() - 1;
             if (finishingMemory.get(z).X < finishingMemory.get(z - 1).X) {
                 if (oneShot(finishingMemory.get(z).Y, finishingMemory.get(z).X - 1)) return true;
-                else if (oneShot(finishingMemory.get(z - 1).Y, finishingMemory.get(z - 1).X + 1)) ;
+                else if (oneShot(finishingMemory.get(0).Y, finishingMemory.get(0).X + 1)) ;
                 return true;
             }
             if (finishingMemory.get(z).X > finishingMemory.get(z - 1).X) {
                 if (oneShot(finishingMemory.get(z).Y, finishingMemory.get(z).X + 1)) return true;
-                else oneShot(finishingMemory.get(z - 1).Y, finishingMemory.get(z - 1).X - 1);
+                else oneShot(finishingMemory.get(0).Y, finishingMemory.get(0).X - 1);
                 return true;
             }
             if (finishingMemory.get(z).Y < finishingMemory.get(z - 1).Y) {
                 if (oneShot(finishingMemory.get(z).Y - 1, finishingMemory.get(z).X)) return true;
-                else oneShot(finishingMemory.get(z - 1).Y + 1, finishingMemory.get(z - 1).X);
+                else oneShot(finishingMemory.get(0).Y + 1, finishingMemory.get(0).X);
                 return true;
             }
             if (finishingMemory.get(z).Y > finishingMemory.get(z - 1).Y) {
                 if (oneShot(finishingMemory.get(z).Y + 1, finishingMemory.get(z).X)) return true;
-                else oneShot(finishingMemory.get(z - 1).Y - 1, finishingMemory.get(z - 1).X);
+                else oneShot(finishingMemory.get(0).Y - 1, finishingMemory.get(0).X);
                 return true;
             }
         }
@@ -124,32 +186,64 @@ public class CPU extends Player {
     public boolean shoot(int Y, int X) {
         switch (this.difficult) {
             case HARD -> {
-                //в разработке
-            }
-            case NORMAL -> {
-                if (isFinishing()) {
+                if (isFinishing()) {//Если находимся в режиме добивания
                     toFinishHim();
                     return true;
                 }
-                Memory coordinates = chooseCoordinates();
-                if (getTurnCounter() == 0) oneShot(coordinates.Y, coordinates.X);
-                else zonalShot();
+                if (!checkDestroyedBigShip() && this.intelCoordinates1.size() > 0) {
+                    System.out.println(checkDestroyedBigShip());
+                    Memory coordinates = getCoordinateHard(intelCoordinates1);
+                    while (oneShot(coordinates.Y, coordinates.X) == false) {
+                        coordinates = getCoordinate(chooseZone());
+                    }
+                    return true;
+                }
+                if (this.intelCoordinates2.size() > 10) {
+                    Memory coordinates = getCoordinateHard(intelCoordinates2);
+                    while (oneShot(coordinates.Y, coordinates.X) == false) {
+                        coordinates = getCoordinate(chooseZone());
+                    }
+                    return true;
+                }
+                if (this.intelCoordinates2.size() <= 10) {
+                    Memory coordinates = getCoordinate(chooseZone());
+                    while (oneShot(coordinates.Y, coordinates.X) == false) {
+                        coordinates = getCoordinate(chooseZone());
+                    }
+                    return true;
+                }
+//                App.SEA_BATTLE_GAME.isVictory();
+                break;
+            }
+            case NORMAL -> {
+                if (isFinishing()) {//Если находимся в режиме добивания
+                    toFinishHim();
+                    return true;
+                }
+                if (getTurnCounter() == 0) {//Если это первый ход
+                    Memory coordinates = getCoordinate();
+                    oneShot(coordinates.Y, coordinates.X);
+                } else {
+                    Memory coordinates = getCoordinate(chooseZone());
+                    while (oneShot(coordinates.Y, coordinates.X) == false) {
+                        coordinates = getCoordinate(chooseZone());
+                    }
+                }
+//                App.SEA_BATTLE_GAME.isVictory();
+                break;
             }
             case EASY -> {
                 if (isFinishing()) {
                     toFinishHim();
                     return true;
                 } else {
-                    //            int y = Tools.getRandomCoordinate();
-                    //            int x = Tools.getRandomCoordinate(); //пробуем новый интеллектуальный выбор координат
-                    Memory coordinates = chooseCoordinates();
+                    Memory coordinates = getCoordinate();
                     while (oneShot(coordinates.Y, coordinates.X) == false) {
-                        //                y = Tools.getRandomCoordinate();
-                        //                x = Tools.getRandomCoordinate(); пробуем новый интеллектуальны выбор координат
-                        coordinates = chooseCoordinates();
+                        coordinates = getCoordinate();
                     }
-                    App.SEA_BATTLE_GAME.isVictory();
                 }
+//                App.SEA_BATTLE_GAME.isVictory();
+                break;
             }
         }
         return true;
@@ -193,11 +287,7 @@ public class CPU extends Player {
         return true;
     }
 
-    public void zonalShot() {
-
-    }
-
-    public Memory chooseCoordinates() {
+    public Memory getCoordinate() {
         int zoneIndex = Tools.getRandomNumber(0, zones.size() - 1);//Получаем рандомную зону координат.
         int memoryIndex = getRandomNumber(0, zones.get(zoneIndex).size() - 1);//Получаем рандомный индекс ячейки из зоны коордлинат
         Memory mem = zones.get(zoneIndex).get(memoryIndex); //Получаем ячейку из зоны координат.
@@ -208,24 +298,100 @@ public class CPU extends Player {
         return mem;
     }
 
-    @Override
-    public void theShipIsDamaged(Ship ship, Player enemy, Player self, int Y, int X) {
-        enemy.getOurFleetMap()[Y][X].setLabel('X');
-        enemy.getOurFleetMap()[Y][X].setImage(ImageName.RED_CROSS);
-        ship.setHp(ship.getHp() - 1);
+    public Memory getCoordinate(ArrayList<Memory> zone) {
+        int memoryIndex = getRandomNumber(0, zone.size() - 1);//Получаем рандомный индекс ячейки из зоны коордлинат
+        Memory mem = zone.get(memoryIndex); //Получаем ячейку из зоны координат.
+        zone.remove(memoryIndex);//Удаляем ячейку из зоны
+        if (zone.size() < 1) {
+            zones.remove(zone);//Удаляем зону в которой закончились все координаты
+        }
+        return mem;
     }
 
-    @Override
-    public void theShipIsDestroyed(Ship ship, Player enemy, Player self) {
-        setGreenDotsAround(enemy.getOurFleetMap(), ship);
-        App.SEA_BATTLE_GAME.playerShipDecrement(enemy);
-        App.BATTLE_FIELD_CONTROLLER.stateUpdate();
+    public Memory getCoordinateHard(ArrayList<Memory> listOfCoordinates) {
+        int memoryIndex = getRandomNumber(0, listOfCoordinates.size() - 1);//Получаем рандомный индекс ячейки из зоны коордлинат
+        Memory mem = listOfCoordinates.get(memoryIndex); //Получаем ячейку из зоны координат.
+        listOfCoordinates.remove(memoryIndex);//Удаляем ячейку из зоны
+        return mem;
+    }
+
+    public ArrayList<Memory> chooseZone() {
+        if (zones.size() > 1) {
+            ArrayList<Memory> zone = zones.get(0);
+            for (int i = 1; i < zones.size(); i++) {
+                zone = Tools.compareMax(zone, zones.get(i));
+            }
+            return zone;
+        } else {
+            return zones.get(0);
+        }
     }
 
     @Override
     public void missed(Player enemy, Player self, int Y, int X) {
         enemy.getOurFleetMap()[Y][X].setImage(ImageName.DOT);
         enemy.getOurFleetMap()[Y][X].setLabel('+');
+        removeCoordinate(Y, X);
+        removeCoordinate(Y, X, intelCoordinates1);
+        removeCoordinate(Y, X, intelCoordinates2);
+    }
+
+    @Override
+    public void theShipIsDamaged(Ship ship, Player enemy, Player self, int Y, int X) {
+        enemy.getOurFleetMap()[Y][X].setLabel('X');
+        enemy.getOurFleetMap()[Y][X].setImage(ImageName.RED_CROSS);
+        removeCoordinate(Y, X);
+        removeCoordinate(Y, X, intelCoordinates1);
+        removeCoordinate(Y, X, intelCoordinates2);
+        ship.setHp(ship.getHp() - 1);
+    }
+
+    @Override
+    public void theShipIsDestroyed(Ship ship, Player enemy, Player self) {
+        setGreenDotsAround(enemy.getOurFleetMap(), ship);
+        setDestroyedShip(ship);
+        App.SEA_BATTLE_GAME.playerShipDecrement(enemy);
+        App.BATTLE_FIELD_CONTROLLER.stateUpdate();
+        App.SEA_BATTLE_GAME.isVictory();
+    }
+
+    public void setGreenDotsAround(MapObject[][] map, Ship ship) {
+        for (int i = 0; i < ship.getDecks().length; i++) {
+            int Y = ship.getDecks()[i].getCoordinateY();
+            int X = ship.getDecks()[i].getCoordinateX();
+            for (int y = Y - 1; y < Y + 2; y++) {
+                for (int x = X - 1; x < X + 2; x++) {
+                    if (Tools.isOutOfBoards(map, y, x)) continue;
+                    if (map[y][x].getLabel() == '+') continue;
+                    if (map[y][x].getLabel() == 'X') continue;
+                    if (map[y][x].isShip()) continue;
+                    map[y][x].setImage(ImageName.GREEN_DOT);
+                    removeCoordinate(y, x);
+                    removeCoordinate(y, x, intelCoordinates1);
+                    removeCoordinate(y, x, intelCoordinates2);
+                }
+            }
+        }
+    }
+
+    public void removeCoordinate(int Y, int X) {
+        for (int j = 0; j < zones.size(); j++) {
+            for (int k = zones.get(j).size() - 1; k >= 0; k--) {
+                if (zones.get(j).get(k).Y == Y && zones.get(j).get(k).X == X) {
+                    zones.get(j).remove(k);
+                    return;
+                }
+            }
+        }
+    }
+
+    public void removeCoordinate(int Y, int X, ArrayList<Memory> listOfCoordinates) {
+        for (int i = 0; i < listOfCoordinates.size(); i++) {
+            if (listOfCoordinates.get(i).Y == Y && listOfCoordinates.get(i).X == X) {
+                listOfCoordinates.remove(i);
+                return;
+            }
+        }
     }
 
     public void setFinishing(boolean finishing) {

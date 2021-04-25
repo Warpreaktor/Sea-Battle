@@ -19,6 +19,7 @@ public abstract class Player {
     private MapObject[][] ourFleetMap;
     private MapObject[][] enemyFleetMap;
     private Image portrait;
+    private ArrayList<Ship> destroyedShips = new ArrayList<>();//ВСе уничтоженные кигроком корабли хранятся здесь
 
     public static String[] titulM = {"Пират", "Корсар", "Мичман", "Капитан", "Адмирал"};
 
@@ -26,7 +27,7 @@ public abstract class Player {
             "Флинт", "Билли", "Джонни", "Джеки", "Генри", "Джордж", "Бен", "Бенни", "Марти", "Гарри", "Бобби"};
 
     public static String[] nounsW = {"Борода", "Челюсть", "Рука", "Голова", "Шляпа", "Нога", "Шхуна", "Сабля",
-            "Ярость", "Муха", "Пушка", "Улыбка", "Дыра", "Фигура", "Смерть", "Нечисть", "Мысль",
+            "Ярость", "Печаль", "Пушка", "Улыбка", "Дыра", "Фигура", "Смерть", "Нечисть", "Мысль",
             "Кровь", "Гора", "Губа", "Беседа", "Воля", "Щека", "Жопа", "Пуля", "Ошибка", "Корма"};
 
     public static String[] nickname = {"Чёрный", "Матёрый", "Меткий", "Чуткий", "Слепой", "Одноглазый",
@@ -39,6 +40,17 @@ public abstract class Player {
             "Стальная", "Дубовая", "Нечеловеческая", "Шершавая", "Рыхлая", "Дряблая", "Непробиваемая", "Таинственная",
             "Белая", "Страшная", "Противная", "Скользкая", "Позолоченная", "Гладкая", "Опалённая", "Кожаная", "Шальная"};
 
+    public boolean checkDestroyedBigShip(){
+        int count = 0;
+        for(Ship itr: destroyedShips){
+            if(itr.getClass().getSimpleName().equals("Battleship")
+            || itr.getClass().getSimpleName().equals("Galleon")) {
+                count++;
+            }
+        }
+        if (count == 3) return true;
+        else return false;
+    }
     public String getName() {
         return name;
     }
@@ -54,7 +66,9 @@ public abstract class Player {
     public int getTurnCounter() {
         return turnCounter;
     }
-
+    public ArrayList<Ship> getDestroyedShips() {
+        return destroyedShips;
+    }
     public Image getPortrait() {
         return portrait;
     }
@@ -100,6 +114,10 @@ public abstract class Player {
     }
     public void setName(String name) {
         this.name = name;
+    }
+
+    public void setDestroyedShip(Ship destroyedShip) {
+        this.destroyedShips.add(destroyedShip);
     }
 
     public void setPortrait(Image portrait){
@@ -188,4 +206,5 @@ public abstract class Player {
     public abstract void theShipIsDamaged(Ship ship, Player enemy, Player self, int Y, int X);
     public abstract void theShipIsDestroyed(Ship ship, Player enemy, Player self);
     public abstract void missed(Player enemy, Player self, int Y, int X);
+
 }
