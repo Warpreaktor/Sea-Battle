@@ -31,7 +31,7 @@ public class Tools {
         System.out.println(sum / stat.length);
     }
     public static void hardStat() {
-        int[] stat = {32,42, 37, 38, 27, 47, 40, 40};
+        int[] stat = {38, 30, 33};
         double sum = 0;
         for (int itr : stat) {
             sum += itr;
@@ -105,7 +105,7 @@ public class Tools {
         return rand;
     }
 
-    //Получаем рандомную координату в пропорциях установленного поля
+    //Получаем рандомную координату в всего поля
     public static int getRandomCoordinate() {
         int rand = Tools.getRandomNumber(0, 10);//Так должно быть. Trust me.
         if (rand == 10) {
@@ -113,6 +113,8 @@ public class Tools {
         }
         return rand;
     }
+
+
 
     public static boolean isNull(Object object) {
         if (object == null) {

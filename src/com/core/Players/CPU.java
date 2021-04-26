@@ -14,12 +14,13 @@ import static com.core.Tools.getRandomNumber;
 import static com.core.Tools.isOutOfBoards;
 
 public class CPU extends Player {
-    private Difficult difficult = Difficult.EASY;
-    private boolean finishing = false;//Режим добивания
+    private Difficult difficult;//Инициализируется при создании компьютерного игрока.
+    private boolean finishing = false;//Включение режима добивания.
     private ArrayList<Memory> finishingMemory = new ArrayList<>();//сюда сохраняются координаты в режиме добивания
     private ArrayList<Memory> intelCoordinates1 = new ArrayList<>();//список из координат для поиска линкоров и галлеонов
-    private ArrayList<Memory> intelCoordinates2 = new ArrayList<>();//список из координат для поиска линкоров и галлеонов
-    private ArrayList<ArrayList<Memory>> zones = new ArrayList<>();
+    private ArrayList<Memory> intelCoordinates2 = new ArrayList<>();//список из координат для поиска фрегатов
+    private ArrayList<Memory> shipsSettingCoordinates1 = new ArrayList<>();//список из координат для расстановки кораблей.
+    private ArrayList<ArrayList<Memory>> zones = new ArrayList<>();//Поле поделённое на четыре зоны координат.
     private Memory lastZone;//Последняя зона в которую стрелял
     //private boolean isBigShipDestroyed;
 
@@ -97,6 +98,15 @@ public class CPU extends Player {
         intelCoordinates2.add(new Memory(8, 9));
     }
 
+    @Override
+    public void shipsOnGame() {
+        ShipsSettings.setShips(this.getShipyard(), Settings.RANDOM);
+        while (this.getShipyard().size() > 0) {
+            for (int i = this.getShipyard().size()-1; i >= 0; i--) {
+                setShipRandomizer(this.getShipyard().get(i));
+            }
+        }
+    }
 
     public CPU(Difficult difficult) {
         super();
@@ -190,30 +200,26 @@ public class CPU extends Player {
                     toFinishHim();
                     return true;
                 }
-                if (!checkDestroyedBigShip() && this.intelCoordinates1.size() > 0) {
-                    System.out.println(checkDestroyedBigShip());
-                    Memory coordinates = getCoordinateHard(intelCoordinates1);
+                if (!isBigShipsDestroyed() && this.intelCoordinates1.size() > 0) {
+                    System.out.println(isBigShipsDestroyed());
+                    Memory coordinates = getCoordinateFromList(intelCoordinates1);
                     while (oneShot(coordinates.Y, coordinates.X) == false) {
                         coordinates = getCoordinate(chooseZone());
                     }
                     return true;
                 }
-                if (this.intelCoordinates2.size() > 10) {
-                    Memory coordinates = getCoordinateHard(intelCoordinates2);
+                if (!isFrigatesDestroyed() && this.intelCoordinates2.size() > 0) {
+                    Memory coordinates = getCoordinateFromList(intelCoordinates2);
                     while (oneShot(coordinates.Y, coordinates.X) == false) {
                         coordinates = getCoordinate(chooseZone());
                     }
                     return true;
                 }
-                if (this.intelCoordinates2.size() <= 10) {
                     Memory coordinates = getCoordinate(chooseZone());
                     while (oneShot(coordinates.Y, coordinates.X) == false) {
                         coordinates = getCoordinate(chooseZone());
                     }
-                    return true;
-                }
-//                App.SEA_BATTLE_GAME.isVictory();
-                break;
+                return true;
             }
             case NORMAL -> {
                 if (isFinishing()) {//Если находимся в режиме добивания
@@ -229,8 +235,7 @@ public class CPU extends Player {
                         coordinates = getCoordinate(chooseZone());
                     }
                 }
-//                App.SEA_BATTLE_GAME.isVictory();
-                break;
+                return true;
             }
             case EASY -> {
                 if (isFinishing()) {
@@ -242,8 +247,7 @@ public class CPU extends Player {
                         coordinates = getCoordinate();
                     }
                 }
-//                App.SEA_BATTLE_GAME.isVictory();
-                break;
+                return true;
             }
         }
         return true;
@@ -298,23 +302,13 @@ public class CPU extends Player {
         return mem;
     }
 
-    public Memory getCoordinate(ArrayList<Memory> zone) {
-        int memoryIndex = getRandomNumber(0, zone.size() - 1);//Получаем рандомный индекс ячейки из зоны коордлинат
-        Memory mem = zone.get(memoryIndex); //Получаем ячейку из зоны координат.
-        zone.remove(memoryIndex);//Удаляем ячейку из зоны
-        if (zone.size() < 1) {
-            zones.remove(zone);//Удаляем зону в которой закончились все координаты
-        }
-        return mem;
-    }
-
-    public Memory getCoordinateHard(ArrayList<Memory> listOfCoordinates) {
-        int memoryIndex = getRandomNumber(0, listOfCoordinates.size() - 1);//Получаем рандомный индекс ячейки из зоны коордлинат
-        Memory mem = listOfCoordinates.get(memoryIndex); //Получаем ячейку из зоны координат.
-        listOfCoordinates.remove(memoryIndex);//Удаляем ячейку из зоны
-        return mem;
-    }
-
+    /**
+     * Подумать как можно переписать методы с зонами, так чтобы не было повторяющихся методов. Пусть будет только
+     * метод, который берет в качестве параметра список Memory с координатами выбирает от туда рандомную координату
+     * удаляет её из списка и отдает объект обратно.
+     *
+     * @return
+     */
     public ArrayList<Memory> chooseZone() {
         if (zones.size() > 1) {
             ArrayList<Memory> zone = zones.get(0);
@@ -326,6 +320,24 @@ public class CPU extends Player {
             return zones.get(0);
         }
     }
+
+    public Memory getCoordinate(ArrayList<Memory> zone) {
+        int memoryIndex = getRandomNumber(0, zone.size() - 1);//Получаем рандомный индекс ячейки из зоны коордлинат
+        Memory mem = zone.get(memoryIndex); //Получаем ячейку из зоны координат.
+        zone.remove(memoryIndex);//Удаляем ячейку из зоны
+        if (zone.size() < 1) {
+            zones.remove(zone);//Удаляем зону в которой закончились все координаты
+        }
+        return mem;
+    }
+
+    public Memory getCoordinateFromList(ArrayList<Memory> listOfCoordinates) {
+        int memoryIndex = getRandomNumber(0, listOfCoordinates.size() - 1);//Получаем рандомный индекс ячейки.
+        Memory mem = listOfCoordinates.get(memoryIndex); //Получаем ячейку из списка координат.
+        listOfCoordinates.remove(memoryIndex);//Удаляем координату из списка
+        return mem;
+    }
+
 
     @Override
     public void missed(Player enemy, Player self, int Y, int X) {

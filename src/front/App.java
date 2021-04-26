@@ -36,9 +36,7 @@ public class App extends Application {
     @Override
     public void start(Stage stage) throws Exception {
        gameInit(stage);
-        //VictoryScreenController victoryScreenController = new VictoryScreenController();//test
-        //brushTheVictroryScreen();//Тест. Потом удалить.
-        brushStartMenu(); //закомеченно только для теста. Вернуть обратно.
+       brushStartMenu();
     }
 
     private final void gameInit(Stage stage){
@@ -116,10 +114,10 @@ public class App extends Application {
                                 Player human = App.SEA_BATTLE_GAME.getHuman();
                                 human.setTurnCounter(human.getTurnCounter() + 1);
                                 App.BATTLE_FIELD_CONTROLLER.stateUpdate();
-                                setNexTurn();//ход передается компьютеру
                                 SEA_BATTLE_GAME.isVictory();
+                                setNexTurn();//ход передается компьютеру
                             } else {
-                                //setNexTurn();//холостой выстрел или попадение ход остается у игрока
+                                //холостой клик, ход остается у игрока
                             }
                         }
                     }

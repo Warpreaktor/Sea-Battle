@@ -15,11 +15,11 @@ public abstract class Player {
     private String name;
     private int turnCounter = 0;   //Счетчик ходов сделанных игроком.
     private int numberOfShip = 0;   //Итоговое количество кораблей игрока на поле, которое уменьшается по ходу их уничтожения.
-    private ArrayList<Ship> shipyard;
+    protected ArrayList<Ship> shipyard;
     private MapObject[][] ourFleetMap;
     private MapObject[][] enemyFleetMap;
     private Image portrait;
-    private ArrayList<Ship> destroyedShips = new ArrayList<>();//ВСе уничтоженные кигроком корабли хранятся здесь
+    private ArrayList<Ship> destroyedShips = new ArrayList<>();//Все уничтоженные кигроком корабли хранятся здесь
 
     public static String[] titulM = {"Пират", "Корсар", "Мичман", "Капитан", "Адмирал"};
 
@@ -40,35 +40,59 @@ public abstract class Player {
             "Стальная", "Дубовая", "Нечеловеческая", "Шершавая", "Рыхлая", "Дряблая", "Непробиваемая", "Таинственная",
             "Белая", "Страшная", "Противная", "Скользкая", "Позолоченная", "Гладкая", "Опалённая", "Кожаная", "Шальная"};
 
-    public boolean checkDestroyedBigShip(){
+    /**
+     * Причесать два ниже идущих метода "check..." в один. Так чтобы можно было передавать ему параметр корабля для проверки в виде
+     * ENUM и он уже совершал бы проверку. Метод должен принимать неограниченное количество параметров.
+     *
+     * @return
+     */
+    public boolean isBigShipsDestroyed() {
         int count = 0;
-        for(Ship itr: destroyedShips){
-            if(itr.getClass().getSimpleName().equals("Battleship")
-            || itr.getClass().getSimpleName().equals("Galleon")) {
+        for (Ship itr : destroyedShips) {
+            if (itr.getClass().getSimpleName().equals("Battleship")
+                    || itr.getClass().getSimpleName().equals("Galleon")) {
                 count++;
             }
         }
         if (count == 3) return true;
         else return false;
     }
+
+    public boolean isFrigatesDestroyed() {
+        int count = 0;
+        for (Ship itr : destroyedShips) {
+            if (itr.getClass().getSimpleName().equals("Frigate")) {
+                count++;
+            }
+        }
+        if (count == 3) return true;
+        else return false;
+    }
+
     public String getName() {
         return name;
     }
+
     public MapObject[][] getEnemyFleetMap() {
         return enemyFleetMap;
     }
+
     public MapObject[][] getOurFleetMap() {
         return ourFleetMap;
     }
+
     public int getNumberOfShip() {
         return numberOfShip;
     }
+
     public int getTurnCounter() {
         return turnCounter;
     }
+
     public ArrayList<Ship> getDestroyedShips() {
         return destroyedShips;
     }
+
     public Image getPortrait() {
         return portrait;
     }
@@ -99,19 +123,23 @@ public abstract class Player {
         }
         return name;
     }
+
     public Player() {
         ourFleetMap = new MapObject[App.SEA_BATTLE_GAME.getSIZE()][SeaBattleGame.getSIZE()];
         enemyFleetMap = new MapObject[App.SEA_BATTLE_GAME.getSIZE()][SeaBattleGame.getSIZE()];
         shipYardInit();
     }
+
     public void setGameCellToEnemyFleetMap(MapObject gameCell, int Y, int X) {
         this.enemyFleetMap[Y][X] = gameCell;
     }
+
     public void setGameCellToOurFleetMap(MapObject gameCell, int Y, int X) {
         gameCell.setCoordinateY(Y);
         gameCell.setCoordinateX(X);
         ourFleetMap[Y][X] = gameCell;
     }
+
     public void setName(String name) {
         this.name = name;
     }
@@ -120,20 +148,24 @@ public abstract class Player {
         this.destroyedShips.add(destroyedShip);
     }
 
-    public void setPortrait(Image portrait){
+    public void setPortrait(Image portrait) {
         this.portrait = portrait;
     }
+
     public void setNumberOfShip(int numberOfShip) {
         this.numberOfShip = numberOfShip;
     }
+
     public ArrayList<Ship> getShipyard() {
         return shipyard;
     }
+
     public void setTurnCounter(int turnCounter) {
         this.turnCounter = turnCounter;
     }
 
     public abstract boolean isCPU();
+
     public abstract boolean shoot(int Y, int X);
 
     /**
@@ -154,7 +186,7 @@ public abstract class Player {
         }
     }
 
-    public void shipYardInit(){
+    public void shipYardInit() {
         //1 Линкор(4), 2 Крейсера(3), 3 Эсминца(2), 4 Подлодки(1)
         /**Каждая клетка игрового поля заполняется объектами пустыми объектами MapCell.
          */
@@ -170,6 +202,7 @@ public abstract class Player {
         shipyard.add(new Galleon(this));
         shipyard.add(new Battleship(this));
     }
+
     /**
      * Метод принимает корабль в качестве параметра и выставляет его на игровое поле, проверяя
      * перед этим не соседствует ли или не заполнена эта ячейка другим кораблем.
@@ -177,7 +210,7 @@ public abstract class Player {
     public void setShipRandomizer(Ship ship) {
         int Y = Tools.getRandomCoordinate();  //Получаем рандомную координату Y
         int X = Tools.getRandomCoordinate();  //Получаем рандомную координату X
-        int side = 1 + (int) (Math.random() * 2);  //Получаем рандомное направление для размещения корабля
+        int side = Tools.getRandomNumber(1, 2);  //Получаем рандомное направление для размещения корабля
         int tempY = Y;
         int tempX = X;
         switch (side) {
@@ -186,7 +219,7 @@ public abstract class Player {
                 if (!Tools.setShipToCellsX(ship, tempY, tempX)) {
                     setShipRandomizer(ship);
                     return;
-                }else {
+                } else {
                     //Удаляем установленный корабль из верфи игрока и стираем картинку корабля со сцены.
                     shipyard.remove(ship);
                     ship.setImage(ImageName.NULL);
@@ -196,15 +229,18 @@ public abstract class Player {
                 if (!Tools.setShipToCellsY(ship, tempY, tempX)) {
                     setShipRandomizer(ship);
                     return;
-                }else {
+                } else {
                     shipyard.remove(ship);
                     ship.setImage(ImageName.NULL);
                     break;
                 }
         }
     }
+
     public abstract void theShipIsDamaged(Ship ship, Player enemy, Player self, int Y, int X);
+
     public abstract void theShipIsDestroyed(Ship ship, Player enemy, Player self);
+
     public abstract void missed(Player enemy, Player self, int Y, int X);
 
 }

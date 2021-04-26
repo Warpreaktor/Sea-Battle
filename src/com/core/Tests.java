@@ -1,9 +1,13 @@
 package com.core;
 
+import com.core.Players.CPU;
 import com.core.Players.Player;
+import com.core.Ships.Ship;
 import front.App;
 
 import java.io.IOException;
+
+import static com.core.Tools.getRandomNumber;
 
 public class Tests {
     /**
@@ -29,6 +33,6 @@ public class Tests {
 
 
     public static void main(String[] args) throws IOException {
-        Tools.hardStat();
+
     }
 }
