@@ -100,11 +100,29 @@ public class CPU extends Player {
 
     @Override
     public void shipsOnGame() {
-        ShipsSettings.setShips(this.getShipyard(), Settings.RANDOM);
-        while (this.getShipyard().size() > 0) {
-            for (int i = this.getShipyard().size()-1; i >= 0; i--) {
-                setShipRandomizer(this.getShipyard().get(i));
-            }
+        switch (this.difficult) {
+            case EASY:
+                while (this.getShipyard().size() > 0) {
+                    for (int i = this.getShipyard().size() - 1; i >= 0; i--) {
+                        setShipRandomizer(this.getShipyard().get(i));
+                    }
+                }
+                break;
+            case NORMAL:
+                while (this.getShipyard().size() > 0) {
+                    for (int i = this.getShipyard().size() - 1; i >= 0; i--) {
+                        setShipRandomizer(this.getShipyard().get(i));
+                    }
+                }
+                break;
+            case HARD:
+                ShipsSettings.setShips(this.getShipyard(), Settings.RANDOM);
+                while (this.getShipyard().size() > 0) {
+                    for (int i = this.getShipyard().size() - 1; i >= 0; i--) {
+                        setShipRandomizer(this.getShipyard().get(i));
+                    }
+                }
+                break;
         }
     }
 
@@ -215,10 +233,10 @@ public class CPU extends Player {
                     }
                     return true;
                 }
-                    Memory coordinates = getCoordinate(chooseZone());
-                    while (oneShot(coordinates.Y, coordinates.X) == false) {
-                        coordinates = getCoordinate(chooseZone());
-                    }
+                Memory coordinates = getCoordinate(chooseZone());
+                while (oneShot(coordinates.Y, coordinates.X) == false) {
+                    coordinates = getCoordinate(chooseZone());
+                }
                 return true;
             }
             case NORMAL -> {
@@ -242,9 +260,9 @@ public class CPU extends Player {
                     toFinishHim();
                     return true;
                 } else {
-                    Memory coordinates = getCoordinate();
+                    Memory coordinates = getCoordinate(chooseZone());
                     while (oneShot(coordinates.Y, coordinates.X) == false) {
-                        coordinates = getCoordinate();
+                        coordinates = getCoordinate(chooseZone());
                     }
                 }
                 return true;

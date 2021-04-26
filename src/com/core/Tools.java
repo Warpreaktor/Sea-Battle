@@ -15,7 +15,7 @@ public class Tools {
     private static Ship dragObject;
 
     public static void easyStat() {
-        int[] stat = {39, 34, 37, 38, 42, 46};
+        int[] stat = {35,};
         int sum = 0;
         for (int itr : stat) {
             sum += itr;
@@ -23,7 +23,7 @@ public class Tools {
         System.out.println(sum / stat.length);
     }
     public static void normalStat() {
-        int[] stat = {28, 39, 37, 40, 35};
+        int[] stat = {};
         int sum = 0;
         for (int itr : stat) {
             sum += itr;
@@ -31,7 +31,7 @@ public class Tools {
         System.out.println(sum / stat.length);
     }
     public static void hardStat() {
-        int[] stat = {38, 30, 33};
+        int[] stat = {};
         double sum = 0;
         for (int itr : stat) {
             sum += itr;
