@@ -114,7 +114,6 @@ public class App extends Application {
                                 Player human = App.SEA_BATTLE_GAME.getHuman();
                                 human.setTurnCounter(human.getTurnCounter() + 1);
                                 App.BATTLE_FIELD_CONTROLLER.stateUpdate();
-                                SEA_BATTLE_GAME.isVictory();
                                 setNexTurn();//ход передается компьютеру
                             } else {
                                 //холостой клик, ход остается у игрока

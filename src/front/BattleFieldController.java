@@ -54,6 +54,7 @@ public class BattleFieldController {
         enemyShipsNum.setText("Флот ||\n" + App.SEA_BATTLE_GAME.getCPU().getNumberOfShip());
         textOutput();
         turnsUpdate();
+        App.SEA_BATTLE_GAME.isVictory();
     }
     public void textUpdate(String text){
         battleHistory[1] = battleHistory[0];//Old

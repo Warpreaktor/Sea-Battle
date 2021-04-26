@@ -10,9 +10,21 @@ import javafx.scene.effect.Shadow;
 import javafx.scene.input.*;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class Tools {
     private static Ship dragObject;
+
+    /**
+     * Возвращает копию переданной строки с первой заглавной буквой.
+     * @param text
+     * @return
+     */
+    public static String textFormatter(String text){
+        char firstChar = text.toUpperCase().charAt(0);
+        String textFormatted = firstChar + text.substring(1).toLowerCase(Locale.ROOT);
+        return textFormatted;
+    }
 
     public static void easyStat() {
         int[] stat = {35,};

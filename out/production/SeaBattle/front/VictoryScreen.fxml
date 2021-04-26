@@ -15,7 +15,7 @@
             <Image url="@../resources/chest.png" />
          </image>
          <cursor>
-            <Cursor fx:constant="OPEN_HAND" />
+            <Cursor fx:constant="HAND" />
          </cursor>
          <effect>
             <Bloom />
@@ -40,7 +40,7 @@
             <Bloom />
          </effect>
          <cursor>
-            <Cursor fx:constant="MOVE" />
+            <Cursor fx:constant="HAND" />
          </cursor>
       </ImageView>
       <Label fx:id="label" alignment="CENTER" contentDisplay="CENTER" text="Choose your chest" textAlignment="CENTER" textOverrun="WORD_ELLIPSIS" wrapText="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="150.0" AnchorPane.rightAnchor="150.0" AnchorPane.topAnchor="210.0">
