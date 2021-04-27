@@ -70,25 +70,25 @@ public abstract class MapObject extends ImageView {
                 setLabel('+');
                 setName("Кракен");
                 break;
-            case LINKOR:
+            case BATTLESHIP:
                 this.setFitHeight(60);
                 this.setFitWidth(60);
                 super.setImage(new Image("/resources/linkor60x60.png"));
                 setLabel('L');
                 break;
-            case CRUISER:
+            case GALLEON:
                 this.setFitHeight(60);
                 this.setFitWidth(60);
                 super.setImage(new Image("/resources/cruiser60x60.png"));
                 setLabel('C');
                 break;
-            case DESTROYER:
+            case FRIGATE:
                 this.setFitHeight(60);
                 this.setFitWidth(60);
                 super.setImage(new Image("/resources/destroyer60x60.png"));
                 setLabel('D');
                 break;
-            case SUBMARINE:
+            case SCHOONER:
                 this.setFitHeight(60);
                 this.setFitWidth(60);
                 super.setImage(new Image("/resources/submarine60x60.png"));

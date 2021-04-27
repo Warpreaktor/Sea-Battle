@@ -6,9 +6,9 @@ public enum ImageName {
     DOT,
     GREEN_DOT,
     WAVE,
-    LINKOR,
-    CRUISER,
-    DESTROYER,
-    SUBMARINE,
+    BATTLESHIP,
+    GALLEON,
+    FRIGATE,
+    SCHOONER,
     KRAKEN,
 }

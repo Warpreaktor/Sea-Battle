@@ -106,14 +106,14 @@ public class ShipSettingController {
                 case 2:
                     shipyard.get(i).setFitWidth(120);
                     shipyard.get(i).setFitHeight(60);
-                    shipyard.get(i).setImage(new Image("/resources/destroyer60x120.png"));
+                    shipyard.get(i).setImage(new Image("/resources/frigate.png"));
                     shipYard.getChildren().add(shipyard.get(i));
                     setDragSource(ship);
                     break;
                 case 1:
                     shipyard.get(i).setFitWidth(60);
                     shipyard.get(i).setFitHeight(60);
-                    shipyard.get(i).setImage(new Image("/resources/submarine60x60.png"));
+                    shipyard.get(i).setImage(new Image("/resources/schooner60x60.png"));
                     shipYard.getChildren().add(shipyard.get(i));
                     setDragSource(ship);
                     break;

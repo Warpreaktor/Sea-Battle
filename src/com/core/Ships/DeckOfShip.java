@@ -59,13 +59,16 @@ public class DeckOfShip extends MapObject {
         setOnMouseEntered(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
-                setCursor(Cursor.DEFAULT);
-                App.BATTLE_FIELD_CONTROLLER.setShipName("Корабль: " + getName());
+                if (App.BATTLE_FIELD_CONTROLLER != null) {
+                    setCursor(Cursor.DEFAULT);
+                    App.BATTLE_FIELD_CONTROLLER.setShipName("Корабль: " + getName());
+                }
             }
         });
         setOnMouseExited(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
+                if (App.BATTLE_FIELD_CONTROLLER != null)
                 App.BATTLE_FIELD_CONTROLLER.setShipName("Корабль: ");
             }
         });

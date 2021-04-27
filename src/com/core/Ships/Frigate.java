@@ -4,9 +4,7 @@ import com.core.MapObjects.MapObject;
 import com.core.ImageName;
 import com.core.Players.Player;
 import front.App;
-import javafx.event.EventHandler;
-import javafx.scene.Cursor;
-import javafx.scene.input.MouseEvent;
+import javafx.scene.image.Image;
 import javafx.scene.layout.HBox;
 
 public class Frigate extends Ship {
@@ -47,11 +45,11 @@ public class Frigate extends Ship {
                 HBox[] hBoxes = App.SHIP_SETTING_CONTROLLER.getFieldRows();
                 hBoxes[Y].getChildren().remove(x);
                 hBoxes[Y].getChildren().add(x, decks[i]);
-                map[Y][x].setImage(ImageName.DESTROYER);
+                map[Y][x].setImage(ImageName.FRIGATE);
                 decks[i].setOnMouseEvent();
             }else{
                 map[Y][x].setEffect(null);
-                map[Y][x].setImage(ImageName.DESTROYER);
+                map[Y][x].setImage(ImageName.FRIGATE);
             }
             i--;
         }
@@ -73,11 +71,12 @@ public class Frigate extends Ship {
                 HBox[] hBoxes = App.SHIP_SETTING_CONTROLLER.getFieldRows();
                 hBoxes[y].getChildren().remove(X);
                 hBoxes[y].getChildren().add(X, decks[i]);
-                map[y][X].setImage(ImageName.DESTROYER);
+                map[y][X].setImage(new Image("/resources/frigate" + i + "_60x60.png"));
+                map[y][X].setRotate(90);
                 decks[i].setOnMouseEvent();
             }else{
                 map[y][X].setEffect(null);
-                map[y][X].setImage(ImageName.DESTROYER);
+                map[y][X].setImage(new Image("/resources/frigate" + i + "_60x60.png"));
             }
             i--;
         }
