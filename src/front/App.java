@@ -78,15 +78,7 @@ public class App extends Application {
     public final static void brushShipSettingMenu() {
         STAGE.setX(300);
         STAGE.setY(0);
-        for (int y = 0; y < SEA_BATTLE_GAME.getSIZE(); y++) {
-            for (int x = 0; x < SEA_BATTLE_GAME.getSIZE(); x++) {
-                MapObject gameCell = new MapCell(y, x);
-                SHIP_SETTING_CONTROLLER.getFieldRows()[y].getChildren().add(gameCell);
-                SEA_BATTLE_GAME.getHuman().setGameCellToOurFleetMap(gameCell, y, x);
 
-                Tools.setDragTargetZone(gameCell);
-            }
-        }
         Scene scene = new Scene(SHIP_SETTING_CONTROLLER.getMainPanel());
         STAGE.setScene(scene);
         STAGE.show();

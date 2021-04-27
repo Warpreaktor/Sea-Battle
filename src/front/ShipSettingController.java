@@ -1,17 +1,22 @@
 package front;
 
+import com.core.ImageName;
 import com.core.MapObjects.MapCell;
 import com.core.MapObjects.MapObject;
+import com.core.SeaBattleGame;
 import com.core.Ships.Ship;
 import com.core.Tools;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.effect.Effect;
+import javafx.scene.effect.Shadow;
 import javafx.scene.image.Image;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
+import javafx.scene.input.*;
 import javafx.scene.layout.*;
+import javafx.scene.text.TextFlow;
 
 import java.util.ArrayList;
 
@@ -23,7 +28,9 @@ public class ShipSettingController {
     private Button resetButton;
     private Button randomButton;
     private VBox shipYard;
+    private Label shipsName;
     private AnchorPane mainPanel;
+    private static Ship dragObject;
 
     public void changeRotation() {
         if (isVertical == true) {
@@ -62,6 +69,7 @@ public class ShipSettingController {
         startButtonInit();
         resetButtonInit();
         randomButtonInit();
+        textAreaInit();
         mainPanelInit();
     }
 
@@ -81,33 +89,38 @@ public class ShipSettingController {
                     ship.setFitHeight(60);
                     ship.setImage(new Image("/resources/linkor60x240.png"));
                     shipYard.getChildren().add(ship);
-                    Tools.setDragSource(ship);
+                    setDragSource(ship);
                     break;
                 case 3:
                     shipyard.get(i).setFitWidth(180);
                     shipyard.get(i).setFitHeight(60);
                     shipyard.get(i).setImage(new Image("/resources/cruiser60x180.png"));
                     shipYard.getChildren().add(shipyard.get(i));
-                    Tools.setDragSource(ship);
+                    setDragSource(ship);
                     break;
                 case 2:
                     shipyard.get(i).setFitWidth(120);
                     shipyard.get(i).setFitHeight(60);
                     shipyard.get(i).setImage(new Image("/resources/destroyer60x120.png"));
                     shipYard.getChildren().add(shipyard.get(i));
-                    Tools.setDragSource(ship);
+                    setDragSource(ship);
                     break;
                 case 1:
                     shipyard.get(i).setFitWidth(60);
                     shipyard.get(i).setFitHeight(60);
                     shipyard.get(i).setImage(new Image("/resources/submarine60x60.png"));
                     shipYard.getChildren().add(shipyard.get(i));
-                    Tools.setDragSource(ship);
+                    setDragSource(ship);
                     break;
             }
         }
     }
-
+    public void textAreaInit(){
+        shipsName = new Label();
+        shipsName.setLayoutY(160);
+        shipsName.setLayoutX(30);
+        shipsName.setText("Имя корабля: ");
+    }
 
     public void fieldInit() {
         field  = new VBox(1);
@@ -119,12 +132,20 @@ public class ShipSettingController {
             fieldRows[i] = new HBox();
             field.getChildren().add(fieldRows[i]);
         }
+        for (int y = 0; y < App.SEA_BATTLE_GAME.getSIZE(); y++) {
+            for (int x = 0; x < App.SEA_BATTLE_GAME.getSIZE(); x++) {
+                MapObject gameCell = new MapCell(y, x);
+                getFieldRows()[y].getChildren().add(gameCell);
+                App.SEA_BATTLE_GAME.getHuman().setGameCellToOurFleetMap(gameCell, y, x);
+                setDragTargetZone(gameCell);
+            }
+        }
     }
 
     public void mainPanelInit() {
         BackgroundImage background = new BackgroundImage(new Image("/resources/shipSettingWallpaper1280x1024.png"),
                 BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT);
-        mainPanel = new AnchorPane(field, shipYard, startButton, randomButton, resetButton);
+        mainPanel = new AnchorPane(field, shipYard, startButton, randomButton, resetButton, shipsName);
         mainPanel.setPrefHeight(1024);
         mainPanel.setPrefWidth(1280);
         mainPanel.setLayoutY(0);
@@ -158,8 +179,6 @@ public class ShipSettingController {
                 }
             }
         });
-
-
     }
     public void randomButtonInit(){
         randomButton = new Button("Random");
@@ -193,7 +212,7 @@ public class ShipSettingController {
                         MapObject gameCell = new MapCell(y, x);
                         fieldRows[y].getChildren().add(x, gameCell);
                         App.SEA_BATTLE_GAME.getHuman().setGameCellToOurFleetMap(gameCell, y, x);
-                        Tools.setDragTargetZone(gameCell);
+                        setDragTargetZone(gameCell);
                     }
                 }
                 App.SEA_BATTLE_GAME.getHuman().shipYardInit();
@@ -206,4 +225,214 @@ public class ShipSettingController {
             }
         });
     }
+    public void setDragSource(Ship source) {
+        //Событие при обнаружении перетаскивания
+        source.setOnDragDetected(new EventHandler<MouseEvent>() {
+            public void handle(MouseEvent event) {
+                /* drag was detected, start a drag-and-drop gesture*/
+                /* allow any transfer mode */
+                Dragboard db = source.startDragAndDrop(TransferMode.MOVE);
+                /* Put a image on a dragboard and object to global variable */
+                dragObject = source;
+                ClipboardContent content = new ClipboardContent();
+                content.putImage(source.getImage());
+                db.setContent(content);
+                event.consume();
+            }
+        });
+        source.setOnMouseEntered(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                shipsName.setText("Корабль: " + source.getName());
+            }
+        });
+        source.setOnMouseExited(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                shipsName.setText("Корабль: ");
+            }
+        });
+        //Событие при завершении перетаскивания
+        source.setOnDragDone(new EventHandler<DragEvent>() {
+            public void handle(DragEvent event) {
+                /* the drag and drop gesture ended */
+                /* if the data was successfully moved, clear it */
+                if (event.getTransferMode() == TransferMode.MOVE) {
+                    source.setImage(ImageName.NULL);
+                }
+                event.consume();
+            }
+        });
+    }
+
+    public void setDragTargetZone(MapObject targetZone) {
+        targetZone.setOnDragOver(new EventHandler<DragEvent>() {
+            public void handle(DragEvent event) {
+                /* Ресурс находится внутри зоны */
+                /* accept it only if it is not dragged from the same node
+                 * and if it has a image data */
+                if (event.getGestureSource() != targetZone &&
+                        event.getDragboard().hasImage()) {
+                    /* allow for both copying and moving, whatever user chooses */
+                    event.acceptTransferModes(TransferMode.MOVE);
+                }
+                event.consume();
+            }
+        });
+        //Событие которое наступает при входе ресурса в зону
+        targetZone.setOnDragEntered(new EventHandler<DragEvent>() {
+            public void handle(DragEvent event) {
+                /* the drag-and-drop gesture entered the targetZone */
+                /* show to the user that it is an actual gesture targetZone */
+                if (event.getGestureSource() != targetZone &&
+                        event.getDragboard().hasImage() && targetZone.getClass().getSimpleName().equals("MapCell")) {
+                    Effect fx = new Shadow();
+                    int imgSize = (int) event.getDragboard().getImage().getWidth();
+                    if (App.SHIP_SETTING_CONTROLLER.isVertical() == false) {
+                        setFxX(targetZone.getCoordinateY(), targetZone.getCoordinateX(), fx, imgSize);
+                    } else {
+                        setFxY(targetZone.getCoordinateY(), targetZone.getCoordinateX(), fx, imgSize);
+                    }
+                }
+                event.consume();
+            }
+        });
+        //Событие наступающее при выходе ресурса из зоны
+        targetZone.setOnDragExited(new EventHandler<DragEvent>() {
+            public void handle(DragEvent event) {
+                /* mouse moved away, remove the graphical cues */
+                int imgSize = (int) event.getDragboard().getImage().getWidth();
+                if (App.SHIP_SETTING_CONTROLLER.isVertical() == false) {
+                    clearFxX(targetZone.getCoordinateY(), targetZone.getCoordinateX(), imgSize);
+                } else {
+                    clearFxY(targetZone.getCoordinateY(), targetZone.getCoordinateX(), imgSize);
+                }
+                event.consume();
+            }
+        });
+        //Drop event
+        targetZone.setOnDragDropped(new EventHandler<DragEvent>() {
+            public void handle(DragEvent event) {
+                /* data dropped */
+                /* if there is a image data on dragboard, read it and use it */
+                Dragboard db = event.getDragboard();
+                boolean success = false;
+                if (db.hasImage() && targetZone.getClass().getSimpleName().equals("MapCell")) {
+                    //int imgSize = (int) event.getDragboard().getImage().getWidth();
+                    if (App.SHIP_SETTING_CONTROLLER.isVertical() == false) {
+                        success = Tools.setShipToCellsX(dragObject, targetZone.getCoordinateY(), targetZone.getCoordinateX());
+                        dragObject.getOwner().getShipyard().remove(dragObject);
+                    } else {
+                        success = Tools.setShipToCellsY(dragObject, targetZone.getCoordinateY(), targetZone.getCoordinateX());
+                        dragObject.getOwner().getShipyard().remove(dragObject);
+                    }
+                }
+                /* let the source know whether the string was successfully
+                 * transferred and used */
+                event.setDropCompleted(success);
+                event.consume();
+            }
+        });
+    }
+
+    public static void setFxX(int Y, int X, Effect fx, int imgSize) {
+        MapObject[][] map = App.SEA_BATTLE_GAME.getHuman().getOurFleetMap();
+        imgSize /= 60;
+        switch (imgSize) {
+            case 4:
+                if (X + 1 < SeaBattleGame.getSIZE()) map[Y][X + 1].setEffect(fx);
+                map[Y][X].setEffect(fx);
+                if (X - 1 >= 0) map[Y][X - 1].setEffect(fx);
+                if (X - 2 >= 0) map[Y][X - 2].setEffect(fx);
+                break;
+            case 3:
+                if (X + 1 < SeaBattleGame.getSIZE()) map[Y][X + 1].setEffect(fx);
+                map[Y][X].setEffect(fx);
+                if (X - 1 >= 0) map[Y][X - 1].setEffect(fx);
+                break;
+            case 2:
+                map[Y][X].setEffect(fx);
+                if (X - 1 >= 0) map[Y][X - 1].setEffect(fx);
+                break;
+            case 1:
+                map[Y][X].setEffect(fx);
+                break;
+        }
+    }
+
+    public static void setFxY(int Y, int X, Effect fx, int imgSize) {
+        MapObject[][] map = App.SEA_BATTLE_GAME.getHuman().getOurFleetMap();
+        imgSize /= 60;
+        switch (imgSize) {
+            case 4:
+                if (Y + 1 < SeaBattleGame.getSIZE()) map[Y + 1][X].setEffect(fx);
+                map[Y][X].setEffect(fx);
+                if (Y - 1 >= 0) map[Y - 1][X].setEffect(fx);
+                if (Y - 2 >= 0) map[Y - 2][X].setEffect(fx);
+                break;
+            case 3:
+                if (Y + 1 < SeaBattleGame.getSIZE()) map[Y + 1][X].setEffect(fx);
+                map[Y][X].setEffect(fx);
+                if (Y - 1 >= 0) map[Y - 1][X].setEffect(fx);
+                break;
+            case 2:
+                map[Y][X].setEffect(fx);
+                if (Y - 1 >= 0) map[Y - 1][X].setEffect(fx);
+                break;
+            case 1:
+                map[Y][X].setEffect(fx);
+                break;
+        }
+    }
+
+    public static void clearFxX(int Y, int X, int imgSize) {
+        MapObject[][] map = App.SEA_BATTLE_GAME.getHuman().getOurFleetMap();
+        imgSize /= 60;
+        switch (imgSize) {
+            case 4:
+                map[Y][X].setEffect(null);
+                if (X + 1 < SeaBattleGame.getSIZE()) map[Y][X + 1].setEffect(null);
+                if (X - 1 >= 0) map[Y][X - 1].setEffect(null);
+                if (X - 2 >= 0) map[Y][X - 2].setEffect(null);
+                break;
+            case 3:
+                map[Y][X].setEffect(null);
+                if (X + 1 < SeaBattleGame.getSIZE()) map[Y][X + 1].setEffect(null);
+                if (X - 1 >= 0) map[Y][X - 1].setEffect(null);
+                break;
+            case 2:
+                map[Y][X].setEffect(null);
+                if (X - 1 >= 0) map[Y][X - 1].setEffect(null);
+                break;
+            case 1:
+                map[Y][X].setEffect(null);
+                break;
+        }
+    }
+
+    public static void clearFxY(int Y, int X, int imgSize) {
+        MapObject[][] map = App.SEA_BATTLE_GAME.getHuman().getOurFleetMap();
+        imgSize /= 60;
+        switch (imgSize) {
+            case 4:
+                map[Y][X].setEffect(null);
+                if (Y + 1 < SeaBattleGame.getSIZE()) map[Y + 1][X].setEffect(null);
+                if (Y - 1 >= 0) map[Y - 1][X].setEffect(null);
+                if (Y - 2 >= 0) map[Y - 2][X].setEffect(null);
+                break;
+            case 3:
+                map[Y][X].setEffect(null);
+                if (Y + 1 < SeaBattleGame.getSIZE()) map[Y + 1][X].setEffect(null);
+                if (Y - 1 >= 0) map[Y - 1][X].setEffect(null);
+                break;
+            case 2:
+                map[Y][X].setEffect(null);
+                if (Y - 1 >= 0) map[Y - 1][X].setEffect(null);
+                break;
+            case 1:
+                map[Y][X].setEffect(null);
+                break;
+        }
+    }
+
 }
