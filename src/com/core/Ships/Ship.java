@@ -2,6 +2,9 @@ package com.core.Ships;
 
 import com.core.MapObjects.MapObject;
 import com.core.Players.Player;
+import javafx.event.EventHandler;
+import javafx.scene.Cursor;
+import javafx.scene.input.MouseEvent;
 
 /**
  * shipSize - Количество занимаемых на поле ячеек кораблеём. 4 - Линкор, 3 - Крейсер(), 2 - Эсминец, 1 - Подлодка
@@ -90,5 +93,4 @@ public abstract class Ship extends MapObject {
         }
         return name;
     }
-
 }

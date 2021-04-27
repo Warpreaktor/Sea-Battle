@@ -4,6 +4,9 @@ import com.core.MapObjects.MapObject;
 import com.core.ImageName;
 import com.core.Players.Player;
 import front.App;
+import javafx.event.EventHandler;
+import javafx.scene.Cursor;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 
 public class Frigate extends Ship {
@@ -45,6 +48,7 @@ public class Frigate extends Ship {
                 hBoxes[Y].getChildren().remove(x);
                 hBoxes[Y].getChildren().add(x, decks[i]);
                 map[Y][x].setImage(ImageName.DESTROYER);
+                decks[i].setOnMouseEvent();
             }else{
                 map[Y][x].setEffect(null);
                 map[Y][x].setImage(ImageName.DESTROYER);
@@ -70,6 +74,7 @@ public class Frigate extends Ship {
                 hBoxes[y].getChildren().remove(X);
                 hBoxes[y].getChildren().add(X, decks[i]);
                 map[y][X].setImage(ImageName.DESTROYER);
+                decks[i].setOnMouseEvent();
             }else{
                 map[y][X].setEffect(null);
                 map[y][X].setImage(ImageName.DESTROYER);

@@ -4,6 +4,9 @@ import com.core.MapObjects.MapObject;
 import com.core.ImageName;
 import com.core.Players.Player;
 import front.App;
+import javafx.event.EventHandler;
+import javafx.scene.Cursor;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 
 public class Schooner extends Ship {
@@ -42,10 +45,12 @@ public class Schooner extends Ship {
             hBoxes[Y].getChildren().remove(X);
             hBoxes[Y].getChildren().add(X, decks[0]);
             map[Y][X].setImage(ImageName.SUBMARINE);
+            decks[0].setOnMouseEvent();
         }else{
             map[Y][X].setEffect(null);
             map[Y][X].setImage(ImageName.SUBMARINE);
         }
+
         App.SEA_BATTLE_GAME.playerShipIncrement(this.getOwner());
     }
 

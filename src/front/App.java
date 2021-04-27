@@ -78,7 +78,6 @@ public class App extends Application {
     public final static void brushShipSettingMenu() {
         STAGE.setX(300);
         STAGE.setY(0);
-
         Scene scene = new Scene(SHIP_SETTING_CONTROLLER.getMainPanel());
         STAGE.setScene(scene);
         STAGE.show();
@@ -92,30 +91,7 @@ public class App extends Application {
         STAGE.setX(300);
         STAGE.setY(0);
         //Отрисовка поля с вражеским флотом
-        for (int y = 0; y < SEA_BATTLE_GAME.getSIZE(); y++) {
-            HBox rightHBox = new HBox();
-            BATTLE_FIELD_CONTROLLER.rightField.getChildren().add(rightHBox);
-            for (int x = 0; x < SEA_BATTLE_GAME.getSIZE(); x++) {
-                MapObject gameCell = new MapCell(y, x);
-                rightHBox.getChildren().add(gameCell);
-                SEA_BATTLE_GAME.getHuman().setGameCellToEnemyFleetMap(gameCell, y, x);
-                gameCell.setOnMouseClicked(new EventHandler<MouseEvent>() {
-                    @Override
-                    public void handle(MouseEvent mouseEvent) {
-                        if (isHumanTurn) {
-                            if (SEA_BATTLE_GAME.getHuman().shoot(gameCell.getCoordinateY(), gameCell.getCoordinateX())) {
-                                Player human = App.SEA_BATTLE_GAME.getHuman();
-                                human.setTurnCounter(human.getTurnCounter() + 1);
-                                App.BATTLE_FIELD_CONTROLLER.stateUpdate();
-                                setNexTurn();//ход передается компьютеру
-                            } else {
-                                //холостой клик, ход остается у игрока
-                            }
-                        }
-                    }
-                });
-            }
-        }
+
         Scene scene = new Scene(BATTLE_FIELD_CONTROLLER.anchorPane);
         STAGE.setScene(scene);
         STAGE.show();

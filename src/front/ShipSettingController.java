@@ -76,6 +76,8 @@ public class ShipSettingController {
         mainPanelInit();
     }
 
+
+
     private void shipYardInit(){
         shipYard = new VBox(1);
         shipYard.setLayoutY(251);
@@ -325,7 +327,6 @@ public class ShipSettingController {
                 Dragboard db = event.getDragboard();
                 boolean success = false;
                 if (db.hasImage() && targetZone.getClass().getSimpleName().equals("MapCell")) {
-                    //int imgSize = (int) event.getDragboard().getImage().getWidth();
                     if (App.SHIP_SETTING_CONTROLLER.isVertical() == false) {
                         success = Tools.setShipToCellsX(dragObject, targetZone.getCoordinateY(), targetZone.getCoordinateX());
                         dragObject.getOwner().getShipyard().remove(dragObject);
