@@ -36,7 +36,8 @@ public class App extends Application {
     @Override
     public void start(Stage stage) throws Exception {
        gameInit(stage);
-       brushStartMenu();
+       brushTheVictroryScreen();//удалить
+       //brushStartMenu(); вернуть
     }
 
     private final void gameInit(Stage stage){

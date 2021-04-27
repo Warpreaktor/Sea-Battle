@@ -4,11 +4,11 @@ import com.core.Chest;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.TextFlow;
 
 public class VictoryScreenController {
-    private Chest chestLeft = new Chest();
-    private final Chest chestCentre = new Chest();
-    private final Chest chestRight = new Chest();
+    private Chest chest;
     private boolean chestIsOpen = false;
 
     @FXML
@@ -18,18 +18,26 @@ public class VictoryScreenController {
     @FXML
     ImageView chest3;
     @FXML
-    Label label;
+    TextFlow textFlow;
+    @FXML
+    VBox textBox;
 
     @FXML
     public final void chestOpened(){
+        if (textBox.getChildren().size()>0) {
+            for (int i = 4; i >= 0; i--) {
+                textBox.getChildren().remove(i);
+            }
+        }
         if (!chestIsOpen) {
-            chestLeft = new Chest();
-            label.setText(chestLeft.getItems().get(0) + "\n" +
-                    chestLeft.getItems().get(1) + "\n" +
-                    chestLeft.getItems().get(2) + "\n" +
-                    chestLeft.getItems().get(3) + "\n" +
-                    chestLeft.getItems().get(4) + "\n");
-            chestIsOpen = true;
+            chest = new Chest();
+            textBox.getChildren().addAll(
+                    chest.getItems().get(0),
+                    chest.getItems().get(1),
+                    chest.getItems().get(2),
+                    chest.getItems().get(3),
+                    chest.getItems().get(4));
+            //chestIsOpen = true;
         }
     }
 

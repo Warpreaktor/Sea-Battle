@@ -1,14 +1,15 @@
 package com.core;
 
-import javafx.fxml.FXML;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
 
 import java.util.ArrayList;
 
 public class Chest {
-    private ArrayList<String> items;
+    private ArrayList<Item> items;
 
 
-    public ArrayList<String> getItems() {
+    public ArrayList<Item> getItems() {
         return items;
     }
 
@@ -26,12 +27,13 @@ public class Chest {
 
     String[] weaponsW = {"Булава", "Секира", "Сабля", "Алебарда", "Дубина", "Рогатина", "Праща", "Шпага",
             "Нагамаки", "Палица", "Нунчака", "Шалапуга", "Макила", "Палка", "Кама",
-            "Кусаригама", "Рапира", "Пика", "Острога", "Айболта", "Валашка", "Коса"};
+            "Рапира", "Пика", "Острога", "Айболта", "Валашка", "Коса"};
+
     String[] weaponsIt = {"Копьё", "Зубило", "Дробило", "Мачете", "Хоко", "Гасило"};
 
     String[] trashM = {"канат", "якорь", "амулет", "компас", "плащ", "глобус", "рюкзак", "сапог", "кувшин", "факел",
                         "подсвечник", "флаг", "пуд соли", "мундир", "мешок с песком", "мещок яблок", "мешок картошки",
-                        "мешок с дерьмом", "табак", "камзол",  "таз", "портрет", "ром", "костыль",  "виски",};
+                        "мешок с дерьмом", "табак", "камзол",  "таз", "портрет", "ром", "костыль",  "виски"};
 
     String[] trashW = {"чаша", "трубка", "сеть для ловли", "рубаха", "кастрюля", "шуба", "лодка", "цепочка", "трость",
                         "мантия", "рыбка", "бочка рома", "табакерка", "водка", "клешня", "шкатулка"};
@@ -39,34 +41,68 @@ public class Chest {
     String[] trashIt = {"Ожерелье", "Пушечное ядро", "Ведро", "Платье", "Веретено", "Весло", "Авокадо", "Знамя",
                         "Вино", "коромысло", "седло"};
 
-    String[] weaponNounsM = {"Холодный", "Неплохой", "Изящный", "Алый", "Вечный", "Пыльный",
-            "Утренний", "Бешеный", "Славянский", "Арабский", "Жалкий", "Гигантский", "Огромный",
-            "Чудовищный", "Гибельный", "Православный", "Мусульманский", "Острый",
-            "Тупой", "Смешной", "Лихой", "Чудесный", "Богатый", "Расписной", "Ужасный", "Непристойный",
-            "Кровожадный", "Священный", "Идеальный"};//разное
+    String[] usuallyWeaponNounsM = {"Холодный", "Неплохой", "Пыльный",
+            "Утренний", "Бешеный","Жалкий", "Гигантский", "Огромный",
+            "Тупой", "Смешной", "Ужасный", "Непристойный"};
 
-    String[] weaponNounsW = {"Ледяная", "Пригожая", "Изящная", "Кровавая", "Уродливая", "Кривая",
-            "Ночная", "Яростная", "Славянская", "Арабская", "Ладная", "Гигантская", "Огромная",
-            "Чудовищная", "Смертельная", "Православная", "Мусульманская", "Острая",
-            "Тупая", "Злющая", "Колючая", "Призрачная", "Роскошная", "Расписная", "Извращенная",
-            "Дьявольская", "Сумрачная", "Божественная"};//разное
+    String[] rareWeaponNounsM = {"Изящный", "Алый", "Красивый",
+            "Славянский", "Арабский", "Православный", "Мусульманский",
+            "Чудовищный", "Гибельный", "Острый",
+            "Лихой",
+            "Кровожадный"};
+
+    String[] epicWeaponNounsM = {"Вечный", "Волшебный", "Магический",
+            "Чудесный", "Богатый", "Расписной",
+           "Священный", "Идеальный"};
+
+    String[] usuallyWeaponNounsW = {"Ледяная", "Кровавая", "Уродливая", "Кривая",
+            "Гигантская", "Огромная",
+            "Тупая", "Извращенная",
+            };
+
+    String[] rareWeaponNounsW = {"Ледяная", "Пригожая", "Изящная", "Кровавая",
+            "Славянская", "Арабская", "Ладная", "Гигантская", "Огромная",
+            "Острая",
+            "Злющая", "Колючая",
+            };
+
+    String[] epicWeaponNounsW = {
+            "Ночная", "Яростная",
+            "Чудовищная", "Смертельная",
+            "Призрачная", "Роскошная", "Расписная",
+            "Дьявольская", "Сумрачная", "Божественная"};
 
     String[] trashNounsM = {"рваный", "прочный", "ржавый", "тяжелый", "красивый", "драгоценный", "старинный",
                             "потёртый", "привлекательный", "надёжный", "чёрный", "кожаный", "треснувший", "дешёвый",
                             "крепкий", "брошенный", "пыльный", "расписной", "вонючий", "благоухающий", "славянский",
                             "арабский"};
 
-    String[] trashNounsW = {"Изящная", "редкая", "раритетная", "корявая", "потёртая", "драгоценная",
-                            "ненужная", "выкинутая", "дешёвая", "роскошная", "ничтожная", "готичечская", "старинная",
-                            "мокрая", "славянская", "арабская", "культурная", "хрупкая", "необычная", "божья"};
+    String[] goodTrashNounsW = {"Изящная", "редкая", "раритетная", "драгоценная",
+                            "роскошная", "готичечская", "старинная",
+                            "славянская", "арабская", "культурная","необычная", "божья"};
 
-    String[] trashNounsIt = {};
+    String[] badTrashNounsW = {"корявая", "потёртая",
+            "ненужная", "выкинутая", "дешёвая", "ничтожная",
+            "мокрая", "хрупкая",};
 
-    String[] nounsIt = {"Морозное", "Тяжелое", "Лютое", "Изогнутое", "Стальное", "Древнее", "Старое",
-            "Полуночное", "Грязное", "Запачканное", "Славянское", "Арабское", "Сломанное", "Гигантское", "Огромное",
-            "Чудовищное", "Брутальное", "Православное", "Мусульманское", "Острое",
-            "Тупое", "Шипастое", "Славное", "Восхитительное", "Поганое", "Грубое", "Гнилое", "Скверное",
-            "Зловонное", "Святое"};//разное
+    String[] usuallyNounsIt = {"Изогнутое", "Стальное", "Старое",
+            "Грязное", "Запачканное", "Сломанное",
+            "Тупое", "Поганое", "Грубое", "Гнилое", "Скверное",
+            "Зловонное"};
+
+    String[] rareNounsIt = {"Морозное", "Тяжелое", "Лютое",
+            "Славянское", "Арабское", "Гигантское", "Огромное",
+            "Брутальное", "Православное", "Мусульманское", "Острое",
+            "Шипастое", "Славное",
+            };
+
+    String[] epicNounsIt = {"Древнее", "Всемогущее", "Истинное",
+            "Полуночное",
+            "Чудовищное",
+            "Восхитительное",
+            "Святое", "Божественное"};
+
+
 
     String[] nounsWhomM = {"ехидного", "чумного", "мощного", "чудного", "придурковатого", "старого", "пыльного",
             "бешенного", "славянского", "арабского", "огромного", "шустрого", "безрассудного", "смазливого",
@@ -90,78 +126,197 @@ public class Chest {
     String[] characteristics = {"слабости", "бешенства", "скромности", "правды", "памяти", "ловкости", "мудрости",
             "силы", "истины", "меткости", "желания"};
 
-    public String chestOpen() {
-        int randomNum = 1 + (int) (Math.random() * 11);
+    public Item chestOpen() {
+        int randomNum = Tools.getRandomNumber(1, 19);
         String name = "Пусто";
+        int price = 0;
         switch (randomNum) {
-            case (1)://прил муж + оружие муж
-                name = weaponNounsM[(int) (Math.random() * (weaponNounsM.length - 1))] +
+            case (1)://обыч. прил муж + оружие муж
+                name = usuallyWeaponNounsM[(int) (Math.random() * (usuallyWeaponNounsM.length - 1))] +
                         " " + weaponsM[(int) (Math.random() * (weaponsM.length - 1))];
+                price = 0;
                 break;
-            case (2)://прил жен + оружие жен
-                name = weaponNounsW[(int) (Math.random() * (weaponNounsW.length - 1))] +
+            case (2)://редкое прил муж + оружие муж
+                name = rareWeaponNounsM[(int) (Math.random() * (rareWeaponNounsM.length - 1))] +
+                        " " + weaponsM[(int) (Math.random() * (weaponsM.length - 1))];
+                price = 1;
+                break;
+            case (3)://эпич. прил муж + оружие муж
+                name = epicWeaponNounsM[(int) (Math.random() * (epicWeaponNounsM.length - 1))] +
+                        " " + weaponsM[(int) (Math.random() * (weaponsM.length - 1))];
+                price = 2;
+                break;
+            case (4)://обыч. прил жен + оружие жен
+                name = usuallyWeaponNounsW[(int) (Math.random() * (usuallyWeaponNounsW.length - 1))] +
                         " " + weaponsW[(int) (Math.random() * (weaponsW.length - 1))];
+                price = 0;
                 break;
-            case (3)://прил сред + оружие сред
-                name = nounsIt[(int) (Math.random() * (nounsIt.length - 1))] +
+            case (5)://ред. прил жен + оружие жен
+                name = rareWeaponNounsW[(int) (Math.random() * (rareWeaponNounsW.length - 1))] +
+                        " " + weaponsW[(int) (Math.random() * (weaponsW.length - 1))];
+                price = 1;
+                break;
+            case (6)://эпич. прил жен + оружие жен
+                name = epicWeaponNounsW[(int) (Math.random() * (epicWeaponNounsW.length - 1))] +
+                        " " + weaponsW[(int) (Math.random() * (weaponsW.length - 1))];
+                price = 2;
+                break;
+            case (7)://обыч. прил. сред + оружие сред
+                name = usuallyNounsIt[(int) (Math.random() * (usuallyNounsIt.length - 1))] +
                         " " + weaponsIt[(int) (Math.random() * (weaponsIt.length - 1))];
+                price = 0;
                 break;
-            case (4)://прил муж + оружие муж + характеристика
-                name = weaponNounsM[(int) (Math.random() * (weaponNounsM.length - 1))] +
+            case (8)://ред. прил. сред + оружие сред
+                name = rareNounsIt[(int) (Math.random() * (rareNounsIt.length - 1))] +
+                        " " + weaponsIt[(int) (Math.random() * (weaponsIt.length - 1))];
+                price = 1;
+                break;
+            case (9)://эпич. прил. сред + оружие сред
+                name = epicNounsIt[(int) (Math.random() * (epicNounsIt.length - 1))] +
+                        " " + weaponsIt[(int) (Math.random() * (weaponsIt.length - 1))];
+                price = 2;
+                break;
+            case (10)://обыч. прил муж + оружие муж + характеристика
+                name = usuallyWeaponNounsM[(int) (Math.random() * (usuallyWeaponNounsM.length - 1))] +
                         " " + weaponsM[(int) (Math.random() * (weaponsM.length - 1))]  +
                         " " + characteristics[(int) (Math.random() * (characteristics.length - 1))];
+                price = 0;
                 break;
-            case (5)://прил жен + оружие жен + характеристика
-                name = weaponNounsW[(int) (Math.random() * (weaponNounsW.length - 1))] +
+            case (11)://ред. прил муж + оружие муж + характеристика
+                name = rareWeaponNounsM[(int) (Math.random() * (rareWeaponNounsM.length - 1))] +
+                        " " + weaponsM[(int) (Math.random() * (weaponsM.length - 1))]  +
+                        " " + characteristics[(int) (Math.random() * (characteristics.length - 1))];
+                price = 1;
+                break;
+            case (12)://эпич. прил муж + оружие муж + характеристика
+                name = epicWeaponNounsM[(int) (Math.random() * (epicWeaponNounsM.length - 1))] +
+                        " " + weaponsM[(int) (Math.random() * (weaponsM.length - 1))]  +
+                        " " + characteristics[(int) (Math.random() * (characteristics.length - 1))];
+                price = 2;
+                break;
+            case (13)://обыч. прил жен + оружие жен + характеристика
+                name = usuallyWeaponNounsW[(int) (Math.random() * (usuallyWeaponNounsW.length - 1))] +
                         " " + weaponsW[(int) (Math.random() * (weaponsW.length - 1))]+
                         " " + characteristics[(int) (Math.random() * (characteristics.length - 1))];
+                price = 0;
                 break;
-            case (6)://прил сред + оружие сред + характеристика
-                name = nounsIt[(int) (Math.random() * (nounsIt.length - 1))] +
+            case (14)://ред. прил жен + оружие жен + характеристика
+                name = rareWeaponNounsW[(int) (Math.random() * (rareWeaponNounsW.length - 1))] +
+                        " " + weaponsW[(int) (Math.random() * (weaponsW.length - 1))]+
+                        " " + characteristics[(int) (Math.random() * (characteristics.length - 1))];
+                price = 1;
+                break;
+            case (15)://эпич. прил жен + оружие жен + характеристика
+                name = epicWeaponNounsW[(int) (Math.random() * (epicWeaponNounsW.length - 1))] +
+                        " " + weaponsW[(int) (Math.random() * (weaponsW.length - 1))]+
+                        " " + characteristics[(int) (Math.random() * (characteristics.length - 1))];
+                price = 2;
+                break;
+            case (16)://прил сред + оружие сред + характеристика
+                name = rareNounsIt[(int) (Math.random() * (rareNounsIt.length - 1))] +
                         " " + weaponsIt[(int) (Math.random() * (weaponsIt.length - 1))]+
                         " " + characteristics[(int) (Math.random() * (characteristics.length - 1))];
+                price = 1;
                 break;
-            case (7)://прил муж + оружие муж + кого прилаг муж + чьё муж
-                name = weaponNounsM[(int) (Math.random() * (weaponNounsM.length - 1))] +
+            case (17)://прил муж + оружие муж + кого прилаг муж + чьё муж
+                name = usuallyWeaponNounsM[(int) (Math.random() * (usuallyWeaponNounsM.length - 1))] +
                         " " + weaponsM[(int) (Math.random() * (weaponsM.length - 1))]  +
                         " " + nounsWhomM[(int) (Math.random() * (nounsWhomM.length - 1))] +
                         " " + whomM[(int) (Math.random() * (whomM.length - 1))];
+                price = 0;
                 break;
-            case (8)://прил жен + оружие жен + кого прилаг жен + чьё жен
-                name = weaponNounsW[(int) (Math.random() * (weaponNounsW.length - 1))] +
+            case (18)://прил жен + оружие жен + кого прилаг жен + чьё жен
+                name = usuallyWeaponNounsW[(int) (Math.random() * (usuallyWeaponNounsW.length - 1))] +
                         " " + weaponsW[(int) (Math.random() * (weaponsW.length - 1))]  +
                         " " + nounsWhomW[(int) (Math.random() * (nounsWhomW.length - 1))] +
                         " " + whomW[(int) (Math.random() * (whomW.length - 1))];
+                price = 0;
                 break;
-            case (9)://прил муж + мусор муж + кого прилаг муж + чьё муж
+            case (19)://прил муж + мусор муж + кого прилаг муж + чьё муж
                 name = trashNounsM[(int) (Math.random() * (trashNounsM.length - 1))] +
                         " " + trashM[(int) (Math.random() * (trashM.length - 1))]  +
                         " " + nounsWhomM[(int) (Math.random() * (nounsWhomM.length - 1))] +
                         " " + whomM[(int) (Math.random() * (whomM.length - 1))];
+                price = -1;
                 break;
-            case (10)://прил жен + мусор жен + кого прилаг жен + чьё жен
-                name = trashNounsW[(int) (Math.random() * (trashNounsW.length - 1))] +
+            case (20)://хор. прил жен + мусор жен + кого прилаг жен + чьё жен
+                name = goodTrashNounsW[(int) (Math.random() * (goodTrashNounsW.length - 1))] +
                         " " + trashW[(int) (Math.random() * (trashW.length - 1))]  +
                         " " + nounsWhomW[(int) (Math.random() * (nounsWhomW.length - 1))] +
                         " " + whomW[(int) (Math.random() * (whomW.length - 1))];
+                price = 1;
                 break;
-            case (11)://прил сред + мусор сред
-                name = nounsIt[(int) (Math.random() * (nounsIt.length - 1))] +
+            case (21)://хор. прил жен + мусор жен + кого прилаг жен + чьё жен
+                name = badTrashNounsW[(int) (Math.random() * (badTrashNounsW.length - 1))] +
+                        " " + trashW[(int) (Math.random() * (trashW.length - 1))]  +
+                        " " + nounsWhomW[(int) (Math.random() * (nounsWhomW.length - 1))] +
+                        " " + whomW[(int) (Math.random() * (whomW.length - 1))];
+                price = -1;
+                break;
+            case (22)://прил сред + мусор сред
+                name = rareNounsIt[(int) (Math.random() * (rareNounsIt.length - 1))] +
                         " " + trashIt[(int) (Math.random() * (trashIt.length - 1))];
+                price = 1;
+                break;
+            case (23)://прил сред + мусор сред
+                name = usuallyNounsIt[(int) (Math.random() * (usuallyNounsIt.length - 1))] +
+                        " " + trashIt[(int) (Math.random() * (trashIt.length - 1))];
+                price = 0;
                 break;
 
         }
-
-        return Tools.textFormatter(name);
+        return fabricaOfItem(name, price);
     }
 
-    private class usuallyItem {
-
+    public Item fabricaOfItem(String name, int price){
+        Item item = null;
+        if (price <= 0){
+            item = new UsuallyItem(name, price);
+        }
+        if (price == 1){
+            item = new RareItem(name, price);
+        }
+        if (price > 1){
+            item = new EpicItem(name, price);
+        }
+        return item;
     }
-    private class rareItem {
 
+    public class Item extends Text {
+        String name;
+        int price;
+
+        public Item(String name, int price){
+            this.name = Tools.textFormatter(name);
+            this.price = price;
+            setText(this.name);
+        }
+
+        @Override
+        public String toString() {
+            return name;
+        }
     }
-    private class epicItem {
 
+    private class UsuallyItem extends Item{
+
+        public UsuallyItem(String name, int price) {
+            super(name, price);
+            setFill(Color.GRAY);
+        }
+    }
+    private class RareItem extends Item{
+
+        public RareItem(String name, int price) {
+            super(name, price);
+            setFill(Color.BLUE);
+        }
+    }
+    private class EpicItem extends Item{
+
+        EpicItem(String name, int price){
+            super(name, price);
+            setFill(Color.ORANGE);
+        }
     }
 }
