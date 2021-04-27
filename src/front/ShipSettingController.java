@@ -9,6 +9,7 @@ import com.core.Tools;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
+import javafx.scene.Cursor;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.effect.Effect;
@@ -16,6 +17,8 @@ import javafx.scene.effect.Shadow;
 import javafx.scene.image.Image;
 import javafx.scene.input.*;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import javafx.scene.text.TextFlow;
 
 import java.util.ArrayList;
@@ -119,6 +122,8 @@ public class ShipSettingController {
         shipsName = new Label();
         shipsName.setLayoutY(160);
         shipsName.setLayoutX(30);
+        shipsName.setFont(new Font(16));
+        shipsName.setTextFill(Color.BROWN);
         shipsName.setText("Имя корабля: ");
     }
 
@@ -240,16 +245,17 @@ public class ShipSettingController {
                 event.consume();
             }
         });
+        source.setOnMousePressed(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                source.setCursor(Cursor.CLOSED_HAND);
+            }
+        });
         source.setOnMouseEntered(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
-                shipsName.setText("Корабль: " + source.getName());
-            }
-        });
-        source.setOnMouseExited(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-                shipsName.setText("Корабль: ");
+                source.setCursor(Cursor.OPEN_HAND);
+                shipsName.setText("Имя корабля: " + source.getName());
             }
         });
         //Событие при завершении перетаскивания
@@ -260,6 +266,7 @@ public class ShipSettingController {
                 if (event.getTransferMode() == TransferMode.MOVE) {
                     source.setImage(ImageName.NULL);
                 }
+                shipsName.setText("Имя корабля: ");
                 event.consume();
             }
         });
