@@ -11,9 +11,7 @@ import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 
 import java.util.ArrayList;
 
@@ -124,10 +122,13 @@ public class ShipSettingController {
     }
 
     public void mainPanelInit() {
+        BackgroundImage background = new BackgroundImage(new Image("/resources/shipSettingWallpaper1280x1024.png"),
+                BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT);
         mainPanel = new AnchorPane(field, shipYard, startButton, randomButton, resetButton);
         mainPanel.setPrefHeight(1024);
         mainPanel.setPrefWidth(1280);
         mainPanel.setLayoutY(0);
+        mainPanel.setBackground(new Background(background));
         mainPanel.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent keyEvent) {
