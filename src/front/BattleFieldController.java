@@ -44,7 +44,9 @@ public class BattleFieldController {
     public TextFlow textFlow = new TextFlow();
     public VBox leftField;
     public VBox rightField = new VBox(1);
-    AnchorPane anchorPane;
+    private ImageView comicsLeft = new ImageView(new Image("/resources/comics/talk2.png"));
+
+    public AnchorPane anchorPane;
 
     public BattleFieldController() {
         App.mediaPlayer.loopPlaying();
@@ -189,10 +191,11 @@ public class BattleFieldController {
     }
 
     public void anchorPaneInit(){
-        anchorPane = new AnchorPane(rightField, leftField, nextTurnButton, textFlow, leftStateFrame,
+        anchorPane = new AnchorPane(rightField, leftField, nextTurnButton, leftStateFrame,
                 rightStateFrame, selfShipsNum, enemyShipsNum, selfTurns, enemyTurns,
-                leftPersonFrame, rightPersonFrame, leftPersonPortrait, rightPersonPortrait, shipName);
-        BackgroundImage backgroundImage = new BackgroundImage(new Image("/resources/sea.jpg"),
+                leftPersonFrame, rightPersonFrame, leftPersonPortrait, rightPersonPortrait, shipName,
+                 textFlow);
+        BackgroundImage backgroundImage = new BackgroundImage(new Image("/resources/battleFieldWall1280x1024.png"),
                 BackgroundRepeat.SPACE, BackgroundRepeat.SPACE,
                 BackgroundPosition.CENTER, BackgroundSize.DEFAULT);
         Background background = new Background(backgroundImage);
@@ -208,10 +211,15 @@ public class BattleFieldController {
         textFlow.setTextAlignment(TextAlignment.CENTER);
         textFlow.setLineSpacing(2);
 
-        BackgroundImage backgroundImage = new BackgroundImage(new Image("/resources/comics/talk1.png"),
-                BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, new BackgroundSize(300.0, 130.0,false, false, false, false));
-        Background backgroundText = new Background(backgroundImage);
-        textFlow.setBackground(backgroundText); //зафигачить сюда крутую рамку для текста
+        comicsLeft.setLayoutY(80);
+        comicsLeft.setLayoutX(240);
+        comicsLeft.setFitWidth(320);
+        comicsLeft.setFitHeight(150);
+
+//        BackgroundImage backgroundImage = new BackgroundImage(new Image("/resources/comics/talk1.png"),
+//                BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, new BackgroundSize(300.0, 130.0,false, false, false, false));
+//        Background backgroundText = new Background(backgroundImage);
+//        textFlow.setBackground(backgroundText); //зафигачить сюда крутую рамку для текста
 
         Text text1 = new Text("Шторм и гром! \n");
         text1.setFont(new Font(20));
