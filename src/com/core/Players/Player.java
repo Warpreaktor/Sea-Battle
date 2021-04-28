@@ -21,6 +21,9 @@ public abstract class Player {
     private Image portrait;
     private ArrayList<Ship> destroyedShips = new ArrayList<>();//Все уничтоженные кигроком корабли хранятся здесь
 
+    /**
+     * Имена и клички пиратов для генератора имен.
+     */
     public static String[] titulM = {"Пират", "Корсар", "Мичман", "Капитан", "Адмирал"};
 
     public static String[] firstNames = {"Эдвард", "Джек", "Стид", "Джон", "Стив", "Стью", "Сильвер",
