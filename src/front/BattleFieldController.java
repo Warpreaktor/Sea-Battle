@@ -2,6 +2,7 @@ package front;
 
 import com.core.MapObjects.MapCell;
 import com.core.MapObjects.MapObject;
+import com.core.Players.CPU;
 import com.core.Players.Player;
 import com.core.Ships.Ship;
 import javafx.collections.ObservableList;
@@ -41,6 +42,10 @@ public class BattleFieldController {
     public Label ourFleetMapName = new Label();
     public Label enemyFleetMapName = new Label();
     private Label shipName;
+    private Label humanName;
+    private ImageView ribbonNameHuman;
+    private ImageView ribbonNameCPU;
+    private Label CPUName;
     public TextFlow textFlow = new TextFlow();
     public VBox leftField;
     public VBox rightField = new VBox(1);
@@ -51,6 +56,7 @@ public class BattleFieldController {
     public BattleFieldController() {
         App.mediaPlayer.loopPlaying();
         personFramesInit();
+        ribbonNameInit();
         rightFieldInit();
         leftFieldInit();
         nextTurnButtonInit();
@@ -60,7 +66,56 @@ public class BattleFieldController {
         shipNameInit();
         anchorPaneInit();
     }
+    public void personFramesInit(){
+        leftPersonFrame = new ImageView("/resources/persons/portraitFrame250x250.png");
+        leftPersonFrame.setLayoutY(10);
+        leftPersonFrame.setLayoutX(50);
+        leftPersonFrame.setFitWidth(200);
+        leftPersonFrame.setFitHeight(200);
 
+        leftPersonPortrait = new ImageView(App.SEA_BATTLE_GAME.getHuman().getPortrait());
+        leftPersonPortrait.setLayoutY(20);
+        leftPersonPortrait.setLayoutX(60);
+        leftPersonPortrait.setFitWidth(180);
+        leftPersonPortrait.setFitHeight(180);
+
+        rightPersonFrame = new ImageView("/resources/persons/portraitFrame250x250.png");
+        rightPersonFrame.setLayoutY(10);
+        rightPersonFrame.setLayoutX(1050);
+        rightPersonFrame.setFitWidth(200);
+        rightPersonFrame.setFitHeight(200);
+
+        rightPersonPortrait = new ImageView(App.SEA_BATTLE_GAME.getCPU().getPortrait());
+        rightPersonPortrait.setLayoutY(20);
+        rightPersonPortrait.setLayoutX(1060);
+        rightPersonPortrait.setFitWidth(180);
+        rightPersonPortrait.setFitHeight(180);
+    }
+    private void ribbonNameInit(){
+        int allY =0;
+        int allX =0;
+        ribbonNameHuman = new ImageView(new Image("/resources/nameRibbon1.png"));
+        ribbonNameHuman.setLayoutY(180);
+        ribbonNameHuman.setLayoutX(25);
+        ribbonNameHuman.setFitHeight(60);
+        ribbonNameHuman.setFitWidth(260);
+
+        humanName = new Label(App.SEA_BATTLE_GAME.getHuman().getName());
+        humanName.setLayoutY(190);
+        humanName.setLayoutX(80);
+        humanName.setFont(new Font(14));
+
+        ribbonNameCPU = new ImageView(new Image("/resources/nameRibbon1.png"));
+        ribbonNameCPU.setLayoutY(180);
+        ribbonNameCPU.setLayoutX(1020);
+        ribbonNameCPU.setFitHeight(60);
+        ribbonNameCPU.setFitWidth(260);
+
+        CPUName = new Label(App.SEA_BATTLE_GAME.getCPU().getName());
+        CPUName.setLayoutY(190);
+        CPUName.setLayoutX(1070);
+        CPUName.setFont(new Font(14));
+    }
 
     public void shipNameInit(){
         shipName = new Label("Корабль: ");
@@ -194,7 +249,7 @@ public class BattleFieldController {
         anchorPane = new AnchorPane(rightField, leftField, nextTurnButton, leftStateFrame,
                 rightStateFrame, selfShipsNum, enemyShipsNum, selfTurns, enemyTurns,
                 leftPersonFrame, rightPersonFrame, leftPersonPortrait, rightPersonPortrait, shipName,
-                 textFlow);
+                 textFlow, ribbonNameHuman, ribbonNameCPU, humanName, CPUName);
         BackgroundImage backgroundImage = new BackgroundImage(new Image("/resources/battleFieldWall1280x1024.png"),
                 BackgroundRepeat.SPACE, BackgroundRepeat.SPACE,
                 BackgroundPosition.CENTER, BackgroundSize.DEFAULT);
@@ -246,77 +301,56 @@ public class BattleFieldController {
     }
 
     public void stateFrameInit(){
+        int allY = 10;
+        int leftFrameX = 55;
+        int rightFrameX = -40;
         leftStateFrame = new ImageView(new Image("/resources/stateFrame.jpg"));
         leftStateFrame.setFitHeight(70);
         leftStateFrame.setFitWidth(160);
-        leftStateFrame.setLayoutY(220);
-        leftStateFrame.setLayoutX(20);
+        leftStateFrame.setLayoutY(220+allY);
+        leftStateFrame.setLayoutX(20+leftFrameX);
 
         selfShipsNum = new Text("Флот ||\n" + App.SEA_BATTLE_GAME.getHuman().getNumberOfShip());
         selfShipsNum.setTextAlignment(TextAlignment.CENTER);
         selfShipsNum.setFont(new Font(17));
         selfShipsNum.setLineSpacing(2);
         selfShipsNum.setFill(Color.BROWN);
-        selfShipsNum.setLayoutY(250);
-        selfShipsNum.setLayoutX(35);
+        selfShipsNum.setLayoutY(250+allY);
+        selfShipsNum.setLayoutX(35+leftFrameX);
 
         selfTurns = new Text("Ходов \n" + App.SEA_BATTLE_GAME.getHuman().getTurnCounter());
         selfTurns.setTextAlignment(TextAlignment.CENTER);
         selfTurns.setFont(new Font(17));
         selfTurns.setLineSpacing(2);
         selfTurns.setFill(Color.BROWN);
-        selfTurns.setLayoutY(250);
-        selfTurns.setLayoutX(95);
+        selfTurns.setLayoutY(250+allY);
+        selfTurns.setLayoutX(95+leftFrameX);
 
         rightStateFrame = new ImageView(new Image("/resources/stateFrame.jpg"));
         rightStateFrame.setFitHeight(70);
         rightStateFrame.setFitWidth(160);
-        rightStateFrame.setLayoutY(220);
-        rightStateFrame.setLayoutX(1110);
+        rightStateFrame.setLayoutY(220+allY);
+        rightStateFrame.setLayoutX(1110+rightFrameX);
 
         enemyShipsNum = new Text("Флот ||\n" + App.SEA_BATTLE_GAME.getCPU().getNumberOfShip());
         enemyShipsNum.setTextAlignment(TextAlignment.CENTER);
         enemyShipsNum.setFont(new Font(17));
         enemyShipsNum.setLineSpacing(2);
         enemyShipsNum.setFill(Color.BROWN);
-        enemyShipsNum.setLayoutY(250);
-        enemyShipsNum.setLayoutX(1125);
+        enemyShipsNum.setLayoutY(250+allY);
+        enemyShipsNum.setLayoutX(1125+rightFrameX);
 
         enemyTurns = new Text("Ходов \n" + App.SEA_BATTLE_GAME.getCPU().getTurnCounter());
         enemyTurns.setTextAlignment(TextAlignment.CENTER);
         enemyTurns.setFont(new Font(17));
         enemyTurns.setLineSpacing(2);
         enemyTurns.setFill(Color.BROWN);
-        enemyTurns.setLayoutY(250);
-        enemyTurns.setLayoutX(1190);
+        enemyTurns.setLayoutY(250+allY);
+        enemyTurns.setLayoutX(1190+rightFrameX);
 
     }
 
 
 
-    public void personFramesInit(){
-        leftPersonFrame = new ImageView("/resources/persons/portraitFrame250x250.png");
-        leftPersonFrame.setLayoutY(30);
-        leftPersonFrame.setLayoutX(20);
-        leftPersonFrame.setFitWidth(160);
-        leftPersonFrame.setFitHeight(160);
 
-        leftPersonPortrait = new ImageView(App.SEA_BATTLE_GAME.getHuman().getPortrait());
-        leftPersonPortrait.setLayoutY(40);
-        leftPersonPortrait.setLayoutX(30);
-        leftPersonPortrait.setFitWidth(140);
-        leftPersonPortrait.setFitHeight(140);
-
-        rightPersonFrame = new ImageView("/resources/persons/portraitFrame250x250.png");
-        rightPersonFrame.setLayoutY(30);
-        rightPersonFrame.setLayoutX(1110);
-        rightPersonFrame.setFitWidth(160);
-        rightPersonFrame.setFitHeight(160);
-
-        rightPersonPortrait = new ImageView(App.SEA_BATTLE_GAME.getCPU().getPortrait());
-        rightPersonPortrait.setLayoutY(40);
-        rightPersonPortrait.setLayoutX(1120);
-        rightPersonPortrait.setFitWidth(140);
-        rightPersonPortrait.setFitHeight(140);
-    }
 }
