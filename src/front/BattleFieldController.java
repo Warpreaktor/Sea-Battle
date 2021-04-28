@@ -207,7 +207,12 @@ public class BattleFieldController {
         textFlow.setPrefHeight(130);
         textFlow.setTextAlignment(TextAlignment.CENTER);
         textFlow.setLineSpacing(2);
-        //textFlow.setBackground(); зафигачить сюда крутую рамку для текста
+
+        BackgroundImage backgroundImage = new BackgroundImage(new Image("/resources/comics/talk1.png"),
+                BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, new BackgroundSize(300.0, 130.0,false, false, false, false));
+        Background backgroundText = new Background(backgroundImage);
+        textFlow.setBackground(backgroundText); //зафигачить сюда крутую рамку для текста
+
         Text text1 = new Text("Шторм и гром! \n");
         text1.setFont(new Font(20));
         text1.setFill(Color.RED);

@@ -1,9 +1,6 @@
 package front;
 
 import com.core.*;
-import com.core.MapObjects.MapCell;
-import com.core.MapObjects.MapObject;
-import com.core.Players.Player;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -11,8 +8,6 @@ import javafx.scene.Group;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
-import javafx.scene.input.*;
-import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -25,7 +20,7 @@ public class App extends Application {
     public static final App APP = new App();
     public static Stage STAGE;
     public static Image[] allPortraits;
-    public static SeaBattleGame SEA_BATTLE_GAME; // Должен быть public static final singleton и только в этом классе. Первая инициализация происходит в StartMenuController
+    public static SeaBattleGame SEA_BATTLE_GAME;
     public static BattleFieldController BATTLE_FIELD_CONTROLLER;
     public static ShipSettingController SHIP_SETTING_CONTROLLER;
     private static boolean isHumanTurn = true;

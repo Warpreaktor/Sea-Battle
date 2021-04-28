@@ -1,6 +1,8 @@
 package com.core;
 
 import front.App;
+import javafx.application.Application;
+
 import java.io.File;
 import java.io.IOException;
 
@@ -21,7 +23,7 @@ public class MyMediaPlayer implements AutoCloseable {
     private FloatControl volumeControl = null;
     private boolean playing = false;
     private File soundtrack1 = new File("src/resources/music/BattleTheme1.wav");
-    private File soundtrack2 = new File("/src/resources/music/TwoTides.wav");
+    private File soundtrack2 = new File("src/resources/music/BattleTheme2.wav");
     private String playingTrack;
 
     public AudioInputStream getStream() {
@@ -79,14 +81,13 @@ public class MyMediaPlayer implements AutoCloseable {
         }
     }
     public void nextTrack(){
-        System.out.println(soundtrack1.getName());
         if (playingTrack == soundtrack1.getName()){
             playingTrack = soundtrack2.getName();
-            App.mediaPlayer = new MyMediaPlayer(soundtrack1);
+            App.mediaPlayer = new MyMediaPlayer(soundtrack2);
             App.mediaPlayer.play();
         }else{
-            playingTrack = soundtrack1.getName();
-            App.mediaPlayer = new MyMediaPlayer(soundtrack2);
+            playingTrack = soundtrack2.getName();
+            App.mediaPlayer = new MyMediaPlayer(soundtrack1);
             App.mediaPlayer.play();
         }
 
@@ -97,7 +98,8 @@ public class MyMediaPlayer implements AutoCloseable {
            while (true) {
                while (App.mediaPlayer.isPlaying()) {
                    try {
-                       Thread.sleep(100);
+
+                       Thread.currentThread().sleep(100);
                    } catch (InterruptedException e) {
                        e.printStackTrace();
                    }
@@ -105,6 +107,7 @@ public class MyMediaPlayer implements AutoCloseable {
                App.mediaPlayer.nextTrack();
            }
         });
+        thread.setDaemon(true);
         thread.start();
     }
 
@@ -123,7 +126,7 @@ public class MyMediaPlayer implements AutoCloseable {
     // Плавно останавливает воспроизведение
     public void smoothStop() {
         Thread thread = new Thread( () ->
-        {for (float i = getVolume(); i > 0; i-=0.001f) {
+        {for (float i = getVolume(); i > 0.3; i-=0.001f) {
             App.mediaPlayer.setVolume(i);
             try {
                 Thread.sleep(10);
@@ -134,6 +137,7 @@ public class MyMediaPlayer implements AutoCloseable {
         if (isPlaying()) {
             clip.stop();
         }});
+        thread.setDaemon(true);
         thread.start();
     }
 
