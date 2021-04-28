@@ -73,25 +73,25 @@ public abstract class MapObject extends ImageView {
             case BATTLESHIP:
                 this.setFitHeight(60);
                 this.setFitWidth(60);
-                super.setImage(new Image("/resources/linkor60x60.png"));
+                super.setImage(new Image("/resources/battleship60x60.png"));
                 setLabel('L');
                 break;
             case GALLEON:
                 this.setFitHeight(60);
                 this.setFitWidth(60);
-                super.setImage(new Image("/resources/cruiser60x60.png"));
+                super.setImage(new Image("/resources/galleon60x60.png"));
                 setLabel('C');
                 break;
             case FRIGATE:
                 this.setFitHeight(60);
                 this.setFitWidth(60);
-                super.setImage(new Image("/resources/destroyer60x60.png"));
+                super.setImage(new Image("/resources/frigate60x60.png"));
                 setLabel('D');
                 break;
             case SCHOONER:
                 this.setFitHeight(60);
                 this.setFitWidth(60);
-                super.setImage(new Image("/resources/submarine60x60.png"));
+                super.setImage(new Image("/resources/schooner60x60.png"));
                 setLabel('S');
                 break;
         }

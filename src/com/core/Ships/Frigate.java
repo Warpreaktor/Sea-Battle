@@ -71,12 +71,11 @@ public class Frigate extends Ship {
                 HBox[] hBoxes = App.SHIP_SETTING_CONTROLLER.getFieldRows();
                 hBoxes[y].getChildren().remove(X);
                 hBoxes[y].getChildren().add(X, decks[i]);
-                map[y][X].setImage(new Image("/resources/frigate" + i + "_60x60.png"));
-                map[y][X].setRotate(90);
+                map[y][X].setImage(new Image("/resources/frigate60x60.png"));
                 decks[i].setOnMouseEvent();
             }else{
                 map[y][X].setEffect(null);
-                map[y][X].setImage(new Image("/resources/frigate" + i + "_60x60.png"));
+                map[y][X].setImage(new Image("/resources/frigate60x60.png"));
             }
             i--;
         }

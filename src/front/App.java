@@ -18,6 +18,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 
+import java.io.File;
 import java.io.IOException;
 
 public class App extends Application {
@@ -28,6 +29,7 @@ public class App extends Application {
     public static BattleFieldController BATTLE_FIELD_CONTROLLER;
     public static ShipSettingController SHIP_SETTING_CONTROLLER;
     private static boolean isHumanTurn = true;
+    public static MyMediaPlayer mediaPlayer;
 
     public static void main(String[] args) {
         launch(args);
@@ -45,6 +47,8 @@ public class App extends Application {
         this.STAGE.setResizable(false);
         portraitsInit();
         this.SEA_BATTLE_GAME = new SeaBattleGame();
+        mediaPlayer = new MyMediaPlayer(new File("C:\\Development\\Java\\SeaBattle\\src\\resources\\music\\SeaBattle_Main_Theme.wav"));
+        mediaPlayer.play();
     }
 
     public static Image[] getAllPortraits() {
@@ -71,7 +75,7 @@ public class App extends Application {
             STAGE.setScene(scene);
             STAGE.show();
         } catch (IOException e) {
-            brushTheErrorMessage("Файл \"StartMenu.fxml\" поврежден или отсутствует");
+            e.printStackTrace();
         }
     }
 

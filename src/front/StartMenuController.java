@@ -1,9 +1,8 @@
 package front;
 
+import com.core.MyMediaPlayer;
 import com.core.Tools;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.event.EventHandler;
+import com.sun.media.jfxmedia.AudioClip;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -11,9 +10,9 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 
+import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -29,6 +28,7 @@ public class StartMenuController implements Initializable {
     @FXML private Button nextPortrait;
     @FXML private Button previousPortrait;
     @FXML private AnchorPane mainPanel;
+    private AudioClip audioClip;
 
     private int portraitIndex;
 
@@ -41,6 +41,7 @@ public class StartMenuController implements Initializable {
         mainPanel.setBackground(background);
         portraitIndex = Tools.getRandomNumber(0, 9);
         portrait.setImage(App.getAllPortraits()[portraitIndex]);
+
 //        chooseMap.setItems(list);
 //        chooseMap.setValue(list.get(0));
     }

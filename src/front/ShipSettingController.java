@@ -3,6 +3,7 @@ package front;
 import com.core.ImageName;
 import com.core.MapObjects.MapCell;
 import com.core.MapObjects.MapObject;
+import com.core.MyMediaPlayer;
 import com.core.SeaBattleGame;
 import com.core.Ships.Ship;
 import com.core.Tools;
@@ -17,6 +18,8 @@ import javafx.scene.effect.Shadow;
 import javafx.scene.image.Image;
 import javafx.scene.input.*;
 import javafx.scene.layout.*;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.TextFlow;
@@ -76,8 +79,6 @@ public class ShipSettingController {
         mainPanelInit();
     }
 
-
-
     private void shipYardInit(){
         shipYard = new VBox(1);
         shipYard.setLayoutY(251);
@@ -92,21 +93,21 @@ public class ShipSettingController {
                 case 4:
                     ship.setFitWidth(240);
                     ship.setFitHeight(60);
-                    ship.setImage(new Image("/resources/linkor60x240.png"));
+                    ship.setImage(new Image("/resources/battleship60x240.png"));
                     shipYard.getChildren().add(ship);
                     setDragSource(ship);
                     break;
                 case 3:
                     shipyard.get(i).setFitWidth(180);
                     shipyard.get(i).setFitHeight(60);
-                    shipyard.get(i).setImage(new Image("/resources/cruiser60x180.png"));
+                    shipyard.get(i).setImage(new Image("/resources/galleon60x180.png"));
                     shipYard.getChildren().add(shipyard.get(i));
                     setDragSource(ship);
                     break;
                 case 2:
                     shipyard.get(i).setFitWidth(120);
                     shipyard.get(i).setFitHeight(60);
-                    shipyard.get(i).setImage(new Image("/resources/frigate.png"));
+                    shipyard.get(i).setImage(new Image("/resources/frigate60x120.png"));
                     shipYard.getChildren().add(shipyard.get(i));
                     setDragSource(ship);
                     break;
@@ -182,6 +183,7 @@ public class ShipSettingController {
                 if (App.SEA_BATTLE_GAME.getHuman().getShipyard().size() > 0) {
                     System.out.println("Не все корабли спущены на воду");
                 }else{
+                    App.mediaPlayer.smoothStop();
                     App.brushTheBattleField();
                 }
             }
