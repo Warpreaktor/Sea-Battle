@@ -1,7 +1,6 @@
 package com.core;
 
 import front.App;
-
 import java.io.File;
 import java.io.IOException;
 
@@ -21,6 +20,17 @@ public class MyMediaPlayer implements AutoCloseable {
     private Clip clip = null;
     private FloatControl volumeControl = null;
     private boolean playing = false;
+    private File soundtrack1 = new File("src/resources/music/BattleTheme1.wav");
+    private File soundtrack2 = new File("/src/resources/music/TwoTides.wav");
+    private String playingTrack;
+
+    public AudioInputStream getStream() {
+        return stream;
+    }
+
+    public void setStream(AudioInputStream stream) {
+        this.stream = stream;
+    }
 
     public MyMediaPlayer(File f) {
         try {
@@ -68,6 +78,35 @@ public class MyMediaPlayer implements AutoCloseable {
             }
         }
     }
+    public void nextTrack(){
+        System.out.println(soundtrack1.getName());
+        if (playingTrack == soundtrack1.getName()){
+            playingTrack = soundtrack2.getName();
+            App.mediaPlayer = new MyMediaPlayer(soundtrack1);
+            App.mediaPlayer.play();
+        }else{
+            playingTrack = soundtrack1.getName();
+            App.mediaPlayer = new MyMediaPlayer(soundtrack2);
+            App.mediaPlayer.play();
+        }
+
+    }
+
+    public void loopPlaying() {
+        Thread thread = new Thread( () ->{
+           while (true) {
+               while (App.mediaPlayer.isPlaying()) {
+                   try {
+                       Thread.sleep(100);
+                   } catch (InterruptedException e) {
+                       e.printStackTrace();
+                   }
+               }
+               App.mediaPlayer.nextTrack();
+           }
+        });
+        thread.start();
+    }
 
     // То же самое, что и play(true)
     public void play() {
@@ -84,10 +123,10 @@ public class MyMediaPlayer implements AutoCloseable {
     // Плавно останавливает воспроизведение
     public void smoothStop() {
         Thread thread = new Thread( () ->
-        {for (float i = 1; i > 0; i-=0.001) {
+        {for (float i = getVolume(); i > 0; i-=0.001f) {
             App.mediaPlayer.setVolume(i);
             try {
-                Thread.sleep(20);
+                Thread.sleep(10);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

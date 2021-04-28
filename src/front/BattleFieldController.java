@@ -47,6 +47,7 @@ public class BattleFieldController {
     AnchorPane anchorPane;
 
     public BattleFieldController() {
+        App.mediaPlayer.loopPlaying();
         personFramesInit();
         rightFieldInit();
         leftFieldInit();

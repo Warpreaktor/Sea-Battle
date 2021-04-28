@@ -47,7 +47,7 @@ public class App extends Application {
         this.STAGE.setResizable(false);
         portraitsInit();
         this.SEA_BATTLE_GAME = new SeaBattleGame();
-        mediaPlayer = new MyMediaPlayer(new File("C:\\Development\\Java\\SeaBattle\\src\\resources\\music\\SeaBattle_Main_Theme.wav"));
+        mediaPlayer = new MyMediaPlayer(new File("src/resources/music/SeaBattle_Main_Theme.wav"));
         mediaPlayer.play();
     }
 
