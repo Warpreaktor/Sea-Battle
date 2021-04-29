@@ -15,8 +15,13 @@ public class SeaBattleGame {
     private static int SIZE = 10;
     private static int totalShips = 0;
     private final Player human = new Human();
-    private final Player CPU = new CPU(Difficult.HARD);
+    private final Player CPU;
     private int krakenChance = 0; //Количество нападений спрута на корабли перед началом боя.
+    private Difficult difficult;
+
+    public Difficult getDifficult() {
+        return difficult;
+    }
 
     public int getKrakenChance() {
         return krakenChance;
@@ -42,7 +47,9 @@ public class SeaBattleGame {
         totalShips = ships;
     }
 
-    public SeaBattleGame() {
+    public SeaBattleGame(Difficult difficult) {
+        CPU = new CPU(difficult);
+        this.difficult = difficult;
         CPU.setName(CPU.getRandomName());
     }
 

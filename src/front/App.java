@@ -1,6 +1,8 @@
 package front;
 
 import com.core.*;
+import com.core.Players.Difficult;
+import com.core.Players.Player;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -37,21 +39,20 @@ public class App extends Application {
     @Override
     public void start(Stage stage) throws Exception {
        gameInit(stage);
-       brushTheVictroryScreen();//удалить
-       //brushStartMenu(); //вернуть
+       //brushTheVictroryScreen();//удалить
+       brushStartMenu(); //вернуть
     }
 
     private final void gameInit(Stage stage){
         this.STAGE = stage;
         this.STAGE.setResizable(false);
         portraitsInit();
-        this.SEA_BATTLE_GAME = new SeaBattleGame();
         mediaPlayer = new MyMediaPlayer(new File("src/resources/music/SeaBattle_Main_Theme.wav"));
         mediaPlayer.play();
     }
 
-    public final void resetGame() throws IOException {
-        this.SEA_BATTLE_GAME = new SeaBattleGame();
+    public final void resetGame(Difficult dif) throws IOException {
+        this.SEA_BATTLE_GAME = new SeaBattleGame(dif);
         mediaPlayer.stopPlaying();
         mediaPlayer = new MyMediaPlayer(new File("src/resources/music/SeaBattle_Main_Theme.wav"));
         mediaPlayer.play();
@@ -71,7 +72,6 @@ public class App extends Application {
     }
 
     public final void brushStartMenu() throws IOException {
-        SHIP_SETTING_CONTROLLER= new ShipSettingController();
         try {
             STAGE.setX(300);
             STAGE.setY(100);
@@ -87,6 +87,7 @@ public class App extends Application {
     }
 
     public final static void brushShipSettingMenu() {
+        SHIP_SETTING_CONTROLLER = new ShipSettingController();
         STAGE.setX(300);
         STAGE.setY(0);
         Scene scene = new Scene(SHIP_SETTING_CONTROLLER.getMainPanel());

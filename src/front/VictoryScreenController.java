@@ -9,6 +9,8 @@ import javafx.scene.text.TextFlow;
 
 import java.io.IOException;
 
+import static com.core.Players.Difficult.*;
+
 public class VictoryScreenController {
     private Chest chest;
     private boolean chestIsOpen = false;
@@ -30,7 +32,14 @@ public class VictoryScreenController {
 
     @FXML
     private void toMainMenu() throws IOException {
-        App.getAPP().resetGame();
+        App.getAPP().resetGame(NORMAL);
+    }
+    @FXML
+    private void nextLevel() throws IOException {
+        if (App.SEA_BATTLE_GAME.getDifficult()==EASY)App.getAPP().resetGame(NORMAL);
+        if (App.SEA_BATTLE_GAME.getDifficult()==NORMAL)App.getAPP().resetGame(HARD);
+        if (App.SEA_BATTLE_GAME.getDifficult()==HARD)App.getAPP().resetGame(DIVINE);
+        if (App.SEA_BATTLE_GAME.getDifficult()==DIVINE)App.getAPP().resetGame(DIVINE);
     }
 
     @FXML
