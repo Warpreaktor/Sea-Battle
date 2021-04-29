@@ -2,19 +2,25 @@ package front;
 
 import com.core.MapObjects.Chest;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.text.TextFlow;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
 import static com.core.Players.Difficult.*;
 
-public class VictoryScreenController {
+public class VictoryScreenController implements Initializable {
     private Chest chest;
     private boolean chestIsOpen = false;
 
+    @FXML
+    private AnchorPane anchorPane;
     @FXML
     ImageView chest1;
     @FXML
@@ -29,6 +35,13 @@ public class VictoryScreenController {
     Button toMainMenu;
     @FXML
     Button nextLevel;
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        BackgroundImage backgroundImage = new BackgroundImage(new Image("/resources/victoryScreen.jpg"), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT,
+                BackgroundPosition.CENTER, BackgroundSize.DEFAULT);
+        anchorPane.setBackground(new Background(backgroundImage));
+    }
 
     @FXML
     private void toMainMenu() throws IOException {
