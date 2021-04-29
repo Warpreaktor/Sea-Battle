@@ -3,8 +3,9 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="front.VictoryScreenController">
+
+<AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="front.LooseScreenController">
    <children>
-      <Button fx:id="toMainMenu" layoutX="250.0" layoutY="256.0" mnemonicParsing="false" onAction="#toMainMenu" prefHeight="50.0" prefWidth="100.0" text="Try again" />
+      <Button fx:id="tryAgain" layoutX="250.0" layoutY="256.0" mnemonicParsing="false" onAction="#tryAgain" prefHeight="50.0" prefWidth="100.0" text="Try again" />
    </children>
 </AnchorPane>

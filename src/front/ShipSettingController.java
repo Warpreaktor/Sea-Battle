@@ -3,7 +3,6 @@ package front;
 import com.core.ImageName;
 import com.core.MapObjects.MapCell;
 import com.core.MapObjects.MapObject;
-import com.core.MyMediaPlayer;
 import com.core.SeaBattleGame;
 import com.core.Ships.Ship;
 import com.core.Tools;
@@ -18,11 +17,8 @@ import javafx.scene.effect.Shadow;
 import javafx.scene.image.Image;
 import javafx.scene.input.*;
 import javafx.scene.layout.*;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
-import javafx.scene.text.TextFlow;
 
 import java.util.ArrayList;
 

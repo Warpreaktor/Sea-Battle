@@ -9,8 +9,6 @@ import com.core.Players.Player;
 import com.core.Ships.Ship;
 import front.App;
 
-import java.io.IOException;
-
 public class SeaBattleGame {
     private static int SIZE = 10;
     private static int totalShips = 0;
@@ -80,7 +78,7 @@ public class SeaBattleGame {
 
     public boolean isVictory(){
         if (human.getNumberOfShip() == 0) {
-            App.brushTheVictoryMessage("Победил " + CPU.getName());
+            App.getAPP().brushTheLooseScreen(CPU);
             return true;
         } else if (CPU.getNumberOfShip() == 0) {
             App.APP.brushTheVictroryScreen();

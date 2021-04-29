@@ -1,6 +1,7 @@
 package front;
 
 import com.core.*;
+import com.core.Players.CPU;
 import com.core.Players.Difficult;
 import com.core.Players.Player;
 import javafx.application.Application;
@@ -10,6 +11,8 @@ import javafx.scene.Group;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -25,6 +28,7 @@ public class App extends Application {
     public static SeaBattleGame SEA_BATTLE_GAME;
     public static BattleFieldController BATTLE_FIELD_CONTROLLER;
     public static ShipSettingController SHIP_SETTING_CONTROLLER;
+    public LooseScreenController looseScreenController;
     private static boolean isHumanTurn = true;
     public static MyMediaPlayer mediaPlayer;
 
@@ -39,8 +43,9 @@ public class App extends Application {
     @Override
     public void start(Stage stage) throws Exception {
        gameInit(stage);
+       brushTheLooseScreen(new CPU(Difficult.EASY));
        //brushTheVictroryScreen();//удалить
-       brushStartMenu(); //вернуть
+       //brushStartMenu(); //вернуть
     }
 
     private final void gameInit(Stage stage){
@@ -122,13 +127,14 @@ public class App extends Application {
             STAGE.show();
         } catch (IOException e) {
             e.printStackTrace();
-            brushTheErrorMessage("Файл \"Victory.fxml\" поврежден или отсутствует");
+            brushTheErrorMessage("При попытке отрисовать экран победы, произошло какое-то дерьмо");
         }
     }
 
     public static void brushTheErrorMessage(String message) {
         Stage stage = new Stage();
         TextArea error = new TextArea();
+        error.setFont(new Font(16));
         error.setText(message);
         Button button = new Button();
         button.setText("OK");
@@ -145,23 +151,23 @@ public class App extends Application {
         stage.show();
     }
 
-    public static void brushTheVictoryMessage(String message) {
-        Stage stage = new Stage();
-        TextArea error = new TextArea();
-        error.setText(message);
-        Button button = new Button();
-        button.setText("OK");
-        button.setLayoutX(200);
-        button.setLayoutY(100);
-        button.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                System.exit(0);
-            }
-        });
-        Group group = new Group(error, button);
-        stage.setScene(new Scene(group));
-        stage.show();
+    public void brushTheLooseScreen(Player winner) {
+        LooseScreenController looseScreenController = new LooseScreenController();
+        try {
+            STAGE.setX(600);
+            STAGE.setY(200);
+            Parent root = FXMLLoader.load(getClass().getResource("LooseScreen.fxml"));
+            looseScreenController.setText("Вас победил " + winner.getName());
+            Group group = new Group(root, looseScreenController.getText());
+            Scene scene = new Scene(group);
+            scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+
+            STAGE.setScene(scene);
+            STAGE.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            brushTheErrorMessage("При попытке отрисовать экран поражения, произошло какое-то дерьмо");
+        }
     }
 
     public static boolean getIsHumanTurn() {
