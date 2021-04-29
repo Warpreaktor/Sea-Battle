@@ -2,9 +2,12 @@ package front;
 
 import com.core.MapObjects.Chest;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.TextFlow;
+
+import java.io.IOException;
 
 public class VictoryScreenController {
     private Chest chest;
@@ -20,9 +23,18 @@ public class VictoryScreenController {
     TextFlow textFlow;
     @FXML
     VBox textBox;
+    @FXML
+    Button toMainMenu;
+    @FXML
+    Button nextLevel;
 
     @FXML
-    public final void chestOpened(){
+    private void toMainMenu() throws IOException {
+        App.getAPP().resetGame();
+    }
+
+    @FXML
+    private void chestOpened(){
         if (textBox.getChildren().size()>0) {
             for (int i = 4; i >= 0; i--) {
                 textBox.getChildren().remove(i);
@@ -36,7 +48,7 @@ public class VictoryScreenController {
                     chest.getItems().get(2),
                     chest.getItems().get(3),
                     chest.getItems().get(4));
-            //chestIsOpen = true;
+            chestIsOpen = true;
         }
     }
 

@@ -30,11 +30,15 @@ public class App extends Application {
         launch(args);
     }
 
+    public static App getAPP() {
+        return APP;
+    }
+
     @Override
     public void start(Stage stage) throws Exception {
        gameInit(stage);
-       //brushTheVictroryScreen();//удалить
-       brushStartMenu(); //вернуть
+       brushTheVictroryScreen();//удалить
+       //brushStartMenu(); //вернуть
     }
 
     private final void gameInit(Stage stage){
@@ -44,6 +48,14 @@ public class App extends Application {
         this.SEA_BATTLE_GAME = new SeaBattleGame();
         mediaPlayer = new MyMediaPlayer(new File("src/resources/music/SeaBattle_Main_Theme.wav"));
         mediaPlayer.play();
+    }
+
+    public final void resetGame() throws IOException {
+        this.SEA_BATTLE_GAME = new SeaBattleGame();
+        mediaPlayer.stopPlaying();
+        mediaPlayer = new MyMediaPlayer(new File("src/resources/music/SeaBattle_Main_Theme.wav"));
+        mediaPlayer.play();
+        brushStartMenu();
     }
 
     public static Image[] getAllPortraits() {
