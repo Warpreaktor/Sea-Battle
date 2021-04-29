@@ -289,6 +289,7 @@ public class CPU extends Player {
                 finishingMemory.add(new Memory(Y, X));
                 lastZone = new Memory(Y, X);
                 App.BATTLE_FIELD_CONTROLLER.setReplica(Player.getRandomReplica(Replicas.HUMAN_DAMAGED));  //Выводим на экран сообщение
+                App.BATTLE_FIELD_CONTROLLER.setComicsImage(ReplicasImage.EMOTIONAL_TALK);
             }
             if (enemyShip.getHp() <= 0) {
                 human.getOurFleetMap()[Y][X].setLabel('X');
@@ -297,10 +298,12 @@ public class CPU extends Player {
                 finishingMemory.clear();
                 lastZone = new Memory(Y, X);
                 App.BATTLE_FIELD_CONTROLLER.setReplica(Player.getRandomReplica(Replicas.HUMAN_KILLED));
+                App.BATTLE_FIELD_CONTROLLER.setComicsImage(ReplicasImage.ANGRY_TALK);
             }
         } else {
             human.getOurFleetMap()[Y][X].setLabel('+');
             App.BATTLE_FIELD_CONTROLLER.setReplica(Player.getRandomReplica(Replicas.CPU_MISSED));
+            App.BATTLE_FIELD_CONTROLLER.setComicsImage(ReplicasImage.CALM_TALK);
             missed(human, CPU, Y, X);
             lastZone = new Memory(Y, X);
             CPU.setTurnCounter(CPU.getTurnCounter() + 1);

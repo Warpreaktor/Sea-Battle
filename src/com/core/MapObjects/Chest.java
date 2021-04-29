@@ -2,6 +2,7 @@ package com.core.MapObjects;
 
 import com.core.Tools;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
 import java.util.ArrayList;
@@ -291,6 +292,7 @@ public class Chest {
             this.name = Tools.textFormatter(name);
             this.price = price;
             setText(this.name);
+            setFont(new Font(20));
         }
 
         @Override
@@ -303,7 +305,7 @@ public class Chest {
 
         public UsuallyItem(String name, int price) {
             super(name, price);
-            setFill(Color.GRAY);
+            setFill(Color.GAINSBORO);
         }
     }
     private class RareItem extends Item{

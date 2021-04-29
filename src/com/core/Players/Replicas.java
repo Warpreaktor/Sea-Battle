@@ -6,5 +6,6 @@ public enum Replicas {
     HUMAN_DAMAGED,
     CPU_DAMAGED,
     HUMAN_KILLED,
-    CPU_KILLED,
+    CPU_KILLED;
+
 }

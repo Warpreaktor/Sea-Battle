@@ -3,6 +3,7 @@ package front;
 import com.core.MapObjects.MapCell;
 import com.core.MapObjects.MapObject;
 import com.core.Players.Player;
+import com.core.Players.ReplicasImage;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -16,8 +17,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.*;
-
-import static java.lang.Thread.sleep;
 
 /**
  * Width - Ширина
@@ -57,7 +56,7 @@ public class BattleFieldController {
         rightFieldInit();
         leftFieldInit();
         nextTurnButtonInit();
-        textFlowInit();
+        replicasInit();
         mapLabelsInit();
         stateFrameInit();
         shipNameInit();
@@ -134,6 +133,15 @@ public class BattleFieldController {
     public void setReplica(String text){
         replica.setText(text);
     }
+    public void setComicsImage(ReplicasImage image){
+        switch (image) {
+            case CALM_TALK -> comics.setImage(new Image ("/resources/comics/talk1.png"));
+            case EMOTIONAL_TALK -> comics.setImage(new Image("/resources/comics/talk2.png"));
+            case ANGRY_TALK -> comics.setImage(new Image("/resources/comics/talk3.png"));
+            case KA_BOOM -> comics.setImage(new Image("/resources/comics/kaboom.png"));
+        }
+    }
+
     public void turnsUpdate(){
         selfTurns.setText("Ходов \n" + App.SEA_BATTLE_GAME.getHuman().getTurnCounter());
         enemyTurns.setText("Ходов \n" + App.SEA_BATTLE_GAME.getCPU().getTurnCounter());
@@ -238,13 +246,12 @@ public class BattleFieldController {
             }
         });
     }
-    public void textFlowInit(){
-        comics = new ImageView(new Image("/resources/comics/talk2.png"));
+    public void replicasInit(){
+        comics = new ImageView(new Image("/resources/comics/talk1.png"));
         comics.setLayoutY(30);
         comics.setLayoutX(600);
         comics.setFitWidth(480);
         comics.setFitHeight(150);
-        comics.setRotate(180);
 
         replica = new Text( "Рад снова видеть твою рожу!");
         replica.setFont(new Font(20));
@@ -315,8 +322,6 @@ public class BattleFieldController {
         enemyTurns.setLayoutX(1190+rightFrameX);
 
     }
-
-
 
 
 }

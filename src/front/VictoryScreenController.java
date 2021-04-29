@@ -22,19 +22,15 @@ public class VictoryScreenController implements Initializable {
     @FXML
     private AnchorPane anchorPane;
     @FXML
-    ImageView chest1;
+    private ImageView chestView;
     @FXML
-    ImageView chest2;
+    private TextFlow textFlow;
     @FXML
-    ImageView chest3;
+    private VBox textBox;
     @FXML
-    TextFlow textFlow;
+    private Button toMainMenu;
     @FXML
-    VBox textBox;
-    @FXML
-    Button toMainMenu;
-    @FXML
-    Button nextLevel;
+    private Button nextLevel;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {

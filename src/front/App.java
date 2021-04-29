@@ -43,9 +43,9 @@ public class App extends Application {
     @Override
     public void start(Stage stage) throws Exception {
        gameInit(stage);
-       //brushTheLooseScreen(new CPU(Difficult.EASY));
-       brushTheVictroryScreen();//удалить
-       //brushStartMenu(); //вернуть
+       //brushTheLooseScreen(new CPU(Difficult.EASY)); //удалить
+       //brushTheVictroryScreen();//удалить
+       brushStartMenu(); //вернуть
     }
 
     private final void gameInit(Stage stage){

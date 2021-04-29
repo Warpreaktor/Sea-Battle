@@ -29,15 +29,18 @@ public class Human extends Player {
                     theShipIsDamaged(enemyShip.getShipOwner(), CPU, human, Y, X);
                     if (enemyShip.getHp() > 0) {
                         App.BATTLE_FIELD_CONTROLLER.setReplica(Player.getRandomReplica(Replicas.CPU_DAMAGED));
+                        App.BATTLE_FIELD_CONTROLLER.setComicsImage(ReplicasImage.ANGRY_TALK);
                         return false;
                     }
                     if (enemyShip.getHp() <= 0) {
                         theShipIsDestroyed(enemyShip.getShipOwner(), CPU, human);
                         App.BATTLE_FIELD_CONTROLLER.setReplica(Player.getRandomReplica(Replicas.CPU_KILLED));
+                        App.BATTLE_FIELD_CONTROLLER.setComicsImage(ReplicasImage.KA_BOOM);
                         return false;
                     }
                 } else {
                     App.BATTLE_FIELD_CONTROLLER.setReplica(Player.getRandomReplica(Replicas.HUMAN_MISSED));
+                    App.BATTLE_FIELD_CONTROLLER.setComicsImage(ReplicasImage.CALM_TALK);
                     if (human.getEnemyFleetMap()[Y][X].getLabel() == 'X') {
 
                     } else {
