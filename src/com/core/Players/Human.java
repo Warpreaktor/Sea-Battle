@@ -28,16 +28,16 @@ public class Human extends Player {
                     DeckOfShip enemyShip = (DeckOfShip) CPU.getOurFleetMap()[Y][X];
                     theShipIsDamaged(enemyShip.getShipOwner(), CPU, human, Y, X);
                     if (enemyShip.getHp() > 0) {
-                        App.BATTLE_FIELD_CONTROLLER.textUpdate("Корабль " + enemyShipName + " поврежден!");
+                        App.BATTLE_FIELD_CONTROLLER.setReplica(Player.getRandomReplica(Replicas.CPU_DAMAGED));
                         return false;
                     }
                     if (enemyShip.getHp() <= 0) {
                         theShipIsDestroyed(enemyShip.getShipOwner(), CPU, human);
-                        App.BATTLE_FIELD_CONTROLLER.textUpdate("Корабль " + enemyShipName + " уничтожен!");
+                        App.BATTLE_FIELD_CONTROLLER.setReplica(Player.getRandomReplica(Replicas.CPU_KILLED));
                         return false;
                     }
                 } else {
-                    App.BATTLE_FIELD_CONTROLLER.textUpdate(human.getName() + " промахнулся!");
+                    App.BATTLE_FIELD_CONTROLLER.setReplica(Player.getRandomReplica(Replicas.HUMAN_MISSED));
                     if (human.getEnemyFleetMap()[Y][X].getLabel() == 'X') {
 
                     } else {

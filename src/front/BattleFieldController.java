@@ -2,15 +2,12 @@ package front;
 
 import com.core.MapObjects.MapCell;
 import com.core.MapObjects.MapObject;
-import com.core.Players.CPU;
 import com.core.Players.Player;
-import com.core.Ships.Ship;
-import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
-import javafx.scene.Cursor;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
@@ -27,7 +24,6 @@ import static java.lang.Thread.sleep;
  * Height - Высота
  */
 public class BattleFieldController {
-    public String[] battleHistory = {"",""};    //updateble
     public static Button nextTurnButton;
     public ImageView leftStateFrame;
     public ImageView rightStateFrame;
@@ -46,10 +42,11 @@ public class BattleFieldController {
     private ImageView ribbonNameHuman;
     private ImageView ribbonNameCPU;
     private Label CPUName;
-    public TextFlow textFlow = new TextFlow();
+    public TextArea replicaArea;
+    public Text replica;    //updateble
     public VBox leftField;
     public VBox rightField = new VBox(1);
-    private ImageView comicsLeft = new ImageView(new Image("/resources/comics/talk2.png"));
+    private ImageView comics;
 
     public AnchorPane anchorPane;
 
@@ -131,13 +128,11 @@ public class BattleFieldController {
     public void stateUpdate(){
         selfShipsNum.setText("Флот ||\n" + App.SEA_BATTLE_GAME.getHuman().getNumberOfShip());
         enemyShipsNum.setText("Флот ||\n" + App.SEA_BATTLE_GAME.getCPU().getNumberOfShip());
-        textOutput();
         turnsUpdate();
         App.SEA_BATTLE_GAME.isVictory();
     }
-    public void textUpdate(String text){
-        battleHistory[1] = battleHistory[0];//Old text
-        battleHistory[0] = text; //New text
+    public void setReplica(String text){
+        replica.setText(text);
     }
     public void turnsUpdate(){
         selfTurns.setText("Ходов \n" + App.SEA_BATTLE_GAME.getHuman().getTurnCounter());
@@ -147,27 +142,6 @@ public class BattleFieldController {
      * Выводит на экран сообщение. При этом, сообщение что было на экране до этого сохраняется, и в следующий раз оно
      * выводится с измененным текстом сдивигаясь вверх.
      */
-    public void textOutput() {
-        ObservableList list = textFlow.getChildren();
-
-        Text textOld = new Text(battleHistory[1] + "\n");
-        textOld.setFont(new Font(14));
-        textOld.setFill(Color.BLACK);
-
-        Text textNew = new Text(battleHistory[0] + "\n");
-        textNew.setFont(new Font(20));
-        textNew.setFill(Color.BLUE);
-
-        try {
-            list.remove(0);
-            sleep(50);
-            list.remove(0);
-            sleep(50);
-            list.addAll(textOld, textNew);
-        } catch (InterruptedException e){
-            e.printStackTrace();
-        }
-    }
 
     public final void nextTurn(){
         if (!App.getIsHumanTurn()) {
@@ -249,7 +223,7 @@ public class BattleFieldController {
         anchorPane = new AnchorPane(rightField, leftField, nextTurnButton, leftStateFrame,
                 rightStateFrame, selfShipsNum, enemyShipsNum, selfTurns, enemyTurns,
                 leftPersonFrame, rightPersonFrame, leftPersonPortrait, rightPersonPortrait, shipName,
-                 textFlow, ribbonNameHuman, ribbonNameCPU, humanName, CPUName);
+                comics, replica, ribbonNameHuman, ribbonNameCPU, humanName, CPUName);
         BackgroundImage backgroundImage = new BackgroundImage(new Image("/resources/battleFieldWall1280x1024.png"),
                 BackgroundRepeat.SPACE, BackgroundRepeat.SPACE,
                 BackgroundPosition.CENTER, BackgroundSize.DEFAULT);
@@ -257,34 +231,26 @@ public class BattleFieldController {
         anchorPane.setBackground(background);
         anchorPane.setPrefWidth(1280);
         anchorPane.setPrefHeight(1024);
+        anchorPane.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                stateUpdate();
+            }
+        });
     }
     public void textFlowInit(){
-        textFlow.setLayoutY(80);
-        textFlow.setLayoutX(240);
-        textFlow.setPrefWidth(300);
-        textFlow.setPrefHeight(130);
-        textFlow.setTextAlignment(TextAlignment.CENTER);
-        textFlow.setLineSpacing(2);
+        comics = new ImageView(new Image("/resources/comics/talk2.png"));
+        comics.setLayoutY(30);
+        comics.setLayoutX(600);
+        comics.setFitWidth(480);
+        comics.setFitHeight(150);
+        comics.setRotate(180);
 
-        comicsLeft.setLayoutY(80);
-        comicsLeft.setLayoutX(240);
-        comicsLeft.setFitWidth(320);
-        comicsLeft.setFitHeight(150);
-
-//        BackgroundImage backgroundImage = new BackgroundImage(new Image("/resources/comics/talk1.png"),
-//                BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, new BackgroundSize(300.0, 130.0,false, false, false, false));
-//        Background backgroundText = new Background(backgroundImage);
-//        textFlow.setBackground(backgroundText); //зафигачить сюда крутую рамку для текста
-
-        Text text1 = new Text("Шторм и гром! \n");
-        text1.setFont(new Font(20));
-        text1.setFill(Color.RED);
-        battleHistory[1] = text1.getText();
-        Text text2 = new Text( "Бурю в паруса, попутного ветра в шляпы! \n");
-        text2.setFont(new Font(20));
-        text2.setFill(Color.RED);
-        battleHistory[0] = text2.getText();
-        textFlow.getChildren().addAll(text1, text2);
+        replica = new Text( "Рад снова видеть твою рожу!");
+        replica.setFont(new Font(20));
+        replica.setFill(Color.RED);
+        replica.setLayoutY(100);
+        replica.setLayoutX(720);
     }
     public void mapLabelsInit(){
         ourFleetMapName.setLayoutY(600);

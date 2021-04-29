@@ -288,7 +288,7 @@ public class CPU extends Player {
                 setFinishing(true);//включить режим добивания
                 finishingMemory.add(new Memory(Y, X));
                 lastZone = new Memory(Y, X);
-                App.BATTLE_FIELD_CONTROLLER.textUpdate("Корабль " + enemyShipName + " поврежден!");  //Выводим на экран сообщение
+                App.BATTLE_FIELD_CONTROLLER.setReplica(Player.getRandomReplica(Replicas.HUMAN_DAMAGED));  //Выводим на экран сообщение
             }
             if (enemyShip.getHp() <= 0) {
                 human.getOurFleetMap()[Y][X].setLabel('X');
@@ -296,11 +296,11 @@ public class CPU extends Player {
                 setFinishing(false);//выключить режим добивания
                 finishingMemory.clear();
                 lastZone = new Memory(Y, X);
-                App.BATTLE_FIELD_CONTROLLER.textUpdate("Корабль " + enemyShipName + " уничтожен!");
+                App.BATTLE_FIELD_CONTROLLER.setReplica(Player.getRandomReplica(Replicas.HUMAN_KILLED));
             }
         } else {
             human.getOurFleetMap()[Y][X].setLabel('+');
-            App.BATTLE_FIELD_CONTROLLER.textUpdate(CPU.getName() + " стреляет и промахивается.");
+            App.BATTLE_FIELD_CONTROLLER.setReplica(Player.getRandomReplica(Replicas.CPU_MISSED));
             missed(human, CPU, Y, X);
             lastZone = new Memory(Y, X);
             CPU.setTurnCounter(CPU.getTurnCounter() + 1);
