@@ -24,7 +24,7 @@ public class MyMediaPlayer implements AutoCloseable {
     private boolean playing = false;
     private File soundtrack1 = new File("src/resources/music/BattleTheme1.wav");
     private File soundtrack2 = new File("src/resources/music/BattleTheme2.wav");
-    private String playingTrack;
+    private String playingTrack = "";
 
     public AudioInputStream getStream() {
         return stream;
@@ -81,16 +81,20 @@ public class MyMediaPlayer implements AutoCloseable {
         }
     }
     public void nextTrack(){
-        if (playingTrack == soundtrack1.getName()){
-            playingTrack = soundtrack2.getName();
-            App.mediaPlayer = new MyMediaPlayer(soundtrack2);
-            App.mediaPlayer.play();
-        }else{
-            playingTrack = soundtrack2.getName();
+        if (!playingTrack.equals(soundtrack1.getName())){
+            System.out.println(playingTrack.equals(soundtrack1.getName()));
+            System.out.println(playingTrack);
             App.mediaPlayer = new MyMediaPlayer(soundtrack1);
             App.mediaPlayer.play();
+            App.mediaPlayer.playingTrack = soundtrack1.getName();
+        }else{
+            System.out.println(playingTrack.equals(soundtrack1.getName()));
+            System.out.println(playingTrack);App.mediaPlayer.stopPlaying();
+            App.mediaPlayer.stopPlaying();
+            App.mediaPlayer = new MyMediaPlayer(soundtrack2);
+            App.mediaPlayer.play();
+            App.mediaPlayer.playingTrack = soundtrack2.getName();
         }
-
     }
 
     public void loopPlaying() {
@@ -98,8 +102,7 @@ public class MyMediaPlayer implements AutoCloseable {
            while (true) {
                while (App.mediaPlayer.isPlaying()) {
                    try {
-
-                       Thread.currentThread().sleep(100);
+                       Thread.currentThread().sleep(10);
                    } catch (InterruptedException e) {
                        e.printStackTrace();
                    }

@@ -16,6 +16,7 @@ public class SeaBattleGame {
     private final Player CPU;
     private int krakenChance = 0; //Количество нападений спрута на корабли перед началом боя.
     private Difficult difficult;
+    public boolean music = true;
 
     public Difficult getDifficult() {
         return difficult;

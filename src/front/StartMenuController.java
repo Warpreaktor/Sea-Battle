@@ -10,10 +10,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
@@ -36,6 +33,7 @@ public class StartMenuController implements Initializable {
     @FXML private Button nextPortrait;
     @FXML private Button previousPortrait;
     @FXML private AnchorPane mainPanel;
+    @FXML private CheckBox music;
     private AudioClip audioClip;
 
     private int portraitIndex;
@@ -55,6 +53,8 @@ public class StartMenuController implements Initializable {
         chooseLevel.getItems().add(Difficult.HARD);
         //chooseLevel.getItems().add(Difficult.DIVINE);
         chooseLevel.setValue(Difficult.NORMAL);
+
+
     }
 
     public final void startShipSetting() {
@@ -83,5 +83,8 @@ public class StartMenuController implements Initializable {
             portraitIndex = App.getAllPortraits().length-1;
         }
         portrait.setImage(App.getAllPortraits()[portraitIndex]);
+    }
+    public final void music(){
+        App.SEA_BATTLE_GAME.music = !App.SEA_BATTLE_GAME.music;
     }
 }
