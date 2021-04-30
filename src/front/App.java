@@ -52,6 +52,7 @@ public class App extends Application {
         this.STAGE = stage;
         this.STAGE.setResizable(false);
         portraitsInit();
+        if (mediaPlayer != null && mediaPlayer.isPlaying())mediaPlayer.stopPlaying();
         mediaPlayer = new MyMediaPlayer(new File("src/resources/music/SeaBattle_Main_Theme.wav"));
         mediaPlayer.play();
     }

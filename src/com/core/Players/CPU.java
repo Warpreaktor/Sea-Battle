@@ -22,7 +22,6 @@ public class CPU extends Player {
     private ArrayList<Memory> shipsSettingCoordinates1 = new ArrayList<>();//список из координат для расстановки кораблей.
     private ArrayList<ArrayList<Memory>> zones = new ArrayList<>();//Поле поделённое на четыре зоны координат.
     private Memory lastZone;//Последняя зона в которую стрелял
-    //private boolean isBigShipDestroyed;
 
     public boolean isCPU() {
         return true;
@@ -144,7 +143,7 @@ public class CPU extends Player {
             int z = finishingMemory.size() - 1;
             if (finishingMemory.get(z).X < finishingMemory.get(z - 1).X) {
                 if (oneShot(finishingMemory.get(z).Y, finishingMemory.get(z).X - 1)) return true;
-                else if (oneShot(finishingMemory.get(0).Y, finishingMemory.get(0).X + 1)) ;
+                else oneShot(finishingMemory.get(0).Y, finishingMemory.get(0).X + 1);
                 return true;
             }
             if (finishingMemory.get(z).X > finishingMemory.get(z - 1).X) {
@@ -219,7 +218,6 @@ public class CPU extends Player {
                     return true;
                 }
                 if (!isBigShipsDestroyed() && this.intelCoordinates1.size() > 0) {
-                    System.out.println(isBigShipsDestroyed());
                     Memory coordinates = getCoordinateFromList(intelCoordinates1);
                     while (oneShot(coordinates.Y, coordinates.X) == false) {
                         coordinates = getCoordinate(chooseZone());
@@ -303,7 +301,7 @@ public class CPU extends Player {
         } else {
             human.getOurFleetMap()[Y][X].setLabel('+');
             App.BATTLE_FIELD_CONTROLLER.setReplica(Player.getRandomReplica(Replicas.CPU_MISSED));
-            App.BATTLE_FIELD_CONTROLLER.setComicsImage(ReplicasImage.CALM_TALK);
+            App.BATTLE_FIELD_CONTROLLER.setComicsImage(ReplicasImage.EMOTIONAL_TALK);
             missed(human, CPU, Y, X);
             lastZone = new Memory(Y, X);
             CPU.setTurnCounter(CPU.getTurnCounter() + 1);
