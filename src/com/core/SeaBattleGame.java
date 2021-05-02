@@ -12,11 +12,15 @@ import front.App;
 public class SeaBattleGame {
     private static int SIZE = 10;
     private static int totalShips = 0;
-    private final Player human = new Human();
+    private final Player human;
     private final Player CPU;
     private int krakenChance = 0; //Количество нападений спрута на корабли перед началом боя.
     private Difficult difficult;
     public boolean music = true;
+
+    public void setDifficult(Difficult difficult) {
+        this.difficult = difficult;
+    }
 
     public Difficult getDifficult() {
         return difficult;
@@ -46,8 +50,10 @@ public class SeaBattleGame {
         totalShips = ships;
     }
 
-    public SeaBattleGame(Difficult difficult) {
+    public SeaBattleGame(Difficult difficult, Player player) {
+        human = player;
         CPU = new CPU(difficult);
+        System.out.println(CPU.getShipyard().size());
         this.difficult = difficult;
         CPU.setName(CPU.getRandomName());
     }

@@ -1,8 +1,8 @@
 package front;
 
 import com.core.*;
-import com.core.Players.CPU;
 import com.core.Players.Difficult;
+import com.core.Players.Human;
 import com.core.Players.Player;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -12,7 +12,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.text.Font;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -30,7 +29,7 @@ public class App extends Application {
     public static ShipSettingController SHIP_SETTING_CONTROLLER;
     public LooseScreenController looseScreenController;
     private static boolean isHumanTurn = true;
-    public static MyMediaPlayer mediaPlayer;
+    public static MusicPlayer musicPlayer;
 
     public static void main(String[] args) {
         launch(args);
@@ -44,25 +43,39 @@ public class App extends Application {
     public void start(Stage stage) throws Exception {
        gameInit(stage);
        //brushTheLooseScreen(new CPU(Difficult.EASY)); //удалить
-       //brushTheVictroryScreen();//удалить
-       brushStartMenu(); //вернуть
+       brushTheVictroryScreen();//удалить
+       //brushStartMenu(); //вернуть
     }
 
     private final void gameInit(Stage stage){
-        this.STAGE = stage;
-        this.STAGE.setResizable(false);
+        Player human = new Human();
         portraitsInit();
-        if (mediaPlayer != null && mediaPlayer.isPlaying())mediaPlayer.stopPlaying();
-        mediaPlayer = new MyMediaPlayer(new File("src/resources/music/SeaBattle_Main_Theme.wav"));
-        mediaPlayer.play();
+        SEA_BATTLE_GAME = new SeaBattleGame(Difficult.NORMAL, human);
+        STAGE = stage;
+        STAGE.setResizable(false);
+//        if (musicPlayer != null && musicPlayer.isPlaying()) musicPlayer.stopPlaying();
+        musicPlayer = new MusicPlayer();
+        musicPlayer.play(musicPlayer.getMusicTracks()[0]);
     }
 
-    public final void resetGame(Difficult dif) throws IOException {
-        this.SEA_BATTLE_GAME = new SeaBattleGame(dif);
-        mediaPlayer.stopPlaying();
-        mediaPlayer = new MyMediaPlayer(new File("src/resources/music/SeaBattle_Main_Theme.wav"));
-        mediaPlayer.play();
+    public final void restartGame() throws IOException {
+        Player human = new Human();
+        SEA_BATTLE_GAME = new SeaBattleGame(Difficult.NORMAL, human);
         brushStartMenu();
+    }
+
+    /**
+     * Перезапуск игры после победы игрока. Игрок остается прежний, то же имя и картинка,
+     * но верфь наполняется новыми кораблями.
+     * @param dif
+     * @throws IOException
+     */
+    public final void restartGame(Difficult dif) throws IOException {
+        Player human = new Human();
+        human.setName(App.SEA_BATTLE_GAME.getHuman().getName());
+        human.setPortrait(App.SEA_BATTLE_GAME.getHuman().getPortrait());
+        SEA_BATTLE_GAME = new SeaBattleGame(dif, human);
+        brushShipSettingMenu();
     }
 
     public static Image[] getAllPortraits() {
@@ -79,8 +92,6 @@ public class App extends Application {
 
     public final void brushStartMenu() throws IOException {
         try {
-            STAGE.setX(300);
-            STAGE.setY(100);
             Parent root = FXMLLoader.load(getClass().getResource("StartMenu.fxml"));
             Group group = new Group(root);
             Scene scene = new Scene(group);
@@ -108,8 +119,6 @@ public class App extends Application {
         BATTLE_FIELD_CONTROLLER = new BattleFieldController();
         STAGE.setX(300);
         STAGE.setY(0);
-        //Отрисовка поля с вражеским флотом
-
         Scene scene = new Scene(BATTLE_FIELD_CONTROLLER.anchorPane);
         STAGE.setScene(scene);
         STAGE.show();

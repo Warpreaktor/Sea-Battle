@@ -4,6 +4,7 @@ import com.core.MapObjects.MapCell;
 import com.core.MapObjects.MapObject;
 import com.core.Players.Player;
 import com.core.Players.ReplicasImage;
+import com.core.Tests;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -50,7 +51,12 @@ public class BattleFieldController {
     public AnchorPane anchorPane;
 
     public BattleFieldController() {
-        App.mediaPlayer.loopPlaying();
+        if (App.musicPlayer.getPlayingTrack().isPlaying()) App.musicPlayer.getPlayingTrack().stopPlaying();
+        App.musicPlayer.loopPlaying();
+
+        App.SEA_BATTLE_GAME.createCPUBattleField(App.SEA_BATTLE_GAME.getCPU());
+        App.SEA_BATTLE_GAME.getCPU().shipsOnGame();
+
         personFramesInit();
         ribbonNameInit();
         rightFieldInit();
@@ -61,6 +67,7 @@ public class BattleFieldController {
         stateFrameInit();
         shipNameInit();
         anchorPaneInit();
+        stateUpdate();
     }
 
     public void personFramesInit() {
@@ -184,7 +191,7 @@ public class BattleFieldController {
                 comics.setImage(new Image("/resources/comics/kaboom.png"));
                 comics.setFitHeight(300);
                 comics.setLayoutY(15);
-                comics.setLayoutX(560);
+                comics.setLayoutX(570);
                 replica.setLayoutY(150);
                 break;
         }
@@ -298,6 +305,13 @@ public class BattleFieldController {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 stateUpdate();
+            }
+        });
+        anchorPane.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent keyEvent) {
+                KeyCode key = keyEvent.getCode();
+                if (key.equals(KeyCode.C)) Tests.killThemAll();
             }
         });
     }

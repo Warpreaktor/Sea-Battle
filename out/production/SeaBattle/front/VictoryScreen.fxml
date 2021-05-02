@@ -4,7 +4,6 @@
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.effect.Bloom?>
-<?import javafx.scene.effect.ColorAdjust?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -25,9 +24,6 @@
          </cursor>
       </ImageView>
       <TextFlow fx:id="textFlow" layoutX="84.0" layoutY="28.0" lineSpacing="5.0" prefHeight="163.0" prefWidth="443.0" textAlignment="CENTER">
-         <effect>
-            <ColorAdjust />
-         </effect>
          <children>
             <VBox fx:id="textBox" alignment="TOP_CENTER" nodeOrientation="LEFT_TO_RIGHT" prefHeight="34.0" prefWidth="121.0" />
          </children>
@@ -35,7 +31,7 @@
             <Insets top="50.0" />
          </opaqueInsets>
       </TextFlow>
-      <Button fx:id="toMainMenu" layoutX="125.0" layoutY="342.0" mnemonicParsing="false" onAction="#toMainMenu" prefHeight="50.0" prefWidth="100.0" text="To main menu" />
-      <Button fx:id="nextLevel" layoutX="385.0" layoutY="342.0" mnemonicParsing="false" onAction="#nextLevel" prefHeight="50.0" prefWidth="100.0" text="Next level" />
+      <Button fx:id="toMainMenu" layoutX="125.0" layoutY="342.0" mnemonicParsing="false" onAction="#toMainMenu" prefHeight="50.0" prefWidth="121.0" text="To main menu" />
+      <Button fx:id="nextLevel" layoutX="385.0" layoutY="342.0" mnemonicParsing="false" onAction="#nextLevel" prefHeight="50.0" prefWidth="121.0" text="Next level" />
    </children>
 </AnchorPane>

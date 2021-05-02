@@ -1,24 +1,16 @@
 package front;
 
-import com.core.MyMediaPlayer;
-import com.core.Players.CPU;
 import com.core.Players.Difficult;
-import com.core.SeaBattleGame;
 import com.core.Tools;
 import com.sun.media.jfxmedia.AudioClip;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
-import javafx.scene.text.Text;
 
-import java.io.File;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import static com.core.Players.Player.getRandomName;
@@ -58,12 +50,11 @@ public class StartMenuController implements Initializable {
     }
 
     public final void startShipSetting() {
-        App.SEA_BATTLE_GAME = new SeaBattleGame(chooseLevel.getValue());
+        App.SEA_BATTLE_GAME.setDifficult(chooseLevel.getValue());
         App.SEA_BATTLE_GAME.getHuman().setName(playerName.getText());
         App.SEA_BATTLE_GAME.getHuman().setPortrait(portrait.getImage());
         App.brushShipSettingMenu();
-        App.SEA_BATTLE_GAME.createCPUBattleField(App.SEA_BATTLE_GAME.getCPU());
-        App.SEA_BATTLE_GAME.getCPU().shipsOnGame();
+
     }
 
     public final void nameGenerator(){

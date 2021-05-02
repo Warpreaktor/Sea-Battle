@@ -11,7 +11,6 @@ import javafx.scene.image.Image;
 import java.util.ArrayList;
 
 public abstract class Player {
-    //private boolean isCPU = false;
     private String name;
     private int turnCounter = 0;   //Счетчик ходов сделанных игроком.
     private int numberOfShip = 0;   //Итоговое количество кораблей игрока на поле, которое уменьшается по ходу их уничтожения.

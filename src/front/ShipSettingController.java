@@ -65,6 +65,8 @@ public class ShipSettingController {
     }
 
     public ShipSettingController() {
+        if (App.musicPlayer.getPlayingTrack().isPlaying());
+        else App.musicPlayer.play(App.musicPlayer.getMusicTracks()[0]);
         hBoxesInit();
         fieldInit();
         shipYardInit();
@@ -179,7 +181,6 @@ public class ShipSettingController {
                 if (App.SEA_BATTLE_GAME.getHuman().getShipyard().size() > 0) {
                     System.out.println("Не все корабли спущены на воду");
                 }else{
-                    App.mediaPlayer.smoothStop();
                     App.brushTheBattleField();
                 }
             }

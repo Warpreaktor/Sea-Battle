@@ -48,6 +48,6 @@ public class LooseScreenController  implements Initializable {
 
     @FXML
     private void tryAgain() throws IOException {
-        App.getAPP().resetGame(Difficult.EASY);
+        App.getAPP().restartGame(Difficult.EASY);
     }
 }

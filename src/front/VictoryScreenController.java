@@ -37,27 +37,36 @@ public class VictoryScreenController implements Initializable {
         BackgroundImage backgroundImage = new BackgroundImage(new Image("/resources/victoryScreen.jpg"), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT,
                 BackgroundPosition.CENTER, BackgroundSize.DEFAULT);
         anchorPane.setBackground(new Background(backgroundImage));
+        if (App.SEA_BATTLE_GAME.getDifficult()==EASY) nextLevel.setText("Try next level " + NORMAL);
+        if (App.SEA_BATTLE_GAME.getDifficult()==NORMAL) nextLevel.setText("Try next level " + HARD);
+        if (App.SEA_BATTLE_GAME.getDifficult()==HARD) nextLevel.setText("Try again");
+        //if (App.SEA_BATTLE_GAME.getDifficult()==DIVINE) nextLevel.setText("Try again");
+        App.musicPlayer.stopLoop();
+        if (App.musicPlayer.getPlayingTrack().isPlaying())App.musicPlayer.getPlayingTrack().stopPlaying();
     }
 
     @FXML
     private void toMainMenu() throws IOException {
-        App.getAPP().resetGame(NORMAL);
+        App.getAPP().restartGame(NORMAL);
     }
     @FXML
     private void nextLevel() throws IOException {
-        if (App.SEA_BATTLE_GAME.getDifficult()==EASY)App.getAPP().resetGame(NORMAL);
-        if (App.SEA_BATTLE_GAME.getDifficult()==NORMAL)App.getAPP().resetGame(HARD);
-        if (App.SEA_BATTLE_GAME.getDifficult()==HARD)App.getAPP().resetGame(DIVINE);
-        if (App.SEA_BATTLE_GAME.getDifficult()==DIVINE)App.getAPP().resetGame(DIVINE);
+        if (App.SEA_BATTLE_GAME.getDifficult()==EASY){
+            App.getAPP().restartGame(NORMAL);
+        return;
+        }
+        if (App.SEA_BATTLE_GAME.getDifficult()==NORMAL){
+            App.getAPP().restartGame(HARD);
+            return;
+        }
+        if (App.SEA_BATTLE_GAME.getDifficult()==HARD){
+            App.getAPP().restartGame(HARD);
+            return;
+        }
     }
 
     @FXML
     private void chestOpened(){
-        if (textBox.getChildren().size()>0) {
-            for (int i = 4; i >= 0; i--) {
-                textBox.getChildren().remove(i);
-            }
-        }
         if (!chestIsOpen) {
             chest = new Chest();
             textBox.getChildren().addAll(
@@ -67,6 +76,8 @@ public class VictoryScreenController implements Initializable {
                     chest.getItems().get(3),
                     chest.getItems().get(4));
             chestIsOpen = true;
+            anchorPane.setBackground(new Background(new BackgroundImage(new Image("/resources/victoryScreenText.jpg"),
+                    BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT)));
         }
     }
 
