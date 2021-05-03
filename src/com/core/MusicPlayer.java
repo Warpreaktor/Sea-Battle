@@ -11,7 +11,6 @@ public class MusicPlayer {
     private String[] musicTracks;
     private String playingTrackName = "";
     private MusicTrack playingTrack;
-    private Thread thread;
     private boolean loopPlaying = false;
 
     public MusicTrack getPlayingTrack() {
@@ -25,18 +24,26 @@ public class MusicPlayer {
     public MusicPlayer(){
         musicTracks = new String[]{soundtrack0, soundtrack1, soundtrack2};
     }
+
     public void play(String filePath){
         playingTrack = new MusicTrack(new File(filePath));
+        playingTrackName = filePath;
         playingTrack.play();
     }
     public void stopLoop(){
         loopPlaying = false;
     }
     public void loopPlaying() {
-        thread = new Thread(() -> {
+        Thread thread = new Thread(() -> {
             loopPlaying = true;
             while (loopPlaying) {
-                if (!playingTrack.isPlaying()) {
+                try{
+                    Thread.currentThread().sleep(10);
+                }
+                catch (InterruptedException e){
+                    e.printStackTrace();
+                }
+                if (playingTrack.isPlaying()==false) {
                     App.musicPlayer.nextTrack();
                 }
             }
@@ -46,16 +53,16 @@ public class MusicPlayer {
         thread.start();
     }
     public void nextTrack() {
-        if (!playingTrack.equals(soundtrack1)) {
-            play(soundtrack1);
-        } else {
+        if (playingTrackName.equals(soundtrack1)) {
             play(soundtrack2);
+            System.out.println("Включить - "+playingTrackName);
+        } else {
+            play(soundtrack1);
+            System.out.println("Включить - "+playingTrackName);
         }
     }
-    public Thread getThread() {
-        return thread;
-    }
-    public void smoothStop() {
+
+    public void fadeOut() {
         Thread thread = new Thread(() ->
         {
             for (float i = playingTrack.getVolume(); i > 0.4; i -= 0.001f) {
