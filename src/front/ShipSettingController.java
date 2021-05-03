@@ -30,7 +30,8 @@ public class ShipSettingController {
     private Button resetButton;
     private Button randomButton;
     private VBox shipYard;
-    private Label shipsName;
+    private Label shipName;
+    private Label aboutRotation;
     private AnchorPane mainPanel;
     private static Ship dragObject;
 
@@ -73,9 +74,20 @@ public class ShipSettingController {
         startButtonInit();
         resetButtonInit();
         randomButtonInit();
-        textAreaInit();
+        shipNameInit();
+        aboutRotationInit();
         mainPanelInit();
     }
+
+    public void aboutRotationInit(){
+        aboutRotation = new Label();
+        aboutRotation.setLayoutY(200);
+        aboutRotation.setLayoutX(30);
+        aboutRotation.setFont(Font.font("Cambria", 20));
+        aboutRotation.setTextFill(Color.BLACK);
+        aboutRotation.setText("R button for rotation ship");
+    }
+
 
     private void shipYardInit(){
         shipYard = new VBox(1);
@@ -119,13 +131,13 @@ public class ShipSettingController {
             }
         }
     }
-    public void textAreaInit(){
-        shipsName = new Label();
-        shipsName.setLayoutY(160);
-        shipsName.setLayoutX(30);
-        shipsName.setFont(new Font(16));
-        shipsName.setTextFill(Color.BROWN);
-        shipsName.setText("Имя корабля: ");
+    public void shipNameInit(){
+        shipName = new Label();
+        shipName.setLayoutY(160);
+        shipName.setLayoutX(30);
+        shipName.setFont(Font.font("Cambria", 24));
+        shipName.setTextFill(Color.BROWN);
+        shipName.setText("Имя корабля: ");
     }
 
     public void fieldInit() {
@@ -151,7 +163,7 @@ public class ShipSettingController {
     public void mainPanelInit() {
         BackgroundImage background = new BackgroundImage(new Image("/resources/shipSettingWallpaper1280x1024.png"),
                 BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT);
-        mainPanel = new AnchorPane(field, shipYard, startButton, randomButton, resetButton, shipsName);
+        mainPanel = new AnchorPane(field, shipYard, startButton, randomButton, resetButton, shipName, aboutRotation);
         mainPanel.setPrefHeight(1024);
         mainPanel.setPrefWidth(1280);
         mainPanel.setLayoutY(0);
@@ -256,7 +268,7 @@ public class ShipSettingController {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 source.setCursor(Cursor.OPEN_HAND);
-                shipsName.setText("Имя корабля: " + source.getName());
+                shipName.setText("Имя корабля: " + source.getName());
             }
         });
         //Событие при завершении перетаскивания
@@ -267,7 +279,7 @@ public class ShipSettingController {
                 if (event.getTransferMode() == TransferMode.MOVE) {
                     source.setImage(ImageName.NULL);
                 }
-                shipsName.setText("Имя корабля: ");
+                shipName.setText("Имя корабля: ");
                 event.consume();
             }
         });

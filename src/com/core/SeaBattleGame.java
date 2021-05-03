@@ -82,6 +82,10 @@ public class SeaBattleGame {
         }
     }
 
+    /**
+     * Проверка на победу.
+     * @return
+     */
     public boolean isVictory(){
         if (human.getNumberOfShip() == 0) {
             App.getAPP().brushTheLooseScreen(CPU);

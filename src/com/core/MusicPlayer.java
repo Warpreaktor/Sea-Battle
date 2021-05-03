@@ -55,10 +55,8 @@ public class MusicPlayer {
     public void nextTrack() {
         if (playingTrackName.equals(soundtrack1)) {
             play(soundtrack2);
-            System.out.println("Включить - "+playingTrackName);
         } else {
             play(soundtrack1);
-            System.out.println("Включить - "+playingTrackName);
         }
     }
 

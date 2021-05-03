@@ -73,6 +73,7 @@ public class Human extends Player {
         setGreenDotsAround(enemy.getOurFleetMap(), ship);
         App.SEA_BATTLE_GAME.playerShipDecrement(enemy);
         App.BATTLE_FIELD_CONTROLLER.stateUpdate();
+        App.BATTLE_FIELD_CONTROLLER.getEnemyShipName().setText(ship.getName());
     }
 
     @Override

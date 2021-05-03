@@ -176,6 +176,7 @@ public class App extends Application {
 
     public static void setNexTurn() {
         App.isHumanTurn = !isHumanTurn;
+
     }
 
 }

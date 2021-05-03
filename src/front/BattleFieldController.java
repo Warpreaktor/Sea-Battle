@@ -35,9 +35,8 @@ public class BattleFieldController {
     public Text selfShipsNum;    //updateble
     public Text enemyTurns;    //updateble
     public Text selfTurns;    //updateble
-    public Label ourFleetMapName = new Label();
-    public Label enemyFleetMapName = new Label();
     private Label shipName;
+    private Label enemyShipName;
     private Label humanName;
     private ImageView ribbonNameHuman;
     private ImageView ribbonNameCPU;
@@ -47,6 +46,7 @@ public class BattleFieldController {
     public VBox leftField;
     public VBox rightField = new VBox(1);
     private ImageView comics;
+    private ImageView currentTurnFrame;
 
     public AnchorPane anchorPane;
 
@@ -63,11 +63,23 @@ public class BattleFieldController {
         leftFieldInit();
         nextTurnButtonInit();
         replicasInit();
-        mapLabelsInit();
         stateFrameInit();
         shipNameInit();
+        currentTurnFrameInit();
         anchorPaneInit();
         stateUpdate();
+    }
+
+    public Label getEnemyShipName() {
+        return enemyShipName;
+    }
+
+    private void currentTurnFrameInit(){
+        currentTurnFrame = new ImageView("resources/turnsFrame.png");
+        currentTurnFrame.setLayoutY(0);
+        currentTurnFrame.setLayoutX(360);
+        currentTurnFrame.setFitWidth(200);
+        currentTurnFrame.setFitHeight(200);
     }
 
     public void personFramesInit() {
@@ -124,11 +136,17 @@ public class BattleFieldController {
 
     public void shipNameInit() {
         shipName = new Label("Корабль: ");
-        shipName.setLayoutY(250);
+        shipName.setLayoutY(255);
         shipName.setLayoutX(250);
-        shipName.setFont(new Font(16));
         shipName.setTextFill(Color.BROWN);
+        shipName.setFont(Font.font("Cambria", 24));
 
+//        enemyShipName = new Label("Nут можно видеть имя корабля \nпотопленного вами");
+//        enemyShipName.setAlignment(Pos.CENTER);
+//        enemyShipName.setLayoutY(255);
+//        enemyShipName.setLayoutX(650);
+//        enemyShipName.setTextFill(Color.BROWN);
+//        enemyShipName.setFont(Font.font("Cambria", 22));
     }
 
     public void setShipName(String name) {
@@ -140,6 +158,8 @@ public class BattleFieldController {
         enemyShipsNum.setText("Флот ||\n" + App.SEA_BATTLE_GAME.getCPU().getNumberOfShip());
         turnsUpdate();
         App.SEA_BATTLE_GAME.isVictory();
+        if (App.getIsHumanTurn()) currentTurnFrame.setImage(new Image("resources/turnHumFrame.png"));
+        else currentTurnFrame.setImage(new Image("resources/turnAIFrame.png"));
     }
 
     public void replicasInit() {
@@ -156,7 +176,6 @@ public class BattleFieldController {
         replica.setLayoutX(700);
         replica.setTextAlignment(TextAlignment.CENTER);
     }
-
 
     public void setReplica(String text) {
         replica.setText(text);
@@ -230,7 +249,6 @@ public class BattleFieldController {
             stateUpdate();
     }
 
-
     public void nextTurnButtonInit() {
         nextTurnButton = new Button(" Next turn \n  [SPACE]");
         nextTurnButton.setPrefHeight(60);
@@ -257,16 +275,14 @@ public class BattleFieldController {
     public void leftFieldInit() {
         leftField = App.SHIP_SETTING_CONTROLLER.getField();
         leftField.setLayoutX(20);
-        leftField.setLayoutY(280);
+        leftField.setLayoutY(305);
         leftField.setAlignment(Pos.TOP_CENTER);
-        leftField.getChildren().add(0, ourFleetMapName);
     }
 
     public void rightFieldInit() {
         rightField.setLayoutX(670);
-        rightField.setLayoutY(280);
+        rightField.setLayoutY(305);
         rightField.setAlignment(Pos.TOP_CENTER);
-        rightField.getChildren().add(0, enemyFleetMapName);
         for (int y = 0; y < App.SEA_BATTLE_GAME.getSIZE(); y++) {
             HBox rightHBox = new HBox();
             rightField.getChildren().add(rightHBox);
@@ -296,8 +312,9 @@ public class BattleFieldController {
     public void anchorPaneInit() {
         anchorPane = new AnchorPane(rightField, leftField, nextTurnButton, leftStateFrame,
                 rightStateFrame, selfShipsNum, enemyShipsNum, selfTurns, enemyTurns,
-                leftPersonFrame, rightPersonFrame, leftPersonPortrait, rightPersonPortrait, shipName,
-                comics, replica, ribbonNameHuman, ribbonNameCPU, humanName, CPUName);
+                leftPersonFrame, rightPersonFrame, leftPersonPortrait, rightPersonPortrait,
+                comics, replica, ribbonNameHuman, ribbonNameCPU, humanName, CPUName,
+                currentTurnFrame, enemyShipName, shipName);
         BackgroundImage backgroundImage = new BackgroundImage(new Image("/resources/battleFieldWall1280x1024.png"),
                 BackgroundRepeat.SPACE, BackgroundRepeat.SPACE,
                 BackgroundPosition.CENTER, BackgroundSize.DEFAULT);
@@ -318,20 +335,6 @@ public class BattleFieldController {
                 if (key.equals(KeyCode.C)) Tests.killThemAll();
             }
         });
-    }
-
-    public void mapLabelsInit() {
-        ourFleetMapName.setLayoutY(600);
-        ourFleetMapName.setLayoutX(100);
-        ourFleetMapName.setFont(new Font(16));
-        ourFleetMapName.setText("Наш флот");
-        ourFleetMapName.setLabelFor(leftField);
-
-        enemyFleetMapName.setLayoutY(1000);
-        enemyFleetMapName.setLayoutX(100);
-        enemyFleetMapName.setFont(new Font(16));
-        enemyFleetMapName.setText("Вражеский флот");
-        ourFleetMapName.setLabelFor(rightField);
     }
 
     public void stateFrameInit() {
@@ -383,6 +386,5 @@ public class BattleFieldController {
         enemyTurns.setLayoutX(1190 + rightFrameX);
 
     }
-
 
 }
