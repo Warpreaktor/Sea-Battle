@@ -53,7 +53,6 @@ public class SeaBattleGame {
     public SeaBattleGame(Difficult difficult, Player player) {
         human = player;
         CPU = new CPU(difficult);
-        System.out.println(CPU.getShipyard().size());
         this.difficult = difficult;
         CPU.setName(CPU.getRandomName());
     }

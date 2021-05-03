@@ -150,7 +150,7 @@ public class BattleFieldController {
         comics.setFitHeight(200);
 
         replica = new Text("Рад снова видеть твою рожу!");
-        replica.setFont(new Font(24));
+        replica.setFont(Font.font("Cambria", 24));
         replica.setFill(Color.RED);
         replica.setLayoutY(150);
         replica.setLayoutX(700);
@@ -166,8 +166,8 @@ public class BattleFieldController {
         switch (image) {
             case CALM_TALK:
                 comics.setImage(new Image("/resources/comics/talk1.png"));
-                comics.setFitHeight(210);
                 comics.setFitWidth(450);
+                comics.setFitHeight(210);
                 comics.setLayoutY(40);
                 comics.setLayoutX(580);
                 replica.setLayoutY(160);
@@ -175,24 +175,30 @@ public class BattleFieldController {
                 break;
             case EMOTIONAL_TALK:
                 comics.setImage(new Image("/resources/comics/talk2.png"));
+                comics.setFitWidth(480);
                 comics.setFitHeight(220);
+                comics.setLayoutY(30);
                 comics.setLayoutX(580);
                 replica.setLayoutY(130);
                 replica.setLayoutX(720);
                 break;
             case ANGRY_TALK:
                 comics.setImage(new Image("/resources/comics/talk3.png"));
+                comics.setFitWidth(480);
                 comics.setFitHeight(250);
+                comics.setLayoutY(30);
                 comics.setLayoutX(590);
                 replica.setLayoutY(150);
                 replica.setLayoutX(720);
                 break;
             case KA_BOOM:
                 comics.setImage(new Image("/resources/comics/kaboom.png"));
+                comics.setFitWidth(480);
                 comics.setFitHeight(300);
                 comics.setLayoutY(15);
                 comics.setLayoutX(570);
                 replica.setLayoutY(150);
+                replica.setLayoutX(700);
                 break;
         }
     }
@@ -212,6 +218,7 @@ public class BattleFieldController {
             Thread thread = new Thread(()->{
                 while (App.getIsHumanTurn() == false) {
                     App.SEA_BATTLE_GAME.getCPU().shoot(0, 0);//Сюда можно передавать любые координаты, все равно они изменятся внутри метода.
+                    stateUpdate();
                     try {
                         Thread.currentThread().sleep(2500);
                     } catch (InterruptedException e) {
@@ -221,24 +228,21 @@ public class BattleFieldController {
             });
             thread.start();
             stateUpdate();
-            //App.setNexTurn(); проверить где еще вызывается этот метод и оставить только тут
     }
 
 
     public void nextTurnButtonInit() {
-        nextTurnButton = new Button(" Next turn \n[SPACE]");
+        nextTurnButton = new Button(" Next turn \n  [SPACE]");
         nextTurnButton.setPrefHeight(60);
         nextTurnButton.setPrefWidth(120);
         nextTurnButton.setLayoutX(580);
         nextTurnButton.setLayoutY(940);
-//        разобраться как на кнопку назначить клик мыши и кнопку одновременно.
-//        nextTurnButton.setOnAction(new EventHandler<ActionEvent>() {
-//            @Override
-//            public void handle(ActionEvent event) {
-//                nextTurn();
-//                event.consume();
-//            }
-//        });
+        nextTurnButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                nextTurn();
+            }
+        });
         nextTurnButton.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent keyEvent) {
