@@ -4,7 +4,6 @@ import com.core.MapObjects.MapCell;
 import com.core.MapObjects.MapObject;
 import com.core.Players.CPU;
 import com.core.Players.Difficult;
-import com.core.Players.Human;
 import com.core.Players.Player;
 import com.core.Ships.Ship;
 import front.App;
@@ -12,18 +11,18 @@ import front.App;
 public class SeaBattleGame {
     private static int SIZE = 10;
     private static int totalShips = 0;
-    private final Player human;
-    private final Player CPU;
+    private Player human;
+    private Player CPU;
     private int krakenChance = 0; //Количество нападений спрута на корабли перед началом боя.
-    private Difficult difficult;
+    private Difficult difficulty;
     public boolean music = true;
 
-    public void setDifficult(Difficult difficult) {
-        this.difficult = difficult;
+    public void setDifficulty(Difficult difficulty) {
+        this.difficulty = difficulty;
     }
 
-    public Difficult getDifficult() {
-        return difficult;
+    public Difficult getDifficulty() {
+        return difficulty;
     }
 
     public int getKrakenChance() {
@@ -38,6 +37,10 @@ public class SeaBattleGame {
         return CPU;
     }
 
+    public void setCPU(Player CPU) {
+        this.CPU = CPU;
+    }
+
     public static int getSIZE() {
         return SIZE;
     }
@@ -50,11 +53,11 @@ public class SeaBattleGame {
         totalShips = ships;
     }
 
-    public SeaBattleGame(Difficult difficult, Player player) {
+    public SeaBattleGame(Difficult difficulty, Player player) {
         human = player;
-        CPU = new CPU(difficult);
-        this.difficult = difficult;
-        CPU.setName(CPU.getRandomName());
+        System.out.println("difficult = " + difficulty);
+
+        this.difficulty = difficulty;
     }
 
     public static void createCPUBattleField(Player player) {

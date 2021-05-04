@@ -50,7 +50,7 @@ public class StartMenuController implements Initializable {
     }
 
     public final void startShipSetting() {
-        App.SEA_BATTLE_GAME.setDifficult(chooseLevel.getValue());
+        App.SEA_BATTLE_GAME.setDifficulty(chooseLevel.getValue());
         App.SEA_BATTLE_GAME.getHuman().setName(playerName.getText());
         App.SEA_BATTLE_GAME.getHuman().setPortrait(portrait.getImage());
         App.brushShipSettingMenu();

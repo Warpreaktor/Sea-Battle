@@ -14,7 +14,7 @@ import static com.core.Tools.getRandomNumber;
 import static com.core.Tools.isOutOfBoards;
 
 public class CPU extends Player {
-    private Difficult difficult;//Инициализируется при создании компьютерного игрока.
+    private Difficult difficulty;//Инициализируется при создании компьютерного игрока.
     private boolean finishing = false;//Включение режима добивания.
     private ArrayList<Memory> finishingMemory = new ArrayList<>();//сюда сохраняются координаты в режиме добивания
     private ArrayList<Memory> intelCoordinates1 = new ArrayList<>();//список из координат для поиска линкоров и галлеонов
@@ -99,8 +99,9 @@ public class CPU extends Player {
 
     @Override
     public void shipsOnGame() {
-        switch (this.difficult) {
+        switch (this.difficulty) {
             case EASY:
+                System.out.println("Поставить корабли EASY");
                 while (this.getShipyard().size() > 0) {
                     for (int i = this.getShipyard().size() - 1; i >= 0; i--) {
                         setShipRandomizer(this.getShipyard().get(i));
@@ -108,6 +109,7 @@ public class CPU extends Player {
                 }
                 break;
             case NORMAL:
+                System.out.println("Поставить корабли NORMAL");
                 while (this.getShipyard().size() > 0) {
                     for (int i = this.getShipyard().size() - 1; i >= 0; i--) {
                         setShipRandomizer(this.getShipyard().get(i));
@@ -116,22 +118,23 @@ public class CPU extends Player {
                 break;
             case HARD:
                 ShipsSettings.setShips(this.getShipyard(), Settings.RANDOM);
-                while (this.getShipyard().size() > 0) {
-                    for (int i = this.getShipyard().size() - 1; i >= 0; i--) {
-                        setShipRandomizer(this.getShipyard().get(i));
-                    }
-                }
+                System.out.println("Поставить корабли ХАРД");
+//                while (this.getShipyard().size() > 0) {
+//                    for (int i = this.getShipyard().size() - 1; i >= 0; i--) {
+//                        setShipRandomizer(this.getShipyard().get(i));
+//                    }
+//                }
                 break;
         }
     }
 
-    public CPU(Difficult difficult) {
+    public CPU(Difficult difficulty) {
         super();
-        this.difficult = difficult;
+        this.difficulty = difficulty;
         int rand = Tools.getRandomNumber(0, 9);
         this.setPortrait(App.getAllPortraits()[rand]);
         zonesInit();
-        if (difficult == Difficult.HARD) intelCoordinateInit();
+        if (difficulty == Difficult.HARD) intelCoordinateInit();
     }
 
     public boolean toFinishHim() {
@@ -211,7 +214,7 @@ public class CPU extends Player {
     }
 
     public boolean shoot(int Y, int X) {
-        switch (this.difficult) {
+        switch (this.difficulty) {
             case HARD -> {
                 if (isFinishing()) {//Если находимся в режиме добивания
                     toFinishHim();
@@ -433,8 +436,8 @@ public class CPU extends Player {
         return finishing;
     }
 
-    public Difficult getDifficult() {
-        return difficult;
+    public Difficult getDifficulty() {
+        return difficulty;
     }
 
     private class Memory {

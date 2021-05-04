@@ -39,6 +39,9 @@ public class App extends Application {
         brushStartMenu();
     }
 
+    /**
+     * Отрисовка начального экрана со стартовым меню.
+     */
     public final void brushStartMenu() {
         try {
             Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("StartMenu.fxml")));
@@ -51,7 +54,9 @@ public class App extends Application {
             brushTheErrorMessage("При попытке отрисовать экран стартового меню, произошло какое-то дерьмо");
         }
     }
-
+    /**
+     * Отрисовка экрана с расстановкой кораблей.
+     */
     public static void brushShipSettingMenu() {
         SHIP_SETTING_CONTROLLER = new ShipSettingController();
         STAGE.setX(300);
@@ -60,7 +65,9 @@ public class App extends Application {
         STAGE.setScene(scene);
         STAGE.show();
     }
-
+    /**
+     * Отрисовка основного экрана с битвой.
+     */
     public static void brushTheBattleField() {
         BATTLE_FIELD_CONTROLLER = new BattleFieldController();
         STAGE.setX(300);
@@ -69,7 +76,9 @@ public class App extends Application {
         STAGE.setScene(scene);
         STAGE.show();
     }
-
+    /**
+     * Отрисовка экрана победы.
+     */
     public final void brushTheVictroryScreen() {
         VictoryScreenController victoryScreenController = new VictoryScreenController();
         try {
@@ -85,7 +94,9 @@ public class App extends Application {
             brushTheErrorMessage("При попытке отрисовать экран победы, произошло какое-то дерьмо");
         }
     }
-
+    /**
+     * Отрисовка экрана с ошибкой.
+     */
     public static void brushTheErrorMessage(String message) {
         Stage stage = new Stage();
         TextArea error = new TextArea();
@@ -100,7 +111,9 @@ public class App extends Application {
         stage.setScene(new Scene(group));
         stage.show();
     }
-
+    /**
+     * Отрисовка экрана поражения.
+     */
     public void brushTheLooseScreen(Player winner) {
         looseScreenController = new LooseScreenController();
         try {
@@ -118,7 +131,9 @@ public class App extends Application {
             brushTheErrorMessage("При попытке отрисовать экран поражения, произошло какое-то дерьмо");
         }
     }
-
+    /**
+     * Инициализация переменных необходимых для запуска игры.
+     */
     private void gameInit(Stage stage){
         Player human = new Human();
         portraitsInit();
@@ -138,6 +153,12 @@ public class App extends Application {
         return allPortraits;
     }
 
+    public static boolean getIsHumanTurn() {
+        return isHumanTurn;
+    }
+    /**
+     * Инициализация картинок для портрета персонажа.
+     */
     public void portraitsInit(){
         allPortraits = new Image[10];
         String portraitPath = "/resources/persons/pirate";
@@ -145,7 +166,9 @@ public class App extends Application {
             allPortraits[i] = new Image(portraitPath + (i) + ".png");
         }
     }
-
+    /**
+     * Перезапуск игры с выходом в главное меню.
+     */
     public final void restartGame() {
         Player human = new Human();
         SEA_BATTLE_GAME = new SeaBattleGame(Difficult.NORMAL, human);
@@ -165,15 +188,9 @@ public class App extends Application {
         brushShipSettingMenu();
     }
 
-
-
-
-
-
-    public static boolean getIsHumanTurn() {
-        return isHumanTurn;
-    }
-
+    /**
+     * Передача хода другому игроку.
+     */
     public static void setNexTurn() {
         App.isHumanTurn = !isHumanTurn;
 

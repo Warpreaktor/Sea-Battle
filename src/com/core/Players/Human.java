@@ -50,8 +50,6 @@ public class Human extends Player {
                 }
             } catch (Exception e) {
                 e.printStackTrace();
-                System.out.println(e.getLocalizedMessage());
-                System.out.println("Некорректный ввод, попробуйте еще раз");
                 return false;
             }
             return true;
@@ -73,7 +71,7 @@ public class Human extends Player {
         setGreenDotsAround(enemy.getOurFleetMap(), ship);
         App.SEA_BATTLE_GAME.playerShipDecrement(enemy);
         App.BATTLE_FIELD_CONTROLLER.stateUpdate();
-        App.BATTLE_FIELD_CONTROLLER.getEnemyShipName().setText(ship.getName());
+//        App.BATTLE_FIELD_CONTROLLER.getEnemyShipName().setText(ship.getName());
     }
 
     @Override
@@ -82,4 +80,5 @@ public class Human extends Player {
         self.getEnemyFleetMap()[Y][X].setLabel('+');
         self.getEnemyFleetMap()[Y][X].setImage(ImageName.DOT);
     }
+
 }

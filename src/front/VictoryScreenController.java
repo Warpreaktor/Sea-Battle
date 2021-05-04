@@ -37,9 +37,9 @@ public class VictoryScreenController implements Initializable {
         BackgroundImage backgroundImage = new BackgroundImage(new Image("/resources/victoryScreen.jpg"), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT,
                 BackgroundPosition.CENTER, BackgroundSize.DEFAULT);
         anchorPane.setBackground(new Background(backgroundImage));
-        if (App.SEA_BATTLE_GAME.getDifficult()==EASY) nextLevel.setText("Try next level " + NORMAL);
-        if (App.SEA_BATTLE_GAME.getDifficult()==NORMAL) nextLevel.setText("Try next level " + HARD);
-        if (App.SEA_BATTLE_GAME.getDifficult()==HARD) nextLevel.setText("Try again");
+        if (App.SEA_BATTLE_GAME.getDifficulty()==EASY) nextLevel.setText("Try next level " + NORMAL);
+        if (App.SEA_BATTLE_GAME.getDifficulty()==NORMAL) nextLevel.setText("Try next level " + HARD);
+        if (App.SEA_BATTLE_GAME.getDifficulty()==HARD) nextLevel.setText("Try again");
         //if (App.SEA_BATTLE_GAME.getDifficult()==DIVINE) nextLevel.setText("Try again");
         App.musicPlayer.stopLoop();
         if (App.musicPlayer.getPlayingTrack().isPlaying())App.musicPlayer.getPlayingTrack().stopPlaying();
@@ -51,15 +51,15 @@ public class VictoryScreenController implements Initializable {
     }
     @FXML
     private void nextLevel() throws IOException {
-        if (App.SEA_BATTLE_GAME.getDifficult()==EASY){
+        if (App.SEA_BATTLE_GAME.getDifficulty()==EASY){
             App.getAPP().restartGame(NORMAL);
         return;
         }
-        if (App.SEA_BATTLE_GAME.getDifficult()==NORMAL){
+        if (App.SEA_BATTLE_GAME.getDifficulty()==NORMAL){
             App.getAPP().restartGame(HARD);
             return;
         }
-        if (App.SEA_BATTLE_GAME.getDifficult()==HARD){
+        if (App.SEA_BATTLE_GAME.getDifficulty()==HARD){
             App.getAPP().restartGame(HARD);
             return;
         }

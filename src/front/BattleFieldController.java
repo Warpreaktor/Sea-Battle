@@ -2,6 +2,7 @@ package front;
 
 import com.core.MapObjects.MapCell;
 import com.core.MapObjects.MapObject;
+import com.core.Players.CPU;
 import com.core.Players.Player;
 import com.core.Players.ReplicasImage;
 import com.core.Tests;
@@ -54,6 +55,10 @@ public class BattleFieldController {
         if (App.musicPlayer.getPlayingTrack().isPlaying()) App.musicPlayer.getPlayingTrack().stopPlaying();
         App.musicPlayer.loopPlaying();
 
+        //Создание комптютерного игрока и расстановка им кораблей
+        CPU cpu = new CPU(App.SEA_BATTLE_GAME.getDifficulty());
+        cpu.setName(CPU.getRandomName());
+        App.SEA_BATTLE_GAME.setCPU(cpu);
         App.SEA_BATTLE_GAME.createCPUBattleField(App.SEA_BATTLE_GAME.getCPU());
         App.SEA_BATTLE_GAME.getCPU().shipsOnGame();
 
@@ -314,7 +319,7 @@ public class BattleFieldController {
                 rightStateFrame, selfShipsNum, enemyShipsNum, selfTurns, enemyTurns,
                 leftPersonFrame, rightPersonFrame, leftPersonPortrait, rightPersonPortrait,
                 comics, replica, ribbonNameHuman, ribbonNameCPU, humanName, CPUName,
-                currentTurnFrame, enemyShipName, shipName);
+                currentTurnFrame, shipName);
         BackgroundImage backgroundImage = new BackgroundImage(new Image("/resources/battleFieldWall1280x1024.png"),
                 BackgroundRepeat.SPACE, BackgroundRepeat.SPACE,
                 BackgroundPosition.CENTER, BackgroundSize.DEFAULT);
