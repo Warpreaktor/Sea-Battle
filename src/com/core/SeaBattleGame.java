@@ -2,7 +2,6 @@ package com.core;
 
 import com.core.MapObjects.MapCell;
 import com.core.MapObjects.MapObject;
-import com.core.Players.CPU;
 import com.core.Players.Difficult;
 import com.core.Players.Player;
 import com.core.Ships.Ship;
@@ -12,7 +11,7 @@ public class SeaBattleGame {
     private static int SIZE = 10;
     private static int totalShips = 0;
     private Player human;
-    private Player CPU;
+    private Player AI;
     private int krakenChance = 0; //Количество нападений спрута на корабли перед началом боя.
     private Difficult difficulty;
     public boolean music = true;
@@ -33,12 +32,12 @@ public class SeaBattleGame {
         return human;
     }
 
-    public Player getCPU() {
-        return CPU;
+    public Player getAI() {
+        return AI;
     }
 
-    public void setCPU(Player CPU) {
-        this.CPU = CPU;
+    public void setAI(Player AI) {
+        this.AI = AI;
     }
 
     public static int getSIZE() {
@@ -91,9 +90,9 @@ public class SeaBattleGame {
      */
     public boolean isVictory(){
         if (human.getNumberOfShip() == 0) {
-            App.getAPP().brushTheLooseScreen(CPU);
+            App.getAPP().brushTheLooseScreen(AI);
             return true;
-        } else if (CPU.getNumberOfShip() == 0) {
+        } else if (AI.getNumberOfShip() == 0) {
             App.APP.brushTheVictroryScreen();
             return true;
         }
@@ -125,7 +124,7 @@ public class SeaBattleGame {
             if (player.isCPU()) {
                 human.getEnemyFleetMap()[Y][X].setImage(ImageName.KRAKEN);
             } else {
-                CPU.getEnemyFleetMap()[Y][X].setImage(ImageName.KRAKEN);
+                AI.getEnemyFleetMap()[Y][X].setImage(ImageName.KRAKEN);
             }
         }
     }

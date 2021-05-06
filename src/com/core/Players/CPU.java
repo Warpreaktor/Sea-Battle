@@ -273,7 +273,7 @@ public class CPU extends Player {
     }
 
     public boolean oneShot(int Y, int X) {
-        Player CPU = App.SEA_BATTLE_GAME.getCPU();
+        Player CPU = App.SEA_BATTLE_GAME.getAI();
         Player human = App.SEA_BATTLE_GAME.getHuman();
         if (isOutOfBoards(human.getOurFleetMap(), Y, X)
                 || human.getOurFleetMap()[Y][X].getLabel() == '+'

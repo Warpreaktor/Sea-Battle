@@ -37,7 +37,6 @@ public class BattleFieldController {
     public Text enemyTurns;    //updateble
     public Text selfTurns;    //updateble
     private Label shipName;
-    private Label enemyShipName;
     private Label humanName;
     private ImageView ribbonNameHuman;
     private ImageView ribbonNameCPU;
@@ -55,12 +54,14 @@ public class BattleFieldController {
         if (App.musicPlayer.getPlayingTrack().isPlaying()) App.musicPlayer.getPlayingTrack().stopPlaying();
         App.musicPlayer.loopPlaying();
 
-        //Создание комптютерного игрока и расстановка им кораблей
+        //Создание компьютерного игрока и расстановка им кораблей
         CPU cpu = new CPU(App.SEA_BATTLE_GAME.getDifficulty());
         cpu.setName(CPU.getRandomName());
-        App.SEA_BATTLE_GAME.setCPU(cpu);
-        App.SEA_BATTLE_GAME.createCPUBattleField(App.SEA_BATTLE_GAME.getCPU());
-        App.SEA_BATTLE_GAME.getCPU().shipsOnGame();
+        App.SEA_BATTLE_GAME.setAI(cpu);
+        App.SEA_BATTLE_GAME.createCPUBattleField(App.SEA_BATTLE_GAME.getAI());
+        App.SEA_BATTLE_GAME.getAI().shipsOnGame();
+
+
 
         personFramesInit();
         ribbonNameInit();
@@ -75,9 +76,6 @@ public class BattleFieldController {
         stateUpdate();
     }
 
-    public Label getEnemyShipName() {
-        return enemyShipName;
-    }
 
     private void currentTurnFrameInit(){
         currentTurnFrame = new ImageView("resources/turnsFrame.png");
@@ -106,7 +104,7 @@ public class BattleFieldController {
         rightPersonFrame.setFitWidth(200);
         rightPersonFrame.setFitHeight(200);
 
-        rightPersonPortrait = new ImageView(App.SEA_BATTLE_GAME.getCPU().getPortrait());
+        rightPersonPortrait = new ImageView(App.SEA_BATTLE_GAME.getAI().getPortrait());
         rightPersonPortrait.setLayoutY(20);
         rightPersonPortrait.setLayoutX(1060);
         rightPersonPortrait.setFitWidth(180);
@@ -133,7 +131,7 @@ public class BattleFieldController {
         ribbonNameCPU.setFitHeight(60);
         ribbonNameCPU.setFitWidth(260);
 
-        CPUName = new Label(App.SEA_BATTLE_GAME.getCPU().getName());
+        CPUName = new Label(App.SEA_BATTLE_GAME.getAI().getName());
         CPUName.setLayoutY(190);
         CPUName.setLayoutX(1070);
         CPUName.setFont(new Font(14));
@@ -160,7 +158,7 @@ public class BattleFieldController {
 
     public void stateUpdate() {
         selfShipsNum.setText("Флот ||\n" + App.SEA_BATTLE_GAME.getHuman().getNumberOfShip());
-        enemyShipsNum.setText("Флот ||\n" + App.SEA_BATTLE_GAME.getCPU().getNumberOfShip());
+        enemyShipsNum.setText("Флот ||\n" + App.SEA_BATTLE_GAME.getAI().getNumberOfShip());
         turnsUpdate();
         App.SEA_BATTLE_GAME.isVictory();
         if (App.getIsHumanTurn()) currentTurnFrame.setImage(new Image("resources/turnHumFrame.png"));
@@ -229,7 +227,7 @@ public class BattleFieldController {
 
     public void turnsUpdate() {
         selfTurns.setText("Ходов \n" + App.SEA_BATTLE_GAME.getHuman().getTurnCounter());
-        enemyTurns.setText("Ходов \n" + App.SEA_BATTLE_GAME.getCPU().getTurnCounter());
+        enemyTurns.setText("Ходов \n" + App.SEA_BATTLE_GAME.getAI().getTurnCounter());
     }
 
     /**
@@ -241,7 +239,7 @@ public class BattleFieldController {
             App.SEA_BATTLE_GAME.event();
             Thread thread = new Thread(()->{
                 while (App.getIsHumanTurn() == false) {
-                    App.SEA_BATTLE_GAME.getCPU().shoot(0, 0);//Сюда можно передавать любые координаты, все равно они изменятся внутри метода.
+                    App.SEA_BATTLE_GAME.getAI().shoot(0, 0);//Сюда можно передавать любые координаты, все равно они изменятся внутри метода.
                     stateUpdate();
                     try {
                         Thread.currentThread().sleep(2500);
@@ -374,7 +372,7 @@ public class BattleFieldController {
         rightStateFrame.setLayoutY(220 + allY);
         rightStateFrame.setLayoutX(1110 + rightFrameX);
 
-        enemyShipsNum = new Text("Флот ||\n" + App.SEA_BATTLE_GAME.getCPU().getNumberOfShip());
+        enemyShipsNum = new Text("Флот ||\n" + App.SEA_BATTLE_GAME.getAI().getNumberOfShip());
         enemyShipsNum.setTextAlignment(TextAlignment.CENTER);
         enemyShipsNum.setFont(new Font(17));
         enemyShipsNum.setLineSpacing(2);
@@ -382,7 +380,7 @@ public class BattleFieldController {
         enemyShipsNum.setLayoutY(250 + allY);
         enemyShipsNum.setLayoutX(1125 + rightFrameX);
 
-        enemyTurns = new Text("Ходов \n" + App.SEA_BATTLE_GAME.getCPU().getTurnCounter());
+        enemyTurns = new Text("Ходов \n" + App.SEA_BATTLE_GAME.getAI().getTurnCounter());
         enemyTurns.setTextAlignment(TextAlignment.CENTER);
         enemyTurns.setFont(new Font(17));
         enemyTurns.setLineSpacing(2);

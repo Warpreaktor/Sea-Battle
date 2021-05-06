@@ -43,9 +43,9 @@ public class DeckOfShip extends MapObject {
             shipOwner.getDecks()[i].setImage(ImageName.KRAKEN);
         }
         if (shipOwner.getOwner().isCPU()) {
-            shipOwner.getOwner().theShipIsDestroyed(shipOwner, App.SEA_BATTLE_GAME.getCPU(), App.SEA_BATTLE_GAME.getHuman());
+            shipOwner.getOwner().theShipIsDestroyed(shipOwner, App.SEA_BATTLE_GAME.getAI(), App.SEA_BATTLE_GAME.getHuman());
         } else {
-            shipOwner.getOwner().theShipIsDestroyed(shipOwner, App.SEA_BATTLE_GAME.getHuman(), App.SEA_BATTLE_GAME.getCPU());
+            shipOwner.getOwner().theShipIsDestroyed(shipOwner, App.SEA_BATTLE_GAME.getHuman(), App.SEA_BATTLE_GAME.getAI());
         }
         return true;
     }
